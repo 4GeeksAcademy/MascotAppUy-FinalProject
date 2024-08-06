@@ -4,7 +4,7 @@
 services:
     - type: web # valid values: https://render.com/docs/yaml-spec#type
       region: ohio
-      name: sample-service-name
+      name: mascotapp-uy
       env: python # valid values: https://render.com/docs/yaml-spec#environment
       buildCommand: "./render_build.sh"
       startCommand: "gunicorn wsgi --chdir ./src/"
@@ -25,6 +25,8 @@ services:
             fromDatabase:
                 name: postgresql-trapezoidal-42170
                 property: connectionString
+          - key: DEBUG
+            value: False
 
 databases: # Render PostgreSQL database
     - name: postgresql-trapezoidal-42170
