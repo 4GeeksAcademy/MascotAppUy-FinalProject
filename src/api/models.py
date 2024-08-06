@@ -4,6 +4,11 @@ from enum import Enum, auto
 
 db = SQLAlchemy()
 
+colores_mascotas = db.Table('colores_mascotas',
+    db.Column('mascota_id', db.Integer, db.ForeignKey('mascota.id'), primary_key=True),
+    db.Column('color_id', db.Integer, db.ForeignKey('color.id'), primary_key=True)
+)
+
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
@@ -13,6 +18,9 @@ class User(db.Model):
     telefono = db.Column(db.String, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     mascotas = db.relationship('Mascota', backref='user', lazy=True)
+    localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'), nullable=False)
+    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'), nullable=False)
+    
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -33,19 +41,30 @@ class Estado(Enum):
     adopcion = auto()
     reunido = auto()
 
+class Sexo(Enum):
+    macho = auto()
+    hembra = auto()
+    indefinido = auto()
+
 class Mascota(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
     edad = db.Column(db.String(120), nullable=False)
+    sexo = db.Column(db.Enum(Sexo), nullable=False)
     descripcion = db.Column(db.String(250), nullable=False)
     estado = db.Column(db.Enum(Estado), nullable=False)
     fecha_registro = db.Column(db.Date, default=date.today())
     fecha_perdido = db.Column(db.Date, nullable=False)
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
+    especie_id = db.Column(db.Integer, db.ForeignKey('especie.id'), nullable=False)
+    localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'), nullable=False)
+    colores_mascotas = db.relationship('Color', secondary = colores_mascotas, lazy = 'subquery', backref=db.backref('mascota', lazy=True))
+    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'), nullable=False)
+
     
     def __repr__(self):
-        return f'<User {self.nombre}>'
+        return f'<Mascota {self.nombre}>'
 
     def serialize(self):
         return {
@@ -60,9 +79,11 @@ class Mascota(db.Model):
 class Especie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False)
+    mascotas = db.relationship('Mascota', backref='especie', lazy=True)
+    razas = db.relationship('Raza', backref='especie', lazy=True)
 
     def __repr__(self):
-        return '<Characters %r>' % self.name
+        return '<Especie %r>' % self.name
     
     def serialize(self):
         return {
@@ -73,9 +94,11 @@ class Especie(db.Model):
 class Raza(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False)
+    especie_id = db.Column(db.Integer, db.ForeignKey('especie.id'),
+        nullable=False)
 
     def __repr__(self):
-        return '<Characters %r>'
+        return '<Raza %r>'
     
     def serialize(self):
         return {
@@ -86,9 +109,10 @@ class Raza(db.Model):
 class Departamento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False)
+    localidades = db.relationship('Localidad', backref='departamento', lazy=True)
 
     def __repr__(self):
-        return '<Characters %r>' % self.name
+        return '<Departamento %r>' % self.name
     
     def serialize(self):
         return {
@@ -99,9 +123,12 @@ class Departamento(db.Model):
 class Localidad(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False)
+    departamento_id = db.Column(db.Integer, db.ForeignKey('departamento.id'), nullable=False)
+    users = db.relationship('User', backref='localidad', lazy=True)
+    mascotas = db.relationship('Mascota', backref='localidad', lazy=True)
 
     def __repr__(self):
-        return '<Characters %r>' % self.name
+        return '<Localidad %r>' % self.name
     
     def serialize(self):
         return {
@@ -114,10 +141,24 @@ class Color(db.Model):
     name = db.Column(db.String(25), nullable=False)
 
     def __repr__(self):
-        return '<Characters %r>' % self.name
+        return '<Color %r>' % self.name
     
     def serialize(self):
         return {
             "id": self.id,
             "name": self.name,
-        } 
+        }
+
+class Favorito(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    users = db.relationship('User', backref='favorito', lazy=True)
+    mascotas = db.relationship('Mascota', backref='favorito', lazy=True)
+    
+
+    def __repr__(self):
+        return '<Favoritos %r>' % self.id
+    
+    def serialize(self):
+        return {
+            "id": self.id
+        }
