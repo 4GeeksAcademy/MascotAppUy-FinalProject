@@ -14,7 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 					const data = await response.json();
 					
-					console.log(data.results)
+					// console.log(data.results)
 					setStore({ mascotas: data.results });
 					
 					return true;
