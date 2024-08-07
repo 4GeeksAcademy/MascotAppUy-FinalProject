@@ -1,22 +1,28 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import logoClaro from "../../img/logoClaro.png"
 
 export const Navbar = () => {
+	const nav = useNavigate();
 	return (
-		<nav className="navbar navbar-dark" style={{backgroundColor: "#040926", color: "#E0E1DD"}}>
-			<div className="conteiner-fluid">
-				<div className="row">
-					<div className="col-6">
-						<img src={logoClaro} alt="Logo" style={{width: "80px", height: "80"}}/>
-						<h3>MascotApp</h3>
-					</div>
-					<div className="col-6">
-						<p>Encontradas</p>
-					</div>
-				</div>
-			</div>
-		</nav>
+		<header className="d-flex flex-wrap justify-content-center" style={{backgroundColor: "#040926", color: "#E0E1DD"}}>
+    		<div className="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
+				<button id="botonPrincipal" onClick={() => nav("/")}>
+					<img src={logoClaro} alt="Logo" style={{width: "90px", height: "90px"}}/>
+      				
+				</button>
+   			</div>
+    <ul className="nav nav-pills" style={{alignItems: "center"}}>
+      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Encontradas</a></li>
+      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Perdidas</a></li>
+      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Mapa</a></li>
+      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">FAQ</a></li>
+      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Contacto</a></li>
+	  <li className="nav-item"><a href="#" className="btn btn-secondary my-2" id="loginButton">LOGIN</a></li>
+	  <li className="nav-item"><a href="#" className="btn btn-secondary my-2" id="singupButton">SIGNUP</a></li>
+	</ul>
+  </header>
+
 
 
 
