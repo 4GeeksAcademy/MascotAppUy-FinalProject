@@ -1,0 +1,74 @@
+.form-container {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 20px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+  }
+  
+  .form-container h2 {
+    margin-bottom: 20px;
+  }
+  
+  .input-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+  }
+  
+  .icon {
+    margin-right: 10px;
+  }
+  
+  .input-group input {
+    width: 100%;
+    border: none;
+    outline: none;
+  }
+  
+  button[type="submit"] {
+    background-color: #20c997;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+  }
+  
+  hr {
+    margin: 20px 0;
+  }
+  
+  .alternative-login p {
+    margin-bottom: 10px;
+  }
+  
+  .alternative-login button {
+    display: block;
+    width: 100%;
+    margin-bottom: 10px;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: white;
+  }
+  
+  .google-btn {
+    color: #4285f4;
+  }
+  
+  .microsoft-btn {
+    color: #00a4ef;
+  }
+  
+  .apple-btn {
+    color: #000000;
+  }
+  
