@@ -1,3 +1,44 @@
 /* 
     General Styles used on every website (Don't Repeat Yourself)
 */
+
+#loginButton{
+    background-color: #040926;
+    border: solid;
+    border-color: #E0E1DD;
+    color: #E0E1DD;
+    border-radius: 15%;
+}
+
+#singupButton{
+    background-color: #E0E1DD;
+    color: #040926;
+    border: solid;
+    border-color: #E0E1DD;
+    border-radius: 15%;
+    padding: none;
+    margin-left: 5px;
+    margin-right: 5px;
+
+    
+}
+
+#botonPrincipal{
+    background-color: #040926;
+    border: none;
+    color: #E0E1DD;
+}
+
+
+#botonPublicar{
+    background-color: #FF8A5B;
+    color: #040926;
+    border: none;
+    margin: 10px;
+}
+#botonAdoptar{
+    background-color: #E0E1DD;
+    color: #040926;
+    border: none;
+    margin: 10px;
+}

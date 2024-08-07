@@ -9,9 +9,9 @@ import { Demo } from './pages/demo';
 import { Single } from './pages/single';
 import injectContext from './store/appContext';
 
-import { Navbar } from './component/navbar';
-import { Footer } from './component/footer';
-import FormLogin from './component/form-login.js';  // Aquí asegúrate de que el nombre y la ruta sean correctos
+import { Navbar } from "./component/navbar";
+import { Footer } from "./component/footer";
+import { Busqueda } from "./component/busqueda";
 
 const Layout = () => {
   const basename = process.env.BASENAME || '';
