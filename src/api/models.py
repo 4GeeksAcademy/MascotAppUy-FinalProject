@@ -5,9 +5,12 @@ from sqlalchemy.orm import validates
 
 db = SQLAlchemy()
 
+def format_date(date):
+    return date.strftime('%d/%m/%Y') if date else None
+
 colores_mascotas = db.Table('colores_mascotas',
-    db.Column('mascota_id', db.Integer, db.ForeignKey('mascota.id'), primary_key=True),
-    db.Column('color_id', db.Integer, db.ForeignKey('color.id'), primary_key=True)
+    db.Column('mascota_id', db.Integer, db.ForeignKey('mascota.id'), primary_key=True, nullable=False),
+    db.Column('color_id', db.Integer, db.ForeignKey('color.id'), primary_key=True, nullable=False)
 )
 
 class User(db.Model):
@@ -36,7 +39,7 @@ class User(db.Model):
             "id": self.id,
             "email": self.email,
             "nombre": self.nombre,
-            "fecha_registro": self.fecha_registro,
+            "fecha_registro": format_date(self.fecha_registro),
             "telefono": self.telefono,
             "is_active": self.is_active,
             "mascotas": self.mascotas,
@@ -65,7 +68,7 @@ class Mascota(db.Model):
     estado = db.Column(db.Enum(Estado), nullable=False)
     fecha_registro = db.Column(db.Date, default=date.today())
     fecha_perdido = db.Column(db.Date, nullable=False)
-    is_active = db.Column(db.Boolean(), unique=False, nullable=False)
+    is_active = db.Column(db.Boolean(), unique=False, nullable=False, default=True)
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'), nullable=False)
     especie_id = db.Column(db.Integer, db.ForeignKey('especie.id'), nullable=False)
     localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'), nullable=False)
@@ -79,20 +82,18 @@ class Mascota(db.Model):
         return {
             "id": self.id,
             "nombre": self.nombre,
-            "fecha_registro": self.fecha_registro,
+            "fecha_registro": format_date(self.fecha_registro),
             "edad": self.edad,
             "estado": self.estado.name,
             "descripcion": self.descripcion,
             "sexo": self.sexo.name,
-            "fecha_registro": self.fecha_registro,
-            "fecha_perdido": self.fecha_perdido,
+            "fecha_perdido": format_date(self.fecha_perdido),
             "is_active": self.is_active,
             "user_id": self.user_id,
             "especie_id": self.especie_id,
             "localidad_id": self.localidad_id,
             "colores_mascotas": [color.serialize() for color in self.colores_mascotas],
             "favorito_id": self.favorito_id
-
         }
 
 class Especie(db.Model):
@@ -164,7 +165,7 @@ class Color(db.Model):
     
     def serialize(self):
         return {
-            "id": self.id,
+            # "id": self.id,
             "name": self.name,
         }
 
