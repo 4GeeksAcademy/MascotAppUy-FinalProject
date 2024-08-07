@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User
+from api.models import db, User, Mascota
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
@@ -36,3 +36,19 @@ def login():
 
     access_token = create_access_token(identity=email, expires_delta=timedelta(hours=12))
     return jsonify({"access_token":access_token, "logged":True})
+
+
+# obtener todas las mascotas
+
+@api.route('/mascotas', methods=['GET'])
+def get_all_mascotas():
+    results_query = Mascota.query.all()
+    if not results_query:
+        return jsonify({"error": "Mascotas not found"}), 404
+    results = list(map(lambda item: item.serialize(),results_query))
+    response_body = {
+        "msg": "Mascotas List",
+        "results": results
+    }
+    print(results)
+    return jsonify(response_body), 200
