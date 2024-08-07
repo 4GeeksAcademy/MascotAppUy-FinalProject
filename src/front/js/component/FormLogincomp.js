@@ -1,10 +1,10 @@
 // src/front/js/component/form-login.js
 import React, { useState } from 'react';
-import './form-login.css';
+import '../../styles/form-login.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 
 
-const FormLogin = () => {
+const FormLogincomp = () => {
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -78,4 +78,4 @@ const FormLogin = () => {
   );
 };
 
-export default FormLogin;
+export default FormLogincomp
