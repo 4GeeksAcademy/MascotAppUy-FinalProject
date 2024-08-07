@@ -1,6 +1,7 @@
 from flask_sqlalchemy import SQLAlchemy
 from datetime import date
 from enum import Enum, auto
+from sqlalchemy.orm import validates
 
 db = SQLAlchemy()
 
@@ -19,8 +20,13 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     mascotas = db.relationship('Mascota', backref='user', lazy=True)
     localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'), nullable=False)
-    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'), nullable=False)
+    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
     
+    @validates('nombre')
+    def validate_nombre(self, key, nombre):
+        if len(nombre) < 3:
+            raise ValueError("Nombre debe tener al menos 3 caracteres")
+        return nombre
 
     def __repr__(self):
         return f'<User {self.email}>'
@@ -32,19 +38,23 @@ class User(db.Model):
             "nombre": self.nombre,
             "fecha_registro": self.fecha_registro,
             "telefono": self.telefono,
-            "is_active": self.is_active
+            "is_active": self.is_active,
+            "mascotas": self.mascotas,
+            "localidad_id": self.localidad_id,
+            "favorito_id": self.favorito_id
+
         }
 
 class Estado(Enum):
-    perdido = auto()
-    encontrado = auto()
-    adopcion = auto()
-    reunido = auto()
+    PERDIDO = 'perdido'
+    ENCONTRADO = 'encontrado'
+    ADOPCION = 'adopcion'
+    REUNIDO = 'reunido'
 
 class Sexo(Enum):
-    macho = auto()
-    hembra = auto()
-    indefinido = auto()
+    MACHO = 'macho'
+    HEMBRA = 'hembra'
+    INDEFINIDO = 'indefinido'
 
 class Mascota(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -60,9 +70,8 @@ class Mascota(db.Model):
     especie_id = db.Column(db.Integer, db.ForeignKey('especie.id'), nullable=False)
     localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'), nullable=False)
     colores_mascotas = db.relationship('Color', secondary = colores_mascotas, lazy = 'subquery', backref=db.backref('mascota', lazy=True))
-    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'), nullable=False)
+    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
 
-    
     def __repr__(self):
         return f'<Mascota {self.nombre}>'
 
@@ -72,8 +81,18 @@ class Mascota(db.Model):
             "nombre": self.nombre,
             "fecha_registro": self.fecha_registro,
             "edad": self.edad,
-            "estado": self.estado,
-            "descripcion": self.descripcion
+            "estado": self.estado.name,
+            "descripcion": self.descripcion,
+            "sexo": self.sexo.name,
+            "fecha_registro": self.fecha_registro,
+            "fecha_perdido": self.fecha_perdido,
+            "is_active": self.is_active,
+            "user_id": self.user_id,
+            "especie_id": self.especie_id,
+            "localidad_id": self.localidad_id,
+            "colores_mascotas": [color.serialize() for color in self.colores_mascotas],
+            "favorito_id": self.favorito_id
+
         }
 
 class Especie(db.Model):

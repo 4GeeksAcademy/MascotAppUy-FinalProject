@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 5eb33c3a38a3
+Revision ID: 63d6849a3814
 Revises: 
-Create Date: 2024-08-06 19:32:08.206703
+Create Date: 2024-08-07 13:59:53.394439
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '5eb33c3a38a3'
+revision = '63d6849a3814'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -60,7 +60,7 @@ def upgrade():
     sa.Column('telefono', sa.String(), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('localidad_id', sa.Integer(), nullable=False),
-    sa.Column('favorito_id', sa.Integer(), nullable=False),
+    sa.Column('favorito_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['favorito_id'], ['favorito.id'], ),
     sa.ForeignKeyConstraint(['localidad_id'], ['localidad.id'], ),
     sa.PrimaryKeyConstraint('id'),
@@ -70,16 +70,16 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('nombre', sa.String(length=120), nullable=False),
     sa.Column('edad', sa.String(length=120), nullable=False),
-    sa.Column('sexo', sa.Enum('macho', 'hembra', 'indefinido', name='sexo'), nullable=False),
+    sa.Column('sexo', sa.Enum('MACHO', 'HEMBRA', 'INDEFINIDO', name='sexo'), nullable=False),
     sa.Column('descripcion', sa.String(length=250), nullable=False),
-    sa.Column('estado', sa.Enum('perdido', 'encontrado', 'adopcion', 'reunido', name='estado'), nullable=False),
+    sa.Column('estado', sa.Enum('PERDIDO', 'ENCONTRADO', 'ADOPCION', 'REUNIDO', name='estado'), nullable=False),
     sa.Column('fecha_registro', sa.Date(), nullable=True),
     sa.Column('fecha_perdido', sa.Date(), nullable=False),
     sa.Column('is_active', sa.Boolean(), nullable=False),
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('especie_id', sa.Integer(), nullable=False),
     sa.Column('localidad_id', sa.Integer(), nullable=False),
-    sa.Column('favorito_id', sa.Integer(), nullable=False),
+    sa.Column('favorito_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['especie_id'], ['especie.id'], ),
     sa.ForeignKeyConstraint(['favorito_id'], ['favorito.id'], ),
     sa.ForeignKeyConstraint(['localidad_id'], ['localidad.id'], ),
