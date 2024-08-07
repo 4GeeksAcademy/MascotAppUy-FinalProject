@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Mascota
+from api.models import db, User, Mascota, Color
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
@@ -16,7 +16,6 @@ CORS(api)
 # ENDPOINT: Login
 @api.route('/login', methods=['POST'])
 def login():
-    
     
     email = request.json.get("email", None)
     password = request.json.get("password", None)
@@ -37,7 +36,6 @@ def login():
     access_token = create_access_token(identity=email, expires_delta=timedelta(hours=12))
     return jsonify({"access_token":access_token, "logged":True})
 
-
 # obtener todas las mascotas
 
 @api.route('/mascotas', methods=['GET'])
@@ -52,3 +50,40 @@ def get_all_mascotas():
     }
     print(results)
     return jsonify(response_body), 200
+
+# agregar una mascota
+
+@api.route('/mascotas', methods=['POST'])
+def add_mascota():
+    data = request.get_json()
+    if not data:
+        return jsonify({"error": "no data"}), 404
+    
+    new_mascota = Mascota(nombre = data["nombre"], edad = data["edad"], sexo = data["sexo"], descripcion = data["descripcion"], estado = data["estado"], fecha_perdido = data["fecha_perdido"], user_id = data["user_id"], especie_id = data["especie_id"], localidad_id = data["localidad_id"], favorito_id = data["favorito_id"])
+
+    # Agregar colores a la mascota por ser Many to Many va diferente
+    for color_name in data["colores_mascotas"]:
+        color = Color.query.filter_by(name=color_name).first()
+        if color:
+            new_mascota.colores_mascotas.append(color)
+        else:
+            return jsonify({"error": f"Color '{color_name}' not found"}), 404
+
+    db.session.add(new_mascota)
+    db.session.commit()
+    new_mascota_add = new_mascota.serialize()
+
+    return jsonify(new_mascota_add)
+
+@api.route("/valid-token", methods=["GET"])
+@jwt_required()
+def valid_token():
+
+    # Validate the identity of the current user
+    current_user = get_jwt_identity()
+    user_logged = User.query.filter_by(email = current_user).first()
+
+    if user_logged is None:
+        return jsonify(logged=False), 409
+
+    return jsonify(logged=True), 200
