@@ -1,7 +1,8 @@
 // src/front/js/component/form-login.js
 import React, { useState } from 'react';
 import './form-login.css';
-import { FaGoogle } from 'react-icons/fa'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+
 
 const FormLogin = () => {
   const [username, setUsername] = useState('');
@@ -30,7 +31,7 @@ const FormLogin = () => {
           />
         </div>
         <div className="input-group">
-          <span className="icon">📧</span>
+          <span className="icon"><i className="fas fa-envelope"></i></span>
           <input
             type="email"
             placeholder="Email"
@@ -39,7 +40,7 @@ const FormLogin = () => {
           />
         </div>
         <div className="input-group">
-          <span className="icon">🔑</span>
+          <span className="icon"><i className="fas fa-lock"></i></span>
           <input
             type="password"
             placeholder="Password"
@@ -56,14 +57,22 @@ const FormLogin = () => {
                 cursor: 'pointer'
             }}>
                 Submit
-            </button>
+            </button> 
+            {/* Al presionar el botón deberá redirigir hacia la página principal */}
+            
       </form>
       <hr />
       <div className="alternative-login">
-        <p>Or</p>
-        <button className="google-btn">Sign in with Google</button>
-        <button className="microsoft-btn">Sign in with Microsoft</button>
-        <button className="apple-btn">Sign in with Apple</button>
+        <p>O</p>
+        <button className="google-btn">
+            <i className="fab fa-google"></i> Sign in with Google
+        </button>
+        <button className="microsoft-btn">
+            <i className="fab fa-microsoft"></i> Sign in with Microsoft
+        </button>
+        <button className="apple-btn">
+            <i className="fab fa-apple"></i> Sign in with Apple
+        </button>
       </div>
     </div>
   );
