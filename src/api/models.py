@@ -20,7 +20,7 @@ class User(db.Model):
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     mascotas = db.relationship('Mascota', backref='user', lazy=True)
     localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'), nullable=False)
-    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'), nullable=True)
+    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
     
     @validates('nombre')
     def validate_nombre(self, key, nombre):
@@ -70,7 +70,7 @@ class Mascota(db.Model):
     especie_id = db.Column(db.Integer, db.ForeignKey('especie.id'), nullable=False)
     localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'), nullable=False)
     colores_mascotas = db.relationship('Color', secondary = colores_mascotas, lazy = 'subquery', backref=db.backref('mascota', lazy=True))
-    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'), nullable=True)
+    favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
 
     def __repr__(self):
         return f'<Mascota {self.nombre}>'
