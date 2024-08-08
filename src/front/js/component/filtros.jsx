@@ -1,22 +1,28 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext.js";
 
 
 const Filtros = () => {
     const { store } = useContext(Context)
-    const [selectedSpecies, setSelectedSpecies] = useState("");
+    const [especieSelected, setEspecieSelected] = useState("");
+    const [especieArray, setEspecieArray] = useState([]);
+    
 
-    //Se busca en store las nombres de especie de las mascotas agregadas,
-    //y se guardan sin repetir en el array de objetos especies
-    const especies = Array.from(new Set(store.mascotas.map(mascota => mascota.especie_name)))
-        .map((name, index) => ({ name, id: index + 1 }));
 
-    const handleSpeciesChange = (event) => {
-        setSelectedSpecies(event.target.value);
-        //hacer la logica para cuando se selecciona una especie en select
-    };
+    const handleSpeciesChange = async (e) => {
 
-    console.log(store.mascotas)
+        setEspecieSelected(e.target.value)
+        setEspecieArray(store.mascotas.filter(mascota => mascota.especie_name == especieSelected));
+        
+    }
+    
+    useEffect(()=> {
+        console.log(especieSelected);
+        console.log(especieArray);
+        
+    },[especieSelected])
+
+    // console.log(store.mascotas)
     return(
         <div className="container">
 
@@ -26,14 +32,14 @@ const Filtros = () => {
                     <select 
                         className="form-select" 
                         aria-label="Default select example" 
-                        value={selectedSpecies} 
+                        value={especieSelected} 
                         onChange={handleSpeciesChange}>
 
                         {/*     map de las opciones extraídas en especies     */}
                         <option value="">Seleccione una especie</option>
-                        {especies.map((especie) => (
-                            <option key={especie.id} value={especie.name}>
-                                {especie.name}
+                        {store.especies.map((especie, index) => (
+                            <option key={index} value={especie}>
+                                {especie}
                             </option>
                         ))}
                     </select>

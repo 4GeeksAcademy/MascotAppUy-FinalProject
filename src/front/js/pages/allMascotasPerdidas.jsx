@@ -1,11 +1,13 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import MascotaCard from "../component/mascotaCard.jsx";
 import { Context } from "../store/appContext.js";
 import Filtros from "../component/filtros.jsx";
 
 const AllMascotasPerdidas = () => {
     const { store } = useContext(Context)
+    
     console.log(store.mascotas)
+    
     
     //filtro para mostrar únicamente mascotas con estado: Perdido
     const mascotasPerdidas = store.mascotas.filter(mascota => mascota.estado == 'PERDIDO');
@@ -20,7 +22,7 @@ const AllMascotasPerdidas = () => {
             <p>Si has visto alguna de estas mascotas, por favor, no dudes en contactarnos para ayudar a reunirlas con sus familias.</p>
         </div>
 
-            <Filtros />
+            <Filtros/>
 
             <div className="row d-flex justify-content-center gx-5">
                 {mascotasPerdidas.map((mascota, index) => (
@@ -29,8 +31,8 @@ const AllMascotasPerdidas = () => {
                             imgSrc={"https://picsum.photos/200"}
                             nombre={mascota.nombre}
                             fecha={mascota.fecha_perdido}
-                            especie={mascota.especie_id}
-                            localidad={mascota.localidad_id}
+                            especie={mascota.especie_name}
+                            localidad={mascota.localidad_name}
                         />
                     </div>
                 ))}
