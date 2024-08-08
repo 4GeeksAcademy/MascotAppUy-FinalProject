@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React from "react";
 
 export const Footer = () => (
 	<div className="container-fluid" style={{backgroundColor: "#040926", color: "#E0E1DD"}}>
