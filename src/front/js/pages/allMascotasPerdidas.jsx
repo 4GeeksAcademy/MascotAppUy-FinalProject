@@ -29,8 +29,8 @@ const AllMascotasPerdidas = () => {
                             imgSrc={"https://picsum.photos/200"}
                             nombre={mascota.nombre}
                             fecha={mascota.fecha_perdido}
-                            especie={mascota.especie_id}
-                            localidad={mascota.localidad_id}
+                            especie={mascota.especie_name}
+                            localidad={mascota.localidad_name}
                         />
                     </div>
                 ))}

@@ -1,5 +1,5 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
-const urlLocal= "https://turbo-space-disco-v95xqvxjpjjfw49v-3001.app.github.dev"
+const urlLocal= "https://special-space-carnival-g4xgvwgp7p69h94rw-3001.app.github.dev"
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
