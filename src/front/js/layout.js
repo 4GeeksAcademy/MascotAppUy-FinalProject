@@ -10,8 +10,9 @@ import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import AllMascotas from "./pages/allMascotas.jsx";
+import AllMascotasPerdidas from "./pages/allMascotasPerdidas.jsx";
 import { Busqueda } from "./component/busqueda";
+import AllMascotasEncontradas from "./pages/allMascotasEncontradas.jsx";
 
 //create your first component
 const Layout = () => {
@@ -30,7 +31,8 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<Demo />} path="/demo" />
-                        <Route element={<AllMascotas />} path="/all-mascotas" />
+                        <Route element={<AllMascotasPerdidas />} path="/mascotas-perdidas" />
+                        <Route element={<AllMascotasEncontradas />} path="/mascotas-encontradas" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

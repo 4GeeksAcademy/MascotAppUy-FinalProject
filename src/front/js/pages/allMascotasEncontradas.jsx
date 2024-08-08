@@ -1,14 +1,19 @@
 import React, { useContext } from "react";
 import MascotaCard from "../component/mascotaCard.jsx";
-import { Context } from "../store/appContext";
+import { Context } from "../store/appContext.js";
 
-const AllMascotas = () => {
+const AllMascotasEncontradas = () => {
+
     const { store } = useContext(Context)
-
+    console.log(store.mascotas)
+    
+    //filtro para mostrar únicamente mascotas con estado: Encontrado
+    const mascotasEncontradas = store.mascotas.filter(mascota => mascota.estado == 'ENCONTRADO');
+    
     return (
         <div className="container">
             <div className="row d-flex justify-content-center gx-5">
-                {store.mascotas.map((mascota, index) => (
+                {mascotasEncontradas.map((mascota, index) => (
                     <div key={index} className="col-md-6 col-sm-12 col-lg-4 col-xxl-3 mb-4">
                         <MascotaCard
                             imgSrc={"https://picsum.photos/200"}
@@ -22,4 +27,4 @@ const AllMascotas = () => {
     );
 }
 
-export default AllMascotas;
+export default AllMascotasEncontradas;
