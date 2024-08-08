@@ -16,7 +16,7 @@ colores_mascotas = db.Table('colores_mascotas',
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     email = db.Column(db.String(120), unique=True, nullable=False)
-    password = db.Column(db.String(80), unique=False, nullable=False)
+    password = db.Column(db.String(200), unique=False, nullable=False)
     nombre = db.Column(db.String(50), nullable=False)
     fecha_registro = db.Column(db.Date, default=date.today())
     telefono = db.Column(db.String, nullable=False)
@@ -42,10 +42,10 @@ class User(db.Model):
             "fecha_registro": format_date(self.fecha_registro),
             "telefono": self.telefono,
             "is_active": self.is_active,
-            "mascotas": self.mascotas,
+            "mascotas": [mascota.serialize() for mascota in self.mascotas],
             "localidad_id": self.localidad_id,
+            "localidad_name": self.localidad.name,
             "favorito_id": self.favorito_id
-
         }
 
 class Estado(Enum):
@@ -90,8 +90,11 @@ class Mascota(db.Model):
             "fecha_perdido": format_date(self.fecha_perdido),
             "is_active": self.is_active,
             "user_id": self.user_id,
+            "user_name": self.user.nombre,
             "especie_id": self.especie_id,
+            "especie_name": self.especie.name,
             "localidad_id": self.localidad_id,
+            "localidad_name": self.localidad.name,
             "colores_mascotas": [color.serialize() for color in self.colores_mascotas],
             "favorito_id": self.favorito_id
         }
@@ -165,7 +168,7 @@ class Color(db.Model):
     
     def serialize(self):
         return {
-            # "id": self.id,
+            "id": self.id,
             "name": self.name,
         }
 
@@ -174,11 +177,12 @@ class Favorito(db.Model):
     users = db.relationship('User', backref='favorito', lazy=True)
     mascotas = db.relationship('Mascota', backref='favorito', lazy=True)
     
-
     def __repr__(self):
         return '<Favoritos %r>' % self.id
     
     def serialize(self):
         return {
-            "id": self.id
+            "id": self.id,
+            "users": [user.serialize() for user in self.users],
+            "mascotas": [mascota.serialize() for mascota in self.mascotas]
         }
