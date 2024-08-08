@@ -6,7 +6,7 @@ export const Busqueda = () => {
             <div className="col-lg-6 col-md-8 mx-auto">
                 <h1 className="fw-light" style={{textAlign: "center"}}>¿Perdiste a tu mascota?</h1>
                 <div className="mb-3">
-                    <input type="text" class="form-control" placeholder="Perro, gato, color, raza, etc."/>
+                    <input type="text" className="form-control" placeholder="Perro, gato, color, raza, etc."/>
                 </div>
                 <p className="d-flex" style={{justifyContent: "center"}}>
                     <a href="#" className="btn btn-primary my-2" id="botonPublicar">Publicar</a>
