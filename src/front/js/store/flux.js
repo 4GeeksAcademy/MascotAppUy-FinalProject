@@ -8,8 +8,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 		},
 		actions: {
-			
-	
 			getAllMascotas: async () => {
 				try {
 					
@@ -27,9 +25,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 					return false;	
 				}
+			},
+
+			agregarMascota: (formAMData) =>{
+				return async() => {
+					try{
+						const dataToSend = new formAMData();
+						dataToSend.append("nombre", formAMData.nombre);
+						dataToSend.append("fecha", formAMData.fecha);
+						dataToSend.append("edad", formAMData.edad);
+						dataToSend.append("descripcion", formAMData.descripcion);
+						dataToSend.append("contacto", formAMData.contacto);
+						dataToSend.append("departamento", formAMData.departamento);
+						dataToSend.append("localidad", formAMData.localidad);
+						dataToSend.append("archivo", formAMData.archivo);
+					
+						const response = await fetch (urlLocal, {
+							method: 'POST',
+							body: dataToSend,
+						});
+
+						if (response.ok) {
+							console.log("Formulario enviado correctamente")
+						}
+
+						const result = await response.json();
+						return true;
+					}
+					catch (error) {
+					console.log(error);
+					return false;
+					};
+
 			}
 		}
-	};
+	}
 };
+
+}
 
 export default getState;
