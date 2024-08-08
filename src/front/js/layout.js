@@ -11,6 +11,9 @@ import injectContext from "./store/appContext";
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import AllMascotasPerdidas from "./pages/allMascotasPerdidas.jsx";
+//import { Busqueda } from "./component/busqueda";
+import FormLogin from './pages/FormLogin';
+import { AgregarMascota } from './pages/agregarMascota';
 
 
 import AllMascotasEncontradas from "./pages/allMascotasEncontradas.jsx";
