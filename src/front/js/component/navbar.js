@@ -12,15 +12,16 @@ export const Navbar = () => {
       				
 				</button>
    			</div>
-    <ul className="nav nav-pills" style={{alignItems: "center"}}>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Encontradas</a></li>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Perdidas</a></li>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Mapa</a></li>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">FAQ</a></li>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Contacto</a></li>
-	  <li className="nav-item"><a href="#" className="btn btn-secondary my-2" id="loginButton">LOGIN</a></li>
-	  <li className="nav-item"><a href="#" className="btn btn-secondary my-2" id="singupButton">SIGNUP</a></li>
-	</ul>
+
+		<ul className="nav nav-pills" style={{alignItems: "center"}}>
+			<li className="nav-item"><Link to="/mascotas-encontradas" className="nav-link px-2 text-muted">Encontradas</Link></li>
+			<li className="nav-item"><Link to="/mascotas-perdidas" className="nav-link px-2 text-muted">Perdidas</Link></li>
+			<li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Mapa</a></li>
+			<li className="nav-item"><a href="#" className="nav-link px-2 text-muted">FAQ</a></li>
+			<li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Contacto</a></li>
+			<li className="nav-item"><a href="#" className="btn btn-secondary my-2" id="loginButton">LOGIN</a></li>
+			<li className="nav-item"><a href="#" className="btn btn-secondary my-2" id="singupButton">SIGNUP</a></li>
+		</ul>
   </header>
 
 
