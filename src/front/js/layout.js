@@ -9,21 +9,20 @@ import ScrollToTop from './component/scrollToTop';
 import { BackendURL } from './component/backendURL';
 
 import { Home } from "./pages/home";
-import { Demo } from "./pages/demo";
+//import { Demo } from "./pages/demo";
 import { Single } from "./pages/single";
 import injectContext from "./store/appContext";
 
 import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
-import AllMascotasPerdidas from "./pages/allMascotasPerdidas.jsx";
 //import { Busqueda } from "./component/busqueda";
 import FormLogin from './pages/FormLogin';
-import { AgregarMascota } from './pages/agregarMascota';
-
-
-import AllMascotasEncontradas from "./pages/allMascotasEncontradas.jsx";
-
 import FormSignin from './pages/FormSignin';
+
+import { AgregarMascota } from './pages/agregarMascota';
+import AllMascotasEncontradas from "./pages/allMascotasEncontradas.jsx";
+import AllMascotasPerdidas from "./pages/allMascotasPerdidas.jsx";
+
 
 //create your first component
 const Layout = () => {
@@ -43,6 +42,7 @@ const Layout = () => {
                         <Route element={<Home />} path="/" />
 
                         <Route element={<FormLogin/>} path='/form-login' />
+                        <Route element={<FormSignin/>} path='/form-signin' />
                         <Route element={<AllMascotasPerdidas />} path="/mascotas-perdidas" />
                         <Route element={<AllMascotasEncontradas />} path="/mascotas-encontradas" />
                         <Route element={<Single />} path="/single/:theid" />
@@ -54,25 +54,6 @@ const Layout = () => {
             </BrowserRouter>
         </div>
     );
-  return (
-    <div>
-      <BrowserRouter basename={basename}>
-        <ScrollToTop>
-          <Navbar />
-          <Busqueda />
-          <Routes>
-            <Route element={<Home />} path='/' />
-            <Route element={<Demo />} path='/demo' />
-            <Route element={<FormLogin/>} path='/form-login' />
-            <Route element={<FormSignin/>} path='/form-signin' />
-            <Route element={<Single />} path='/single/:theid' />
-            <Route element={<h1>Not found!</h1>} />
-          </Routes>
-          <Footer />
-        </ScrollToTop>
-      </BrowserRouter>
-    </div>
-  );
 };
 
 export default injectContext(Layout);
