@@ -5,7 +5,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			mascotas:[],
-			especies: ["Perro", "Gato"]
+			especies: ["Perro", "Gato"],
+			localidades: ["Guichón", "Bella Unión"]
 			
 		},
 		actions: {
