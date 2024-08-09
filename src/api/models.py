@@ -101,7 +101,7 @@ class Mascota(db.Model):
 
 class Especie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(25), nullable=False)
+    name = db.Column(db.String(50), nullable=False)
     mascotas = db.relationship('Mascota', backref='especie', lazy=True)
     razas = db.relationship('Raza', backref='especie', lazy=True)
 
@@ -116,7 +116,7 @@ class Especie(db.Model):
 
 class Raza(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(25), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     especie_id = db.Column(db.Integer, db.ForeignKey('especie.id'),
         nullable=False)
 
@@ -145,7 +145,7 @@ class Departamento(db.Model):
     
 class Localidad(db.Model):
     id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String(25), nullable=False)
+    name = db.Column(db.String(100), nullable=False)
     departamento_id = db.Column(db.Integer, db.ForeignKey('departamento.id'), nullable=False)
     users = db.relationship('User', backref='localidad', lazy=True)
     mascotas = db.relationship('Mascota', backref='localidad', lazy=True)

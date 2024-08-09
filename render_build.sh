@@ -10,3 +10,7 @@ pipenv install
 pipenv run upgrade
 
 flask seed-departments
+
+flask seed-localities
+
+flask seed-species-and-breeds
