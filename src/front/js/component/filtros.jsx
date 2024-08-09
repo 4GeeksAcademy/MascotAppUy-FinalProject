@@ -1,6 +1,7 @@
 import React, { useContext, useState, useEffect } from "react";
 import { Context } from "../store/appContext.js";
 import MascotaCard from "./mascotaCard.jsx";
+import "../../styles/filtros.css"
 
 
 const Filtros = (props) => {
@@ -98,7 +99,7 @@ const Filtros = (props) => {
             {/* Aca se mapea el grid de mascotas, donde se aplica el condicional si el value del select está vacío,
             se muestran todas las mascotas pedidas, y si se selecciona un valor, se filtra las especies por el value
             seleccionado */}
-            <div className="row d-flex justify-content-center gx-5">
+            <div className="row gx-5">
             {filteredArray.map((mascota, index) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4 col-xxl-3 mb-4">
                     <MascotaCard
