@@ -1,35 +1,37 @@
-import React, { useState } from 'react';
-import '../../styles/form-login.css'
-import '@fortawesome/fontawesome-free/css/all.min.css';
-import { useNavigate } from 'react-router-dom'; 
+import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-//DECLARACION DEL COMPONENTE
-const FormLogincomp = () => {
-  //ESTADOS DEL COMPONENTE
-  const [username, setUsername] = useState('');
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+const SignInForm = () => {
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Lógica para enviar el formulario
-    console.log('Username:', username);
-    console.log('Email:', email);
-    console.log('Password:', password);
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+si
+ 
 
-    navigate('/');
+  const handleLoginRedirect = () => {
+    navigate("/form-login");  // Redirige al formulario de login
   };
 
-  const handleSignInClick = () => {
-    navigate('/form-signin'); // Redirige al formulario de registro
-  };
+  const handleConfirmPassword = (e) => {
+    setConfirmPassword(e.target.value)
+    console.log(confirmPassword)
+  }
 
-
+  const handleSubmit = () => {
+    if (confirmPassword!==password){
+        alert("contraseña incorrecta")
+    }
+    //   navigate("/");  
+  } 
 
   return (
     <div className="form-container" style={{ width: '300px', margin: '0 auto' }}>
-      <h2>INGRESAR</h2>
+      <h2>REGISTRATE</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
           <span className="icon" style={{ marginRight: '10px' }}>👤</span>
@@ -61,6 +63,16 @@ const FormLogincomp = () => {
             style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
           />
         </div>
+        <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
+          <span className="icon" style={{ marginRight: '10px' }}><i className="fas fa-lock"></i></span>
+          <input
+            type="password"
+            placeholder="Confirmar Contraseña"
+            value={confirmPassword}
+            onChange={handleConfirmPassword}
+            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+          />
+        </div>
         <button type="submit" style={{
           backgroundColor: '#FF8A5B',
           border: 'none',
@@ -69,22 +81,27 @@ const FormLogincomp = () => {
           borderRadius: '5px',
           cursor: 'pointer'
         }}>
-          Ingresar
+          Registrarse
         </button>
       </form>
       <hr />
       <div className="alternative-login" style={{ textAlign: 'center' }}>
-        <p>Si aún no tienes una cuenta</p>
-        <button type="button" onClick={handleSignInClick} style={{
-          backgroundColor: '#FF8A5B',
-          border: 'none',
-          color: '#FFFFFF',
-          padding: '10px 20px',
-          borderRadius: '5px',
-          cursor: 'pointer'
-        }}>
-          Sign in
+        <p>Si ya tienes una cuenta</p>
+        <button
+          type="button"
+          onClick={handleLoginRedirect}
+          style={{
+            backgroundColor: '#FF8A5B',
+            border: 'none',
+            color: '#FFFFFF',
+            padding: '10px 20px',
+            borderRadius: '5px',
+            cursor: 'pointer'
+          }}
+        >
+          Ingresar
         </button>
+        {/* Puedes descomentar y ajustar esto si quieres permitir el inicio de sesión con Google */}
         {/* <button className="google-btn" style={{
           backgroundColor: '#4285F4',
           color: '#FFFFFF',
@@ -105,5 +122,4 @@ const FormLogincomp = () => {
   );
 };
 
-
-export default FormLogincomp
+export default SignInForm;
