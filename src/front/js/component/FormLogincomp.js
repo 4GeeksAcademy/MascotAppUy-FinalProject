@@ -19,7 +19,7 @@ const FormLogincomp = () => {
 
   return (
     <div className="form-container" style={{ width: '300px', margin: '0 auto' }}>
-      <h2>REGÍSTRATE</h2>
+      <h2>INGRESAR</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
           <span className="icon" style={{ marginRight: '10px' }}>👤</span>
@@ -59,13 +59,23 @@ const FormLogincomp = () => {
           borderRadius: '5px',
           cursor: 'pointer'
         }}>
-          Submit
+          Ingresar
         </button>
       </form>
       <hr />
       <div className="alternative-login" style={{ textAlign: 'center' }}>
-        <p>O INGRESÁ</p>
-        <button className="google-btn" style={{
+        <p>O REGISTRATE</p>
+        <button type="submit" style={{
+          backgroundColor: '#FF8A5B',
+          border: 'none',
+          color: '#FFFFFF',
+          padding: '10px 20px',
+          borderRadius: '5px',
+          cursor: 'pointer'
+        }}>
+          Sign in
+        </button>
+        {/* <button className="google-btn" style={{
           backgroundColor: '#4285F4',
           color: '#FFFFFF',
           padding: '10px 20px',
@@ -79,7 +89,7 @@ const FormLogincomp = () => {
           marginBottom: '10px'
         }}>
           <i className="fab fa-google" style={{ marginRight: '10px' }}></i> Sign in with Google
-        </button>
+        </button> */}
       </div>
     </div>
   );

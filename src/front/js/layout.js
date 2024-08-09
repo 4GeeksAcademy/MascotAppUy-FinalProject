@@ -1,6 +1,6 @@
 // src/front/js/layout.js
 import React from 'react';
-import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
 import ScrollToTop from './component/scrollToTop';
 import { BackendURL } from './component/backendURL';
 
@@ -13,7 +13,6 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Busqueda } from "./component/busqueda";
 import FormLogin from './pages/FormLogin';
-
 
 const Layout = () => {
   const basename = process.env.BASENAME || '';
