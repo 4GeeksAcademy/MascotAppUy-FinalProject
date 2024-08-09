@@ -1,6 +1,7 @@
 import React, { useContext } from "react";
 import MascotaCard from "../component/mascotaCard.jsx";
 import { Context } from "../store/appContext.js";
+import GridMascotas from "../component/gridMascotas.jsx";
 
 const AllMascotasEncontradas = () => {
 
@@ -21,19 +22,8 @@ const AllMascotasEncontradas = () => {
                 <p>Tu colaboración es fundamental para que cada animal pueda volver a su hogar.</p>
             </div>
 
-            <div className="row d-flex justify-content-center gx-5">
-                {mascotasEncontradas.map((mascota, index) => (
-                    <div key={index} className="col-md-6 col-sm-12 col-lg-4 col-xxl-3 mb-4">
-                        <MascotaCard
-                            imgSrc={"https://picsum.photos/200"}
-                            nombre={mascota.nombre}
-                            fecha={mascota.fecha_perdido}
-                            especie={mascota.especie_name}
-                            localidad={mascota.localidad_name}
-                        />
-                    </div>
-                ))}
-            </div>
+            <GridMascotas lista={mascotasEncontradas}/>
+            
         </div>
     );
 }
