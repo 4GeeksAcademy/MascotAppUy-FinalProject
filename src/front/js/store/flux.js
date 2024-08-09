@@ -1,10 +1,12 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
-const urlLocal= "https://turbo-space-disco-v95xqvxjpjjfw49v-3001.app.github.dev"
+// const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			mascotas:[]
+			mascotas:[],
+			especies: ["Perro", "Gato"],
+			localidades: ["Guichón", "Bella Unión"]
 			
 		},
 		actions: {
@@ -13,7 +15,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getAllMascotas: async () => {
 				try {
 					
-					const response = await fetch(urlLocal+"/api/mascotas");
+					const response = await fetch(process.env.BACKEND_URL+"/api/mascotas");
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
 					}
