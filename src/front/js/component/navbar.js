@@ -30,7 +30,15 @@ export const Navbar = () => {
           </li>
         )}
 
-	  <li className="nav-item"><a href="#" className="btn btn-secondary my-2" id="singupButton">SIGNUP</a></li>
+{location.pathname !== '/form-signin' && (
+  <li className="nav-item">
+    <Link to="/form-signin" className="btn btn-secondary my-2" id="signinButton">
+      SIGN IN
+    </Link>
+  </li>
+)}
+
+
 	</ul>
   </header>
 

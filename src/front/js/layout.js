@@ -13,6 +13,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 import { Busqueda } from "./component/busqueda";
 import FormLogin from './pages/FormLogin';
+import FormSignin from './pages/FormSignin';
 
 const Layout = () => {
   const basename = process.env.BASENAME || '';
@@ -29,6 +30,7 @@ const Layout = () => {
             <Route element={<Home />} path='/' />
             <Route element={<Demo />} path='/demo' />
             <Route element={<FormLogin/>} path='/form-login' />
+            <Route element={<FormSignin/>} path='/form-signin' />
             <Route element={<Single />} path='/single/:theid' />
             <Route element={<h1>Not found!</h1>} />
           </Routes>
