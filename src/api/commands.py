@@ -1,7 +1,6 @@
 
 import click
-import json
-from api.models import db, User, Departamento
+from api.models import db, User
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -33,29 +32,3 @@ def setup_commands(app):
     @app.cli.command("insert-test-data")
     def insert_test_data():
         pass
-
-    @app.cli.command("seed-departments")
-    def seed_departments():
-        # Cargar los departamentos desde el JSON
-        with open('src/api/jsons/departamentos.json') as f:
-            departamentos_json = json.load(f)
-        
-        # Obtener los nombres de los departamentos en la base de datos
-        departamentos_db = {d.name for d in Departamento.query.all()}
-        
-        # Identificar departamentos faltantes
-        missing_departments = [
-            d for d in departamentos_json if d["departamentos"] not in departamentos_db
-        ]
-
-        if not missing_departments:
-            print("All departments are already present in the database.")
-            return
-        
-        # Agregar los departamentos faltantes
-        for dept in missing_departments:
-            new_departamento = Departamento(name=dept["departamentos"])
-            db.session.add(new_departamento)
-
-        db.session.commit()
-        print("Missing departments have been added to the database.")

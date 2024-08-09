@@ -8,5 +8,3 @@ npm run build
 pipenv install
 
 pipenv run upgrade
-
-flask seed-departments
