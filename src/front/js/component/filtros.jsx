@@ -7,7 +7,7 @@ const Filtros = (props) => {
     const { store } = useContext(Context)
     const [especieSelected, setEspecieSelected] = useState("");
     const [localidadSelected, setLocalidadSelected] = useState("");
-    const [especieArray, setEspecieArray] = useState([]);
+    const [filteredArray, setFilteredArray] = useState([]);
     
     //si hay cambios en especieSelected, se filtra la lista de mascotas perdidas por el valor de especieSelected
     useEffect(()=> {
@@ -23,7 +23,7 @@ const Filtros = (props) => {
             );
         }
         
-        setEspecieArray(filteredMascotas);
+        setFilteredArray(filteredMascotas);
 
     },[especieSelected, localidadSelected, props.lista])
 
@@ -99,7 +99,7 @@ const Filtros = (props) => {
             se muestran todas las mascotas pedidas, y si se selecciona un valor, se filtra las especies por el value
             seleccionado */}
             <div className="row d-flex justify-content-center gx-5">
-            {especieArray.map((mascota, index) => (
+            {filteredArray.map((mascota, index) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4 col-xxl-3 mb-4">
                     <MascotaCard
                         imgSrc={"https://picsum.photos/200"}
