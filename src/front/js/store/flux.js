@@ -5,9 +5,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			mascotas:[],
-			especies: ["Perro", "Gato"],
-			localidades: ["Guichón", "Bella Unión"]
-			
+			especies: [],
+			localidades: [],
+			logged: null
 		},
 		actions: {
 			getAllMascotas: async () => {
@@ -60,8 +60,37 @@ const getState = ({ getStore, getActions, setStore }) => {
 					};
 
 			}
+			},
+
+			login: async (email, password) => {
+				try {
+					let response = await fetch(process.env.BACKEND_URL+"/api/login",{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+						},
+						body: JSON.stringify({
+							"email": email,
+							"password": password
+						  })});
+						  let data = await response.json()
+						  console.log(data);
+						  if (response.ok){
+							localStorage.setItem('access_token', data.access_token)
+							setStore({logged:data.logged})
+							return true
+						  }
+						  setStore({logged: false})
+						  return false
+				} catch (error) {
+					console.log(error);
+					setStore({logged: false})
+					return false
+				}},			
+
+
+
 		}
-	}
 };
 
 }
