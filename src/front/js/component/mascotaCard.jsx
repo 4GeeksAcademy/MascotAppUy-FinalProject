@@ -12,7 +12,7 @@ const MascotaCard = (props) => {
             <div className="card-body">
                 <h5 className="card-title">{props.nombre}</h5>
 
-                <div className="contenidoCard">
+                <div className="contenido">
                     <div className="d-flex"><span><i className="fas fa-calendar"  style={{color: "#040926"}}></i></span><p className="card-text ms-2">{props.fecha}</p></div>
                     <div className="d-flex"><span><i className="fas fa-paw" style={{color: "#040926"}}></i></span><p className="card-text ms-2">{props.especie}</p></div>
                     <div className="d-flex"><span><i className="fas fa-map-marker-alt" style={{color: "#040926"}}></i></span><p className="card-text ms-2">{props.localidad}</p></div>
