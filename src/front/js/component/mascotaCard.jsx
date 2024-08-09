@@ -1,13 +1,14 @@
 import React, { useContext } from "react";
 import "../../styles/allMascotas.css"
 import { Context } from "../store/appContext";
+import "../../styles/mascotaCard.css"
 
 
 const MascotaCard = (props) => {
     const { store } = useContext(Context)
 
     return (
-        <div className="card mt-5" style={{ width: "18rem" }}>
+        <div className="mascotacard card mt-5" style={{ width: "16rem" }}>
             <img src="https://picsum.photos/200" className="card-img-top" alt="random-img" />
             <div className="card-body">
                 <h5 className="card-title">{props.nombre}</h5>

@@ -1,0 +1,25 @@
+.carousel {
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
+    border-radius: 8px; 
+    overflow: hidden; 
+    padding: 1rem 6rem;
+    
+    
+}
+
+.carousel-control-prev {
+    left: -3.5rem; 
+}
+
+.carousel-control-next {
+    right: -3.5rem; 
+}
+
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+    background-color: #000;
+    border-radius: 50%;
+    width: 4rem;
+    height: 4rem; 
+    background-size: 50% 50%; 
+}
