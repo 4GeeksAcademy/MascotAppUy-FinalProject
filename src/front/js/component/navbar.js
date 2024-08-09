@@ -8,11 +8,11 @@ export const Navbar = () => {
 	
 
 	return (
-		<header className="d-flex flex-wrap justify-content-center" style={{backgroundColor: "#040926", color: "#E0E1DD"}}>
-    		<div className="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
+		<header className="d-flex flex-wrap justify-content-center" style={{ backgroundColor: "#040926", color: "#E0E1DD" }}>
+			<div className="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
 				<button id="botonPrincipal" onClick={() => nav("/")}>
-					<img src={logoClaro} alt="Logo" style={{width: "90px", height: "90px"}}/>
-      				
+					<img src={logoClaro} alt="Logo" style={{ width: "90px", height: "90px" }} />
+
 				</button>
    			</div>
     <ul className="nav nav-pills" style={{alignItems: "center"}}>

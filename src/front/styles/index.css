@@ -1,7 +1,4 @@
-/* 
-    General Styles used on every website (Don't Repeat Yourself)
-*/
-
+/* Botón de login del navbar*/
 #loginButton{
     background-color: #040926;
     border: solid;
@@ -9,7 +6,7 @@
     color: #E0E1DD;
     border-radius: 15%;
 }
-
+/* Botón de singup del navbar*/
 #singupButton{
     background-color: #E0E1DD;
     color: #040926;
@@ -18,27 +15,39 @@
     border-radius: 15%;
     padding: none;
     margin-left: 5px;
-    margin-right: 5px;
-
-    
+    margin-right: 5px; 
 }
-
+/*Logo(botón) del navbar*/
 #botonPrincipal{
     background-color: #040926;
     border: none;
     color: #E0E1DD;
 }
 
-
-#botonPublicar{
+/* Botón publicar de la barra de busqueda*/
+#botonPublicar, #botonEnviar{
     background-color: #FF8A5B;
     color: #040926;
     border: none;
     margin: 10px;
 }
+/* Botón adoptar de la barra de busqueda*/
 #botonAdoptar{
     background-color: #E0E1DD;
     color: #040926;
     border: none;
     margin: 10px;
 }
+
+#contformagregar{
+    width: 500px;
+    margin-top: 50px;
+    margin-bottom: 50px;
+}
+
+
+
+
+
+
+
