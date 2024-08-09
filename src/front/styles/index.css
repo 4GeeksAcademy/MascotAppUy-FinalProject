@@ -18,10 +18,43 @@
     margin-right: 5px; 
 }
 /*Logo(botón) del navbar*/
-#botonPrincipal{
+/* #botonPrincipal{
     background-color: #040926;
     border: none;
     color: #E0E1DD;
+    position: relative;
+    width: fit-content;
+} */
+
+.image-container {
+    background-color: #040926;
+    border: none;
+    color: #E0E1DD;
+    position: relative;
+    display: inline-block;  /* Ensure the button doesn't cause layout shifts */
+    width: 90px;            /* Match the image size */
+    height: 90px;           /* Match the image size */
+}
+
+.static-image,
+.animated-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;           /* Ensure the image fills the container */
+    height: 100%;          /* Ensure the image fills the container */
+}
+
+.animated-image {
+    display: none;          /* Hide the animated image by default */
+}
+
+.image-container:hover .static-image {
+    display: none;          /* Hide the static image on hover */
+}
+
+.image-container:hover .animated-image {
+    display: block;         /* Show the animated image on hover */
 }
 
 /* Botón publicar de la barra de busqueda*/
