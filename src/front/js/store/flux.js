@@ -5,8 +5,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			mascotas:[],
-			especies: ["Perro", "Gato"],
-			localidades: ["Guichón", "Bella Unión"]
+			especies: [],
+			localidades: [],
+			razas: []
 			
 		},
 		actions: {
@@ -59,8 +60,27 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return false;
 					};
 
+				}
+			},
+			getEspecies: async () => {
+				// try {
+					
+				// 	const response = await fetch(process.env.BACKEND_URL+"/api/mascotas");
+				// 	if(!response.ok) {
+				// 		throw new Error("Status: " + response.status)
+				// 	}
+				// 	const data = await response.json();
+					
+				// 	// console.log(data.results)
+				// 	setStore({ mascotas: data.results });
+					
+				// 	return true;
+				// } catch (error) {
+				// 	console.log(error);
+				// 	return false;	
+				// }
+
 			}
-		}
 	}
 };
 

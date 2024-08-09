@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Mascota, Color
+from api.models import db, User, Mascota, Color, Especie, Departamento
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
@@ -127,3 +127,39 @@ def signup():
     db.session.commit()
 
     return jsonify({"msg": "New user created", "new user": new_user.serialize()}), 200
+
+# ENDPOINT: Obtener especies
+@api.route('/especies', methods=['GET'])
+def get_all_especies():
+    results_query = Especie.query.all()
+
+    if not results_query:
+        return jsonify({"error": "Especies not found"}), 404
+    
+    results = [especie.serialize() for especie in results_query]
+
+    print(results)
+    response_body = {
+        "msg": "Lista especies",
+        "results": results
+    }
+    
+    return jsonify(response_body), 200
+
+# ENDPOINT: Obtener departamentos
+@api.route('/departamentos', methods=['GET'])
+def get_all_departamentos():
+    results_query = Departamento.query.all()
+
+    if not results_query:
+        return jsonify({"error": "Departamentos not found"}), 404
+    
+    results = [departamento.serialize() for departamento in results_query]
+
+    print(results)
+    response_body = {
+        "msg": "Lista departamentos",
+        "results": results
+    }
+    
+    return jsonify(response_body), 200
