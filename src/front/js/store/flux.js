@@ -53,8 +53,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return true;
 					}
 					catch (error) {
-					console.log(error);
-					return false;
+						console.log(error);
+						return false;
 					};
 
 			}
