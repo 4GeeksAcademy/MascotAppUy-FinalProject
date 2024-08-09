@@ -40,45 +40,61 @@ const Filtros = (props) => {
     return(
         <div className="container">
 
-            <div className="row mt-4">
-                <div className="col-3 d-flex">
-                    
-                    {/* Select donde se despliegan las opciones que se encuentran en store.especies */}
-                    <select 
-                        className="form-select" 
-                        aria-label="Default select example" 
-                        value={especieSelected} 
-                        onChange={handleSpeciesChange}>
+            {/* El filtro se enceuntra dentro de un accordion, para que se despliegue si el usuario quiere aplicar los filtros */}
+            <div className="accordion accordion-flush" id="accordionFlushExample">
+                <div className="accordion-item">
+                    <h2 className="accordion-header">
+                    <div className="d-flex col-1">
+                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                            Filtros
+                        </button>
+                    </div>
+                    </h2>
+                    <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
+                        <div className="accordion-body">
+                            
+                            <div className="row mt-4">
+                                <div className="col-2 d-flex">
+                                    
+                                    {/* Select donde se despliegan las opciones que se encuentran en store.especies */}
+                                    <select 
+                                        className="form-select" 
+                                        aria-label="Default select example" 
+                                        value={especieSelected} 
+                                        onChange={handleSpeciesChange}>
 
-                        {/*     map de las opciones extraídas en especies     */}
-                        <option value="">Seleccione una especie</option>
-                        {store.especies.map((especie, index) => (
-                            <option key={index} value={especie}>
-                                {especie}
-                            </option>
-                        ))}
-                    </select>
+                                        {/*     map de las opciones extraídas en especies     */}
+                                        <option value="">Especie</option>
+                                        {store.especies.map((especie, index) => (
+                                            <option key={index} value={especie}>
+                                                {especie}
+                                            </option>
+                                        ))}
+                                    </select>
 
+                                </div>
+
+                                <div className="col-2 d-flex">
+                                    <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        value={localidadSelected}
+                                        onChange={handleLocalidadChange}
+                                    >
+                                        <option value="">Localidad</option>
+                                        {store.localidades.map((localidad, index) => (
+                                            <option key={index} value={localidad}>
+                                                {localidad}
+                                            </option>
+                                        ))}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
-
-                <div className="col-3 d-flex">
-                <select
-                    className="form-select"
-                    aria-label="Default select example"
-                    value={localidadSelected}
-                    onChange={handleLocalidadChange}
-                >
-                    <option value="">Seleccione una localidad</option>
-                    {store.localidades.map((localidad, index) => (
-                        <option key={index} value={localidad}>
-                            {localidad}
-                        </option>
-                    ))}
-                </select>
             </div>
 
-            </div>
-            
             {/* Aca se mapea el grid de mascotas, donde se aplica el condicional si el value del select está vacío,
             se muestran todas las mascotas pedidas, y si se selecciona un valor, se filtra las especies por el value
             seleccionado */}
