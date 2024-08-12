@@ -5,7 +5,7 @@ import "../../styles/filtros.css"
 
 
 const Filtros = (props) => {
-    const { store } = useContext(Context)
+    const { store, actions } = useContext(Context)
     const [especieSelected, setEspecieSelected] = useState("");
     const [localidadSelected, setLocalidadSelected] = useState("");
     const [filteredArray, setFilteredArray] = useState([]);

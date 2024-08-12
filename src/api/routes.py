@@ -2,7 +2,7 @@
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
 from flask import Flask, request, jsonify, url_for, Blueprint
-from api.models import db, User, Mascota, Color, Especie, Departamento
+from api.models import db, User, Mascota, Color, Especie, Departamento, Localidad, Raza
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
@@ -138,7 +138,7 @@ def get_all_especies():
     
     results = [especie.serialize() for especie in results_query]
 
-    print(results)
+    # print(results)
     response_body = {
         "msg": "Lista especies",
         "results": results
@@ -156,10 +156,47 @@ def get_all_departamentos():
     
     results = [departamento.serialize() for departamento in results_query]
 
-    print(results)
+    # print(results)
     response_body = {
         "msg": "Lista departamentos",
         "results": results
     }
     
     return jsonify(response_body), 200
+
+# ENDPOINT: Obtener localidades
+@api.route('/localidades', methods=['GET'])
+def get_all_localidades():
+    results_query = Localidad.query.all()
+
+    if not results_query:
+        return jsonify({"error": "Localidades not found"}), 404
+    
+    results = [localidad.serialize() for localidad in results_query]
+
+    # print(results)
+    response_body = {
+        "msg": "Lista localidades",
+        "results": results
+    }
+    
+    return jsonify(response_body), 200
+
+#ENDOPOINT: Obtener razas
+@api.route('/razas', methods=['GET'])
+def get_all_razas():
+    results_query = Raza.query.all()
+
+    if not results_query:
+        return jsonify({"error": "Raza not found"}), 404
+    
+    results = [raza.serialize() for raza in results_query]
+
+    # print(results)
+    response_body = {
+        "msg": "Lista de razas",
+        "results": results
+    }
+    
+    return jsonify(response_body), 200
+
