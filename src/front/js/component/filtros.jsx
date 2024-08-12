@@ -11,8 +11,9 @@ const Filtros = (props) => {
     const [razaSelected, setRazaSelected] = useState("");
     const [filteredRazas, setFilteredRazas] = useState([]);
 
-    const [localidadSelected, setLocalidadSelected] = useState("");
     const [departamentoSelected, setDepartamentoSelected] = useState("")
+
+    const [localidadSelected, setLocalidadSelected] = useState("");
     const [filteredLocalidades, setFilteredLocalidades] = useState([]);
 
     const [filteredArray, setFilteredArray] = useState([]);
@@ -25,7 +26,7 @@ const Filtros = (props) => {
                 //tuve que convertir en integer porque venía como string el departamento_id
             );
             setFilteredLocalidades(filterLoc);
-            console.log("Localidades filtradas:", filterLoc);
+            
         } else {
             setFilteredLocalidades(store.localidades);
         }
@@ -54,15 +55,6 @@ const Filtros = (props) => {
             filteredMascotas = filteredMascotas.filter(
             mascota => mascota.especie_name == especieSelected);
         }
-        
-
-        if (localidadSelected) {
-            filteredMascotas = filteredMascotas.filter(
-                mascota => mascota.localidad_name == localidadSelected
-            );
-        }
-
-        
         
         setFilteredArray(filteredMascotas);
 
@@ -116,7 +108,7 @@ const Filtros = (props) => {
                                         <option value="">Especie</option>
                                         {store.especies.map((especie, index) => (
                                             <option key={index} value={especie.id}>
-                                                {especie}
+                                                {especie.name}
                                             </option>
                                         ))}
                                     </select>
@@ -157,8 +149,9 @@ const Filtros = (props) => {
                                         ))}
                                     </select>
                                 </div>
-
-                                <div className="col-2 d-flex">
+                                
+                                {departamentoSelected && (
+                                    <div className="col-2 d-flex">
                                     <select
                                         className="form-select"
                                         aria-label="Default select example"
@@ -173,6 +166,8 @@ const Filtros = (props) => {
                                         ))}
                                     </select>
                                 </div>
+                                )}
+                                
                             </div>
                         </div>
                     </div>

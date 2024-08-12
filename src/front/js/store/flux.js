@@ -65,18 +65,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getEspecies: async () => {
 				try {
-					const response = await fetch(urlLocal+"/api/especies");
-					// const response = await fetch(process.env.BACKEND_URL+"/api/especies");
+					// const response = await fetch(urlLocal+"/api/especies");
+					const response = await fetch(process.env.BACKEND_URL+"/api/especies");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
 					
-					const nombresEspecies = data.results.map(especie => especie.name);
+					// const nombresEspecies = data.results.map(especie => especie.name);
 					
 					// console.log(nombresEspecies)
-        			setStore({ especies: nombresEspecies });
+        			setStore({ especies: data.results });
 					
 					return true;
 				} catch (error) {
@@ -87,8 +87,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getDepartamentos: async () => {
 				try {
-					const response = await fetch(urlLocal+"/api/departamentos");
-					// const response = await fetch(process.env.BACKEND_URL+"/api/departamentos");
+					// const response = await fetch(urlLocal+"/api/departamentos");
+					const response = await fetch(process.env.BACKEND_URL+"/api/departamentos");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
@@ -111,8 +111,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getLocalidades: async () => {
 				try {
-					const response = await fetch("https://zany-meme-45rxw7xpg55f796-3001.app.github.dev/api/localidades");
-					// const response = await fetch(process.env.BACKEND_URL+"/api/localidades");
+					// const response = await fetch("https://zany-meme-45rxw7xpg55f796-3001.app.github.dev/api/localidades");
+					const response = await fetch(process.env.BACKEND_URL+"/api/localidades");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
@@ -134,18 +134,18 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getRazas: async () => {
 				try {
-					const response = await fetch(urlLocal+"/api/razas");
-					// const response = await fetch(process.env.BACKEND_URL+"/api/razas");
+					// const response = await fetch(urlLocal+"/api/razas");
+					const response = await fetch(process.env.BACKEND_URL+"/api/razas");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
 					
-					const nombresRazas = data.results.map(raza => raza.name);
-					// console.log(nombresRazas);
+					// const nombresRazas = data.results.map(raza => raza.name);
+					console.log(data.results);
 					
-        			setStore({ razas: nombresRazas });
+        			setStore({ razas: data.results });
 					
 					return true;
 				} catch (error) {
