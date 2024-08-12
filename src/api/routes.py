@@ -120,13 +120,14 @@ def signup():
         password=hashed_password, 
         nombre=data["nombre"], 
         telefono=data["telefono"], 
-        localidad_id=data["localidad_id"]
     )
-
+    print(data)
     db.session.add(new_user)
     db.session.commit()
 
-    return jsonify({"msg": "New user created", "new user": new_user.serialize()}), 200
+    access_token = create_access_token(identity=data.get("email"), expires_delta=timedelta(hours=12))
+    return jsonify({"msg": "New user created", "new user": new_user.serialize(), "access_token":access_token, "logged":True})
+
 
 # ENDPOINT: Obtener especies
 @api.route('/especies', methods=['GET'])

@@ -1,5 +1,8 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 // const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
+const URL = "process.env.BACKEND_URL"
+// const URL = "https://bug-free-goggles-jjr69gx4w4pgf5jgx-3001.app.github.dev"
+
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -16,7 +19,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getAllMascotas: async () => {
 				try {
 					
-					const response = await fetch(process.env.BACKEND_URL+"/api/mascotas");
+					const response = await fetch(URL+"/api/mascotas");
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
 					}
@@ -45,7 +48,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						dataToSend.append("localidad", formAMData.localidad);
 						dataToSend.append("archivo", formAMData.archivo);
 					
-						const response = await fetch (urlLocal, {
+						const response = await fetch (URL+"/api/mascotas", {
 							method: 'POST',
 							body: dataToSend,
 						});
@@ -67,7 +70,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getEspecies: async () => {
 				try {
 					
-					const response = await fetch(process.env.BACKEND_URL+"/api/especies");
+					const response = await fetch(URL+"/api/especies");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
@@ -89,7 +92,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getDepartamentos: async () => {
 				try {
 					
-					const response = await fetch(process.env.BACKEND_URL+"/api/departamentos");
+					const response = await fetch(URL+"/api/departamentos");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
@@ -111,7 +114,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getLocalidades: async () => {
 				try {
 					
-					const response = await fetch(process.env.BACKEND_URL+"/api/localidades");
+					const response = await fetch(URL+"/api/localidades");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
@@ -133,7 +136,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			getRazas: async () => {
 				try {
 					
-					const response = await fetch(process.env.BACKEND_URL+"/api/razas");
+					const response = await fetch(URL+"/api/razas");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
@@ -151,12 +154,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;	
 				}
 
-			}
 			},
 
 			login: async (email, password) => {
 				try {
-					let response = await fetch(process.env.BACKEND_URL+"/api/login",{
+					let response = await fetch(URL+"/api/login",{
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json'
@@ -178,8 +180,35 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.log(error);
 					setStore({logged: false})
 					return false
-				}},			
+				}},
+
+			signup: async (email, password, nombre, telefono) => {
+				try {
+					let response = await fetch(URL+"/api/signup",{
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json'
+							},
+							body: JSON.stringify({
+								"email": email,
+								"password": password,
+								"nombre": nombre,
+								"telefono": telefono
+							  })});
+							  let data = await response.json()
+							  if (response.ok){
+								localStorage.setItem('access_token', data.access_token)
+								setStore({logged:data.logged})
+								return true
+							  }
+							  return false
+					} catch (error) {
+						console.log(error);
+						return false
+					}},
+
 		}
 	}
+}
 
 export default getState;

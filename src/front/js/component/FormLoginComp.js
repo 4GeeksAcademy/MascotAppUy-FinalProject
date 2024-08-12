@@ -24,19 +24,12 @@ const FormLoginComp = () => {
      navigate('/')
      return
   }
-  navigate('/form-signin')
+  navigate('/form-signup')
   alert("User does not exist. Please signup")
-
-    // // Lógica para enviar el formulario
-    // console.log('Username:', username);
-    // console.log('Email:', email);
-    // console.log('Password:', password);
-
-    // navigate('/');
   };
 
   const handleSignInClick = () => {
-    navigate('/form-signin'); // Redirige al formulario de registro
+    navigate('/form-signup'); // Redirige al formulario de registro
   };
 
   return (

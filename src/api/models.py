@@ -19,10 +19,10 @@ class User(db.Model):
     password = db.Column(db.String(200), unique=False, nullable=False)
     nombre = db.Column(db.String(50), nullable=False)
     fecha_registro = db.Column(db.Date, default=date.today())
-    telefono = db.Column(db.String, nullable=False)
+    telefono = db.Column(db.String(25))
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     mascotas = db.relationship('Mascota', backref='user', lazy=True)
-    localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'), nullable=False)
+    # localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'))
     favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
     
     @validates('nombre')
@@ -43,8 +43,8 @@ class User(db.Model):
             "telefono": self.telefono,
             "is_active": self.is_active,
             "mascotas": [mascota.serialize() for mascota in self.mascotas],
-            "localidad_id": self.localidad_id,
-            "localidad_name": self.localidad.name,
+            # "localidad_id": self.localidad_id,
+            # "localidad_name": self.localidad.name,
             "favorito_id": self.favorito_id
         }
 
@@ -147,7 +147,7 @@ class Localidad(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
     departamento_id = db.Column(db.Integer, db.ForeignKey('departamento.id'), nullable=False)
-    users = db.relationship('User', backref='localidad', lazy=True)
+    # users = db.relationship('User', backref='localidad', lazy=True)
     mascotas = db.relationship('Mascota', backref='localidad', lazy=True)
 
     def __repr__(self):
