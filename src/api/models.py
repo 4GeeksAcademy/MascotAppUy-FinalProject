@@ -73,6 +73,7 @@ class Mascota(db.Model):
     especie_id = db.Column(db.Integer, db.ForeignKey('especie.id'), nullable=False)
     localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'), nullable=False)
     colores_mascotas = db.relationship('Color', secondary = colores_mascotas, lazy = 'subquery', backref=db.backref('mascota', lazy=True))
+    raza_id = db.Column(db.Integer, db.ForeignKey('raza.id'), nullable=False)
     favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
 
     def __repr__(self):
@@ -96,7 +97,9 @@ class Mascota(db.Model):
             "localidad_id": self.localidad_id,
             "localidad_name": self.localidad.name,
             "colores_mascotas": [color.serialize() for color in self.colores_mascotas],
-            "favorito_id": self.favorito_id
+            "favorito_id": self.favorito_id,
+            "raza_id": self.raza_id,
+            "raza_name": self.raza.name
         }
 
 class Especie(db.Model):
@@ -119,9 +122,10 @@ class Raza(db.Model):
     name = db.Column(db.String(100), nullable=False)
     especie_id = db.Column(db.Integer, db.ForeignKey('especie.id'),
         nullable=False)
+    razas = db.relationship('Mascota', backref='raza', lazy=True)
 
     def __repr__(self):
-        return '<Raza %r>'
+        return '<Raza %r>' % self.name
     
     def serialize(self):
         return {
