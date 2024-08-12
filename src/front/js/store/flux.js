@@ -1,5 +1,5 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
-// const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
+const urlLocal= "https://zany-meme-45rxw7xpg55f796-3001.app.github.dev"
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
@@ -65,8 +65,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getEspecies: async () => {
 				try {
-					
-					const response = await fetch(process.env.BACKEND_URL+"/api/especies");
+					const response = await fetch(urlLocal+"/api/especies");
+					// const response = await fetch(process.env.BACKEND_URL+"/api/especies");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
@@ -87,18 +87,20 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getDepartamentos: async () => {
 				try {
-					
-					const response = await fetch(process.env.BACKEND_URL+"/api/departamentos");
+					const response = await fetch(urlLocal+"/api/departamentos");
+					// const response = await fetch(process.env.BACKEND_URL+"/api/departamentos");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
+					console.log(data.results);
 					
-					const nombresDepartamentos = data.results.map(departamento => departamento.name);
+
+					// const nombresDepartamentos = data.results.map(departamento => departamento.name);
 					// console.log(nombresDepartamentos);
 					
-        			setStore({ departamentos: nombresDepartamentos });
+        			setStore({ departamentos: data.results });
 					
 					return true;
 				} catch (error) {
@@ -109,18 +111,19 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getLocalidades: async () => {
 				try {
-					
-					const response = await fetch(process.env.BACKEND_URL+"/api/localidades");
+					const response = await fetch("https://zany-meme-45rxw7xpg55f796-3001.app.github.dev/api/localidades");
+					// const response = await fetch(process.env.BACKEND_URL+"/api/localidades");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
+					console.log(data.results);
 					
-					const nombresLocalidades = data.results.map(localidad => localidad.name);
+					// const nombresLocalidades = data.results.map(localidad => localidad.name);
 					// console.log(nombresLocalidades);
 					
-        			setStore({ localidades: nombresLocalidades });
+        			setStore({ localidades: data.results });
 					
 					return true;
 				} catch (error) {
@@ -131,8 +134,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 			getRazas: async () => {
 				try {
-					
-					const response = await fetch(process.env.BACKEND_URL+"/api/razas");
+					const response = await fetch(urlLocal+"/api/razas");
+					// const response = await fetch(process.env.BACKEND_URL+"/api/razas");
 					
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)

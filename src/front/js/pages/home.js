@@ -20,8 +20,8 @@ export const Home = () => {
 	.slice(0, 12);
 
   
-  	console.log(ultimasDiezPerdidas);
-	  console.log(ultimasDiezEncontradas);
+  	// console.log(ultimasDiezPerdidas);
+	// console.log(ultimasDiezEncontradas);
 
 	return (
 		<div className="container-fluid">

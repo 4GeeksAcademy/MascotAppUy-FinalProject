@@ -7,9 +7,45 @@ import "../../styles/filtros.css"
 const Filtros = (props) => {
     const { store, actions } = useContext(Context)
     const [especieSelected, setEspecieSelected] = useState("");
+
+    const [razaSelected, setRazaSelected] = useState("");
+    const [filteredRazas, setFilteredRazas] = useState([]);
+
     const [localidadSelected, setLocalidadSelected] = useState("");
+    const [departamentoSelected, setDepartamentoSelected] = useState("")
+    const [filteredLocalidades, setFilteredLocalidades] = useState([]);
+
     const [filteredArray, setFilteredArray] = useState([]);
     
+    useEffect(() => {
+
+        if (departamentoSelected) {
+            const filterLoc = store.localidades.filter(localidad => 
+                localidad.departamento_id === parseInt(departamentoSelected)
+                //tuve que convertir en integer porque venía como string el departamento_id
+            );
+            setFilteredLocalidades(filterLoc);
+            console.log("Localidades filtradas:", filterLoc);
+        } else {
+            setFilteredLocalidades(store.localidades);
+        }
+
+    }, [departamentoSelected, store.localidades]);
+
+    useEffect(() => {
+        if(especieSelected) {
+            const filterRaza = store.razas.filter(raza => 
+                raza.especie_id === parseInt(especieSelected)
+            );
+            setFilteredRazas(filterRaza)
+            console.log("Raza Filtradas:"+ filterRaza);
+            
+        } else {
+            setFilteredRazas(store.razas)
+        }
+
+    }, [especieSelected, store.razas])
+
     //si hay cambios en especieSelected, se filtra la lista de mascotas perdidas por el valor de especieSelected
     useEffect(()=> {
         let filteredMascotas = props.lista;
@@ -17,16 +53,20 @@ const Filtros = (props) => {
         if (especieSelected) {
             filteredMascotas = filteredMascotas.filter(
             mascota => mascota.especie_name == especieSelected);
-        } 
+        }
+        
+
         if (localidadSelected) {
             filteredMascotas = filteredMascotas.filter(
                 mascota => mascota.localidad_name == localidadSelected
             );
         }
+
+        
         
         setFilteredArray(filteredMascotas);
 
-    },[especieSelected, localidadSelected, props.lista])
+    },[especieSelected, localidadSelected, departamentoSelected, props.lista])
 
     //metodo del onChange que setea el value del select a especieSelected (Perro o Gato en este caso)
     const handleSpeciesChange = (e) => {
@@ -35,6 +75,14 @@ const Filtros = (props) => {
 
     const handleLocalidadChange = (e) => {
         setLocalidadSelected(e.target.value);
+    };
+
+    const handleDepartamentoChange = (e) => {
+        setDepartamentoSelected(e.target.value);
+    };
+
+    const handleRazaChange = (e) => {
+        setRazaSelected(e.target.value);
     };
 
     // console.log(store.mascotas)
@@ -67,12 +115,47 @@ const Filtros = (props) => {
                                         {/*     map de las opciones extraídas en especies     */}
                                         <option value="">Especie</option>
                                         {store.especies.map((especie, index) => (
-                                            <option key={index} value={especie}>
+                                            <option key={index} value={especie.id}>
                                                 {especie}
                                             </option>
                                         ))}
                                     </select>
 
+                                </div>
+                                
+
+                                {especieSelected && (
+                                    <div className="col-2 d-flex">
+                                        <select
+                                            className="form-select"
+                                            aria-label="Default select example"
+                                            value={razaSelected}
+                                            onChange={handleRazaChange}
+                                        >
+                                            <option value="">Raza</option>
+                                            {filteredRazas.map((raza, index) => (
+                                                <option key={index} value={raza.name}>
+                                                    {raza.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                )}
+                                
+                                <div className="col-2 d-flex">
+                                    <select
+                                        className="form-select"
+                                        aria-label="Default select example"
+                                        value={departamentoSelected}
+                                        onChange={handleDepartamentoChange}
+                                    >
+                                        <option value="">Departamento</option>
+                                        {store.departamentos.map((departamento, index) => (
+                                            <option key={index} value={departamento.id}>
+                                                {departamento.name}
+                                            </option>
+                                        ))}
+                                    </select>
                                 </div>
 
                                 <div className="col-2 d-flex">
@@ -83,9 +166,9 @@ const Filtros = (props) => {
                                         onChange={handleLocalidadChange}
                                     >
                                         <option value="">Localidad</option>
-                                        {store.localidades.map((localidad, index) => (
-                                            <option key={index} value={localidad}>
-                                                {localidad}
+                                        {filteredLocalidades.map((localidad, index) => (
+                                            <option key={index} value={localidad.name}>
+                                                {localidad.name}
                                             </option>
                                         ))}
                                     </select>
