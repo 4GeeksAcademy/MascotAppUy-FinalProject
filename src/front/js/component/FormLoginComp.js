@@ -1,31 +1,43 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { Context } from '../store/appContext';
 import '../../styles/form-login.css'
 import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useNavigate } from 'react-router-dom'; 
 
 //DECLARACION DEL COMPONENTE
-const FormLogincomp = () => {
+const FormLoginComp = () => {
   //ESTADOS DEL COMPONENTE
+  const { store, actions } = useContext(Context)
   const [username, setUsername] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-  const handleSubmit = (e) => {
+  async function handleSubmit(e) {
     e.preventDefault();
-    // Lógica para enviar el formulario
-    console.log('Username:', username);
-    console.log('Email:', email);
-    console.log('Password:', password);
+    if (email == "" || password == "" || username == ""){
+      alert("Field must not be empty")
+      return
+  }
+  let logged = await actions.login(email,password)
+  if (logged) {
+     navigate('/')
+     return
+  }
+  navigate('/form-signin')
+  alert("User does not exist. Please signup")
 
-    navigate('/');
+    // // Lógica para enviar el formulario
+    // console.log('Username:', username);
+    // console.log('Email:', email);
+    // console.log('Password:', password);
+
+    // navigate('/');
   };
 
   const handleSignInClick = () => {
     navigate('/form-signin'); // Redirige al formulario de registro
   };
-
-
 
   return (
     <div className="form-container" style={{ width: '300px', margin: '0 auto' }}>
@@ -106,4 +118,4 @@ const FormLogincomp = () => {
 };
 
 
-export default FormLogincomp
+export default FormLoginComp

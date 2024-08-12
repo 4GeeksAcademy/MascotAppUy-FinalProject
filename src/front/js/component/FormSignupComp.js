@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const SignInForm = () => {
+const SignUpComp = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
@@ -10,7 +10,6 @@ const SignInForm = () => {
 
 //   const handleSubmit = (e) => {
 //     e.preventDefault();
-si
  
 
   const handleLoginRedirect = () => {
@@ -122,4 +121,4 @@ si
   );
 };
 
-export default SignInForm;
+export default SignUpComp;

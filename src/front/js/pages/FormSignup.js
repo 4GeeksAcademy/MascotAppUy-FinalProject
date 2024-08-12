@@ -1,10 +1,10 @@
 import React from 'react';
-import FormSigninComp from '../component/FormSigninComp';
+import FormSignupComp from '../component/FormSignupComp';
 
 const FormLogin = () => {
   return (
     <div>
-        <FormSigninComp/>
+        <FormSignupComp/>
     </div>
   );
 };

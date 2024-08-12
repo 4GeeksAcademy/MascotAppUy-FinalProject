@@ -1,18 +1,18 @@
 /* Botón de login del navbar*/
 #loginButton{
-    background-color: #040926;
-    border: solid;
-    border-color: #E0E1DD;
-    color: #E0E1DD;
-    border-radius: 15%;
+    /* background-color: #040926; */
+    /* border: solid; */
+    /* border-color: #E0E1DD; */
+    /* color: #E0E1DD; */
+    /* border-radius: 15%; */
 }
 /* Botón de singup del navbar*/
 #singupButton{
-    background-color: #E0E1DD;
-    color: #040926;
-    border: solid;
-    border-color: #E0E1DD;
-    border-radius: 15%;
+    /* background-color: #E0E1DD; */
+    /* color: #E0E1DD; */
+    /* border: solid; */
+    /* border-color: #E0E1DD; */
+    /* border-radius: 15%; */
     padding: none;
     margin-left: 5px;
     margin-right: 5px; 

@@ -3,10 +3,6 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ScrollToTop from "./component/scrollToTop";
 import { BackendURL } from "./component/backendURL";
 // src/front/js/layout.js
-import React from 'react';
-import { BrowserRouter, Route, Routes, useLocation } from 'react-router-dom';
-import ScrollToTop from './component/scrollToTop';
-import { BackendURL } from './component/backendURL';
 
 import { Home } from "./pages/home";
 //import { Demo } from "./pages/demo";
@@ -17,7 +13,7 @@ import { Navbar } from "./component/navbar";
 import { Footer } from "./component/footer";
 //import { Busqueda } from "./component/busqueda";
 import FormLogin from './pages/FormLogin';
-import FormSignin from './pages/FormSignin';
+import FormSignup from './pages/FormSignup.js';
 
 import { AgregarMascota } from './pages/agregarMascota';
 import AllMascotasEncontradas from "./pages/allMascotasEncontradas.jsx";
@@ -41,7 +37,7 @@ const Layout = () => {
                     <Routes>
                         <Route element={<Home />} path="/" />
                         <Route element={<FormLogin/>} path='/form-login' />
-                        <Route element={<FormSignin/>} path='/form-signin' />
+                        <Route element={<FormSignup/>} path='/form-signup' />
                         <Route element={<AllMascotasPerdidas />} path="/mascotas-perdidas" />
                         <Route element={<AllMascotasEncontradas />} path="/mascotas-encontradas" />
                         <Route element={<Single />} path="/single/:theid" />

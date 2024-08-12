@@ -87,9 +87,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					setStore({logged: false})
 					return false
 				}},			
-
-
-
 		}
 };
 
