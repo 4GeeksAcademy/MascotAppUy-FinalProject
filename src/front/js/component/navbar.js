@@ -16,11 +16,11 @@ export const Navbar = () => {
 				</button>
    			</div>
     <ul className="nav nav-pills" style={{alignItems: "center"}}>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Encontradas</a></li>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Perdidas</a></li>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Mapa</a></li>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">FAQ</a></li>
-      <li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Contacto</a></li>
+      <li className="nav-item"><Link to="/mascotas-encontradas" className="nav-link px-2 text-muted">Encontradas</Link></li>
+      <li className="nav-item"><Link to="/mascotas-perdidas" className="nav-link px-2 text-muted">Perdidas</Link></li>
+      <li className="nav-item"><Link to="#" className="nav-link px-2 text-muted">Mapa</Link></li>
+      <li className="nav-item"><Link to="#" className="nav-link px-2 text-muted">FAQ</Link></li>
+      <li className="nav-item"><Link to="#" className="nav-link px-2 text-muted">Contacto</Link></li>
 
 	  {location.pathname !== '/form-login' && (
           <li className="nav-item">

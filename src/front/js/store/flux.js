@@ -5,8 +5,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
 			mascotas:[],
-			especies: ["Perro", "Gato"],
-			localidades: ["Guichón", "Bella Unión"]
+			especies: [],
+			localidades: [],
+			departamentos: [],
+			razas: []
 			
 		},
 		actions: {
@@ -59,8 +61,96 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return false;
 					};
 
+				}
+			},
+			getEspecies: async () => {
+				try {
+					
+					const response = await fetch(process.env.BACKEND_URL+"/api/especies");
+					
+					if(!response.ok) {
+						throw new Error("Status: " + response.status)
+					}
+					const data = await response.json();
+					
+					const nombresEspecies = data.results.map(especie => especie.name);
+					
+					// console.log(nombresEspecies)
+        			setStore({ especies: nombresEspecies });
+					
+					return true;
+				} catch (error) {
+					console.log(error);
+					return false;	
+				}
+
+			},
+			getDepartamentos: async () => {
+				try {
+					
+					const response = await fetch(process.env.BACKEND_URL+"/api/departamentos");
+					
+					if(!response.ok) {
+						throw new Error("Status: " + response.status)
+					}
+					const data = await response.json();
+					
+					const nombresDepartamentos = data.results.map(departamento => departamento.name);
+					// console.log(nombresDepartamentos);
+					
+        			setStore({ departamentos: nombresDepartamentos });
+					
+					return true;
+				} catch (error) {
+					console.log(error);
+					return false;	
+				}
+
+			},
+			getLocalidades: async () => {
+				try {
+					
+					const response = await fetch(process.env.BACKEND_URL+"/api/localidades");
+					
+					if(!response.ok) {
+						throw new Error("Status: " + response.status)
+					}
+					const data = await response.json();
+					
+					const nombresLocalidades = data.results.map(localidad => localidad.name);
+					// console.log(nombresLocalidades);
+					
+        			setStore({ localidades: nombresLocalidades });
+					
+					return true;
+				} catch (error) {
+					console.log(error);
+					return false;	
+				}
+
+			},
+			getRazas: async () => {
+				try {
+					
+					const response = await fetch(process.env.BACKEND_URL+"/api/razas");
+					
+					if(!response.ok) {
+						throw new Error("Status: " + response.status)
+					}
+					const data = await response.json();
+					
+					const nombresRazas = data.results.map(raza => raza.name);
+					// console.log(nombresRazas);
+					
+        			setStore({ razas: nombresRazas });
+					
+					return true;
+				} catch (error) {
+					console.log(error);
+					return false;	
+				}
+
 			}
-		}
 	}
 };
 
