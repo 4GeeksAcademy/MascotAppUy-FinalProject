@@ -1,5 +1,5 @@
 import React from 'react';
-import FormLogincomp from '../component/FormLogincomp.js';
+import FormLogincomp from '../component/FormLoginComp.js';
 
 const FormLogin = () => {
   return (

@@ -1,36 +1,40 @@
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import React, { useState, useContext } from 'react';
+import { Context } from '../store/appContext';
+import '../../styles/form-login.css'
+import '@fortawesome/fontawesome-free/css/all.min.css';
+import { useNavigate } from 'react-router-dom'; 
 
-const SignInForm = () => {
-  const [username, setUsername] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
+//DECLARACION DEL COMPONENTE
+const FormLoginComp = () => {
+  //ESTADOS DEL COMPONENTE
+  const { store, actions } = useContext(Context)
+  const [username, setUsername] = useState('');
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
   const navigate = useNavigate();
 
-//   const handleSubmit = (e) => {
-//     e.preventDefault();
- 
-
-  const handleLoginRedirect = () => {
-    navigate("/form-login");  // Redirige al formulario de login
+  async function handleSubmit(e) {
+    e.preventDefault();
+    if (email == "" || password == "" || username == ""){
+      alert("Field must not be empty")
+      return
+  }
+  let logged = await actions.login(email,password)
+  if (logged) {
+     navigate('/')
+     return
+  }
+  navigate('/form-signup')
+  alert("User does not exist. Please signup")
   };
 
-  const handleConfirmPassword = (e) => {
-    setConfirmPassword(e.target.value)
-    console.log(confirmPassword)
-  }
-
-  const handleSubmit = () => {
-    if (confirmPassword!==password){
-        alert("contraseña incorrecta")
-    }
-    //   navigate("/");  
-  } 
+  const handleSignInClick = () => {
+    navigate('/form-signup'); // Redirige al formulario de registro
+  };
 
   return (
     <div className="form-container" style={{ width: '300px', margin: '0 auto' }}>
-      <h2>REGISTRATE</h2>
+      <h2>INGRESAR</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
           <span className="icon" style={{ marginRight: '10px' }}>👤</span>
@@ -62,16 +66,6 @@ const SignInForm = () => {
             style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
           />
         </div>
-        <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-          <span className="icon" style={{ marginRight: '10px' }}><i className="fas fa-lock"></i></span>
-          <input
-            type="password"
-            placeholder="Confirmar Contraseña"
-            value={confirmPassword}
-            onChange={handleConfirmPassword}
-            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
-          />
-        </div>
         <button type="submit" style={{
           backgroundColor: '#FF8A5B',
           border: 'none',
@@ -80,27 +74,22 @@ const SignInForm = () => {
           borderRadius: '5px',
           cursor: 'pointer'
         }}>
-          Registrarse
+          Ingresar
         </button>
       </form>
       <hr />
       <div className="alternative-login" style={{ textAlign: 'center' }}>
-        <p>Si ya tienes una cuenta</p>
-        <button
-          type="button"
-          onClick={handleLoginRedirect}
-          style={{
-            backgroundColor: '#FF8A5B',
-            border: 'none',
-            color: '#FFFFFF',
-            padding: '10px 20px',
-            borderRadius: '5px',
-            cursor: 'pointer'
-          }}
-        >
-          Ingresar
+        <p>Si aún no tienes una cuenta</p>
+        <button type="button" onClick={handleSignInClick} style={{
+          backgroundColor: '#FF8A5B',
+          border: 'none',
+          color: '#FFFFFF',
+          padding: '10px 20px',
+          borderRadius: '5px',
+          cursor: 'pointer'
+        }}>
+          Sign in
         </button>
-        {/* Puedes descomentar y ajustar esto si quieres permitir el inicio de sesión con Google */}
         {/* <button className="google-btn" style={{
           backgroundColor: '#4285F4',
           color: '#FFFFFF',
@@ -121,4 +110,5 @@ const SignInForm = () => {
   );
 };
 
-export default SignInForm;
+
+export default FormLoginComp
