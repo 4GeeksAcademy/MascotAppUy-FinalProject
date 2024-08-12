@@ -127,6 +127,7 @@ class Raza(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "especie_id": self.especie_id
         }
 
 class Departamento(db.Model):
@@ -157,6 +158,7 @@ class Localidad(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "departamento_id": self.departamento_id
         }
     
 class Color(db.Model):
