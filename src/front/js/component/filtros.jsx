@@ -55,6 +55,11 @@ const Filtros = (props) => {
             filteredMascotas = filteredMascotas.filter(
             mascota => mascota.especie_id == especieSelected);
         }
+        if (departamentoSelected) {
+            filteredMascotas = filteredMascotas.filter(
+            mascota => mascota.departamento_id == departamentoSelected);
+        }
+
         if (localidadSelected) {
             filteredMascotas = filteredMascotas.filter(
                 mascota => mascota.localidad_name === localidadSelected

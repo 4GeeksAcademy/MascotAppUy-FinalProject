@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 // const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
-const URL = process.env.BACKEND_URL
-// const URL = "https://vigilant-waddle-9rxpj9pgqxrfxx7j-3001.app.github.dev"
+// const URL = process.env.BACKEND_URL
+const URL = "https://congenial-zebra-p46xprx5ppq365vq-3001.app.github.dev/"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
