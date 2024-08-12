@@ -33,7 +33,7 @@ const FormLoginComp = () => {
   };
 
   return (
-    <div className="form-container" style={{ width: '300px', margin: '0 auto' }}>
+    <div className="form-container mt-5 w-50">
       <h2>INGRESAR</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>

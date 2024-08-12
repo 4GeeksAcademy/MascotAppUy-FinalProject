@@ -53,12 +53,23 @@ const Filtros = (props) => {
         
         if (especieSelected) {
             filteredMascotas = filteredMascotas.filter(
-            mascota => mascota.especie_name == especieSelected);
+            mascota => mascota.especie_id == especieSelected);
         }
-        
-        setFilteredArray(filteredMascotas);
+        if (localidadSelected) {
+            filteredMascotas = filteredMascotas.filter(
+                mascota => mascota.localidad_name === localidadSelected
+            );
+        }
 
-    },[especieSelected, localidadSelected, departamentoSelected, props.lista])
+        if (razaSelected) {
+            filteredMascotas = filteredMascotas.filter(
+                mascota => mascota.raza_name === razaSelected
+            );
+        }
+
+        setFilteredArray(filteredMascotas);
+    }, [especieSelected, localidadSelected, razaSelected, departamentoSelected, props.lista]);
+
 
     //metodo del onChange que setea el value del select a especieSelected (Perro o Gato en este caso)
     const handleSpeciesChange = (e) => {

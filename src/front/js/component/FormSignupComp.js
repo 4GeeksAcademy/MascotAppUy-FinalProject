@@ -32,7 +32,7 @@ const SignUpComp = () => {
   } 
 
   return (
-    <div className="form-container" style={{ width: '300px', margin: '0 auto' }}>
+    <div className="form-container mt-5 vh-100 w-50">
       <h2>REGISTRATE</h2>
       <form onSubmit={handleSubmit}>
         <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
