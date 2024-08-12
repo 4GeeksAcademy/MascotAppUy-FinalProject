@@ -19,10 +19,6 @@ export const Home = () => {
 	.sort((a, b) => new Date(b.fecha_registro) - new Date(a.fecha_registro))
 	.slice(0, 12);
 
-  
-  	// console.log(ultimasDiezPerdidas);
-	// console.log(ultimasDiezEncontradas);
-
 	return (
 		<div className="container-fluid">
 			<Busqueda />
