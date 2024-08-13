@@ -1,5 +1,9 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 // const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
+
+import { PiUserListDuotone } from "react-icons/pi";
+import { SiTrueup } from "react-icons/si";
+
 // const URL = process.env.BACKEND_URL
 const URL = "https://solid-potato-x74jvwjgr4q3p766-3001.app.github.dev"
 
@@ -7,7 +11,7 @@ const URL = "https://solid-potato-x74jvwjgr4q3p766-3001.app.github.dev"
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user: null,
+			user: {},
 			mascotas:[],
 			especies: [{
 				"id": 1,
@@ -87,42 +91,40 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			agregarMascota: async (formAMData) =>{
+			agregarMascota: async (values) =>{
+				// const userId = getStore().user.id
 				try {
-					const dataToSend = new FormData();
-
-					dataToSend.append("estado", formAMData.estado);
-					dataToSend.append("nombre", formAMData.nombre);
-					dataToSend.append("fecha_perdido", formAMData.fecha); // Cambiado para que coincida con el backend
-					dataToSend.append("sexo", formAMData.sexo);
-					dataToSend.append("edad", formAMData.edad);
-					dataToSend.append("descripcion", formAMData.descripcion);
-					dataToSend.append("contacto", formAMData.contacto);
-					dataToSend.append("departamento_id", formAMData.departamento); // Cambiado para que coincida con el backend
-					dataToSend.append("localidad_id", formAMData.localidad);
-					dataToSend.append("user_id", formAMData.userId)
-					// Cambiado para que coincida con el backend
-					if (formAMData.archivo) {
-						dataToSend.append("archivo", formAMData.archivo);
-					}
-				
-					const response = await fetch(URL+"/api/mascotas", {
+					const response = await fetch(URL+'/api/mascotas', {
 						method: 'POST',
-						body: dataToSend,
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							nombre: values.nombre, 
+							edad: values.edad, 
+							sexo: values.sexo, 
+							descripcion: values.descripcion, 
+							estado: values.estado, 
+							fecha_perdido: values.fecha_perdido,  
+							especie_id: parseInt(values.especie_id),
+							raza_id: parseInt(values.raza_id), 
+							localidad_id: parseInt(values.localidad_id),
+							departamento_id: parseInt(values.departamento_id),
+							user_id: values.user_id,
+						})
 					});
-		
-					if (response.ok) {
-						const result = await response.json();
-						console.log("Formulario enviado correctamente" + result);
-						return true;
-					} else {
-						const error = await response.json();
-						console.log("Error:", error);
-						return false;
+	
+					if (!response.ok) {
+						throw new Error('Error al agregar la mascota');
 					}
+					const newMascota = await response.json();
+					// setStore({ mascotas: data.results });
+					console.log(newMascota);
+					
+					return true
 				} catch (error) {
-					console.log(error);
-					return false;
+					console.error(error);
+					return false
 				}
 			},
 			getEspecies: async () => {
@@ -281,7 +283,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					let data = await response.json();
 					 //setea la propiedad logged definida en routes.py
 					console.log(data)
-					setStore({ user: data.user })
+					setStore({ user: data })
 					return true;
 				} catch (error) {
 					console.log(error);

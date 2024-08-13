@@ -1,6 +1,7 @@
-import React, {useState, useContext} from "react";
+import React, {useState, useContext, useEffect} from "react";
 import { Context } from "../store/appContext.js";
 import { useFormik } from 'formik';
+import { useNavigate } from "react-router-dom";
 
 const validate = values => {
     const errors = {};
@@ -29,82 +30,76 @@ const validate = values => {
 export const AgregarMascota = () =>{
     const { store, actions } = useContext(Context);
     console.log(store.user);
-    const userId = store.user;
+
+    const [departamentoSelected, setDepartamentoSelected] = useState("");
+    const [filteredLocalidades, setFilteredLocalidades] = useState([]);
+
+    const [especieSelected, setEspecieSelected] = useState("");
+    const [filteredRazas, setFilteredRazas] = useState([]);
+
+    const nav = useNavigate();
+
+    useEffect(() => {
+        if (departamentoSelected) {
+            const filterLoc = store.localidades.filter(localidad =>
+                localidad.departamento_id === parseInt(departamentoSelected)
+            );
+            setFilteredLocalidades(filterLoc);
+        } else {
+            setFilteredLocalidades([]);
+        }
+    }, [departamentoSelected, store.localidades]);
+
+    useEffect(() => {
+        if(especieSelected) {
+            const filterRaza = store.razas.filter(raza => 
+                raza.especie_id === parseInt(especieSelected)
+            );
+            setFilteredRazas(filterRaza)
+            console.log("Raza Filtradas:"+ filterRaza);
+            
+        } else {
+            setFilteredRazas(store.razas)
+        }
+
+    }, [especieSelected, store.razas])
 
     //tengo que hacer la logica para que cuando selecciono un departamento, se muestre la elección de la localidad
     //descripción no está tomando el valor
 
+    const formatDate = (dateString) => {
+        const [year, month, day] = dateString.split("-");
+        return `${day}/${month}/${year}`;
+    };
+    
     const formik = useFormik({
         initialValues: {
           estado: '',
           nombre: '',
           edad: '',
           sexo: '',
-          descricion: '',
+          especie_id: '',
+          raza_id: '',
+          descripcion: '',
           fecha_perdido: '',
           contacto: '',
-          departamento: '',
-          localidad: '',
-          user_id: userId
+          departamento_id: '',
+          localidad_id: ''
         },
         validate,
-        onSubmit: values => {
-          alert(JSON.stringify(values, null, 2));
-        },
-      });
+        onSubmit: async (values) => {
 
-     
-    // const[formAMData, setFormAMData] = useState({
-    //     estado: "",
-    //     nombre: "",
-    //     fecha: "",
-    //     edad: "",
-    //     descripcion: "",
-    //     contacto: "",
-    //     departamento: "",
-    //     localidad: "",
-    //     archivo: null
-    // });
+            const formattedValues = {
+                ...values,
+                fecha_perdido: formatDate(values.fecha_perdido),
+                user_id: store.user.id 
+            };
     
-    // const handleChange = (e) => {
-    //     const { id, value, files } = e.target;
-    //     setFormAMData({
-    //         ...formAMData,
-    //         [id]: files ? files[0] : value
-    //     });
-    //     console.log(formAMData.estado);
-        
-    // };
-
-    // const handleSubmit = async (e) => {
-    //     e.preventDefault();
-        
-    //     const userId = store.user.id;
-    //     // Crear un FormData para enviar los datos
-    //     const dataToSend = new FormData();
-    //     dataToSend.append("estado", formAMData.estado);
-    //     dataToSend.append("nombre", formAMData.nombre);
-    //     dataToSend.append("fecha_perdido", formAMData.fecha); // Cambiado para que coincida con el backend
-    //     dataToSend.append("sexo", formAMData.sexo);
-    //     dataToSend.append("edad", formAMData.edad);
-    //     dataToSend.append("descripcion", formAMData.descripcion);
-    //     dataToSend.append("contacto", formAMData.contacto);
-    //     dataToSend.append("departamento_id", formAMData.departamento); // Cambiado para que coincida con el backend
-    //     dataToSend.append("localidad_id", formAMData.localidad);
-    //     dataToSend.append("user_id", userId); // Cambiado para que coincida con el backend
-    //     if (formAMData.archivo) {
-    //         dataToSend.append("archivo", formAMData.archivo);
-    //     }
-        
-    //     // Llamar a la acción de flux
-    //     const result = await actions.agregarMascota(dataToSend);
-        
-    //     if (result) {
-    //         console.log("Formulario enviado correctamente");
-    //     } else {
-    //         console.log("Error al enviar el formulario");
-    //     }
-    // }
+            await actions.agregarMascota(formattedValues);
+            
+            nav("/")
+        }
+      });
 
  
     return(
@@ -125,8 +120,8 @@ export const AgregarMascota = () =>{
                                     onBlur={formik.handleBlur}
                                 >
                                 <option value="">Estado</option>    
-                                <option value="1">Perdido</option>
-                                <option value="2">Encontrado</option>  
+                                <option value="PERDIDO">PERDIDO</option>
+                                <option value="ENCONTRADO">ENCONTRADO</option>  
                                 </select>
                             </div>
                             <div className="input-group mb-3">
@@ -142,7 +137,7 @@ export const AgregarMascota = () =>{
                                 />
                             </div>
                             <div className="input-group mb-3">
-                                <label className="text-secondary" htmlFor="fecha">¿Cuando se perdió su mascota?</label>
+                                <label className="text-secondary" htmlFor="fecha_perdido">¿Cuando se perdió su mascota?</label>
                                 <input 
                                     type="date" 
                                     className="form-control" 
@@ -163,9 +158,9 @@ export const AgregarMascota = () =>{
                                     onBlur={formik.handleBlur}
                                 >
                                     <option value="">Sexo</option>
-                                    <option value="1">HEMBRA</option>
-                                    <option value="2">MACHO</option> 
-                                    <option value="2">INDEFINIDO</option>  
+                                    <option value="HEMBRA">HEMBRA</option>
+                                    <option value="MACHO">MACHO</option> 
+                                    <option value="INDEFINIDO">INDEFINIDO</option>  
                                 </select>
                             </div>
                             <div className="input-group mb-3">
@@ -181,6 +176,59 @@ export const AgregarMascota = () =>{
                                     onBlur={formik.handleBlur}
                                 />
                             </div>
+
+
+                            <label htmlFor="especie_id" className="text-secondary">
+                                Especie:
+                            </label>
+                            <div className="input-group mb-3">
+                                <select 
+                                    className="form-select" 
+                                    id="especie_id"
+                                    name="especie_id" 
+                                    value={formik.values.especie_id} 
+                                    onChange={e => {
+                                        const { value } = e.target;
+                                        formik.handleChange(e); 
+                                        setEspecieSelected(value); 
+                                    }}
+                                >
+                                    <option value="">Especies</option>
+                                    {store.especies.map((especie, index) => (
+                                        <option key={index} value={especie.id}>
+                                            {especie.name}
+                                        </option>
+                                    ))}
+                                
+                                </select>
+                            </div>
+                            {especieSelected && (
+                                <>
+                                    <label htmlFor="raza_id" className="text-secondary">
+                                        Seleccione la raza de la mascota
+                                    </label>
+                                    <div className="input-group mb-3">
+                                        <select
+                                            className="form-select"
+                                            id="raza_id"
+                                            name="raza_id"
+                                            value={formik.values.raza_id}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                        >
+                                            <option value="">Raza</option>
+                                            {filteredRazas.map((raza, index) => (
+                                                <option key={index} value={raza.id}>
+                                                    {raza.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </>
+                            )}
+
+
+
                             <div className="input-group mb-3">
                                 <label className="text-secondary" htmlFor="descripcion">Descripción:</label>
                                 <textarea 
@@ -188,7 +236,7 @@ export const AgregarMascota = () =>{
                                     placeholder="Agrega aquí una descripción de tu mascota. Todos los detalles son importantes para poder identificarla" 
                                     id="descripcion"
                                     name="descripcion" 
-                                    value={formik.values.descricion} 
+                                    value={formik.values.descripcion} 
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 ></textarea>
@@ -207,16 +255,20 @@ export const AgregarMascota = () =>{
                                     onChange={handleChange}
                                 />
                             </div> */}
-                            <label htmlFor="departamento" className="text-secondary">
+                            <label htmlFor="departamento_id" className="text-secondary">
                                 Seleccione el departamento donde se perdió su mascota:
                             </label>
                             <div className="input-group mb-3">
                                 <select 
                                     className="form-select" 
-                                    id="departamento"
-                                    name="departamento" 
-                                    value={formik.values.departamento} 
-                                    onChange={formik.handleChange}
+                                    id="departamento_id"
+                                    name="departamento_id" 
+                                    value={formik.values.departamento_id} 
+                                    onChange={e => {
+                                        const { value } = e.target;
+                                        formik.handleChange(e); // Actualiza el valor en Formik
+                                        setDepartamentoSelected(value); // Actualiza el estado del departamento
+                                    }}
                                 >
                                     <option value="">Departamento</option>
                                     {store.departamentos.map((departamento, index) => (
@@ -227,22 +279,30 @@ export const AgregarMascota = () =>{
                                 
                                 </select>
                             </div>
-                            <label htmlFor="localidad" className="text-secondary">
-                                Seleccione la localidad donde se perdió su mascota:
-                            </label>
-                            <div className="input-group mb-3">
-                                <select 
-                                    className="form-select" 
-                                    id="localidad" 
-                                    value={formik.values.localidad} 
-                                    onChange={formik.handleChange}
-                                >
-                                    <option value="">Localidad</option>
-                                    <option value="1">Artigas</option>
-                                    <option value="2">Bella Unión</option>
-                                    <option value="3">Gomensoro</option>
-                                </select>
-                            </div>
+                            {departamentoSelected && (
+                                <>
+                                    <label htmlFor="localidad_id" className="text-secondary">
+                                        Seleccione la localidad donde se perdió su mascota:
+                                    </label>
+                                    <div className="input-group mb-3">
+                                        <select
+                                            className="form-select"
+                                            id="localidad_id"
+                                            name="localidad_id"
+                                            value={formik.values.localidad_id}
+                                            onChange={formik.handleChange}
+                                            onBlur={formik.handleBlur}
+                                        >
+                                            <option value="">Localidad</option>
+                                            {filteredLocalidades.map((localidad, index) => (
+                                                <option key={index} value={localidad.id}>
+                                                    {localidad.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
+                                </>
+                            )}
                             {/* <label htmlFor="archivo" className="text-secondary">Subir imágen</label>
                             <div className="input-group mb-3">
                                 <input 
