@@ -19,16 +19,17 @@ const FormLoginComp = () => {
       alert("Field must not be empty")
       return
   }
-  let logged = await actions.login(email,password)
-  if (logged) {
+  let user_log = await actions.login(email,password)
+  if (user_log) {
      navigate('/')
+     alert("Logueado exitosamente")
      return
   }
   navigate('/form-signup')
   alert("User does not exist. Please signup")
   };
 
-  const handleSignInClick = () => {
+  const handleSignUpClick = () => {
     navigate('/form-signup'); // Redirige al formulario de registro
   };
 
@@ -79,8 +80,8 @@ const FormLoginComp = () => {
       </form>
       <hr />
       <div className="alternative-login" style={{ textAlign: 'center' }}>
-        <p>Si aún no tienes una cuenta</p>
-        <button type="button" onClick={handleSignInClick} style={{
+        <p>Si aún no tienes una cuenta:</p>
+        <button type="button" onClick={handleSignUpClick} style={{
           backgroundColor: '#FF8A5B',
           border: 'none',
           color: '#FFFFFF',
@@ -88,7 +89,7 @@ const FormLoginComp = () => {
           borderRadius: '5px',
           cursor: 'pointer'
         }}>
-          Sign in
+          Registrarse
         </button>
         {/* <button className="google-btn" style={{
           backgroundColor: '#4285F4',
