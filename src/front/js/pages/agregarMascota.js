@@ -3,6 +3,7 @@ import React, {useState} from "react";
 export const AgregarMascota = () =>{
     
     const[formAMData, setFormAMData] = useState({
+        estado: "",
         nombre: "",
         fecha: "",
         edad: "",
@@ -28,9 +29,16 @@ export const AgregarMascota = () =>{
  
     return(
             <>
-            <h2 className="mt-5" style={{textAlign: "center"}}>Perdiste a tu mascota? Completá el siguiente formulario:</h2>
+            <h2 className="mt-5" style={{textAlign: "center"}}>Completá el siguiente formulario para agregar una mascota:</h2>
             <div className="container-fluid" id="contformagregar">
                 <form onSubmit={handleSubmit}>
+                <div className="input-group mb-3">
+                    <select class="form-select" id="formEstado" value={formAMData.estado} onChange={handleChange}>
+                            <option selected>Estado</option>
+                            <option value="1">Perdido</option>
+                            <option value="2">Encontrado</option>  
+                    </select>
+                </div>
                 <div className="input-group mb-3">
                     <label className="text-secondary" for="formNombre">Nombre:</label>
                     <input type="text" className="form-control" placeholder="Nombre de tu mascota" id="formNombre" value={formAMData.nombre} onChange={handleChange}/>
@@ -39,7 +47,13 @@ export const AgregarMascota = () =>{
                     <label className="text-secondary" for="formFecha">¿Cuando se perdió su mascota?</label>
                     <input type="date" className="form-control" id="formFecha" value={formAMData.fecha} onChange={handleChange}/>
                 </div>
-                
+                <div className="input-group mb-3">
+                    <select class="form-select" id="formSexo" value={formAMData.sexo} onChange={handleChange}>
+                            <option selected>Sexo</option>
+                            <option value="1">Hembra</option>
+                            <option value="2">Macho</option>  
+                    </select>
+                </div>
                 <div className="input-group mb-3">
                     <label className="text-secondary" for="formEdad">Edad:</label>
                     <input type="number" className="form-control" placeholder="Edad de tu mascota" id="formEdad" value={formAMData.edad} onChange={handleChange}/>
@@ -50,7 +64,7 @@ export const AgregarMascota = () =>{
                 </div>
                 
                     <label>Contacto</label><br></br>
-                    <label className="text-secondary">Garantizamos la seguridad de tus datos personales. Tus datos serán compartidos unicamente con usuarios registrados en nuestra web solo so informan haber encontrado a tu mascota.</label>
+                    <label className="text-secondary py-2">Garantizamos la seguridad de tus datos personales. Tus datos serán compartidos unicamente con usuarios registrados en nuestra web solo so informan haber encontrado a tu mascota.</label>
                 <div className="input-group mb-3">
                     <input type="tel" className="form-control" placeholder="Ingrese aquí su número de contacto"value={formAMData.contacto} onChange={handleChange}></input>
                 </div>
@@ -72,7 +86,6 @@ export const AgregarMascota = () =>{
                             <option value="2">Bella Unión</option>
                             <option value="3">Gomensoro</option>
                     </select>
-                    
                 </div>
                 <label for="FormArchivo" className="text-secondary">Subir imágen</label>
                 <div class="input-group mb-3">
