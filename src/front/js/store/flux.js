@@ -64,7 +64,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const newMascota = await response.json();
 					const store = getStore();
 					setStore({ mascotas: [...store.mascotas, newMascota] });
-					console.log(newMascota);
+					// console.log(newMascota);
 					
 					return true
 				} catch (error) {
