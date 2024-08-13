@@ -33,7 +33,7 @@ def login():
         return jsonify({"msg": "Wrong password"}), 401
 
     access_token = create_access_token(identity=email, expires_delta=timedelta(hours=12))
-    return jsonify({"access_token":access_token})
+    return jsonify({"access_token":access_token, "user":user.serialize()})
 
 # ENDPOINT: Obtener mascotas
 @api.route('/mascotas', methods=['GET'])
@@ -60,7 +60,6 @@ def get_all_usuarios():
         "msg": "Users List",
         "results": results
     }
-    print(results)
     return jsonify(response_body), 200
 
 # ENDPOINT: Agregar mascotas
@@ -70,15 +69,28 @@ def add_mascota():
     if not data:
         return jsonify({"error": "no data"}), 404
     
-    new_mascota = Mascota(nombre = data["nombre"], edad = data["edad"], sexo = data["sexo"], descripcion = data["descripcion"], estado = data["estado"], fecha_perdido = data["fecha_perdido"], user_id = data["user_id"], especie_id = data["especie_id"], localidad_id = data["localidad_id"], favorito_id = data["favorito_id"])
+    new_mascota = Mascota(
+        nombre = data["nombre"], 
+        edad = data["edad"], 
+        sexo = data["sexo"], 
+        descripcion = data["descripcion"], 
+        estado = data["estado"], 
+        fecha_perdido = data["fecha_perdido"], 
+        user_id = data["user_id"], 
+        especie_id = data["especie_id"],
+        raza_id = data["raza_id"], 
+        localidad_id = data["localidad_id"],
+        departamento_id = data["departamento_id"], 
+        # favorito_id = data["favorito_id"]
+        )
 
     # Agregar colores a la mascota por ser Many to Many va diferente
-    for color_name in data["colores_mascotas"]:
-        color = Color.query.filter_by(name=color_name).first()
-        if color:
-            new_mascota.colores_mascotas.append(color)
-        else:
-            return jsonify({"error": f"Color '{color_name}' not found"}), 404
+    # for color_name in data["colores_mascotas"]:
+    #     color = Color.query.filter_by(name=color_name).first()
+    #     if color:
+    #         new_mascota.colores_mascotas.append(color)
+    #     else:
+    #         return jsonify({"error": f"Color '{color_name}' not found"}), 404
 
     db.session.add(new_mascota)
     db.session.commit()
@@ -93,12 +105,12 @@ def valid_token():
 
     # Validate the identity of the current user
     current_user = get_jwt_identity()
-    user_logged = User.query.filter_by(email = current_user).first()
+    user = User.query.filter_by(email = current_user).first()
 
-    if user_logged is None:
-        return jsonify(logged=False), 409
+    if user is None:
+        return jsonify(user=None), 409
 
-    return jsonify({"user":user_logged.serialize()}), 200
+    return jsonify(user.serialize()), 200
 
 # ENDPOINT: Registrar usuario nuevo
 @api.route("/signup", methods=["POST"])
@@ -114,7 +126,7 @@ def signup():
     
     hashed_password = generate_password_hash(data["password"])
 
-    new_user = User(
+    user = User(
         email=data["email"], 
         is_active=True, 
         password=hashed_password, 
@@ -122,11 +134,11 @@ def signup():
         telefono=data["telefono"], 
     )
     print(data)
-    db.session.add(new_user)
+    db.session.add(user)
     db.session.commit()
 
     access_token = create_access_token(identity=data.get("email"), expires_delta=timedelta(hours=12))
-    return jsonify({"msg": "New user created", "new user": new_user.serialize(), "access_token":access_token})
+    return jsonify({"msg": "New user created", "user": user.serialize(), "access_token":access_token})
 
 
 # ENDPOINT: Obtener especies

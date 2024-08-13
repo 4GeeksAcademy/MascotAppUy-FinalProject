@@ -17,7 +17,7 @@ const AllMascotasPerdidas = () => {
     
     return (
         
-        <div className="container vh-100">
+        <div className="container">
             <div className="title text-center mt-5">
                 <h1>Mascotas Perdidas</h1>
             </div>

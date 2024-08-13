@@ -1,13 +1,13 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 // const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
 const URL = process.env.BACKEND_URL
-// const URL = "https://vigilant-sniffle-x74jvwjgv65c9pgw-3001.app.github.dev"
+// const URL = "https://solid-potato-x74jvwjgr4q3p766-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user: null,
+			user: {},
 			mascotas:[],
 			especies: [],
 			localidades: [],
@@ -35,38 +35,41 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			agregarMascota: (formAMData) =>{
-				return async() => {
-					try{
-						const dataToSend = new formAMData();
-						dataToSend.append("estado", formAMData.estado);
-						dataToSend.append("nombre", formAMData.nombre);
-						dataToSend.append("fecha", formAMData.fecha);
-						dataToSend.append("sexo", formAMData.sexo);
-						dataToSend.append("edad", formAMData.edad);
-						dataToSend.append("descripcion", formAMData.descripcion);
-						dataToSend.append("contacto", formAMData.contacto);
-						dataToSend.append("departamento", formAMData.departamento);
-						dataToSend.append("localidad", formAMData.localidad);
-						dataToSend.append("archivo", formAMData.archivo);
-					
-						const response = await fetch (URL+"/api/mascotas", {
-							method: 'POST',
-							body: dataToSend,
-						});
-
-						if (response.ok) {
-							console.log("Formulario enviado correctamente")
-						}
-
-						const result = await response.json();
-						return true;
+			agregarMascota: async (values) =>{
+				// const userId = getStore().user.id
+				try {
+					const response = await fetch(URL+'/api/mascotas', {
+						method: 'POST',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							nombre: values.nombre, 
+							edad: values.edad, 
+							sexo: values.sexo, 
+							descripcion: values.descripcion, 
+							estado: values.estado, 
+							fecha_perdido: values.fecha_perdido,  
+							especie_id: parseInt(values.especie_id),
+							raza_id: parseInt(values.raza_id), 
+							localidad_id: parseInt(values.localidad_id),
+							departamento_id: parseInt(values.departamento_id),
+							user_id: values.user_id,
+						})
+					});
+	
+					if (!response.ok) {
+						throw new Error('Error al agregar la mascota');
 					}
-					catch (error) {
-						console.log(error);
-						return false;
-					};
-
+					const newMascota = await response.json();
+					const store = getStore();
+					setStore({ mascotas: [...store.mascotas, newMascota] });
+					console.log(newMascota);
+					
+					return true
+				} catch (error) {
+					console.error(error);
+					return false
 				}
 			},
 			getEspecies: async () => {
@@ -173,17 +176,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"password": password
 						  })});
 						  let data = await response.json()
-						  console.log(data);
 						  if (response.ok){
 							localStorage.setItem('access_token', data.access_token)
-							setStore({logged:data.logged})
+							setStore({user:data.user})
 							return true
 						  }
-						  setStore({logged: false})
+						  setStore({user: null})
 						  return false
 				} catch (error) {
 					console.log(error);
-					setStore({logged: false})
+					setStore({user: null})
 					return false
 				}},
 
@@ -203,7 +205,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							  let data = await response.json()
 							  if (response.ok){
 								localStorage.setItem('access_token', data.access_token)
-								setStore({logged:data.logged})
+								setStore({user:data.user})
 								return true
 							  }
 							  return false
@@ -212,8 +214,13 @@ const getState = ({ getStore, getActions, setStore }) => {
 						return false
 					}
 			},
+			
 			validateToken: async () => {
 				let token = localStorage.getItem('access_token');
+				if (!token) {
+					setStore({user: null});
+					return false;
+				}
 				try {
 					let response = await fetch(URL+"/api/valid-token", {
 						method: 'GET',
@@ -223,23 +230,25 @@ const getState = ({ getStore, getActions, setStore }) => {
 						}
 					})
 					let data = await response.json();
-					 //setea la propiedad logged definida en routes.py
-					console.log(data)
-					setStore({ user: data.user })
-					return true;
+					if (response.ok){
+						setStore({user:data})
+						// console.log(data);
+						
+						return true
+					}
+
+					setStore({user:null})
+					return false;
 				} catch (error) {
 					console.log(error);
+					setStore({user:null})
 					return false;
 				}
 			},
 			logout: async () => {
-				localStorage.removeItem("token");
+				localStorage.removeItem("access_token");
 				setStore({user:null})
 			}
-			
-
-
-
 		}
 	}
 }
