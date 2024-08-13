@@ -29,7 +29,7 @@ const validate = values => {
 
 export const AgregarMascota = () =>{
     const { store, actions } = useContext(Context);
-    console.log(store.user);
+    //console.log(store.user);
 
     const [departamentoSelected, setDepartamentoSelected] = useState("");
     const [filteredLocalidades, setFilteredLocalidades] = useState([]);
