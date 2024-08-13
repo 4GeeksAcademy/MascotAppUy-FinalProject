@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 // const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
-// const URL = process.env.BACKEND_URL
-const URL = "https://solid-potato-x74jvwjgr4q3p766-3001.app.github.dev"
+const URL = process.env.BACKEND_URL
+// const URL = "https://solid-potato-x74jvwjgr4q3p766-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -9,62 +9,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			user: {},
 			mascotas:[],
-			especies: [{
-				"id": 1,
-				"name": "Perro"
-			},
-			{
-				"id": 2,
-				"name": "Gato"
-			}],
-			localidades: [{
-				"departamento_id": 1,
-				"id": 5,
-				"name": "AGRACIADA"
-			},
-			{
-				"departamento_id": 1,
-				"id": 6,
-				"name": "ABRA DE ZABALETA"
-			},
-			{
-				"departamento_id": 1,
-				"id": 7,
-				"name": "ABRA DE ALFEREZ"
-			},
-			{
-				"departamento_id": 2,
-				"id": 8,
-				"name": "ACEGUA"
-			},
-			{
-				"departamento_id": 2,
-				"id": 9,
-				"name": "25 DE MAYO"
-			}],
-			departamentos: [{
-				"id": 1,
-				"name": "ARTIGAS"
-			},
-			{
-				"id": 2,
-				"name": "CANELONES"
-			}],
-			razas: [{
-				"especie_id": 1,
-				"id": 3,
-				"name": "Cruza"
-			},
-			{
-				"especie_id": 1,
-				"id": 4,
-				"name": "Abisinio"
-			},
-			{
-				"especie_id": 2,
-				"id": 5,
-				"name": "Africano doméstico"
-			}]
+			especies: [],
+			localidades: [],
+			departamentos: [],
+			razas: []
 			
 		},
 		actions: {
@@ -269,6 +217,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 			validateToken: async () => {
 				let token = localStorage.getItem('access_token');
+				if (!token) {
+					setStore({user: null});
+					return false;
+				}
 				try {
 					let response = await fetch(URL+"/api/valid-token", {
 						method: 'GET',
@@ -279,9 +231,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 					})
 					let data = await response.json();
 					if (response.ok){
-						setStore({user:data.user})
+						setStore({user:data})
+						// console.log(data);
+						
 						return true
 					}
+
 					setStore({user:null})
 					return false;
 				} catch (error) {

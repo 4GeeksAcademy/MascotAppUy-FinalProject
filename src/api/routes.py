@@ -108,7 +108,7 @@ def valid_token():
     user = User.query.filter_by(email = current_user).first()
 
     if user is None:
-        return jsonify(user=False), 409
+        return jsonify(user=None), 409
 
     return jsonify(user.serialize()), 200
 
