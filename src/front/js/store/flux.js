@@ -7,7 +7,7 @@ const URL = "https://vigilant-sniffle-x74jvwjgv65c9pgw-3001.app.github.dev"
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
-			user: {},
+			user: null,
 			mascotas:[],
 			especies: [],
 			localidades: [],
@@ -214,7 +214,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					}
 			},
 			validateToken: async () => {
-				let token = localStorage.getItem('token');
+				let token = localStorage.getItem('access_token');
 				try {
 					let response = await fetch(URL+"/api/valid-token", {
 						method: 'GET',
@@ -226,7 +226,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					let data = await response.json();
 					 //setea la propiedad logged definida en routes.py
 					console.log(data)
-					setStore({ user:data.user, logged: data.logged })
+					setStore({ user: data.user, logged: data.logged })
 					return true;
 				} catch (error) {
 					console.log(error);
