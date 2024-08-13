@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 // const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
-// const URL = process.env.BACKEND_URL
-const URL = "https://vigilant-sniffle-x74jvwjgv65c9pgw-3001.app.github.dev"
+const URL = process.env.BACKEND_URL
+// const URL = "https://vigilant-sniffle-x74jvwjgv65c9pgw-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -11,7 +11,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 			mascotas:[],
 			especies: [],
 			localidades: [],
-			logged: false,
 			departamentos: [],
 			razas: []
 			
@@ -226,12 +225,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					let data = await response.json();
 					 //setea la propiedad logged definida en routes.py
 					console.log(data)
-					setStore({ user: data.user, logged: data.logged })
+					setStore({ user: data.user })
 					return true;
 				} catch (error) {
 					console.log(error);
 					return false;
 				}
+			},
+			logout: async () => {
+				localStorage.removeItem("token");
+				setStore({user:null})
 			}
 			
 
