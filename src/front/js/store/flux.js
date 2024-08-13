@@ -118,7 +118,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error('Error al agregar la mascota');
 					}
 					const newMascota = await response.json();
-					// setStore({ mascotas: data.results });
+					const store = getStore();
+					setStore({ mascotas: [...store.mascotas, newMascota] });
 					console.log(newMascota);
 					
 					return true
