@@ -103,7 +103,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
-					console.log(data.results);
+					// console.log(data.results);
 					
 
 					// const nombresDepartamentos = data.results.map(departamento => departamento.name);
@@ -127,7 +127,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
-					console.log(data.results);
+					// console.log(data.results);
 					
 					// const nombresLocalidades = data.results.map(localidad => localidad.name);
 					// console.log(nombresLocalidades);
@@ -152,7 +152,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json();
 					
 					// const nombresRazas = data.results.map(raza => raza.name);
-					console.log(data.results);
+					// console.log(data.results);
 					
         			setStore({ razas: data.results });
 					
