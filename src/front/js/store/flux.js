@@ -39,8 +39,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 				return async() => {
 					try{
 						const dataToSend = new formAMData();
+						dataToSend.append("estado", formAMData.estado);
 						dataToSend.append("nombre", formAMData.nombre);
 						dataToSend.append("fecha", formAMData.fecha);
+						dataToSend.append("sexo", formAMData.sexo);
 						dataToSend.append("edad", formAMData.edad);
 						dataToSend.append("descripcion", formAMData.descripcion);
 						dataToSend.append("contacto", formAMData.contacto);
