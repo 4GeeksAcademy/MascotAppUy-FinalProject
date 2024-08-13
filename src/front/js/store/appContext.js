@@ -33,6 +33,7 @@ const injectContext = PassedComponent => {
 			state.actions.getDepartamentos();
 			state.actions.getLocalidades();
 			state.actions.getRazas();
+			state.actions.validateToken();
 		}, []);
 
 		// The initial value for the context is not null anymore, but the current state of this component,

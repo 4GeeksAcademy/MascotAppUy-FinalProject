@@ -33,7 +33,7 @@ def login():
         return jsonify({"msg": "Wrong password"}), 401
 
     access_token = create_access_token(identity=email, expires_delta=timedelta(hours=12))
-    return jsonify({"access_token":access_token, "logged":True})
+    return jsonify({"access_token":access_token})
 
 # ENDPOINT: Obtener mascotas
 @api.route('/mascotas', methods=['GET'])
@@ -98,7 +98,7 @@ def valid_token():
     if user_logged is None:
         return jsonify(logged=False), 409
 
-    return jsonify(logged=True), 200
+    return jsonify({"user":user_logged.serialize()}), 200
 
 # ENDPOINT: Registrar usuario nuevo
 @api.route("/signup", methods=["POST"])
@@ -126,7 +126,7 @@ def signup():
     db.session.commit()
 
     access_token = create_access_token(identity=data.get("email"), expires_delta=timedelta(hours=12))
-    return jsonify({"msg": "New user created", "new user": new_user.serialize(), "access_token":access_token, "logged":True})
+    return jsonify({"msg": "New user created", "new user": new_user.serialize(), "access_token":access_token})
 
 
 # ENDPOINT: Obtener especies
