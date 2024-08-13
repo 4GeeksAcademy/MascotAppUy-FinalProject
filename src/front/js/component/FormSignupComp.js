@@ -98,7 +98,7 @@ const SignUpComp = () => {
       </form>
       <hr />
       <div className="alternative-login" style={{ textAlign: 'center' }}>
-        <p>Si ya tienes una cuenta</p>
+        <p>Si ya tienes una cuenta:</p>
         <button
           type="button"
           onClick={handleLoginRedirect}
