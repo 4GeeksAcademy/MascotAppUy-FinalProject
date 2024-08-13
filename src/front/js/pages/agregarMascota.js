@@ -56,7 +56,7 @@ export const AgregarMascota = () =>{
                 raza.especie_id === parseInt(especieSelected)
             );
             setFilteredRazas(filterRaza)
-            console.log("Raza Filtradas:"+ filterRaza);
+            // console.log("Raza Filtradas:"+ filterRaza);
             
         } else {
             setFilteredRazas(store.razas)
