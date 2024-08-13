@@ -98,7 +98,7 @@ def valid_token():
     if user_logged is None:
         return jsonify(logged=False), 409
 
-    return jsonify(logged=True), 200
+    return jsonify({"user":user_logged.serialize(), "logged":True}), 200
 
 # ENDPOINT: Registrar usuario nuevo
 @api.route("/signup", methods=["POST"])

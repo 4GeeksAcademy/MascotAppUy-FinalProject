@@ -1,16 +1,17 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 // const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
-const URL = process.env.BACKEND_URL
-// const URL = "https://congenial-zebra-p46xprx5ppq365vq-3001.app.github.dev/"
+// const URL = process.env.BACKEND_URL
+const URL = "https://vigilant-sniffle-x74jvwjgv65c9pgw-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
 	return {
 		store: {
+			user: {},
 			mascotas:[],
 			especies: [],
 			localidades: [],
-			logged: null,
+			logged: false,
 			departamentos: [],
 			razas: []
 			
@@ -208,7 +209,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					} catch (error) {
 						console.log(error);
 						return false
-					}},
+					}
+			},
+			validateToken: async () => {
+				let token = localStorage.getItem('token');
+				try {
+					let response = await fetch(URL+"/api/valid-token", {
+						method: 'GET',
+						headers: {
+							'content-type': 'application/json',
+							'authorization': `Bearer ${token}`
+						}
+					})
+					let data = await response.json();
+					 //setea la propiedad logged definida en routes.py
+					console.log(data)
+					setStore({ user:data.user, logged: data.logged })
+					return true;
+				} catch (error) {
+					console.log(error);
+					return false;
+				}
+			}
+			
+
+
 
 		}
 	}
