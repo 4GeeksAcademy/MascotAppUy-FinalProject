@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 // const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
-const URL = process.env.BACKEND_URL
-// const URL = "https://vigilant-sniffle-x74jvwjgv65c9pgw-3001.app.github.dev"
+// const URL = process.env.BACKEND_URL
+const URL = "https://solid-potato-x74jvwjgr4q3p766-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -9,10 +9,62 @@ const getState = ({ getStore, getActions, setStore }) => {
 		store: {
 			user: null,
 			mascotas:[],
-			especies: [],
-			localidades: [],
-			departamentos: [],
-			razas: []
+			especies: [{
+				"id": 1,
+				"name": "Perro"
+			},
+			{
+				"id": 2,
+				"name": "Gato"
+			}],
+			localidades: [{
+				"departamento_id": 1,
+				"id": 5,
+				"name": "AGRACIADA"
+			},
+			{
+				"departamento_id": 1,
+				"id": 6,
+				"name": "ABRA DE ZABALETA"
+			},
+			{
+				"departamento_id": 1,
+				"id": 7,
+				"name": "ABRA DE ALFEREZ"
+			},
+			{
+				"departamento_id": 2,
+				"id": 8,
+				"name": "ACEGUA"
+			},
+			{
+				"departamento_id": 2,
+				"id": 9,
+				"name": "25 DE MAYO"
+			}],
+			departamentos: [{
+				"id": 1,
+				"name": "ARTIGAS"
+			},
+			{
+				"id": 2,
+				"name": "CANELONES"
+			}],
+			razas: [{
+				"especie_id": 1,
+				"id": 3,
+				"name": "Cruza"
+			},
+			{
+				"especie_id": 1,
+				"id": 4,
+				"name": "Abisinio"
+			},
+			{
+				"especie_id": 2,
+				"id": 5,
+				"name": "Africano doméstico"
+			}]
 			
 		},
 		actions: {
@@ -35,38 +87,42 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
-			agregarMascota: (formAMData) =>{
-				return async() => {
-					try{
-						const dataToSend = new formAMData();
-						dataToSend.append("estado", formAMData.estado);
-						dataToSend.append("nombre", formAMData.nombre);
-						dataToSend.append("fecha", formAMData.fecha);
-						dataToSend.append("sexo", formAMData.sexo);
-						dataToSend.append("edad", formAMData.edad);
-						dataToSend.append("descripcion", formAMData.descripcion);
-						dataToSend.append("contacto", formAMData.contacto);
-						dataToSend.append("departamento", formAMData.departamento);
-						dataToSend.append("localidad", formAMData.localidad);
+			agregarMascota: async (formAMData) =>{
+				try {
+					const dataToSend = new FormData();
+
+					dataToSend.append("estado", formAMData.estado);
+					dataToSend.append("nombre", formAMData.nombre);
+					dataToSend.append("fecha_perdido", formAMData.fecha); // Cambiado para que coincida con el backend
+					dataToSend.append("sexo", formAMData.sexo);
+					dataToSend.append("edad", formAMData.edad);
+					dataToSend.append("descripcion", formAMData.descripcion);
+					dataToSend.append("contacto", formAMData.contacto);
+					dataToSend.append("departamento_id", formAMData.departamento); // Cambiado para que coincida con el backend
+					dataToSend.append("localidad_id", formAMData.localidad);
+					dataToSend.append("user_id", formAMData.userId)
+					// Cambiado para que coincida con el backend
+					if (formAMData.archivo) {
 						dataToSend.append("archivo", formAMData.archivo);
-					
-						const response = await fetch (URL+"/api/mascotas", {
-							method: 'POST',
-							body: dataToSend,
-						});
-
-						if (response.ok) {
-							console.log("Formulario enviado correctamente")
-						}
-
-						const result = await response.json();
-						return true;
 					}
-					catch (error) {
-						console.log(error);
+				
+					const response = await fetch(URL+"/api/mascotas", {
+						method: 'POST',
+						body: dataToSend,
+					});
+		
+					if (response.ok) {
+						const result = await response.json();
+						console.log("Formulario enviado correctamente" + result);
+						return true;
+					} else {
+						const error = await response.json();
+						console.log("Error:", error);
 						return false;
-					};
-
+					}
+				} catch (error) {
+					console.log(error);
+					return false;
 				}
 			},
 			getEspecies: async () => {

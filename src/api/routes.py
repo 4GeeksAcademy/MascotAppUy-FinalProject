@@ -70,7 +70,17 @@ def add_mascota():
     if not data:
         return jsonify({"error": "no data"}), 404
     
-    new_mascota = Mascota(nombre = data["nombre"], edad = data["edad"], sexo = data["sexo"], descripcion = data["descripcion"], estado = data["estado"], fecha_perdido = data["fecha_perdido"], user_id = data["user_id"], especie_id = data["especie_id"], localidad_id = data["localidad_id"], favorito_id = data["favorito_id"])
+    new_mascota = Mascota(
+        nombre = data["nombre"], 
+        edad = data["edad"], 
+        sexo = data["sexo"], 
+        descripcion = data["descripcion"], 
+        estado = data["estado"], 
+        fecha_perdido = data["fecha_perdido"], 
+        user_id = data["user_id"], 
+        especie_id = data["especie_id"], 
+        localidad_id = data["localidad_id"], 
+        favorito_id = data["favorito_id"])
 
     # Agregar colores a la mascota por ser Many to Many va diferente
     for color_name in data["colores_mascotas"]:
