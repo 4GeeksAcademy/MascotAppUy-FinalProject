@@ -12,7 +12,7 @@ const AllMascotasEncontradas = () => {
     const mascotasEncontradas = store.mascotas.filter(mascota => mascota.estado == 'ENCONTRADO');
     
     return (
-        <div className="container vh-100">
+        <div className="container">
             <div className="title text-center mt-5">
                 <h1>Mascotas Encontradas</h1>
             </div>

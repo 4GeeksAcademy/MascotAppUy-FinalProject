@@ -69,15 +69,28 @@ def add_mascota():
     if not data:
         return jsonify({"error": "no data"}), 404
     
-    new_mascota = Mascota(nombre = data["nombre"], edad = data["edad"], sexo = data["sexo"], descripcion = data["descripcion"], estado = data["estado"], fecha_perdido = data["fecha_perdido"], user_id = data["user_id"], especie_id = data["especie_id"], localidad_id = data["localidad_id"], favorito_id = data["favorito_id"])
+    new_mascota = Mascota(
+        nombre = data["nombre"], 
+        edad = data["edad"], 
+        sexo = data["sexo"], 
+        descripcion = data["descripcion"], 
+        estado = data["estado"], 
+        fecha_perdido = data["fecha_perdido"], 
+        user_id = data["user_id"], 
+        especie_id = data["especie_id"],
+        raza_id = data["raza_id"], 
+        localidad_id = data["localidad_id"],
+        departamento_id = data["departamento_id"], 
+        # favorito_id = data["favorito_id"]
+        )
 
     # Agregar colores a la mascota por ser Many to Many va diferente
-    for color_name in data["colores_mascotas"]:
-        color = Color.query.filter_by(name=color_name).first()
-        if color:
-            new_mascota.colores_mascotas.append(color)
-        else:
-            return jsonify({"error": f"Color '{color_name}' not found"}), 404
+    # for color_name in data["colores_mascotas"]:
+    #     color = Color.query.filter_by(name=color_name).first()
+    #     if color:
+    #         new_mascota.colores_mascotas.append(color)
+    #     else:
+    #         return jsonify({"error": f"Color '{color_name}' not found"}), 404
 
     db.session.add(new_mascota)
     db.session.commit()
@@ -95,7 +108,7 @@ def valid_token():
     user = User.query.filter_by(email = current_user).first()
 
     if user is None:
-        return jsonify(user=False), 409
+        return jsonify(user=None), 409
 
     return jsonify(user.serialize()), 200
 
