@@ -39,7 +39,7 @@ const Filtros = (props) => {
                 raza.especie_id === parseInt(especieSelected)
             );
             setFilteredRazas(filterRaza)
-            console.log("Raza Filtradas:"+ filterRaza);
+            // console.log("Raza Filtradas:"+ filterRaza);
             
         } else {
             setFilteredRazas(store.razas)
