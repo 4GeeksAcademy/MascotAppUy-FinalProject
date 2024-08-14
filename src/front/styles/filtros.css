@@ -1,6 +1,28 @@
-/* la vista de mascotas debe alinearse a la izquierda en caso de
-no completar la fila */
+
 .row {
     display: flex;
     flex-wrap: wrap;
+}
+
+.form-select {
+    width: 100%;
+}
+
+
+@media (min-width: 768px) {
+    .col-md-2 {
+        flex: 0 0 auto;
+        max-width: 200px;
+    }
+}
+
+
+@media (max-width: 576px) {
+    .row.mt-4 {
+        flex-direction: column; 
+    }
+
+    .col-2 {
+        margin-bottom: 10px;
+    }
 }

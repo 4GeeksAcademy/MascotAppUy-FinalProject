@@ -101,7 +101,7 @@ const Filtros = (props) => {
             <div className="accordion accordion-flush" id="accordionFlushExample">
                 <div className="accordion-item">
                     <h2 className="accordion-header">
-                    <div className="d-flex col-1">
+                    <div className="d-flex col-12 col-md-6 col-sm-12 ">
                         <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                             Filtros
                         </button>
@@ -111,7 +111,7 @@ const Filtros = (props) => {
                         <div className="accordion-body">
                             
                             <div className="row mt-4">
-                                <div className="col-2 d-flex">
+                                <div className="col-12 col-md-6 col-lg-3 mb-3 d-flex">
                                     
                                     {/* Select donde se despliegan las opciones que se encuentran en store.especies */}
                                     <select 
@@ -133,7 +133,7 @@ const Filtros = (props) => {
                                 
 
                                 {especieSelected && (
-                                    <div className="col-2 d-flex">
+                                    <div className="col-12 col-md-6 col-lg-3 mb-3 d-flex">
                                         <select
                                             className="form-select"
                                             aria-label="Default select example"
@@ -150,7 +150,7 @@ const Filtros = (props) => {
                                     </div>
                                 )}
                                 
-                                <div className="col-2 d-flex">
+                                <div className="col-12 col-md-6 col-lg-3 mb-3 d-flex">
                                     <select
                                         className="form-select"
                                         aria-label="Default select example"
@@ -167,7 +167,7 @@ const Filtros = (props) => {
                                 </div>
                                 
                                 {departamentoSelected && (
-                                    <div className="col-2 d-flex">
+                                    <div className="col-12 col-md-6 col-lg-3 mb-3 d-flex">
                                     <select
                                         className="form-select"
                                         aria-label="Default select example"
