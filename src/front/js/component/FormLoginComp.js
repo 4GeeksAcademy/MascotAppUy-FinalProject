@@ -77,7 +77,7 @@ const FormLoginComp = () => {
       <h2>INGRESAR</h2>
       <form onSubmit={formik.handleSubmit}>
         
-        <div className="input-group d-flex mb-4n">
+        <div className="input-group d-flex mb-4">
           <span className='px-2'><i className="fas fa-envelope"></i></span>
           <input
             id="email"
