@@ -50,15 +50,25 @@ const FormLoginComp = () => {
       password: ''
     },
     validate,
-    onSubmit: async (values) => {
+    onSubmit: async (values, { resetForm }) => {
       
-      await actions.login(values)
-      Toast.fire({
-        icon: "success",
-        title: "Logged in successfully"
-      });
-      navigate("/")
-    },
+      const logged = await actions.login(values)
+      if (logged) {
+        Toast.fire({
+          icon: "success",
+          title: "Logged in successfully"
+        });
+        navigate("/")
+      }else {
+        Toast.fire({
+          icon: "error",
+          title: "Wrong email or password",
+          showConfirmButton: false,
+        });
+        resetForm();
+      }
+      }
+      
   });
 
   return (
