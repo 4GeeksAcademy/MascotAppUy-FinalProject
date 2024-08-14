@@ -1,7 +1,6 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../store/appContext';
 import '../../styles/form-login.css'
-import '@fortawesome/fontawesome-free/css/all.min.css';
 import { useNavigate } from 'react-router-dom'; 
 
 //DECLARACION DEL COMPONENTE
