@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2'
+import "../../styles/formularios.css"
 
 const SignUpComp = () => {
 
@@ -102,7 +103,7 @@ const SignUpComp = () => {
             value={formik.values.nombre}
           />
           {formik.touched.nombre && formik.errors.nombre ? (
-         <div>{formik.errors.nombre}</div>
+         <div className="error-msg ms-2">{formik.errors.nombre}</div>
        ) : null}
         </div>
       <div className="input-group d-flex mb-4">
@@ -118,7 +119,7 @@ const SignUpComp = () => {
             value={formik.values.email}
           />
           {formik.touched.email && formik.errors.email ? (
-         <div>{formik.errors.email}</div>
+         <div className='error-msg ms-2'>{formik.errors.email}</div>
        ) : null}
         </div>
         <div className="input-group d-flex mb-4">
@@ -134,7 +135,7 @@ const SignUpComp = () => {
             value={formik.values.password}
           />
           {formik.touched.password && formik.errors.password ? (
-         <div>{formik.errors.password}</div>
+         <div className='error-msg ms-2'>{formik.errors.password}</div>
        ) : null}
         </div>
         <div className="input-group d-flex mb-4">
@@ -150,7 +151,7 @@ const SignUpComp = () => {
             value={formik.values.confirmPassword}
           />
           {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-         <div>{formik.errors.confirmPassword}</div>
+         <div className='error-msg ms-2'>{formik.errors.confirmPassword}</div>
        ) : null}
         </div>
         <div className="input-group d-flex mb-4">
@@ -166,7 +167,7 @@ const SignUpComp = () => {
             value={formik.values.telefono}
           />
           {formik.touched.telefono && formik.errors.telefono ? (
-         <div>{formik.errors.telefono}</div>
+         <div className='error-msg ms-2'>{formik.errors.telefono}</div>
        ) : null}
         </div>
         

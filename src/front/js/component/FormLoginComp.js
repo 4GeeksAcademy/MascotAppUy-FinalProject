@@ -4,6 +4,7 @@ import '../../styles/form-login.css'
 import { useNavigate } from 'react-router-dom'; 
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2'
+import "../../styles/formularios.css"
 
 const validate = values => {
   const errors = {};
@@ -76,7 +77,7 @@ const FormLoginComp = () => {
       <h2>INGRESAR</h2>
       <form onSubmit={formik.handleSubmit}>
         
-        <div className="input-group d-flex mb-4">
+        <div className="input-group d-flex mb-4n">
           <span className='px-2'><i className="fas fa-envelope"></i></span>
           <input
             id="email"
@@ -89,7 +90,7 @@ const FormLoginComp = () => {
             value={formik.values.email}
           />
           {formik.touched.email && formik.errors.email ? (
-         <div>{formik.errors.email}</div>
+         <div className="error-msg ms-2">{formik.errors.email}</div>
        ) : null}
         </div>
         <div className="input-group d-flex mb-3">
@@ -105,7 +106,7 @@ const FormLoginComp = () => {
             value={formik.values.password}
           />
           {formik.touched.password && formik.errors.password ? (
-         <div>{formik.errors.password}</div>
+         <div className='error-msg ms-2'>{formik.errors.password}</div>
        ) : null}
         </div>
         <button type="submit" style={{

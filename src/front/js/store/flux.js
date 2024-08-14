@@ -184,7 +184,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						  setStore({user: null})
 						  return false
 				} catch (error) {
-					console.log(error);
+					console.log("Error:" + error);
 					setStore({user: null})
 					return false
 				}},
@@ -210,7 +210,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							  }
 							  return false
 					} catch (error) {
-						console.log(error);
+						// console.log(error);
 						return false
 					}
 			},
