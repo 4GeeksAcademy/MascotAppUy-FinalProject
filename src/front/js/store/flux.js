@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
-// const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
+
 const URL = process.env.BACKEND_URL
-// const URL = "https://solid-potato-x74jvwjgr4q3p766-3001.app.github.dev"
+// const URL = "https://literate-pancake-45rxw7xpv47f5gg4-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -164,7 +164,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			login: async (email, password) => {
+			login: async (values) => {
 				try {
 					let response = await fetch(URL+"/api/login",{
 						method: 'POST',
@@ -172,8 +172,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json'
 						},
 						body: JSON.stringify({
-							"email": email,
-							"password": password
+							"email": values.email,
+							"password": values.password
 						  })});
 						  let data = await response.json()
 						  if (response.ok){
@@ -184,12 +184,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						  setStore({user: null})
 						  return false
 				} catch (error) {
-					console.log(error);
+					console.log("Error:" + error);
 					setStore({user: null})
 					return false
 				}},
 
-			signup: async (email, password, nombre, telefono) => {
+			signup: async (values) => {
 				try {
 					let response = await fetch(URL+"/api/signup",{
 						method: 'POST',
@@ -197,10 +197,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json'
 							},
 							body: JSON.stringify({
-								"email": email,
-								"password": password,
-								"nombre": nombre,
-								"telefono": telefono
+								"email": values.email,
+								"password": values.password,
+								"nombre": values.nombre,
+								"telefono": values.telefono
 							  })});
 							  let data = await response.json()
 							  if (response.ok){
@@ -210,7 +210,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							  }
 							  return false
 					} catch (error) {
-						console.log(error);
+						// console.log(error);
 						return false
 					}
 			},
