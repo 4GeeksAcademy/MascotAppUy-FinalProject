@@ -140,7 +140,6 @@ def signup():
     access_token = create_access_token(identity=data.get("email"), expires_delta=timedelta(hours=12))
     return jsonify({"msg": "New user created", "user": user.serialize(), "access_token":access_token})
 
-
 # ENDPOINT: Obtener especies
 @api.route('/especies', methods=['GET'])
 def get_all_especies():
@@ -213,3 +212,83 @@ def get_all_razas():
     
     return jsonify(response_body), 200
 
+# ENDPOINT: Editar datos de usuario existente
+@api.route("/usuarios/<int:user_id>", methods=["PUT"])
+def edit_user(user_id):
+    data = request.get_json()
+    user = User.query.get(user_id)
+    
+    if not user:
+        return jsonify({"error": "Usuario no se encuentra en la base"}), 404
+
+    # Actualizar los campos proporcionados
+    if data.get("email"):
+        # Verificar si el nuevo email ya está en uso por otro usuario
+        check_email = User.query.filter_by(email=data["email"]).first()
+        if check_email and check_email.id != user_id:
+            return jsonify({"error": "Email ya existe en la base"}), 404
+        user.email = data["email"]
+
+    if data.get("password"):
+        hashed_password = generate_password_hash(data["password"])
+        user.password = hashed_password
+
+    if data.get("nombre"):
+        user.nombre = data["nombre"]
+
+    if data.get("telefono"):
+        user.telefono = data["telefono"]
+
+    if "is_active" in data:
+        user.is_active = data["is_active"]
+
+    db.session.commit()
+
+    return jsonify({"msg": "Datos de usuario actualizados exitosamente", "user": user.serialize()})
+
+# ENDPOINT: Editar datos de mascota existente
+@api.route("/mascotas/<int:mascota_id>", methods=["PUT"])
+def edit_mascota(mascota_id):
+    data = request.get_json()
+    mascota = Mascota.query.get(mascota_id)
+    
+    if not mascota:
+        return jsonify({"error": "Mascota no se encuentra en la base"}), 404
+
+    # Actualizar los campos proporcionados
+    if data.get("nombre"):
+        mascota.nombre = data["nombre"]
+
+    if data.get("fecha_perdido"):
+        mascota.fecha_perdido = data["fecha_perdido"]
+
+    if data.get("sexo"):
+        mascota.sexo = data["sexo"]
+
+    if data.get("edad"):
+        mascota.edad = data["edad"]
+    
+    if data.get("descripcion"):
+        mascota.descripcion = data["descripcion"]
+
+    if "is_active" in data:
+        mascota.is_active = data["is_active"]
+
+    if data.get("estado"):
+        mascota.estado = data["estado"]
+    
+    if data.get("especie_id"):
+        mascota.especie_id = data["especie_id"]
+
+    if data.get("localidad_id"):
+        mascota.localidad_id = data["localidad_id"]
+
+    if data.get("raza_id"):
+        mascota.raza_id = data["raza_id"]
+
+    if data.get("departamento_id"):
+        mascota.departamento_id = data["departamento_id"]
+
+    db.session.commit()
+
+    return jsonify({"msg": "Datos de mascota actualizados exitosamente", "mascota": mascota.serialize()})
