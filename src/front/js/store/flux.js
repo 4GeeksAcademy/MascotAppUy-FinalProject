@@ -189,7 +189,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}},
 
-			signup: async (email, password, nombre, telefono) => {
+			signup: async (values) => {
 				try {
 					let response = await fetch(URL+"/api/signup",{
 						method: 'POST',
@@ -197,10 +197,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json'
 							},
 							body: JSON.stringify({
-								"email": email,
-								"password": password,
-								"nombre": nombre,
-								"telefono": telefono
+								"email": values.email,
+								"password": values.password,
+								"nombre": values.nombre,
+								"telefono": values.telefono
 							  })});
 							  let data = await response.json()
 							  if (response.ok){

@@ -1,90 +1,175 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
+import { useFormik } from 'formik';
+import Swal from 'sweetalert2'
 
 const SignUpComp = () => {
-  const [nombre, setNombre] = useState("");
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [confirmPassword, setConfirmPassword] = useState("");
-  const [telefono, setTelefono] = useState("");
-  const navigate = useNavigate();
-  const { store, actions } = useContext(Context)
 
+  const validate = values => {
+    const errors = {};
+  
+    if (!values.nombre) {
+      errors.nombre = 'Required';
+    } else if (values.nombre.length > 50) {
+      errors.nombre = 'Must be 50 characters or less';
+    }
+  
+    if (!values.password) {
+      errors.password = 'Required';
+    } else if (values.password.length > 200) {
+      errors.password = 'Must be 200 characters or less';
+    }
+    
+    if (!values.confirmPassword) {
+      errors.confirmPassword = 'Required';
+    } else if (values.confirmPassword !== values.password) {
+      errors.confirmPassword = "Password doesn't match";
+    }
 
-  const handleLoginRedirect = () => {
-    navigate("/form-login");  // Redirige al formulario de login
+    if (!values.email) {
+      errors.email = 'Required';
+    } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+      errors.email = 'Invalid email address';
+    }
+
+    if (!values.telefono.length > 25) {
+      errors.telefono = 'Must be 25 characters or less';
+    }
+  
+    return errors;
   };
 
-  async function handleSubmit(e) {
-    e.preventDefault();
-    if (confirmPassword!==password){
-        alert("Las contraseñas no coinciden")
-      return
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
     }
-    let registered = await actions.signup(email,password,nombre,telefono)
-    if (registered) {
-      navigate('/')
-      return
-    }
-    navigate('/form-signup')
-    alert("Usuario no pudo crearse")
-  } 
+  });
+  
+  const navigate = useNavigate();
+  const { actions } = useContext(Context)
+
+
+  const formik = useFormik({
+    initialValues: {
+      nombre: '',
+      email: '',
+      password: '',
+      confirmPassword: '',
+      telefono: ''
+    },
+    validate,
+    onSubmit: async (values, { resetForm }) => {
+      const signup = await actions.signup(values);
+      if (signup) {
+        Toast.fire({
+          icon: "success",
+          title: "Signed up successfully"
+        });
+        navigate("/")
+      }else{
+        Toast.fire({
+          icon: "error",
+          title: "Email address already exists",
+          showConfirmButton: false,
+        });
+        resetForm();
+      }
+    },
+  });
 
   return (
-    <div className="form-container mt-5 vh-100 w-50">
+    <div className="form-container mt-5 w-50">
       <h2>REGISTRATE</h2>
-      <form onSubmit={handleSubmit}>
-        <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-          <span className="icon" style={{ marginRight: '10px' }}>👤</span>
+      <form onSubmit={formik.handleSubmit}>
+
+      <div className="input-group d-flex mb-4">
+          <span className='px-2'><i className="fas fa-user"></i></span>
           <input
+            id="nombre"
+            name="nombre"
+            className="w-75 ps-2"
             type="text"
-            placeholder="Usuario"
-            value={nombre}
-            onChange={(e) => setNombre(e.target.value)}
-            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+            placeholder="Nombre"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.nombre}
           />
+          {formik.touched.nombre && formik.errors.nombre ? (
+         <div>{formik.errors.nombre}</div>
+       ) : null}
         </div>
-        <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-          <span className="icon" style={{ marginRight: '10px' }}><i className="fas fa-envelope"></i></span>
+      <div className="input-group d-flex mb-4">
+          <span className='px-2'><i className="fas fa-envelope"></i></span>
           <input
+            id="email"
+            name="email"
+            className="w-75 ps-2"
             type="email"
             placeholder="Email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.email}
           />
+          {formik.touched.email && formik.errors.email ? (
+         <div>{formik.errors.email}</div>
+       ) : null}
         </div>
-        <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-          <span className="icon" style={{ marginRight: '10px' }}><i className="fas fa-lock"></i></span>
+        <div className="input-group d-flex mb-4">
+          <span className='px-2'><i className="fas fa-lock"></i></span>
           <input
+            id="password"
+            name="password"
+            className="w-75 ps-2"
             type="password"
             placeholder="Contraseña"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.password}
           />
+          {formik.touched.password && formik.errors.password ? (
+         <div>{formik.errors.password}</div>
+       ) : null}
         </div>
-        <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-          <span className="icon" style={{ marginRight: '10px' }}><i className="fas fa-lock"></i></span>
+        <div className="input-group d-flex mb-4">
+          <span className='px-2'><i className="fas fa-lock"></i></span>
           <input
+            id="confirmPassword"
+            name="confirmPassword"
+            className="w-75 ps-2"
             type="password"
-            placeholder="Confirmar Contraseña"
-            value={confirmPassword}
-            onChange={(e) => setConfirmPassword(e.target.value)}
-            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+            placeholder="Confirmar contraseña"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.confirmPassword}
           />
+          {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+         <div>{formik.errors.confirmPassword}</div>
+       ) : null}
         </div>
-        <div className="input-group" style={{ display: 'flex', alignItems: 'center', marginBottom: '15px' }}>
-          <span className="icon" style={{ marginRight: '10px' }}><i className="fa-solid fa-phone"></i></span>
+        <div className="input-group d-flex mb-4">
+          <span className='px-2'><i className="fa-solid fa-phone"></i></span>
           <input
+            id="telefono"
+            name="telefono"
+            className="w-75 ps-2"
             type="text"
-            placeholder="Telefono (Opcional)"
-            value={telefono}
-            onChange={(e) => setTelefono(e.target.value)}
-            style={{ width: '100%', padding: '10px', border: '1px solid #ccc', borderRadius: '4px' }}
+            placeholder="Teléfono/Celular (Opcional)"
+            onChange={formik.handleChange}
+            onBlur={formik.handleBlur}
+            value={formik.values.telefono}
           />
+          {formik.touched.telefono && formik.errors.telefono ? (
+         <div>{formik.errors.telefono}</div>
+       ) : null}
         </div>
+        
         <button type="submit" style={{
           backgroundColor: '#FF8A5B',
           border: 'none',
@@ -101,7 +186,7 @@ const SignUpComp = () => {
         <p>Si ya tienes una cuenta:</p>
         <button
           type="button"
-          onClick={handleLoginRedirect}
+          onClick={() => navigate("/form-login")}
           style={{
             backgroundColor: '#FF8A5B',
             border: 'none',
