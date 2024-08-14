@@ -6,7 +6,7 @@ export const Busqueda = () => {
         <div className="row py-lg-5" style={{backgroundColor: "#040926", color: "#E0E1DD"}}>
             <div className="col-lg-6 col-md-8 mx-auto">
                 <h1 className="fw-light" style={{textAlign: "center"}}>¿Perdiste a tu mascota?</h1>
-                <div className="mb-3">
+                <div className="container mb-3">
                     <input type="text" className="form-control" placeholder="Perro, gato, color, raza, etc."/>
                 </div>
                 <p className="d-flex" style={{justifyContent: "center"}}>
