@@ -23,3 +23,10 @@
     height: 4rem; 
     background-size: 50% 50%; 
 }
+
+
+.carousel-item .row {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+}
