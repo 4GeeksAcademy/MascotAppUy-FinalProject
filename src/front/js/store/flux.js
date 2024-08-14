@@ -164,7 +164,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			login: async (email, password) => {
+			login: async (values) => {
 				try {
 					let response = await fetch(URL+"/api/login",{
 						method: 'POST',
@@ -172,8 +172,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json'
 						},
 						body: JSON.stringify({
-							"email": email,
-							"password": password
+							"email": values.email,
+							"password": values.password
 						  })});
 						  let data = await response.json()
 						  if (response.ok){
