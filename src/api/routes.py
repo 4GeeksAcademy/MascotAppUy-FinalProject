@@ -259,35 +259,35 @@ def edit_mascota(mascota_id):
     if data.get("nombre"):
         mascota.nombre = data["nombre"]
 
-    if data.get("fecha_perdido"):
-        mascota.fecha_perdido = data["fecha_perdido"]
+    if data.get("edad"):
+        mascota.edad = data["edad"]
 
     if data.get("sexo"):
         mascota.sexo = data["sexo"]
 
-    if data.get("edad"):
-        mascota.edad = data["edad"]
-    
     if data.get("descripcion"):
         mascota.descripcion = data["descripcion"]
 
-    if "is_active" in data:
-        mascota.is_active = data["is_active"]
-
     if data.get("estado"):
         mascota.estado = data["estado"]
-    
+
+    if data.get("fecha_perdido"):
+        mascota.fecha_perdido = data["fecha_perdido"]
+
     if data.get("especie_id"):
         mascota.especie_id = data["especie_id"]
-
-    if data.get("localidad_id"):
-        mascota.localidad_id = data["localidad_id"]
 
     if data.get("raza_id"):
         mascota.raza_id = data["raza_id"]
 
+    if data.get("localidad_id"):
+        mascota.localidad_id = data["localidad_id"]
+
     if data.get("departamento_id"):
         mascota.departamento_id = data["departamento_id"]
+
+    if "is_active" in data:
+        mascota.is_active = data["is_active"]
 
     db.session.commit()
 

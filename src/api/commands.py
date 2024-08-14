@@ -66,6 +66,9 @@ def setup_commands(app):
         with open('src/api/jsons/localidades_deptos.json') as f:
             localidades_json = json.load(f)
         
+        # Ordenar el JSON primero por departamento y luego por localidad
+        localidades_json.sort(key=lambda x: (x["departamento"], x["localidad"]))
+
         # Obtener las localidades en la base de datos
         localidades_db = {(l.name, l.departamento_id) for l in Localidad.query.all()}
 
@@ -93,9 +96,13 @@ def setup_commands(app):
         # Cargar el archivo JSON de especies y razas
         with open('src/api/jsons/razas_especies.json') as file:
             razas_especies_json = json.load(file)
+        
+        # Ordenar el JSON primero por nombre de especie y luego por nombre de raza
+        razas_especies_json.sort(key=lambda x: (x["Especie"], x["Raza"]))
 
         # Crear un diccionario de especies existentes en la base de datos
         especies_db = {e.name: e.id for e in Especie.query.all()}
+        razas_agregadas = set()
 
         for entry in razas_especies_json:
             especie_nombre = entry["Especie"]
@@ -109,18 +116,24 @@ def setup_commands(app):
                 db.session.commit()
                 # Actualizar el diccionario de especies_db con el nuevo ID
                 especies_db[especie_nombre] = nueva_especie.id
+                print(f"Especie '{especie_nombre}' agregada a la base de datos.")
 
             # Verificar si la raza ya existe para la especie correspondiente
             especie_id = especies_db[especie_nombre]
             raza_existente = Raza.query.filter_by(name=raza_nombre, especie_id=especie_id).first()
             
             if raza_existente:
-                print(f"Raza '{raza_nombre}' ya existe para la especie '{especie_nombre}'.")
+                # print(f"Raza '{raza_nombre}' ya existe para la especie '{especie_nombre}'.")
                 continue
-
             # Agregar la nueva raza si no existe
             nueva_raza = Raza(name=raza_nombre, especie_id=especie_id)
             db.session.add(nueva_raza)
+            razas_agregadas.add(raza_nombre)
 
         db.session.commit()
+        if razas_agregadas:
+            print("Razas agregadas a la base de datos:", ", ".join(razas_agregadas))
+        else:
+            print("No se agregaron nuevas razas.")
+    
         print("Especies y razas verificadas e insertadas si era necesario.")
