@@ -1,9 +1,11 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useContext, useRef } from "react";
+import { Context } from "../store/appContext";
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
 import iconUrl from 'leaflet/dist/images/marker-icon.png';
 import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
 import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
+
 const defaultIcon = L.icon({
     iconUrl: iconUrl,
     iconRetinaUrl: iconRetinaUrl,
@@ -17,28 +19,44 @@ const defaultIcon = L.icon({
 L.Marker.prototype.options.icon = defaultIcon;
 
 export const MapComp = () => {
-    useEffect(() => {
-        // Inicialización del mapa después de que el componente se haya montado
-        var map = L.map('map').setView([-32.5, -56], 6);
-        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-            maxZoom: 19,
-            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
-        }).addTo(map);
-        // var marker = L.marker([-33, -56]).addTo(map);
-        // marker.bindPopup("<b>Hello world!</b><br>I am a popup.").openPopup();
-        var popup = L.popup();
+    const { store } = useContext(Context);
+    const mapRef = useRef(null); // Referencia para la instancia del mapa
 
-        function onMapClick(e) {
-            popup
-                .setLatLng(e.latlng)
-                .setContent("You clicked the map at " + e.latlng.toString())
-                .openOn(map);
+    useEffect(() => {
+        // Inicializar el mapa solo una vez
+        if (!mapRef.current) {
+            mapRef.current = L.map('map').setView([-32.5, -56], 6);
+            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19,
+                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            }).addTo(mapRef.current);
+
+            // Evento de clic en el mapa
+            mapRef.current.on('click', (e) => {
+                L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent("You clicked the map at " + e.latlng.toString())
+                    .openOn(mapRef.current);
+            });
         }
-        
-        map.on('click', onMapClick);
-        
-    }, []); 
-        
+
+        // Eliminar los marcadores anteriores
+        mapRef.current.eachLayer((layer) => {
+            if (layer instanceof L.Marker) {
+                mapRef.current.removeLayer(layer);
+            }
+        });
+
+        // Agregar marcadores para cada mascota
+        store.mascotas.forEach(mascota => {
+            if (mascota.coord_y && mascota.coord_x) {
+                L.marker([mascota.coord_y, mascota.coord_x])
+                    .addTo(mapRef.current)
+                    .bindPopup(`<b>${mascota.nombre}</b><br/><b>${mascota.especie_name}</b><br/>${mascota.estado}`);
+            }
+        });
+
+    }, [store.mascotas]); // Escuchar cambios en store.mascotas
 
     return (
         <div className="" style={{ backgroundColor: "#040926", color: "#E0E1DD" }}>
