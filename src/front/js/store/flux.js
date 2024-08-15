@@ -14,6 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			departamentos: [],
 			razas: []
 			
+			
 		},
 		actions: {
 			getAllMascotas: async () => {
@@ -248,7 +249,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: async () => {
 				localStorage.removeItem("access_token");
 				setStore({user:null})
-			}
+			},
+			// setMascotaSeleccionada: (mascota) => {
+			// 	setStore({ mascotaSeleccionada: mascota});
+			// }
 		}
 	}
 }

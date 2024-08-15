@@ -1,9 +1,20 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
+import { Context } from "../store/appContext";
+import { useParams } from "react-router-dom";
 
-const MascotaPost = () => {
+
+
+
+const MascotaPost = (props) => {
+
+
+  
+
     return(
         <>
-    <h1 className="display-4 text-center" style={{marginTop: "20px"}}>Estoy perdido!</h1>
+    {props.estado == "PERDIDO" ? (<h1 className="display-4 text-center" style={{marginTop: "20px"}}>Estoy perdido!</h1>) : 
+    (<h1 className="display-4 text-center" style={{marginTop: "20px"}}>Estoy buscando a mi familia!</h1>)}
+    
     <div className="d-flex py-5" style={{justifyContent: "center"}} id="perrito">
         
         <div>
@@ -12,15 +23,26 @@ const MascotaPost = () => {
     
         <div className="card" style={{width: '400px'}}>
             <div className="card-body">
-                <p>Me perdí el día: </p>
-                <p>Nombre: </p>
-                <p>Raza: </p>
-                <p>Sexo: </p>
-                <p>Localidad: </p>
-                <p>Descripción:   </p>
-                <p>Ubicación:    </p>
-
-                <a href="#" className="btn" style={{backgroundColor: "#FF8A5B"}}>Soy el dueño de esta mascota</a>
+                {props.estado == "PERDIDO" ? 
+                (<><p>Nombre: {props.nombre}</p>
+                <p>Especie: {props.especie}</p>
+                <p>Raza: {props.raza}</p>
+                <p>Edad: {props.edad}</p>
+                <p>Sexo: {props.sexo}</p>
+                <p>Fecha de perdido: {props.fechaPerdido}</p>
+                <p>Descripción: {props.descripcion}</p>
+                <p>Se perdió en: {props.localidad}, {props.departamento}</p>
+                </>
+                ) : (<> <p>Título: {props.nombre}</p>
+                    <p>Especie: {props.especie}</p>
+                    <p>Raza: {props.raza}</p>
+                    <p>Fecha de registro: {props.fechaReg}</p>
+                    <p>Descripción: {props.descripcion}</p>
+                    <p>Fue encontrado en: {props.localidad}, {props.departamento}</p>
+                    </>
+                )}
+                
+                
              </div>
         </div>
     </div>
