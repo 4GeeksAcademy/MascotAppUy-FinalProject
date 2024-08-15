@@ -14,6 +14,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			departamentos: [],
 			razas: []
 			
+			
 		},
 		actions: {
 			getAllMascotas: async () => {
