@@ -202,6 +202,7 @@ const Filtros = (props) => {
                         fecha={mascota.fecha_perdido}
                         especie={mascota.especie_name}
                         localidad={mascota.localidad_name}
+                        id= {mascota.id}
                     />
                 </div>
             ))}

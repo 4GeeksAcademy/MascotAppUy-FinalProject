@@ -47,6 +47,7 @@ const MascotaCarrousel = (props) => {
                                     <div key={i} className="col-md-12 col-lg-6 col-xl-4 col-xxl-3">
                                         <MascotaCard
                                             imgSrc={mascota.url_image}
+                                            id={mascota.id}
                                             nombre={mascota.nombre}
                                             fecha={mascota.fecha_registro}
                                             especie={mascota.especie_name}
