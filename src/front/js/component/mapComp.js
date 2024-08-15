@@ -2,21 +2,22 @@ import React, { useEffect, useContext, useRef } from "react";
 import { Context } from "../store/appContext";
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
-import iconUrl from 'leaflet/dist/images/marker-icon.png';
-import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-const defaultIcon = L.icon({
-    iconUrl: iconUrl,
-    iconRetinaUrl: iconRetinaUrl,
-    shadowUrl: shadowUrl,
-    iconSize: [25, 41],
-    iconAnchor: [12, 41],
-    popupAnchor: [1, -34],
-    shadowSize: [41, 41]
-});
+// import iconUrl from 'leaflet/dist/images/marker-icon.png';
+// import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
+// import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
 
-L.Marker.prototype.options.icon = defaultIcon;
+// const defaultIcon = L.icon({
+//     iconUrl: iconUrl,
+//     iconRetinaUrl: iconRetinaUrl,
+//     shadowUrl: shadowUrl,
+//     iconSize: [25, 41],
+//     iconAnchor: [12, 41],
+//     popupAnchor: [1, -34],
+//     shadowSize: [41, 41]
+// });
+
+// L.Marker.prototype.options.icon = defaultIcon;
 
 export const MapComp = () => {
     const { store } = useContext(Context);
@@ -50,9 +51,18 @@ export const MapComp = () => {
         // Agregar marcadores para cada mascota
         store.mascotas.forEach(mascota => {
             if (mascota.coord_y && mascota.coord_x) {
-                L.marker([mascota.coord_y, mascota.coord_x])
-                    .addTo(mapRef.current)
-                    .bindPopup(`<b>${mascota.nombre}</b><br/><b>${mascota.especie_name}</b><br/>${mascota.estado}`);
+                const iconUrl = mascota.url_image || 'https://cdn.pixabay.com/photo/2017/09/03/00/44/png-2709031_640.png'; // Usa la URL de la imagen de la mascota
+
+                L.marker([mascota.coord_y, mascota.coord_x], {
+                    icon: L.icon({
+                        iconUrl: iconUrl,
+                        iconSize: [40, 40], // Ajusta el tamaño según la imagen
+                        iconAnchor: [20, 40],
+                        popupAnchor: [0, -40]
+                    })
+                })
+                .addTo(mapRef.current)
+                .bindPopup(`<b>${mascota.nombre}</b><br/>Estado: ${mascota.estado}`);
             }
         });
 

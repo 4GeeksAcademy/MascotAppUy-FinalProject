@@ -76,6 +76,7 @@ class Mascota(db.Model):
     raza_id = db.Column(db.Integer, db.ForeignKey('raza.id'), nullable=False)
     departamento_id = db.Column(db.Integer, db.ForeignKey('departamento.id'), nullable=False)
     favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
+    url_image = db.Column(db.String(250))
     coord_x = db.Column(db.Numeric(10,6))
     coord_y = db.Column(db.Numeric(10,6))
 
@@ -105,8 +106,9 @@ class Mascota(db.Model):
             "raza_name": self.raza.name,
             "departamento_id": self.departamento_id,
             "departamento_name": self.departamento.name,
+            "url_image": self.url_image,
             "coord_x": self.coord_x,
-            "coord_y": self.coord_y
+            "coord_y": self.coord_y,
         }
 
 class Especie(db.Model):
