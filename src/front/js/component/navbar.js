@@ -28,7 +28,7 @@ export const Navbar = () => {
                           <Link to="/mascotas-perdidas" className="nav-link">Perdidas</Link>
                       </li>
                       <li className="nav-item d-flex justify-content-end">
-                          <Link to="#" className="nav-link">Mapa</Link>
+                          <Link to="/mapa" className="nav-link">Mapa</Link>
                       </li>
                       <li className="nav-item d-flex justify-content-end">
                           <Link to="#" className="nav-link">Contacto</Link>

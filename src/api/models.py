@@ -76,6 +76,8 @@ class Mascota(db.Model):
     raza_id = db.Column(db.Integer, db.ForeignKey('raza.id'), nullable=False)
     departamento_id = db.Column(db.Integer, db.ForeignKey('departamento.id'), nullable=False)
     favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
+    coord_x = db.Column(db.Numeric(10,6))
+    coord_y = db.Column(db.Numeric(10,6))
 
     def __repr__(self):
         return f'<Mascota {self.nombre}>'
@@ -102,7 +104,9 @@ class Mascota(db.Model):
             "raza_id": self.raza_id,
             "raza_name": self.raza.name,
             "departamento_id": self.departamento_id,
-            "departamento_name": self.departamento.name
+            "departamento_name": self.departamento.name,
+            "coord_x": self.coord_x,
+            "coord_y": self.coord_y
         }
 
 class Especie(db.Model):

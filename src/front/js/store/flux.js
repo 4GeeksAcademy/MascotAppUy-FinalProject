@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
-const URL = process.env.BACKEND_URL
-// const URL = "https://literate-pancake-45rxw7xpv47f5gg4-3001.app.github.dev"
+// const URL = process.env.BACKEND_URL
+const URL = "https://refactored-space-happiness-7v7qwxgr49rwcrxg9-3000.app.github.dev/"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -55,6 +55,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localidad_id: parseInt(values.localidad_id),
 							departamento_id: parseInt(values.departamento_id),
 							user_id: values.user_id,
+							coord_x: values.coord_x,
+							coord_y: values.coord_y,
 						})
 					});
 	
@@ -273,6 +275,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							raza_id: parseInt(values.raza_id), 
 							localidad_id: parseInt(values.localidad_id),
 							departamento_id: parseInt(values.departamento_id),
+							coord_x: values.coord_x,
+							coord_y: values.coord_y,
 							// user_id: values.user_id,
 						})
 					});
