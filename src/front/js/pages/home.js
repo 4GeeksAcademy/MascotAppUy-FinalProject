@@ -3,6 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Busqueda } from "../component/busqueda";
 import MascotaCarrousel from "../component/mascotaCarrousel.jsx";
+import { Frecuentes } from "../component/preguntasFrecuentes.js";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -27,6 +28,7 @@ export const Home = () => {
 
 			<MascotaCarrousel titulo="Mascotas encontradas" lista={ultimasDiezEncontradas} carouselId="carouselEncontradas"/>
 
+			<Frecuentes />
 
 		</div>
 	);

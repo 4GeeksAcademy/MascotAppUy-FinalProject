@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
-// const urlLocal= "https://mascotapp-uy-ybp5.onrender.com"
+
 const URL = process.env.BACKEND_URL
-// const URL = "https://solid-potato-x74jvwjgr4q3p766-3001.app.github.dev"
+// const URL = "https://literate-pancake-45rxw7xpv47f5gg4-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -65,7 +65,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const newMascota = await response.json();
 					const store = getStore();
 					setStore({ mascotas: [...store.mascotas, newMascota] });
-					console.log(newMascota);
+					// console.log(newMascota);
 					
 					return true
 				} catch (error) {
@@ -73,6 +73,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+
 			getEspecies: async () => {
 				try {
 					
@@ -95,6 +96,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
+
 			getDepartamentos: async () => {
 				try {
 					
@@ -104,7 +106,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
-					console.log(data.results);
+					// console.log(data.results);
 					
 
 					// const nombresDepartamentos = data.results.map(departamento => departamento.name);
@@ -119,6 +121,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
+
 			getLocalidades: async () => {
 				try {
 					
@@ -128,7 +131,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
-					console.log(data.results);
+					// console.log(data.results);
 					
 					// const nombresLocalidades = data.results.map(localidad => localidad.name);
 					// console.log(nombresLocalidades);
@@ -142,6 +145,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
+
 			getRazas: async () => {
 				try {
 					
@@ -153,7 +157,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					const data = await response.json();
 					
 					// const nombresRazas = data.results.map(raza => raza.name);
-					console.log(data.results);
+					// console.log(data.results);
 					
         			setStore({ razas: data.results });
 					
@@ -165,7 +169,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			},
 
-			login: async (email, password) => {
+			login: async (values) => {
 				try {
 					let response = await fetch(URL+"/api/login",{
 						method: 'POST',
@@ -173,8 +177,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json'
 						},
 						body: JSON.stringify({
-							"email": email,
-							"password": password
+							"email": values.email,
+							"password": values.password
 						  })});
 						  let data = await response.json()
 						  if (response.ok){
@@ -185,12 +189,12 @@ const getState = ({ getStore, getActions, setStore }) => {
 						  setStore({user: null})
 						  return false
 				} catch (error) {
-					console.log(error);
+					console.log("Error:" + error);
 					setStore({user: null})
 					return false
 				}},
 
-			signup: async (email, password, nombre, telefono) => {
+			signup: async (values) => {
 				try {
 					let response = await fetch(URL+"/api/signup",{
 						method: 'POST',
@@ -198,10 +202,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 							'Content-Type': 'application/json'
 							},
 							body: JSON.stringify({
-								"email": email,
-								"password": password,
-								"nombre": nombre,
-								"telefono": telefono
+								"email": values.email,
+								"password": values.password,
+								"nombre": values.nombre,
+								"telefono": values.telefono
 							  })});
 							  let data = await response.json()
 							  if (response.ok){
@@ -211,7 +215,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							  }
 							  return false
 					} catch (error) {
-						console.log(error);
+						// console.log(error);
 						return false
 					}
 			},
@@ -246,13 +250,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
 			logout: async () => {
 				localStorage.removeItem("access_token");
 				setStore({user:null})
 			},
-			// setMascotaSeleccionada: (mascota) => {
-			// 	setStore({ mascotaSeleccionada: mascota});
-			// }
+
+			editarMascota: async (values) =>{
+				try {
+					const response = await fetch(URL+'/api/mascotas', {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							nombre: values.nombre, 
+							edad: values.edad, 
+							sexo: values.sexo, 
+							descripcion: values.descripcion, 
+							estado: values.estado, 
+							fecha_perdido: values.fecha_perdido,  
+							especie_id: parseInt(values.especie_id),
+							raza_id: parseInt(values.raza_id), 
+							localidad_id: parseInt(values.localidad_id),
+							departamento_id: parseInt(values.departamento_id),
+							// user_id: values.user_id,
+						})
+					});
+	
+					if (!response.ok) {
+						throw new Error('Error al editar los datos de la mascota');
+					}
+					const newMascota = await response.json();
+					const store = getStore();
+					setStore({ mascotas: [...store.mascotas, newMascota] });
+					// console.log(newMascota);
+					
+					return true
+				} catch (error) {
+					console.error(error);
+					return false
+				}
+			},
+
 		}
 	}
 }

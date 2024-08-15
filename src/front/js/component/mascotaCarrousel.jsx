@@ -44,7 +44,7 @@ const MascotaCarrousel = (props) => {
                         >
                             <div className="row">
                                 {grupo.map((mascota, i) => (
-                                    <div key={i} className="col-md-3">
+                                    <div key={i} className="col-md-12 col-lg-6 col-xl-4 col-xxl-3">
                                         <MascotaCard
                                             id={mascota.id}
                                             nombre={mascota.nombre}

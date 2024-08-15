@@ -5,49 +5,57 @@ import logoClaro from "../../img/logoClaro.png"
 import logoClaroGif from "../../img/logo-mascotapp_claro.gif"
 
 export const Navbar = () => {
-	const nav = useNavigate();
-	const location = useLocation();
-  const { store, actions } = useContext(Context)
+  const nav = useNavigate();
+  const location = useLocation();
+  const { store, actions } = useContext(Context);
 
-	
-	return (
-		<header className="d-flex flex-wrap justify-content-center sticky-top" style={{backgroundColor: "#040926", color: "#E0E1DD"}}>
-    	<div className="d-flex align-items-center mb-3 mb-md-0 me-md-auto">
-        <button id="botonPrincipal" className="image-container" onClick={() => nav("/")}>
-          <img src={logoClaro} alt="Static Image" className="static-image"/>
-          <img src={logoClaroGif} alt="Animated Image" className="animated-image"/>
-        </button>
-   		</div>
-      <ul className="nav nav-pills" style={{alignItems: "center"}}>
-        <li className="nav-item"><Link to="/mascotas-encontradas" className="nav-link px-2 text-muted">Encontradas</Link></li>
-        <li className="nav-item"><Link to="/mascotas-perdidas" className="nav-link px-2 text-muted">Perdidas</Link></li>
-        <li className="nav-item"><Link to="#" className="nav-link px-2 text-muted">Mapa</Link></li>
-        <li className="nav-item"><Link to="#" className="nav-link px-2 text-muted">FAQ</Link></li>
-        <li className="nav-item"><Link to="#" className="nav-link px-2 text-muted">Contacto</Link></li>
-        {store.user ? (
-          <>
-            <li className="nav-item"><Link to="/" className="nav-link px-2 text-danger" onClick={actions.logout}>Cerrar sesión</Link></li>
-          </>
-        ) : (
-          <>
-          {location.pathname !== '/form-login' && (
-            <li className="nav-item"><Link to="/form-login" className="nav-link px-2 text-white">Ingresar</Link></li>
-          )}
-          {location.pathname !== '/form-signup' && (
-            <li className="nav-item"><Link to="/form-signup" className="nav-link px-2 text-white">Registrarse</Link></li>
-          )}
-        </>
-          // <>
-          //   <li className="nav-item"><Link to="/form-login" className="nav-link px-2 text-white">Ingresar</Link></li>
-          //   <li className="nav-item"><Link to="/form-signup" className="nav-link px-2 text-white">Registrarse</Link></li>
-          // </>
-        )}
-      </ul>
-    </header>
-
-
-
-	);
+  return (
+      <header className="navbar navbar-expand-md navbar-dark sticky-top" style={{ backgroundColor: "#040926", color: "#E0E1DD" }}>
+          <div className="container">
+              <button id="botonPrincipal" className="image-container" onClick={() => nav("/")}>
+                  <img src={logoClaro} alt="Static Image" className="static-image" />
+                  <img src={logoClaroGif} alt="Animated Image" className="animated-image" />
+              </button>
+              <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon"></span>
+              </button>
+              <div className="collapse navbar-collapse" id="navbarNav">
+                  <ul className="navbar-nav ms-auto">
+                      <li className="nav-item d-flex justify-content-end">
+                          <Link to="/mascotas-encontradas" className="nav-link">Encontradas</Link>
+                      </li>
+                      <li className="nav-item d-flex justify-content-end">
+                          <Link to="/mascotas-perdidas" className="nav-link">Perdidas</Link>
+                      </li>
+                      <li className="nav-item d-flex justify-content-end">
+                          <Link to="#" className="nav-link">Mapa</Link>
+                      </li>
+                      <li className="nav-item d-flex justify-content-end">
+                          <Link to="#" className="nav-link">Contacto</Link>
+                      </li>
+                      {store.user ? (
+                          <li className="nav-item d-flex justify-content-end">
+                              <Link to="/" className="nav-link text-danger" onClick={actions.logout}>Cerrar sesión</Link>
+                          </li>
+                      ) : (
+                          <>
+                              {location.pathname !== '/form-login' && (
+                                  <li className="nav-item d-flex justify-content-end">
+                                      <Link to="/form-login" className="nav-link text-white">Ingresar</Link>
+                                  </li>
+                              )}
+                              {location.pathname !== '/form-signup' && (
+                                  <li className="nav-item d-flex justify-content-end">
+                                      <Link to="/form-signup" className="nav-link text-white">Registrarse</Link>
+                                  </li>
+                              )}
+                          </>
+                      )}
+                  </ul>
+              </div>
+          </div>
+      </header>
+  );
 };
 
 

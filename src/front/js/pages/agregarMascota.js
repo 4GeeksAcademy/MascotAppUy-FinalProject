@@ -1,35 +1,81 @@
 import React, {useState, useContext, useEffect} from "react";
 import { Context } from "../store/appContext.js";
-import { useFormik } from 'formik';
+import { Formik, useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
+import "../../styles/formularios.css"
+import Swal from 'sweetalert2'
 
 const validate = values => {
     const errors = {};
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0); // Establecer la hora a medianoche
+    const todayDateString = today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
+
     if (!values.estado) {
-      errors.estado = 'Required';
+      errors.estado = 'Requerido';
     }
   
     if (!values.nombre) {
-      errors.nombre = 'Required';
+      errors.nombre = 'Requerido';
     } else if (values.nombre.length > 120) {
-      errors.nombre = 'Must be 120 characters or less';
+      errors.nombre = 'Debe ser 120 caracteres o menos';
     }
-
     if (!values.fecha_perdido) {
-        errors.fecha_perdido = 'Fecha es requerida';
+        errors.fecha_perdido = 'Requerido';
     }
     if (!values.sexo) {
-        errors.sexo = 'Sexo es requerido';
+        errors.sexo = 'Requerido';
     }
-  
+
+    if (!values.especie_id) {
+        errors.especie_id = 'Requerido';
+    }
+    if (!values.raza_id) {
+        errors.raza_id = 'Requerido';
+    }
+    if (!values.descripcion) {
+        errors.descripcion = 'Requerido';
+    }
+    if (!values.fecha_perdido) {
+        errors.fecha_perdido = 'Requerido';
+    }else {
+        // Convertir fecha_perdido a formato YYYY-MM-DD para compararla
+        const fechaPerdidoDateString = values.fecha_perdido;
+        if (fechaPerdidoDateString > todayDateString) {
+          errors.fecha_perdido = 'La fecha no puede ser en el futuro';
+        }
+      }
     
-  
+    if (!values.edad) {
+        errors.edad = 'Requerido';
+    }
+    if (!values.departamento_id) {
+        errors.departamento_id = 'Requerido';
+    }
+    if (!values.localidad_id) {
+        errors.localidad_id = 'Requerido';
+    }
+
     return errors;
   };
 
+  const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+
 export const AgregarMascota = () =>{
     const { store, actions } = useContext(Context);
-    console.log(store.user);
+    //console.log(store.user);
 
     const [departamentoSelected, setDepartamentoSelected] = useState("");
     const [filteredLocalidades, setFilteredLocalidades] = useState([]);
@@ -56,7 +102,7 @@ export const AgregarMascota = () =>{
                 raza.especie_id === parseInt(especieSelected)
             );
             setFilteredRazas(filterRaza)
-            console.log("Raza Filtradas:"+ filterRaza);
+            // console.log("Raza Filtradas:"+ filterRaza);
             
         } else {
             setFilteredRazas(store.razas)
@@ -64,8 +110,6 @@ export const AgregarMascota = () =>{
 
     }, [especieSelected, store.razas])
 
-    //tengo que hacer la logica para que cuando selecciono un departamento, se muestre la elección de la localidad
-    //descripción no está tomando el valor
 
     const formatDate = (dateString) => {
         const [year, month, day] = dateString.split("-");
@@ -94,12 +138,27 @@ export const AgregarMascota = () =>{
                 fecha_perdido: formatDate(values.fecha_perdido),
                 user_id: store.user.id 
             };
-    
-            await actions.agregarMascota(formattedValues);
             
-            nav("/")
+            const added = await actions.agregarMascota(formattedValues);
+            if (added) {
+                Toast.fire({
+                icon: "success",
+                title: "Added successfully"
+                });
+                nav("/")
+            }else {
+                Toast.fire({
+                icon: "error",
+                title: "Something went wrong",
+                showConfirmButton: false,
+                });
+            }
+            }
+
+            
+            
         }
-      });
+      );
 
  
     return(
@@ -109,12 +168,14 @@ export const AgregarMascota = () =>{
                     <h2 className="mt-5" style={{ textAlign: "center" }}>
                         Completá el siguiente formulario para agregar una mascota:
                     </h2>
-                    <div className="container-fluid" id="contformagregar">
+                    <div className="container" id="contformagregar">
                         <form onSubmit={formik.handleSubmit}>
+
                             <div className="input-group mb-3">
                                 <select 
-                                    className="form-select" 
-                                    id="estado" 
+                                    className="form-select border-0" 
+                                    id="estado"
+                                    name="estado" 
                                     value={formik.values.estado} 
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
@@ -123,21 +184,28 @@ export const AgregarMascota = () =>{
                                 <option value="PERDIDO">PERDIDO</option>
                                 <option value="ENCONTRADO">ENCONTRADO</option>  
                                 </select>
+                                {formik.touched.estado && formik.errors.estado ? (
+                                <div className="error-msg ms-2">{formik.errors.estado}</div>
+                            ) : null}
                             </div>
+                            
+
                             <div className="input-group mb-3">
-                                <label className="text-secondary" htmlFor="nombre">Nombre:</label>
                                 <input 
                                     type="text" 
                                     className="form-control" 
                                     placeholder="Nombre de tu mascota" 
-                                    id="nombre" 
+                                    id="nombre"
+                                    name="nombre" 
                                     value={formik.values.nombre} 
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
+                                {formik.touched.nombre && formik.errors.nombre ? (
+                                <div className="error-msg ms-2">{formik.errors.nombre}</div>
+                            ) : null}
                             </div>
                             <div className="input-group mb-3">
-                                <label className="text-secondary" htmlFor="fecha_perdido">¿Cuando se perdió su mascota?</label>
                                 <input 
                                     type="date" 
                                     className="form-control" 
@@ -147,10 +215,13 @@ export const AgregarMascota = () =>{
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
+                                {formik.touched.fecha_perdido && formik.errors.fecha_perdido ? (
+                                <div className="error-msg ms-2">{formik.errors.fecha_perdido}</div>
+                            ) : null}
                             </div>
                             <div className="input-group mb-3">
                                 <select 
-                                    className="form-select" 
+                                    className="form-select border-0" 
                                     id="sexo"
                                     name="sexo" 
                                     value={formik.values.sexo}
@@ -162,11 +233,13 @@ export const AgregarMascota = () =>{
                                     <option value="MACHO">MACHO</option> 
                                     <option value="INDEFINIDO">INDEFINIDO</option>  
                                 </select>
+                                {formik.touched.sexo && formik.errors.sexo ? (
+                                <div className="error-msg ms-2">{formik.errors.sexo}</div>
+                            ) : null}
                             </div>
                             <div className="input-group mb-3">
-                                <label className="text-secondary" htmlFor="edad">Edad:</label>
                                 <input 
-                                    type="number" 
+                                    type="text" 
                                     className="form-control" 
                                     placeholder="Edad de tu mascota" 
                                     id="edad"
@@ -175,23 +248,23 @@ export const AgregarMascota = () =>{
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 />
+                                {formik.touched.edad && formik.errors.edad ? (
+                                <div className="error-msg ms-2">{formik.errors.edad}</div>
+                            ) : null}
                             </div>
 
-
-                            <label htmlFor="especie_id" className="text-secondary">
-                                Especie:
-                            </label>
                             <div className="input-group mb-3">
                                 <select 
-                                    className="form-select" 
+                                    className="form-select border-0" 
                                     id="especie_id"
                                     name="especie_id" 
                                     value={formik.values.especie_id} 
                                     onChange={e => {
                                         const { value } = e.target;
-                                        formik.handleChange(e); 
-                                        setEspecieSelected(value); 
+                                        formik.handleChange(e);
+                                        setEspecieSelected(value);
                                     }}
+                                    onBlur={formik.handleBlur}
                                 >
                                     <option value="">Especies</option>
                                     {store.especies.map((especie, index) => (
@@ -199,17 +272,18 @@ export const AgregarMascota = () =>{
                                             {especie.name}
                                         </option>
                                     ))}
-                                
                                 </select>
+                                {formik.touched.especie_id && formik.errors.especie_id ? (
+                                        <div className="error-msg ms-2">{formik.errors.especie_id}</div>
+                                    ) : null}
                             </div>
+
                             {especieSelected && (
                                 <>
-                                    <label htmlFor="raza_id" className="text-secondary">
-                                        Seleccione la raza de la mascota
-                                    </label>
+                                
                                     <div className="input-group mb-3">
                                         <select
-                                            className="form-select"
+                                            className="form-select border-0"
                                             id="raza_id"
                                             name="raza_id"
                                             value={formik.values.raza_id}
@@ -223,23 +297,27 @@ export const AgregarMascota = () =>{
                                                 </option>
                                             ))}
                                         </select>
+                                        {formik.touched.raza_id && formik.errors.raza_id ? (
+                                        <div className="error-msg ms-2">{formik.errors.raza_id}</div>
+                                    ) : null}
                                     </div>
                                 </>
                             )}
 
-
-
                             <div className="input-group mb-3">
-                                <label className="text-secondary" htmlFor="descripcion">Descripción:</label>
                                 <textarea 
-                                    className="form-control" 
-                                    placeholder="Agrega aquí una descripción de tu mascota. Todos los detalles son importantes para poder identificarla" 
+                                    className="form-control border-0" 
+                                    placeholder="Agrega una descripción de tu mascota. Todos los detalles son importantes para poder identificarla" 
                                     id="descripcion"
                                     name="descripcion" 
                                     value={formik.values.descripcion} 
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
+                                    style={{ height: '150px', resize: 'vertical' }}
                                 ></textarea>
+                                {formik.touched.descripcion && formik.errors.descripcion ? (
+                                        <div className="error-msg ms-2">{formik.errors.descripcion}</div>
+                                    ) : null}
                             </div>
                             {/* <label>Contacto</label><br />
                             <label className="text-secondary py-2">
@@ -255,12 +333,10 @@ export const AgregarMascota = () =>{
                                     onChange={handleChange}
                                 />
                             </div> */}
-                            <label htmlFor="departamento_id" className="text-secondary">
-                                Seleccione el departamento donde se perdió su mascota:
-                            </label>
+
                             <div className="input-group mb-3">
                                 <select 
-                                    className="form-select" 
+                                    className="form-select border-0" 
                                     id="departamento_id"
                                     name="departamento_id" 
                                     value={formik.values.departamento_id} 
@@ -269,6 +345,7 @@ export const AgregarMascota = () =>{
                                         formik.handleChange(e); // Actualiza el valor en Formik
                                         setDepartamentoSelected(value); // Actualiza el estado del departamento
                                     }}
+                                    onBlur={formik.handleBlur}
                                 >
                                     <option value="">Departamento</option>
                                     {store.departamentos.map((departamento, index) => (
@@ -276,17 +353,17 @@ export const AgregarMascota = () =>{
                                             {departamento.name}
                                         </option>
                                     ))}
-                                
                                 </select>
+                                {formik.touched.departamento_id && formik.errors.departamento_id ? (
+                                        <div className="error-msg ms-2">{formik.errors.departamento_id}</div>
+                                    ) : null}
                             </div>
                             {departamentoSelected && (
                                 <>
-                                    <label htmlFor="localidad_id" className="text-secondary">
-                                        Seleccione la localidad donde se perdió su mascota:
-                                    </label>
+                                
                                     <div className="input-group mb-3">
                                         <select
-                                            className="form-select"
+                                            className="form-select border-0"
                                             id="localidad_id"
                                             name="localidad_id"
                                             value={formik.values.localidad_id}
@@ -300,6 +377,9 @@ export const AgregarMascota = () =>{
                                                 </option>
                                             ))}
                                         </select>
+                                        {formik.touched.localidad_id && formik.errors.localidad_id ? (
+                                        <div className="error-msg ms-2">{formik.errors.localidad_id}</div>
+                                    ) : null}
                                     </div>
                                 </>
                             )}
