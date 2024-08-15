@@ -72,6 +72,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+
 			getEspecies: async () => {
 				try {
 					
@@ -94,6 +95,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
+
 			getDepartamentos: async () => {
 				try {
 					
@@ -118,6 +120,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
+
 			getLocalidades: async () => {
 				try {
 					
@@ -141,6 +144,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 
 			},
+
 			getRazas: async () => {
 				try {
 					
@@ -245,10 +249,49 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
 			logout: async () => {
 				localStorage.removeItem("access_token");
 				setStore({user:null})
-			}
+			},
+
+			editarMascota: async (values) =>{
+				try {
+					const response = await fetch(URL+'/api/mascotas', {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							nombre: values.nombre, 
+							edad: values.edad, 
+							sexo: values.sexo, 
+							descripcion: values.descripcion, 
+							estado: values.estado, 
+							fecha_perdido: values.fecha_perdido,  
+							especie_id: parseInt(values.especie_id),
+							raza_id: parseInt(values.raza_id), 
+							localidad_id: parseInt(values.localidad_id),
+							departamento_id: parseInt(values.departamento_id),
+							// user_id: values.user_id,
+						})
+					});
+	
+					if (!response.ok) {
+						throw new Error('Error al editar los datos de la mascota');
+					}
+					const newMascota = await response.json();
+					const store = getStore();
+					setStore({ mascotas: [...store.mascotas, newMascota] });
+					// console.log(newMascota);
+					
+					return true
+				} catch (error) {
+					console.error(error);
+					return false
+				}
+			},
+
 		}
 	}
 }
