@@ -55,6 +55,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localidad_id: parseInt(values.localidad_id),
 							departamento_id: parseInt(values.departamento_id),
 							user_id: values.user_id,
+							url_image: values.url_image
 						})
 					});
 	
@@ -62,9 +63,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error('Error al agregar la mascota');
 					}
 					const newMascota = await response.json();
-					const store = getStore();
-					setStore({ mascotas: [...store.mascotas, newMascota] });
-					// console.log(newMascota);
+					setStore((prevStore) => ({
+						...prevStore,
+						mascotas: [...prevStore.mascotas, newMascota],
+					}));
 					
 					return true
 				} catch (error) {
@@ -291,6 +293,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+			uploadImage: async (formData) => {
+				
+			
+				try {
+					const response = await fetch(URL+'/api/upload-file', {
+						method: 'POST',
+						body: formData,
+					});
+			
+					if (!response.ok) {
+						throw new Error('Error al subir la imagen');
+					}
+			
+					const data = await response.json();
+					return data.url; // URL de la imagen subida
+				} catch (error) {
+					console.error(error);
+					return null;
+				}
+			}
 
 		}
 	}

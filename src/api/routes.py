@@ -9,7 +9,7 @@ from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_requir
 from datetime import timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
 import cloudinary
-from cloudinary.uploader import upload
+import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 
 api = Blueprint('api', __name__)
@@ -91,7 +91,8 @@ def add_mascota():
         especie_id = data["especie_id"],
         raza_id = data["raza_id"], 
         localidad_id = data["localidad_id"],
-        departamento_id = data["departamento_id"], 
+        departamento_id = data["departamento_id"],
+        url_image=data['url_image'] 
         # favorito_id = data["favorito_id"]
         )
 
@@ -309,12 +310,12 @@ def upload_file():
     if 'file' not in request.files:
         return jsonify({"error": "not file found"}), 404
     
-    file = request.files['files']
+    file = request.files['file']
     if file.filename == '':
         return jsonify({"error": "no selected file"})
     
     try:
-        result = upload(file, folder='mascotas')
+        result = cloudinary.uploader.upload(file, folder='mascotas')
         return jsonify({"url": result['secure_url']})
     except Exception as e:
         return jsonify({"error": str(e)})
