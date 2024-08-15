@@ -28,7 +28,7 @@ export const Frecuentes = () => {
                     </button>
                     </h2>
                     <div id="flush-collapseTwo" class="accordion-collapse collapse" aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                    <div class="accordion-body">Placeholder content for this accordion, which is intended to demonstrate the <code>.accordion-flush</code> class. This is the second item's accordion body. Let's imagine this being filled with some actual content.</div>
+                    <div class="accordion-body">Detalla características como color del pelaje, manchas, tamaño (pequeño, mediano, grande), peso aproximado, longitud del pelaje (corto, largo), etc. Menciona cualquier característica única, como cicatrices, ojos de diferente color, collar con placa, orejas caídas, cojea, etc.</div>
                     </div>
                 </div>
                 <div class="accordion-item">

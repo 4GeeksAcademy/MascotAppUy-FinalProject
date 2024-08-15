@@ -31,9 +31,6 @@ export const Navbar = () => {
                           <Link to="#" className="nav-link">Mapa</Link>
                       </li>
                       <li className="nav-item d-flex justify-content-end">
-                          <Link to="#" className="nav-link">FAQ</Link>
-                      </li>
-                      <li className="nav-item d-flex justify-content-end">
                           <Link to="#" className="nav-link">Contacto</Link>
                       </li>
                       {store.user ? (
