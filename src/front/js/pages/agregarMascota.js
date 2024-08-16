@@ -142,13 +142,13 @@ export const AgregarMascota = () =>{
             if (selectedFile) {
                 formData = new FormData();
                 formData.append('file', selectedFile);
-                console.log(formData);
+                // console.log(formData);
                 
             }
 
             // Subir la imagen
             const urlImg = formData ? await actions.uploadImage(formData) : null;
-            console.log(urlImg);
+            // console.log(urlImg);
             
 
             const formattedValues = {
@@ -403,7 +403,7 @@ export const AgregarMascota = () =>{
                                 </>
                             )}
                             <div className="input-group mb-3">
-                                <label className="form-label">Sube una imagen</label>
+                                <label className="form-label">Imagen</label>
                                 <input
                                     type="file"
                                     className="form-control"

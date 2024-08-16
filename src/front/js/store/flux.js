@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
-// const URL = process.env.BACKEND_URL
-const URL = "https://ubiquitous-eureka-v95xqvxjwgw25pg-3001.app.github.dev"
+const URL = process.env.BACKEND_URL
+// const URL = "https://ubiquitous-eureka-v95xqvxjwgw25pg-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -64,10 +64,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error('Error al agregar la mascota');
 					}
 					const newMascota = await response.json();
-					setStore((prevStore) => ({
-						...prevStore,
-						mascotas: [...prevStore.mascotas, newMascota],
-					}));
+					const store = getStore();
+					setStore({ mascotas: [...store.mascotas, newMascota] });
+					// console.log(newMascota);
 					
 					return true
 				} catch (error) {
