@@ -2,22 +2,10 @@ import React, { useEffect, useContext, useRef } from "react";
 import { Context } from "../store/appContext";
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
+import 'leaflet.markercluster';
+import 'leaflet.markercluster/dist/MarkerCluster.css';
+import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
-// import iconUrl from 'leaflet/dist/images/marker-icon.png';
-// import iconRetinaUrl from 'leaflet/dist/images/marker-icon-2x.png';
-// import shadowUrl from 'leaflet/dist/images/marker-shadow.png';
-
-// const defaultIcon = L.icon({
-//     iconUrl: iconUrl,
-//     iconRetinaUrl: iconRetinaUrl,
-//     shadowUrl: shadowUrl,
-//     iconSize: [25, 41],
-//     iconAnchor: [12, 41],
-//     popupAnchor: [1, -34],
-//     shadowSize: [41, 41]
-// });
-
-// L.Marker.prototype.options.icon = defaultIcon;
 
 export const MapComp = () => {
     const { store } = useContext(Context);
@@ -48,23 +36,41 @@ export const MapComp = () => {
             }
         });
 
+        // Crear un grupo de clúster
+        var markers = L.markerClusterGroup({
+            showCoverageOnHover: false, // No mostrar cobertura del clúster al pasar el mouse
+            zoomToBoundsOnClick: true,  // Zoom cuando se hace clic en el clúster
+            maxClusterRadius: 35,       // Reducir el radio del clúster para que se agrupen más fácilmente
+            disableClusteringAtZoom: 14, // No agrupar cuando se acerca mucho
+            spiderfyOnMaxZoom: true,
+            removeOutsideVisibleBounds: true,
+            animate:true,
+        });
+
         // Agregar marcadores para cada mascota
         store.mascotas.forEach(mascota => {
             if (mascota.coord_y && mascota.coord_x) {
-                const iconUrl = mascota.url_image || 'https://cdn.pixabay.com/photo/2017/09/03/00/44/png-2709031_640.png'; // Usa la URL de la imagen de la mascota
+                const iconUrl = mascota.url_image || 'https://www.shutterstock.com/image-illustration/experience-mesmerizing-world-butterfly-animal-260nw-2355746757.jpg'; // Usa la URL de la imagen de la mascota
 
-                L.marker([mascota.coord_y, mascota.coord_x], {
+                const iconClass = mascota.estado.toLowerCase(); // 'perdido' o 'encontrado'
+                
+                const marker = L.marker([mascota.coord_y, mascota.coord_x], {
                     icon: L.icon({
+                        className: `rounded-icon ${iconClass}`,
                         iconUrl: iconUrl,
                         iconSize: [40, 40], // Ajusta el tamaño según la imagen
                         iconAnchor: [20, 40],
                         popupAnchor: [0, -40]
                     })
                 })
-                .addTo(mapRef.current)
-                .bindPopup(`<b>${mascota.nombre}</b><br/>Estado: ${mascota.estado}`);
+                .bindPopup(`<b>${mascota.nombre}</b><br/><b>${mascota.especie_name}</b><br/>${mascota.estado}`);
+                markers.addLayer(marker);
+
             }
         });
+
+        // Añadir el grupo de clúster al mapa
+        mapRef.current.addLayer(markers);
 
     }, [store.mascotas]); // Escuchar cambios en store.mascotas
 
