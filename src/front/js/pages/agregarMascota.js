@@ -5,6 +5,7 @@ import { useNavigate } from "react-router-dom";
 import "../../styles/formularios.css"
 import Swal from 'sweetalert2'
 
+
 const validate = values => {
     const errors = {};
     const today = new Date();
@@ -85,6 +86,10 @@ export const AgregarMascota = () =>{
 
     const nav = useNavigate();
 
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    
+
     useEffect(() => {
         if (departamentoSelected) {
             const filterLoc = store.localidades.filter(localidad =>
@@ -133,10 +138,24 @@ export const AgregarMascota = () =>{
         validate,
         onSubmit: async (values) => {
 
+            let formData = null;
+            if (selectedFile) {
+                formData = new FormData();
+                formData.append('file', selectedFile);
+                // console.log(formData);
+                
+            }
+
+            // Subir la imagen
+            const urlImg = formData ? await actions.uploadImage(formData) : null;
+            // console.log(urlImg);
+            
+
             const formattedValues = {
                 ...values,
                 fecha_perdido: formatDate(values.fecha_perdido),
-                user_id: store.user.id 
+                user_id: store.user.id,
+                url_image: urlImg
             };
             
             const added = await actions.agregarMascota(formattedValues);
@@ -383,15 +402,18 @@ export const AgregarMascota = () =>{
                                     </div>
                                 </>
                             )}
-                            {/* <label htmlFor="archivo" className="text-secondary">Subir imágen</label>
                             <div className="input-group mb-3">
-                                <input 
-                                    type="file" 
-                                    className="form-control" 
-                                    id="archivo" 
-                                    onChange={handleChange}
+                                <label className="form-label">Imagen</label>
+                                <input
+                                    type="file"
+                                    className="form-control"
+                                    id="imagen"
+                                    name="imagen"
+                                    accept="image/*"
+                                    onChange={(e) => setSelectedFile(e.target.files[0])}
                                 />
-                            </div> */}
+                                
+                            </div>
                             <button type="submit" id="botonEnviar">Enviar</button>
                         </form>
                     </div>

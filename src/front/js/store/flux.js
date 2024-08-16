@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
-// const URL = process.env.BACKEND_URL
-const URL = "https://refactored-space-happiness-7v7qwxgr49rwcrxg9-3001.app.github.dev"
+const URL = process.env.BACKEND_URL
+// const URL = "https://ubiquitous-eureka-v95xqvxjwgw25pg-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -298,6 +298,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+			uploadImage: async (formData) => {
+				
+			
+				try {
+					const response = await fetch(URL+'/api/upload-file', {
+						method: 'POST',
+						body: formData,
+					});
+			
+					if (!response.ok) {
+						throw new Error('Error al subir la imagen');
+					}
+			
+					const data = await response.json();
+					return data.url; // URL de la imagen subida
+				} catch (error) {
+					console.error(error);
+					return null;
+				}
+			}
 
 		}
 	}
