@@ -57,8 +57,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 							departamento_id: parseInt(values.departamento_id),
 							user_id: values.user_id,
 							url_image: values.url_image,					
-							coord_x: values.coord_x,
-							coord_y: values.coord_y,
+							//coord_x: values.coord_x,
+							//coord_y: values.coord_y,
 						})
 					});
 	
