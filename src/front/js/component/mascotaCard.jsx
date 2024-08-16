@@ -21,7 +21,7 @@ const MascotaCard = (props) => {
 
     return (
         <div className="mascotacard card mt-5" style={{ width: "16rem", cursor: "pointer" }} onClick={() => navigate(`/mascota/${props.id}`)}>
-            <img src="https://picsum.photos/200" className="card-img-top" alt="random-img" />
+            <img src={props.imgSrc} className="card-img-top" alt="random-img" />
             <div className="card-body">
                 <h5 className="card-title">{props.nombre}</h5>
 

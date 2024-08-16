@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 const URL = process.env.BACKEND_URL
-// const URL = "https://literate-pancake-45rxw7xpv47f5gg4-3001.app.github.dev"
+// const URL = "https://ubiquitous-eureka-v95xqvxjwgw25pg-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -56,6 +56,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localidad_id: parseInt(values.localidad_id),
 							departamento_id: parseInt(values.departamento_id),
 							user_id: values.user_id,
+							url_image: values.url_image,					
+							//coord_x: values.coord_x,
+							//coord_y: values.coord_y,
 						})
 					});
 	
@@ -274,6 +277,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							raza_id: parseInt(values.raza_id), 
 							localidad_id: parseInt(values.localidad_id),
 							departamento_id: parseInt(values.departamento_id),
+							url_image: values.url_image,
+							coord_x: values.coord_x,
+							coord_y: values.coord_y,
 							// user_id: values.user_id,
 						})
 					});
@@ -292,6 +298,26 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false
 				}
 			},
+			uploadImage: async (formData) => {
+				
+			
+				try {
+					const response = await fetch(URL+'/api/upload-file', {
+						method: 'POST',
+						body: formData,
+					});
+			
+					if (!response.ok) {
+						throw new Error('Error al subir la imagen');
+					}
+			
+					const data = await response.json();
+					return data.url; // URL de la imagen subida
+				} catch (error) {
+					console.error(error);
+					return null;
+				}
+			}
 
 		}
 	}

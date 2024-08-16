@@ -197,7 +197,7 @@ const Filtros = (props) => {
             {filteredArray.map((mascota, index) => (
                 <div key={index} className="col-md-6 col-sm-12 col-lg-4 col-xxl-3 mb-4">
                     <MascotaCard
-                        imgSrc={"https://picsum.photos/200"}
+                        imgSrc={mascota.url_image}
                         nombre={mascota.nombre}
                         fecha={mascota.fecha_perdido}
                         especie={mascota.especie_name}

@@ -8,11 +8,22 @@ from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
 from datetime import timedelta
 from werkzeug.security import generate_password_hash, check_password_hash
+import cloudinary
+import cloudinary.uploader
+from cloudinary.utils import cloudinary_url
 
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
+
+# Cloudinary Config       
+cloudinary.config( 
+    cloud_name = "dnfyyzvzw", 
+    api_key = "819588665853269", 
+    api_secret = "Oyq-jtbcAQYj_ySpyo-brsHZHCg", # Click 'View API Keys' above to copy your API secret
+    secure=True
+)
 
 # ENDPOINT: Login
 @api.route('/login', methods=['POST'])
@@ -80,7 +91,10 @@ def add_mascota():
         especie_id = data["especie_id"],
         raza_id = data["raza_id"], 
         localidad_id = data["localidad_id"],
-        departamento_id = data["departamento_id"], 
+        departamento_id = data["departamento_id"],
+        url_image = data["url_image"],
+        # coord_x = data["coord_x"],
+        # coord_y = data["coord_y"]
         # favorito_id = data["favorito_id"]
         )
 
@@ -285,6 +299,15 @@ def edit_mascota(mascota_id):
 
     if data.get("departamento_id"):
         mascota.departamento_id = data["departamento_id"]
+    
+    if data.get("url_image"):
+        mascota.url_image = data["url_image"]
+
+    if data.get("coord_x"):
+        mascota.coord_x = data["coord_x"]
+
+    if data.get("coord_y"):
+        mascota.coord_y = data["coord_y"]
 
     if "is_active" in data:
         mascota.is_active = data["is_active"]
@@ -292,3 +315,19 @@ def edit_mascota(mascota_id):
     db.session.commit()
 
     return jsonify({"msg": "Datos de mascota actualizados exitosamente", "mascota": mascota.serialize()})
+
+@api.route('/upload-file', methods=['POST'])
+def upload_file():
+    if 'file' not in request.files:
+        return jsonify({"error": "not file found"}), 404
+    
+    file = request.files['file']
+    if file.filename == '':
+        return jsonify({"error": "no selected file"})
+    
+    try:
+        result = cloudinary.uploader.upload(file, folder='mascotas')
+        return jsonify({"url": result['secure_url']})
+    except Exception as e:
+        return jsonify({"error": str(e)})
+

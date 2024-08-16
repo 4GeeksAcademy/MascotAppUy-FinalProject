@@ -51,3 +51,15 @@
     margin-bottom: 50px;
 }
 
+.rounded-icon {
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.rounded-icon.perdido {
+    border: 1px solid red;
+}
+
+.rounded-icon.encontrado {
+    border: 1px solid green;
+}
