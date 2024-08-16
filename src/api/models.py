@@ -76,6 +76,7 @@ class Mascota(db.Model):
     raza_id = db.Column(db.Integer, db.ForeignKey('raza.id'), nullable=False)
     departamento_id = db.Column(db.Integer, db.ForeignKey('departamento.id'), nullable=False)
     favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
+    url_image = db.Column(db.String(250))
 
     def __repr__(self):
         return f'<Mascota {self.nombre}>'
@@ -102,7 +103,8 @@ class Mascota(db.Model):
             "raza_id": self.raza_id,
             "raza_name": self.raza.name,
             "departamento_id": self.departamento_id,
-            "departamento_name": self.departamento.name
+            "departamento_name": self.departamento.name,
+            "url_image": self.url_image
         }
 
 class Especie(db.Model):
