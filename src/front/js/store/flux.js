@@ -56,9 +56,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							localidad_id: parseInt(values.localidad_id),
 							departamento_id: parseInt(values.departamento_id),
 							user_id: values.user_id,
-							url_image: values.url_image,					
-							coord_x: values.coord_x,
-							coord_y: values.coord_y,
+							url_image: values.url_image
 						})
 					});
 	
@@ -277,9 +275,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							raza_id: parseInt(values.raza_id), 
 							localidad_id: parseInt(values.localidad_id),
 							departamento_id: parseInt(values.departamento_id),
-							url_image: values.url_image,
-							coord_x: values.coord_x,
-							coord_y: values.coord_y,
 							// user_id: values.user_id,
 						})
 					});
