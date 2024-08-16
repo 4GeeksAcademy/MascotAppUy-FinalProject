@@ -62,7 +62,7 @@ class Sexo(Enum):
 class Mascota(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
-    edad = db.Column(db.String(120), nullable=False)
+    edad = db.Column(db.String(120))
     sexo = db.Column(db.Enum(Sexo), nullable=False)
     descripcion = db.Column(db.String(250), nullable=False)
     estado = db.Column(db.Enum(Estado), nullable=False)
