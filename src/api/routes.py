@@ -93,8 +93,8 @@ def add_mascota():
         localidad_id = data["localidad_id"],
         departamento_id = data["departamento_id"],
         url_image = data["url_image"],
-        coord_x = data["coord_x"],
-        coord_y = data["coord_y"]
+        # coord_x = data["coord_x"],
+        # coord_y = data["coord_y"]
         # favorito_id = data["favorito_id"]
         )
 
