@@ -18,7 +18,7 @@ const MapView = () => {
                 <h1>Bienvenido a la vista de Mapa</h1>
             </div>
             <div className="description text-center mt-4">
-                <p>Aquí podrás ver un mapa con la ubicacion de las mascotas perdidas y encontradas.</p>
+                <p>Hola! Aquí podrás ver un mapa con la ubicacion de las mascotas perdidas y encontradas.</p>
                 <p>Si has visto alguna de estas mascotas, por favor, no dudes en contactarnos para ayudar a reunirlas con sus familias.</p>
             </div>
             {/* Componente MapaComp al cual le paso la lista de mascotas perdidas y encontradas ya filtradas */}
