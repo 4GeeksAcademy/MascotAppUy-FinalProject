@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: 789a4710126e
+Revision ID: 5ea2c1e35a90
 Revises: 
-Create Date: 2024-08-08 18:30:01.958960
+Create Date: 2024-08-16 14:08:47.068841
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = '789a4710126e'
+revision = '5ea2c1e35a90'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -30,7 +30,7 @@ def upgrade():
     )
     op.create_table('especie',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=25), nullable=False),
+    sa.Column('name', sa.String(length=50), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('favorito',
@@ -39,14 +39,14 @@ def upgrade():
     )
     op.create_table('localidad',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=25), nullable=False),
+    sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('departamento_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['departamento_id'], ['departamento.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('raza',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=25), nullable=False),
+    sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('especie_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['especie_id'], ['especie.id'], ),
     sa.PrimaryKeyConstraint('id')
@@ -57,12 +57,10 @@ def upgrade():
     sa.Column('password', sa.String(length=200), nullable=False),
     sa.Column('nombre', sa.String(length=50), nullable=False),
     sa.Column('fecha_registro', sa.Date(), nullable=True),
-    sa.Column('telefono', sa.String(), nullable=False),
+    sa.Column('telefono', sa.String(length=25), nullable=True),
     sa.Column('is_active', sa.Boolean(), nullable=False),
-    sa.Column('localidad_id', sa.Integer(), nullable=False),
     sa.Column('favorito_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['favorito_id'], ['favorito.id'], ),
-    sa.ForeignKeyConstraint(['localidad_id'], ['localidad.id'], ),
     sa.PrimaryKeyConstraint('id'),
     sa.UniqueConstraint('email')
     )
@@ -79,10 +77,17 @@ def upgrade():
     sa.Column('user_id', sa.Integer(), nullable=False),
     sa.Column('especie_id', sa.Integer(), nullable=False),
     sa.Column('localidad_id', sa.Integer(), nullable=False),
+    sa.Column('raza_id', sa.Integer(), nullable=False),
+    sa.Column('departamento_id', sa.Integer(), nullable=False),
     sa.Column('favorito_id', sa.Integer(), nullable=True),
+    sa.Column('url_image', sa.String(length=250), nullable=True),
+    sa.Column('coord_x', sa.Numeric(precision=10, scale=6), nullable=True),
+    sa.Column('coord_y', sa.Numeric(precision=10, scale=6), nullable=True),
+    sa.ForeignKeyConstraint(['departamento_id'], ['departamento.id'], ),
     sa.ForeignKeyConstraint(['especie_id'], ['especie.id'], ),
     sa.ForeignKeyConstraint(['favorito_id'], ['favorito.id'], ),
     sa.ForeignKeyConstraint(['localidad_id'], ['localidad.id'], ),
+    sa.ForeignKeyConstraint(['raza_id'], ['raza.id'], ),
     sa.ForeignKeyConstraint(['user_id'], ['user.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
