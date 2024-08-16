@@ -92,9 +92,7 @@ def add_mascota():
         raza_id = data["raza_id"], 
         localidad_id = data["localidad_id"],
         departamento_id = data["departamento_id"],
-        url_image = data["url_image"],
-        coord_x = data["coord_x"],
-        coord_y = data["coord_y"]
+        url_image=data['url_image'] 
         # favorito_id = data["favorito_id"]
         )
 
@@ -299,15 +297,6 @@ def edit_mascota(mascota_id):
 
     if data.get("departamento_id"):
         mascota.departamento_id = data["departamento_id"]
-    
-    if data.get("url_image"):
-        mascota.url_image = data["url_image"]
-
-    if data.get("coord_x"):
-        mascota.coord_x = data["coord_x"]
-
-    if data.get("coord_y"):
-        mascota.coord_y = data["coord_y"]
 
     if "is_active" in data:
         mascota.is_active = data["is_active"]
