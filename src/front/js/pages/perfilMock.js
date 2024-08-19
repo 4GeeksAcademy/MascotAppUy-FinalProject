@@ -9,7 +9,9 @@ const PerfilMock = () => {
     const navigate = useNavigate();
     const { store, actions } = useContext(Context);
     const [edit, setEdit] = useState(false);
+    const [editPassword, setEditPassword] = useState(false)
 
+    // ********* FORMIK PARA EDITAR DATOS GENERALES**********
     const validate = values => {
         const errors = {};
       
@@ -75,6 +77,46 @@ const PerfilMock = () => {
           }
         },
     });
+
+    // ********* FORMIK PARA EDITAR CONTRASEÑA**********
+    const formikPassword = useFormik({
+        initialValues: {
+            nombre: store.user.nombre || '',
+            email: store.user.email || '',
+            telefono: store.user.telefono || '',
+            newPassword: '',
+            confirmPassword: ''
+        },
+        validate: (values) => {
+            const errors = {};
+            
+            if (!values.newPassword) {
+                errors.newPassword = 'New password is required';
+            } else if (values.newPassword.length > 200) {
+                errors.newPassword = 'Password can not be longer than 200 characters';
+            }
+            if (values.newPassword !== values.confirmPassword) {
+                errors.confirmPassword = 'Passwords do not match';
+            }
+            return errors;
+        },
+        onSubmit: async (values) => {
+            const success = await actions.editarUsuario(values);
+            if (success) {
+                Toast.fire({
+                    icon: 'success',
+                    title: 'Password updated successfully'
+                });
+                setEditPassword(false);
+            } else {
+                Toast.fire({
+                    icon: 'error',
+                    title: 'Failed to update password'
+                });
+            }
+        }
+    });
+// ********* FIN FORMIK PARA EDITAR CONTRASEÑA**********
 
     // Actualiza los valores de Formik después de que el usuario haya sido editado
     useEffect(() => {
@@ -154,6 +196,55 @@ const PerfilMock = () => {
                         </button>
                     </form>
                 </div>
+            ) : editPassword ? (
+                <div className="form-container mt-5 w-50">
+                    <h2>Cambiar contraseña</h2>
+                    <form onSubmit={formikPassword.handleSubmit}>
+        
+                        <div className="input-group d-flex mb-4">
+                            <span className='px-2'><i className="fas fa-key"></i></span>
+                            <input
+                                id="newPassword"
+                                name="newPassword"
+                                className="w-75 ps-2"
+                                type="password"
+                                placeholder="Nueva contraseña"
+                                onChange={formikPassword.handleChange}
+                                onBlur={formikPassword.handleBlur}
+                                value={formikPassword.values.newPassword}
+                            />
+                            {formikPassword.touched.newPassword && formikPassword.errors.newPassword ? (
+                                <div className="error-msg ms-2">{formikPassword.errors.newPassword}</div>
+                            ) : null}
+                        </div>
+                        <div className="input-group d-flex mb-4">
+                            <span className='px-2'><i className="fas fa-key"></i></span>
+                            <input
+                                id="confirmPassword"
+                                name="confirmPassword"
+                                className="w-75 ps-2"
+                                type="password"
+                                placeholder="Confirma nueva contraseña"
+                                onChange={formikPassword.handleChange}
+                                onBlur={formikPassword.handleBlur}
+                                value={formikPassword.values.confirmPassword}
+                            />
+                            {formikPassword.touched.confirmPassword && formikPassword.errors.confirmPassword ? (
+                                <div className="error-msg ms-2">{formikPassword.errors.confirmPassword}</div>
+                            ) : null}
+                        </div>
+                        <button type="submit" style={{
+                            backgroundColor: '#FF8A5B',
+                            border: 'none',
+                            color: '#FFFFFF',
+                            padding: '10px 20px',
+                            borderRadius: '5px',
+                            cursor: 'pointer'
+                        }}>
+                            Cambiar contraseña
+                        </button>
+                    </form>
+                </div>
             ) : (
                 <div>
                     <h1 className="text-center">Bienvenido/a {store.user.nombre}</h1>
@@ -163,6 +254,7 @@ const PerfilMock = () => {
                     <h6 className="text-center">Contraseña: {store.user.password}</h6>
                     <div className="d-flex justify-content-center">
                         <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => setEdit(true)}><i className="fas fa-edit"></i></button>
+                        <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => setEditPassword(true)}><i className="fas fa-edit"></i>Cambiar contraseña</button>
                     </div>
                 </div>
             )}

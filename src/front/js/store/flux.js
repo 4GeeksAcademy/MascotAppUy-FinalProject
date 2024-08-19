@@ -328,7 +328,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 						},
 						body: JSON.stringify({
 							"email": values.email,
-							"password": values.password,
+							"password": values.newPassword,
 							"nombre": values.nombre,
 							"telefono": values.telefono,
 							"is_active": true
