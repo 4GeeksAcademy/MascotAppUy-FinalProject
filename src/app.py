@@ -11,6 +11,7 @@ from api.routes import api
 from api.admin import setup_admin
 from api.commands import setup_commands
 from flask_jwt_extended import JWTManager
+from authlib.integrations.flask_client import OAuth
 
 
 # from models import Person
@@ -32,6 +33,16 @@ else:
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 MIGRATE = Migrate(app, db, compare_type=True)
 db.init_app(app)
+
+# Google 
+oauth = OAuth(app)
+google = oauth.register(
+    name = 'google',
+    client_id = os.getenv('CLIENT_ID'),
+    client_secret = os.getenv('CLIENT_SECRET'),
+    server_metadata_uri = 'https://acounts.google.com/.well-known/openid-configuration',
+    client_kwargs = {'scope': 'openid profile email'}
+)
 
 # add the admin
 setup_admin(app)

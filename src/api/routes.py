@@ -1,7 +1,7 @@
 """
 This module takes care of starting the API Server, Loading the DB and Adding the endpoints
 """
-from flask import Flask, request, jsonify, url_for, Blueprint
+from flask import Flask, request, jsonify, url_for, Blueprint, session, redirect
 from api.models import db, User, Mascota, Color, Especie, Departamento, Localidad, Raza
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
@@ -11,11 +11,15 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
+from app import google
+
 
 api = Blueprint('api', __name__)
 
 # Allow CORS requests to this API
 CORS(api)
+
+
 
 # Cloudinary Config       
 cloudinary.config( 
@@ -77,40 +81,46 @@ def get_all_usuarios():
 @api.route('/mascotas', methods=['POST'])
 def add_mascota():
     data = request.get_json()
+    api.logger.debug(f"Received data: {data}")
+
     if not data:
         return jsonify({"error": "no data"}), 404
     
-    new_mascota = Mascota(
-        nombre = data["nombre"], 
-        edad = data["edad"], 
-        sexo = data["sexo"], 
-        descripcion = data["descripcion"], 
-        estado = data["estado"], 
-        fecha_perdido = data["fecha_perdido"], 
-        user_id = data["user_id"], 
-        especie_id = data["especie_id"],
-        raza_id = data["raza_id"], 
-        localidad_id = data["localidad_id"],
-        departamento_id = data["departamento_id"],
-        url_image = data["url_image"],
-        # coord_x = data["coord_x"],
-        # coord_y = data["coord_y"]
-        # favorito_id = data["favorito_id"]
-        )
+    try:
+        new_mascota = Mascota(
+            nombre = data["nombre"], 
+            edad = data["edad"], 
+            sexo = data["sexo"], 
+            descripcion = data["descripcion"], 
+            estado = data["estado"], 
+            fecha_perdido = data["fecha_perdido"], 
+            user_id = data["user_id"], 
+            especie_id = data["especie_id"],
+            raza_id = data["raza_id"], 
+            localidad_id = data["localidad_id"],
+            departamento_id = data["departamento_id"],
+            url_image=data.get("url_image", None),
+            # coord_x = data["coord_x"],
+            # coord_y = data["coord_y"]
+            # favorito_id = data["favorito_id"]
+            )
 
-    # Agregar colores a la mascota por ser Many to Many va diferente
-    # for color_name in data["colores_mascotas"]:
-    #     color = Color.query.filter_by(name=color_name).first()
-    #     if color:
-    #         new_mascota.colores_mascotas.append(color)
-    #     else:
-    #         return jsonify({"error": f"Color '{color_name}' not found"}), 404
+        # Agregar colores a la mascota por ser Many to Many va diferente
+        # for color_name in data["colores_mascotas"]:
+        #     color = Color.query.filter_by(name=color_name).first()
+        #     if color:
+        #         new_mascota.colores_mascotas.append(color)
+        #     else:
+        #         return jsonify({"error": f"Color '{color_name}' not found"}), 404
 
-    db.session.add(new_mascota)
-    db.session.commit()
-    new_mascota_add = new_mascota.serialize()
+        db.session.add(new_mascota)
+        db.session.commit()
+        new_mascota_add = new_mascota.serialize()
 
-    return jsonify(new_mascota_add)
+        return jsonify(new_mascota_add)
+    except Exception as e:
+        api.logger.error(f"Error adding mascota: {str(e)}")
+        return jsonify({"error": "Server error"}), 500
 
 # ENDPOINT: Validar token
 @api.route("/valid-token", methods=["GET"])
@@ -330,4 +340,45 @@ def upload_file():
         return jsonify({"url": result['secure_url']})
     except Exception as e:
         return jsonify({"error": str(e)})
+    
+
+############## GOOGLE ##############
+
+# Google login
+@api.route('/login/google')
+def login_google():
+    try:
+        redirect_uri = url_for('authorize_google',_external=True)
+        return google.authorize_redirect(redirect_uri)
+    except Exception as e:
+        api.logger.error(f"Error during login:{str(e)}")
+        return "Error occurred during login", 500
+    
+
+# Google authorize
+@api.route('/authorize/google')
+def authorize_google():
+    token = google.authorize_access_token()
+    userinfo_endpoint = google.server_metadata['userinfo_endpoint']
+    resp = google.get(userinfo_endpoint)
+    user_info = resp.json()
+    email = user_info['email']
+
+    user = User.query.filter_by(email = email).first
+    if not user:
+        user = User(
+            email = email,
+            is_active=True,  
+            nombre= email)
+        
+        db.session.add(user)
+        db.session.commit()
+    
+    session['email'] = email
+    session['oauth_token'] = token
+
+    return redirect(url_for("/"))
+         
+
+############## END GOOGLE ##############
 
