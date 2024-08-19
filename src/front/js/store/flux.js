@@ -317,10 +317,29 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error);
 					return null;
 				}
-			}
-
+			},
+			loginGoogle: async () => {
+				try {
+					let response = await fetch(URL+"/api/login/google")
+						
+					let data = await response.json()
+					if (response.ok){
+						localStorage.setItem('access_token', data.token)
+						setStore({ user: data.email})
+							return true
+					}
+					setStore({user: null})
+					return false
+				} catch (error) {
+					console.log("Error:" + error);
+					setStore({user: null})
+					return false
+				}
+			},
 		}
+
 	}
 }
+
 
 export default getState;

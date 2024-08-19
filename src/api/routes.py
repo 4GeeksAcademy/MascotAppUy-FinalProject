@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
-from app import google
+# from app import google 
 
 
 api = Blueprint('api', __name__)
@@ -142,7 +142,7 @@ def signup():
     data = request.get_json()
 
     if not data.get("email") or not data.get("password"):
-        return jsonify({"error": "Neither email nor password can be blank"}), 404
+        return jsonify({"error": "Neither email nor password can be blank"}), 400
 
     check_email = User.query.filter_by(email = data['email']).first()
     if check_email:
@@ -345,31 +345,35 @@ def upload_file():
 ############## GOOGLE ##############
 
 # Google login
-@api.route('/login/google')
+@api.route('/login/google', methods=['POST'])
 def login_google():
-    try:
-        redirect_uri = url_for('authorize_google',_external=True)
-        return google.authorize_redirect(redirect_uri)
-    except Exception as e:
-        api.logger.error(f"Error during login:{str(e)}")
-        return "Error occurred during login", 500
+    from app import google
+    
+    redirect_uri = url_for('authorize_google',_external=True)
+    print(redirect_uri)
+    return google.authorize_redirect(redirect_uri)
+    # except Exception as e:
+    #     # api.logger.error(f"Error during login:{str(e)}")
+    #     return "Error occurred during login", 500
     
 
 # Google authorize
-@api.route('/authorize/google')
+@api.route('/authorize/google', methods=['POST'])
 def authorize_google():
+    from app import google
     token = google.authorize_access_token()
     userinfo_endpoint = google.server_metadata['userinfo_endpoint']
     resp = google.get(userinfo_endpoint)
     user_info = resp.json()
     email = user_info['email']
 
-    user = User.query.filter_by(email = email).first
+    user = User.query.filter_by(email = email).first()
     if not user:
         user = User(
             email = email,
             is_active=True,  
-            nombre= email)
+            nombre= email,
+            password="hola789")
         
         db.session.add(user)
         db.session.commit()
@@ -377,7 +381,12 @@ def authorize_google():
     session['email'] = email
     session['oauth_token'] = token
 
-    return redirect(url_for("/"))
+    response_body = {
+        'email': session['email'],
+        'token': session['oauth_token']
+    }
+
+    return jsonify(response_body)
          
 
 ############## END GOOGLE ##############
