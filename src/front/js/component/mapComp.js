@@ -58,7 +58,7 @@ export const MapComp = () => {
             showCoverageOnHover: false, // No mostrar cobertura del clúster al pasar el mouse
             zoomToBoundsOnClick: true,  // Zoom cuando se hace clic en el clúster
             maxClusterRadius: 35,       // Reducir el radio del clúster para que se agrupen más fácilmente
-            disableClusteringAtZoom: 25, // No agrupar cuando se acerca mucho
+            disableClusteringAtZoom: 17, // No agrupar cuando se acerca mucho
             spiderfyOnMaxZoom: true,
             removeOutsideVisibleBounds: true,
             animate:true,
