@@ -10,6 +10,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 export const MapComp = () => {
     const { store } = useContext(Context);
     const mapRef = useRef(null); // Referencia para la instancia del mapa
+    
 
     useEffect(() => {
         // Inicializar el mapa solo una vez

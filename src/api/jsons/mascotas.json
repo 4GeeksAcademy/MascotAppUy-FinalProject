@@ -19,8 +19,8 @@
         "raza_name": "Africano doméstico",
         "sexo": "HEMBRA",
         "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
-        "user_id": 1,
-        "user_name": "user"
+        "user_id": 2,
+        "user_name": "user2"
     },
     {
         "colores_mascotas": [],
@@ -42,8 +42,8 @@
         "raza_name": "Perro de Montaña Appenzell",
         "sexo": "MACHO",
         "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
-        "user_id": 1,
-        "user_name": "user"
+        "user_id": 2,
+        "user_name": "user2"
     },
     {
         "colores_mascotas": [],
@@ -64,9 +64,9 @@
         "raza_id": 14,
         "raza_name": "British Shorthair",
         "sexo": "HEMBRA",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://www.fundacionaquae.org/wp-content/uploads/2018/10/proteger-a-los-animales.jpg",
+        "user_id": 2,
+        "user_name": "user2"
     },
     {
         "colores_mascotas": [],
@@ -88,8 +88,8 @@
         "raza_name": "Perro de Montaña del Atlas",
         "sexo": "MACHO",
         "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
-        "user_id": 1,
-        "user_name": "user"
+        "user_id": 2,
+        "user_name": "user2"
     },
     {
         "colores_mascotas": [],
@@ -110,9 +110,9 @@
         "raza_id": 8,
         "raza_name": "Bengala",
         "sexo": "HEMBRA",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRE6GuoEFbvz-TadDfpqVJmHykzyY75dCwqHg&s",
+        "user_id": 2,
+        "user_name": "user2"
     },
     {
         "colores_mascotas": [],
@@ -133,7 +133,7 @@
         "raza_id": 248,
         "raza_name": "Perro de Montaña Bernés",
         "sexo": "MACHO",
-        "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
+        "url_image": "https://images.pexels.com/photos/34098/south-africa-hluhluwe-giraffes-pattern.jpg?auto=compress&cs=tinysrgb&dpr=1&w=500",
         "user_id": 1,
         "user_name": "user"
     },
@@ -156,7 +156,7 @@
         "raza_id": 11,
         "raza_name": "Bosque de Noruega",
         "sexo": "MACHO",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
+        "url_image": "https://cdn.pixabay.com/photo/2015/04/10/01/41/fox-715588_1280.jpg",
         "user_id": 1,
         "user_name": "user"
     },
@@ -179,7 +179,7 @@
         "raza_id": 253,
         "raza_name": "Perro de Pastor islandés",
         "sexo": "MACHO",
-        "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
+        "url_image": "https://imagenes.muyinteresante.com/files/image_414_276/uploads/2023/10/04/651cffc2141bc.jpeg",
         "user_id": 1,
         "user_name": "user"
     },
@@ -202,7 +202,7 @@
         "raza_id": 13,
         "raza_name": "British Longhair",
         "sexo": "HEMBRA",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
+        "url_image": "https://files.worldwildlife.org/wwfcmsprod/images/Panda_WW191377/story_carousel/61wgbuubt8_panda_Original_WW191377.jpg",
         "user_id": 1,
         "user_name": "user"
     },
@@ -225,7 +225,7 @@
         "raza_id": 251,
         "raza_name": "Perro de pastor australiano",
         "sexo": "MACHO",
-        "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
+        "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcWr6Q9wwNSpolraAlAcmBkjTDObRlr3Ncvg&s",
         "user_id": 1,
         "user_name": "user"
     },
@@ -248,9 +248,9 @@
         "raza_id": 5,
         "raza_name": "Ashera",
         "sexo": "MACHO",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA8jGU9Y9jmgyltq0uZy-NMRB715yz4umiuQ&s",
+        "user_id": 3,
+        "user_name": "user3"
     },
     {
         "colores_mascotas": [],
@@ -271,9 +271,9 @@
         "raza_id": 249,
         "raza_name": "Perro de Montaña de los Pirineos",
         "sexo": "MACHO",
-        "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://www.ecoticias.com/wp-content/uploads/2023/12/Animales-hermosos-y-exoticos.jpg",
+        "user_id": 3,
+        "user_name": "user3"
     },
     {
         "colores_mascotas": [],
@@ -294,9 +294,9 @@
         "raza_id": 9,
         "raza_name": "Birmano",
         "sexo": "HEMBRA",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlCjCGQi-67Dr26UATuj2RbV8TYNBzh04B1Q&s",
+        "user_id": 3,
+        "user_name": "user3"
     },
     {
         "colores_mascotas": [],
@@ -317,9 +317,9 @@
         "raza_id": 247,
         "raza_name": "Perro de Montaña Appenzell",
         "sexo": "MACHO",
-        "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTiT8XXmitwpb7dUo1lNHDpqB1z9jlbr-LatA&s",
+        "user_id": 3,
+        "user_name": "user3"
     },
     {
         "colores_mascotas": [],
@@ -340,9 +340,9 @@
         "raza_id": 10,
         "raza_name": "Bombay",
         "sexo": "HEMBRA",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://content.nationalgeographic.com.es/medio/2022/12/12/aguila-2_d7d2206b_221212153725_310x310.jpg",
+        "user_id": 3,
+        "user_name": "user3"
     },
     {
         "colores_mascotas": [],
@@ -363,9 +363,9 @@
         "raza_id": 252,
         "raza_name": "Perro de Montaña del Atlas",
         "sexo": "MACHO",
-        "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQLkQ3tHQi9U-5EvPrkGdiyGskYx9PkjNrq0Q&s",
+        "user_id": 4,
+        "user_name": "user4"
     },
     {
         "colores_mascotas": [],
@@ -386,9 +386,9 @@
         "raza_id": 6,
         "raza_name": "Azul Ruso",
         "sexo": "MACHO",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9OLO09bci0WgZBFO3BYq5WtpA7RdJU0wo4A&s",
+        "user_id": 4,
+        "user_name": "user4"
     },
     {
         "colores_mascotas": [],
@@ -409,9 +409,9 @@
         "raza_id": 250,
         "raza_name": "Perro de pastor belga",
         "sexo": "MACHO",
-        "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://definicion.de/wp-content/uploads/2012/10/animal-1.jpg",
+        "user_id": 4,
+        "user_name": "user4"
     },
     {
         "colores_mascotas": [],
@@ -432,9 +432,9 @@
         "raza_id": 11,
         "raza_name": "Burmés",
         "sexo": "HEMBRA",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQys0x_Ie7ooCCJl4covATkQx5n7ZejP2W7WA&s",
+        "user_id": 4,
+        "user_name": "user4"
     },
     {
         "colores_mascotas": [],
@@ -455,8 +455,8 @@
         "raza_id": 248,
         "raza_name": "Perro de Montaña Bernés",
         "sexo": "MACHO",
-        "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
-        "user_id": 1,
-        "user_name": "user"
+        "url_image": "https://concepto.de/wp-content/uploads/2022/05/animales-e1653765030720.jpg",
+        "user_id": 4,
+        "user_name": "user4"
     }
 ]
