@@ -1,4 +1,5 @@
 import React, { useEffect, useContext, useRef } from "react";
+import { useLocation } from 'react-router-dom';
 import { Context } from "../store/appContext";
 import L from "leaflet";
 import 'leaflet/dist/leaflet.css';
@@ -7,10 +8,21 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 
+
 export const MapComp = () => {
     const { store } = useContext(Context);
+    const location = useLocation();
     const mapRef = useRef(null); // Referencia para la instancia del mapa
-    
+
+    let onMapClick = null;
+
+    // Dependiendo de la ruta, define la función para manejar clics en el mapa
+    if (location.pathname === '/agregarmascota') {
+        onMapClick = (e) => {
+            console.log("Ubicación seleccionada:", e.latlng);
+            // Maneja la ubicación seleccionada por el usuario aquí
+        };
+    }
 
     useEffect(() => {
         // Inicializar el mapa solo una vez
@@ -21,13 +33,17 @@ export const MapComp = () => {
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(mapRef.current);
 
-            // Evento de clic en el mapa
-            mapRef.current.on('click', (e) => {
-                L.popup()
-                    .setLatLng(e.latlng)
-                    .setContent("You clicked the map at " + e.latlng.toString())
-                    .openOn(mapRef.current);
-            });
+
+            // mapRef.current.on('click', (e) => {
+            //     L.popup()
+            //         .setLatLng(e.latlng)
+            //         .setContent("You clicked the map at " + e.latlng.toString())
+            //         .openOn(mapRef.current);
+            // });
+            // Evento de clic en el mapa si se ha definido
+            if (onMapClick) {
+                mapRef.current.on('click', onMapClick);
+            }
         }
 
         // Eliminar los marcadores anteriores
@@ -42,7 +58,7 @@ export const MapComp = () => {
             showCoverageOnHover: false, // No mostrar cobertura del clúster al pasar el mouse
             zoomToBoundsOnClick: true,  // Zoom cuando se hace clic en el clúster
             maxClusterRadius: 35,       // Reducir el radio del clúster para que se agrupen más fácilmente
-            disableClusteringAtZoom: 14, // No agrupar cuando se acerca mucho
+            disableClusteringAtZoom: 25, // No agrupar cuando se acerca mucho
             spiderfyOnMaxZoom: true,
             removeOutsideVisibleBounds: true,
             animate:true,
@@ -73,7 +89,7 @@ export const MapComp = () => {
         // Añadir el grupo de clúster al mapa
         mapRef.current.addLayer(markers);
 
-    }, [store.mascotas]); // Escuchar cambios en store.mascotas
+    }, [store.mascotas, onMapClick]); // Escuchar cambios en store.mascotas y onMapClick
 
     return (
         <div className="" style={{ backgroundColor: "#040926", color: "#E0E1DD" }}>
