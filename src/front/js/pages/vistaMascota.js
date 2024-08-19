@@ -38,6 +38,7 @@ import { Context } from "../store/appContext";
             descripcion={mascota.descripcion}
             edad={mascota.edad}
             sexo={mascota.sexo}
+            imagen={mascota.url_image}
         />
     </div>
     
