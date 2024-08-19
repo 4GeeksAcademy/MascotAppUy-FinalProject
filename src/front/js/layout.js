@@ -20,6 +20,7 @@ import AllMascotasEncontradas from "./pages/allMascotasEncontradas.jsx";
 import AllMascotasPerdidas from "./pages/allMascotasPerdidas.jsx";
 import MapView from "./pages/mapView.js";
 import { VistaMascota } from "./pages/vistaMascota.js";
+import PerfilMock from "./pages/perfilMock.js";
 
 
 //create your first component
@@ -45,6 +46,7 @@ const Layout = () => {
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<AgregarMascota />} path="/agregarmascota" />
                         <Route element={<MapView />} path="/mapa" />
+                        <Route element={<PerfilMock />} path="/profile" />
                         <Route path="/mascota/:theid" element={<VistaMascota />} />
                         <Route element={<h1>Not found!</h1>} />
                     </Routes>

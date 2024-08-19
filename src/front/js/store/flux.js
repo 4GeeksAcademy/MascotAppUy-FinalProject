@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
-const URL = process.env.BACKEND_URL
-// const URL = "https://ubiquitous-eureka-v95xqvxjwgw25pg-3001.app.github.dev"
+// const URL = process.env.BACKEND_URL
+const URL = "https://animated-space-waddle-rqxjpgj5r75h5w5g-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -317,7 +317,36 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error);
 					return null;
 				}
-			}
+			},
+			editarUsuario: async (values) =>{
+				const store = getStore();
+				try {
+					const response = await fetch(URL+`/api/usuarios/${store.user.id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							"email": values.email,
+							"password": values.password,
+							"nombre": values.nombre,
+							"telefono": values.telefono,
+							"is_active": true
+						})
+					});
+	
+					if (response.ok) {
+						const data = await response.json();
+						setStore({ user: data.user }); 
+						return true;
+					} else {
+						return false;
+					}
+				} catch (error) {
+					console.error("Error updating user:", error);
+					return false;
+				}
+			},
 
 		}
 	}

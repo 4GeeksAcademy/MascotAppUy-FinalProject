@@ -9,6 +9,8 @@ export const Navbar = () => {
   const location = useLocation();
   const { store, actions } = useContext(Context);
 
+
+
   return (
       <header className="navbar navbar-expand-md navbar-dark sticky-top" style={{ backgroundColor: "#040926", color: "#E0E1DD" }}>
           <div className="container">
@@ -34,9 +36,14 @@ export const Navbar = () => {
                           <Link to="#" className="nav-link">Contacto</Link>
                       </li>
                       {store.user ? (
+                        <>
                           <li className="nav-item d-flex justify-content-end">
                               <Link to="/" className="nav-link text-danger" onClick={actions.logout}>Cerrar sesión</Link>
                           </li>
+                          <li className="nav-item d-flex justify-content-end">
+                              <Link to="/profile" className="nav-link text-warning">Mi perfil</Link>
+                          </li> 
+                        </> 
                       ) : (
                           <>
                               {location.pathname !== '/form-login' && (
