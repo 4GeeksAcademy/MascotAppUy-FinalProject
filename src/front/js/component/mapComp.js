@@ -7,8 +7,6 @@ import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
-
-
 export const MapComp = () => {
     const { store, actions } = useContext(Context);
     const location = useLocation();
@@ -23,9 +21,9 @@ export const MapComp = () => {
             actions.setCoords(lng, lat);
             L.popup()
                     .setLatLng(e.latlng)
-                    .setContent("Ubicación seleccionada: " + e.latlng.toString() + " Pulsa el boton de enviar abajo para finalizar")
+                    .setContent("Ubicación seleccionada: " + e.latlng.toString() + " Pulsa el boton de enviar abajo para finalizar.")
                     .openOn(mapRef.current);
-git add            // console.log("Ubicación seleccionada:", e.latlng);
+            // console.log("Ubicación seleccionada:", e.latlng);
         };
     }
 
@@ -38,14 +36,6 @@ git add            // console.log("Ubicación seleccionada:", e.latlng);
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
             }).addTo(mapRef.current);
 
-
-            // mapRef.current.on('click', (e) => {
-            //     L.popup()
-            //         .setLatLng(e.latlng)
-            //         .setContent("You clicked the map at " + e.latlng.toString())
-            //         .openOn(mapRef.current);
-            // });
-            // Evento de clic en el mapa si se ha definido
             if (onMapClick) {
                 mapRef.current.on('click', onMapClick);
             }
