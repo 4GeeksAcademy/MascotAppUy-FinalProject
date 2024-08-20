@@ -1,4 +1,45 @@
-.image-container img {
+.icon img {
     width: 70px; /* Ajusta el tamaño según tus necesidades */
     height: auto; /* Mantiene la proporción */
-  }
+}
+
+.navbar {
+  background-color: #040926;
+  color: #E0E1DD;
+}
+
+.button-no-border {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.button-no-border:active {
+  background-color: #EA526F; /* Color de fondo cuando se hace clic */
+  color: white; /* Color del texto (opcional) */
+}
+
+.button-no-border:focus {
+  outline: none; /* Elimina el contorno de enfoque predeterminado */
+  box-shadow: none; /* Opcional: elimina la sombra del enfoque */
+}
+
+.profile-name{
+  width: 40px; /* Ajusta el ancho según sea necesario */
+  height: 40px; /* Ajusta la altura según sea necesario */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* Tamaño de fuente ajustado para la inicial */
+  border-radius: 50%; 
+}
+
+.profile-name {
+  border-color: #EA526F; /* Color del borde */
+  color: #EA526F; /* Color del texto */
+}
+
+.profile-name:hover {
+  background-color: #EA526F; /* Color de fondo en hover */
+  color: #ffffff; /* Color del texto en hover */
+  border-color: #EA526F; /* Mantener el borde del mismo color */
+}
