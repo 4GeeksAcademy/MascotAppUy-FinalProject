@@ -84,6 +84,7 @@ const SignUpComp = () => {
       }
     },
   });
+  
 
   return (
     <div className="form-container mt-5 w-50">

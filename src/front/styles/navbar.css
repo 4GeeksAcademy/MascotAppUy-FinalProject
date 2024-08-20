@@ -1,0 +1,115 @@
+.image-container img {
+  width: 70px; /* Ajusta el tamaño según tus necesidades */
+  height: auto; /* Mantiene la proporción */
+  
+}
+span {
+  font-size: 24px; /* Ajusta el tamaño de la fuente según necesites */
+  color: #E0E1DD; 
+  align-items: center;
+}
+
+.image-container {
+  display: flex;
+  align-items: center; /* Asegura que el texto y el logo estén alineados verticalmente */
+}
+
+.image-container {
+    background-color: #040926;
+    border: none;
+    color: #E0E1DD;
+    position: relative;
+    display: inline-block;  /* Ensure the button doesn't cause layout shifts */
+    width: 70px;            /* Match the image size */
+    height: 70px;           /* Match the image size */
+}
+
+.static-image,
+.animated-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;           /* Ensure the image fills the container */
+    height: 100%;          /* Ensure the image fills the container */
+}
+
+.animated-image {
+    display: none;          /* Hide the animated image by default */
+}
+
+.image-container:hover .static-image {
+    display: none;          /* Hide the static image on hover */
+}
+
+.image-container:hover .animated-image {
+    display: block;         /* Show the animated image on hover */
+}
+
+
+.navbar .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.navbar {
+  background-color: #040926;
+  color: #E0E1DD;
+}
+
+.button-no-border {
+  border: none !important;
+  box-shadow: none !important;
+}
+
+.button-no-border:active {
+  background-color: #EA526F; /* Color de fondo cuando se hace clic */
+  color: white; /* Color del texto (opcional) */
+}
+
+.button-no-border:focus {
+  outline: none; /* Elimina el contorno de enfoque predeterminado */
+  box-shadow: none; /* Opcional: elimina la sombra del enfoque */
+}
+
+.profile-name{
+  width: 40px; /* Ajusta el ancho según sea necesario */
+  height: 40px; /* Ajusta la altura según sea necesario */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px; /* Tamaño de fuente ajustado para la inicial */
+  border-radius: 50%; 
+}
+
+.profile-name {
+  background-color: #EA526F; /* Color de fondo del botón */
+  color: #ffffff; /* Color del texto */
+  border: none; /* Eliminar el borde */
+}
+
+.profile-name:hover {
+  background-color: #ffffff; /* Color de fondo en hover */
+  color: #040926; /* Color del texto en hover */
+  
+}
+
+.boton-ingresar, .boton-registrarse {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+.boton-ingresar:hover {
+  background-color: #E0E1DD; /* Color de fondo al hacer hover */
+  color: #000; /* Color del texto al hacer hover */
+  border: solid 1px #E0E1DD; /* Color del borde al hacer hover */
+}
+.boton-registrarse:hover {
+  background-color: #FF8A5B; /* Color de fondo al hacer hover */
+  color: #fff; /* Color del texto al hacer hover */
+  border: solid 1px #FF8A5B; /* Color del borde al hacer hover */
+}
+.button-no-border:hover {
+  background-color: #040926; 
+  color: #FF8A5B; /* Color del texto al hacer hover */
+}

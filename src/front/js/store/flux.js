@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://potential-invention-5j9wxqw749w2r65-3001.app.github.dev"
+const URL = "https://ominous-pancake-p46xprx5ww7cgww-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -12,7 +12,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			especies: [],
 			localidades: [],
 			departamentos: [],
-			razas: []
+			razas: [],
+			coord_x: null,
+			coord_y: null
 			
 			
 		},
@@ -39,41 +41,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 			agregarMascota: async (values) =>{
 				// const userId = getStore().user.id
 				try {
+					const formattedValues = {
+						nombre: values.nombre,
+						edad: values.edad,
+						sexo: values.sexo,
+						descripcion: values.descripcion,
+						estado: values.estado,
+						fecha_perdido: values.fecha_perdido,
+						especie_id: parseInt(values.especie_id),
+						raza_id: parseInt(values.raza_id),
+						localidad_id: parseInt(values.localidad_id),
+						departamento_id: parseInt(values.departamento_id),
+						user_id: values.user_id,
+						url_image: values.url_image || null,
+						coord_x: values.coord_x || null,
+						coord_y: values.coord_y || null,
+					};
 					const response = await fetch(URL+'/api/mascotas', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
 						},
-						body: JSON.stringify({
-							nombre: values.nombre, 
-							edad: values.edad, 
-							sexo: values.sexo, 
-							descripcion: values.descripcion, 
-							estado: values.estado, 
-							fecha_perdido: values.fecha_perdido,  
-							especie_id: parseInt(values.especie_id),
-							raza_id: parseInt(values.raza_id), 
-							localidad_id: parseInt(values.localidad_id),
-							departamento_id: parseInt(values.departamento_id),
-							user_id: values.user_id,
-							url_image: values.url_image,					
-							//coord_x: values.coord_x,
-							//coord_y: values.coord_y,
-						})
+						body: JSON.stringify(formattedValues)
 					});
 	
 					if (!response.ok) {
-						throw new Error('Error al agregar la mascota');
+						const errorResponse = await response.json();
+						throw new Error(errorResponse.message || 'Error al agregar la mascota');
 					}
+			
 					const newMascota = await response.json();
 					const store = getStore();
 					setStore({ mascotas: [...store.mascotas, newMascota] });
-					// console.log(newMascota);
 					
-					return true
+					return true;
 				} catch (error) {
 					console.error(error);
-					return false
+					return false;
 				}
 			},
 
@@ -317,27 +321,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error);
 					return null;
 				}
-			},
-			loginGoogle: async () => {
-				try {
-					let response = await fetch(URL+"/api/login/google")
-						
-					let data = await response.json()
-					if (response.ok){
-						localStorage.setItem('access_token', data.token)
-						setStore({ user: data.email})
-							return true
-					}
-					setStore({user: null})
-					return false
-				} catch (error) {
-					console.log("Error:" + error);
-					setStore({user: null})
-					return false
-				}
-			},
-		}
+			}
 
+		}
 	}
 }
 

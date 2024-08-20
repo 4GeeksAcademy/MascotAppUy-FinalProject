@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import "../../styles/home.css";
 import { Busqueda } from "../component/busqueda";
 import MascotaCarrousel from "../component/mascotaCarrousel.jsx";
-import { Frecuentes } from "../component/preguntasFrecuentes.js";
+
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
@@ -24,11 +24,12 @@ export const Home = () => {
 		<div className="container-fluid">
 			<Busqueda />
 
-			<MascotaCarrousel titulo="Mascotas perdidas" lista={ultimasDiezPerdidas} carouselId="carouselPerdidas"/>
+			<div id="explorar">
+				<MascotaCarrousel titulo="Mascotas perdidas" lista={ultimasDiezPerdidas} carouselId="carouselPerdidas"/>
 
-			<MascotaCarrousel titulo="Mascotas encontradas" lista={ultimasDiezEncontradas} carouselId="carouselEncontradas"/>
-
-			<Frecuentes />
+				<MascotaCarrousel titulo="Mascotas encontradas" lista={ultimasDiezEncontradas} carouselId="carouselEncontradas"/>
+			</div>
+			
 
 		</div>
 	);
