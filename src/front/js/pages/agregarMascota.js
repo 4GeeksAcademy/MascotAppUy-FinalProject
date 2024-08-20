@@ -122,11 +122,6 @@ export const AgregarMascota = () =>{
 
     }, [especieSelected, store.razas])
 
-
-    const formatDate = (dateString) => {
-        const [year, month, day] = dateString.split("-");
-        return `${day}/${month}/${year}`;
-    };
     
     const formik = useFormik({
         initialValues: {
@@ -138,7 +133,6 @@ export const AgregarMascota = () =>{
           raza_id: '',
           descripcion: '',
           fecha_perdido: '',
-          contacto: '',
           departamento_id: '',
           localidad_id: ''
         },
@@ -155,15 +149,16 @@ export const AgregarMascota = () =>{
 
             // Subir la imagen
             const urlImg = formData ? await actions.uploadImage(formData) : null;
-            // console.log(urlImg);
+            console.log(urlImg);
             
 
             const formattedValues = {
                 ...values,
-                fecha_perdido: formatDate(values.fecha_perdido),
+                // fecha_perdido: formatDate(values.fecha_perdido),
                 user_id: store.user.id,
                 url_image: urlImg
             };
+            console.log(formattedValues);
             
             const added = await actions.agregarMascota(formattedValues);
             if (added) {
