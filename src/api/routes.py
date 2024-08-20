@@ -83,20 +83,13 @@ def add_mascota():
         if not data:
             return jsonify({"error": "No se recibió ningún dato"}), 400
         
-        # Validación de campos obligatorios
         required_fields = ["nombre", "edad", "sexo", "descripcion", "estado", "fecha_perdido", 
-                           "user_id", "especie_id", "raza_id", "localidad_id", "departamento_id", "url_image"]
+                           "user_id", "especie_id", "raza_id", "localidad_id", "departamento_id"]
         
         for field in required_fields:
             if field not in data or data[field] is None:
                 return jsonify({"error": f"El campo {field} es obligatorio"}), 400
             
-        # try:
-        #     fecha_perdido = datetime.strptime(data["fecha_perdido"], "%d/%m/%Y").date()
-        # except ValueError:
-        #     return jsonify({"error": "El formato de fecha_perdido es incorrecto, debe ser 'DD/MM/YYYY'"}), 400
-        
-        # Crear nueva mascota
         new_mascota = Mascota(
             nombre = data.get("nombre"), 
             edad = data.get("edad"), 
