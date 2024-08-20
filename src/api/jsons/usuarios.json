@@ -1,0 +1,30 @@
+[
+    {
+    "email": "user@user.com",
+    "nombre": "user",
+    "password": "123",
+    "telefono": "",
+    "is_active": true
+},
+{
+    "email": "user2@user.com",
+    "nombre": "user2",
+    "password": "123",
+    "telefono": "",
+    "is_active": true
+},
+{
+    "email": "user3@user.com",
+    "nombre": "user3",
+    "password": "123",
+    "telefono": "",
+    "is_active": true
+},
+{
+    "email": "user4@user.com",
+    "nombre": "user4",
+    "password": "123",
+    "telefono": "",
+    "is_active": true
+}
+]

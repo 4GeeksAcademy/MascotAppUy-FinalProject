@@ -1,7 +1,8 @@
 
 import click
 import json
-from api.models import db, User, Departamento, Localidad, Especie, Raza
+from api.models import db, User, Departamento, Localidad, Especie, Raza, Mascota
+from werkzeug.security import generate_password_hash
 
 """
 In this file, you can add as many commands as you want using the @app.cli.command decorator
@@ -132,8 +133,94 @@ def setup_commands(app):
 
         db.session.commit()
         if razas_agregadas:
-            print("Razas agregadas a la base de datos:", ", ".join(razas_agregadas))
+            print("Razas nuevas agregadas a la base de datos.")
         else:
             print("No se agregaron nuevas razas.")
     
         print("Especies y razas verificadas e insertadas si era necesario.")
+
+    @app.cli.command("seed-mascotas")
+    def seed_mascotas():
+        """Carga datos de mascotas desde un archivo JSON en la base de datos."""
+        # Lee el archivo JSON
+        with open('src/api/jsons/mascotas.json') as file:
+            mascotas_data = json.load(file)
+        
+        # Procesa cada mascota en el archivo
+        for data in mascotas_data:
+            # Busca el usuario por nombre
+            user = User.query.filter_by(nombre=data['user_name']).first()
+            if not user:
+                print(f"Usuario con nombre {data['user_name']} no encontrado. Saltando esta mascota.")
+                continue
+
+            # Busca la especie, raza, localidad y departamento por nombre
+            especie = Especie.query.filter_by(name=data['especie_name']).first()
+            raza = Raza.query.filter_by(name=data['raza_name']).first()
+            localidad = Localidad.query.filter_by(name=data['localidad_name']).first()
+            departamento = Departamento.query.filter_by(name=data['departamento_name']).first()
+
+            if not especie or not raza or not localidad or not departamento:
+                print(f"Algún dato relacionado con la mascota '{data['nombre']}' no fue encontrado. Saltando esta mascota.")
+                continue
+
+            # Crea la mascota
+            mascota = Mascota(
+                nombre=data['nombre'],
+                descripcion=data['descripcion'],
+                edad=data['edad'],
+                sexo=data['sexo'],
+                estado=data['estado'],
+                fecha_perdido=data['fecha_perdido'],
+                coord_x=data['coord_x'],
+                coord_y=data['coord_y'],
+                especie_id=especie.id,
+                raza_id=raza.id,
+                localidad_id=localidad.id,
+                departamento_id=departamento.id,
+                url_image=data['url_image'],
+                user_id=user.id
+            )
+            
+            # Añade y guarda la mascota en la base de datos
+            db.session.add(mascota)
+        
+        db.session.commit()
+        print("Datos de mascotas insertados exitosamente.")
+
+    @app.cli.command("seed-users")
+    def seed_users():
+        """Inserta usuarios con contraseñas en texto claro."""
+        with open('src/api/jsons/usuarios.json') as file:
+            usuarios_data = json.load(file)
+        
+        for data in usuarios_data:
+            existing_user = User.query.filter_by(email=data['email']).first()
+            if existing_user:
+                # print(f"Usuario con ID {data['id']} ya existe. Skipping...")
+                continue
+            
+            user = User(
+                email=data['email'],
+                nombre=data['nombre'],
+                password=data['password'],  # Contraseña en texto claro
+                telefono=data['telefono'],
+                is_active=data['is_active']
+            )
+            db.session.add(user)
+        
+        db.session.commit()
+        print("Usuarios con contraseñas no hasheads insertados exitosamente.")
+
+    @app.cli.command("hash-passwords")
+    def hash_passwords():
+        """Actualiza las contraseñas de los usuarios para que estén hasheadas."""
+        users = User.query.all()
+        for user in users:
+            if not user.password.startswith('$2b$'):  # Verifica si la contraseña ya está hasheada
+                hashed_password = generate_password_hash(user.password)
+                user.password = hashed_password
+                db.session.add(user)
+        
+        db.session.commit()
+        print("Contraseñas de usuarios actualizadas y hasheadas exitosamente.")
