@@ -1,6 +1,55 @@
-.icon img {
-    width: 70px; /* Ajusta el tamaño según tus necesidades */
-    height: auto; /* Mantiene la proporción */
+.image-container img {
+  width: 70px; /* Ajusta el tamaño según tus necesidades */
+  height: auto; /* Mantiene la proporción */
+  
+}
+span {
+  font-size: 24px; /* Ajusta el tamaño de la fuente según necesites */
+  color: #E0E1DD; 
+  align-items: center;
+}
+
+.image-container {
+  display: flex;
+  align-items: center; /* Asegura que el texto y el logo estén alineados verticalmente */
+}
+
+.image-container {
+    background-color: #040926;
+    border: none;
+    color: #E0E1DD;
+    position: relative;
+    display: inline-block;  /* Ensure the button doesn't cause layout shifts */
+    width: 70px;            /* Match the image size */
+    height: 70px;           /* Match the image size */
+}
+
+.static-image,
+.animated-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;           /* Ensure the image fills the container */
+    height: 100%;          /* Ensure the image fills the container */
+}
+
+.animated-image {
+    display: none;          /* Hide the animated image by default */
+}
+
+.image-container:hover .static-image {
+    display: none;          /* Hide the static image on hover */
+}
+
+.image-container:hover .animated-image {
+    display: block;         /* Show the animated image on hover */
+}
+
+
+.navbar .container-fluid {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
 }
 
 .navbar {
