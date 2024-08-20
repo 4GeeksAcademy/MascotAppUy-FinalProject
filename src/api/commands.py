@@ -148,39 +148,24 @@ def setup_commands(app):
         
         # Procesa cada mascota en el archivo
         for data in mascotas_data:
-            # Verifica si la mascota ya existe en la base de datos
-            existing_mascota = Mascota.query.get(data['id'])
-            if existing_mascota:
-                # print(f"Mascota con ID {data['id']} ya existe. Skipping...")
-                continue
-            
-            # Encuentra o crea la especie
-            especie = Especie.query.get(data['especie_id'])
-            if not especie:
-                print(f"Especie con ID {data['especie_id']} no encontrada. Skipping mascota.")
+            # Busca el usuario por nombre
+            user = User.query.filter_by(nombre=data['user_name']).first()
+            if not user:
+                print(f"Usuario con nombre {data['user_name']} no encontrado. Saltando esta mascota.")
                 continue
 
-            # Encuentra o crea la raza
-            raza = Raza.query.get(data['raza_id'])
-            if not raza:
-                print(f"Raza con ID {data['raza_id']} no encontrada. Skipping mascota.")
-                continue
+            # Busca la especie, raza, localidad y departamento por nombre
+            especie = Especie.query.filter_by(name=data['especie_name']).first()
+            raza = Raza.query.filter_by(name=data['raza_name']).first()
+            localidad = Localidad.query.filter_by(name=data['localidad_name']).first()
+            departamento = Departamento.query.filter_by(name=data['departamento_name']).first()
 
-            # Encuentra o crea la localidad
-            localidad = Localidad.query.get(data['localidad_id'])
-            if not localidad:
-                print(f"Localidad con ID {data['localidad_id']} no encontrada. Skipping mascota.")
-                continue
-
-            # Encuentra o crea el departamento
-            departamento = Departamento.query.get(data['departamento_id'])
-            if not departamento:
-                print(f"Departamento con ID {data['departamento_id']} no encontrado. Skipping mascota.")
+            if not especie or not raza or not localidad or not departamento:
+                print(f"Algún dato relacionado con la mascota '{data['nombre']}' no fue encontrado. Saltando esta mascota.")
                 continue
 
             # Crea la mascota
             mascota = Mascota(
-                id=data['id'],
                 nombre=data['nombre'],
                 descripcion=data['descripcion'],
                 edad=data['edad'],
@@ -189,12 +174,12 @@ def setup_commands(app):
                 fecha_perdido=data['fecha_perdido'],
                 coord_x=data['coord_x'],
                 coord_y=data['coord_y'],
-                especie=especie,
-                raza=raza,
-                localidad=localidad,
-                departamento=departamento,
+                especie_id=especie.id,
+                raza_id=raza.id,
+                localidad_id=localidad.id,
+                departamento_id=departamento.id,
                 url_image=data['url_image'],
-                user_id=data['user_id']
+                user_id=user.id
             )
             
             # Añade y guarda la mascota en la base de datos
@@ -210,13 +195,12 @@ def setup_commands(app):
             usuarios_data = json.load(file)
         
         for data in usuarios_data:
-            existing_user = User.query.get(data['id'])
+            existing_user = User.query.filter_by(email=data['email']).first()
             if existing_user:
                 # print(f"Usuario con ID {data['id']} ya existe. Skipping...")
                 continue
             
             user = User(
-                id=data['id'],
                 email=data['email'],
                 nombre=data['nombre'],
                 password=data['password'],  # Contraseña en texto claro
