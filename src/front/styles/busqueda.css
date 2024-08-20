@@ -40,24 +40,24 @@
 .explorar-arrow {
     color: #E0E1DD;
     transition: transform 0.3s ease;
-    font-size: 3rem; /* Ajusta el tamaño del icono si es necesario */
+    font-size: 4rem; /* Ajusta el tamaño del icono si es necesario */
     display: inline-block;
-    margin-top: 3rem; /* Ajusta este valor para mover el icono hacia abajo */
-    transition: color 0.3s ease; /* Suaviza el cambio de color */
+    margin-top: 7rem; /* Ajusta este valor para mover el icono hacia abajo */
+    transition: color 0.3s ease; 
 }
 
 .explorar-arrow:hover {
     transform: translateY(-5px);
 }
 .explorar-link:hover .explorar-arrow {
-    color: #EA526F; /* Color del icono en hover */
+    color: #E0E1DD; /* Color del icono en hover */
 }
 
 .divider-container {
     display: flex;
     align-items: center;
     justify-content: center;
-    margin: 20px 0;
+    margin: 7rem 0;
     position: relative;
 }
 

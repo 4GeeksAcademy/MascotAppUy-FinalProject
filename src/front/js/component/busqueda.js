@@ -24,7 +24,7 @@ export const Busqueda = () => {
                     <hr className="divider-line" />
                 </div>
 
-                <div className="row mb-4 mt-5">
+                <div className="boton-container row mb-4 mt-5">
                     <div className="col-12 col-md-6 mb-2 mb-md-0">
                         <Link to="/agregarmascota" className="boton-publicar btn btn-primary w-100">Publicar</Link>
                     </div>

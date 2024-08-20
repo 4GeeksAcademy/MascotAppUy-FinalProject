@@ -51,12 +51,12 @@ export const Navbar = () => {
                     <>
                     {location.pathname !== '/form-login' && (
                         <li className="nav-item d-flex justify-content-end">
-                            <Link to="/form-login" className="nav-link"><button type="button" className="btn btn-outline-light">Ingresar</button></Link>
+                            <Link to="/form-login" className="nav-link"><button type="button" className="boton-ingresar btn btn-outline-light">Ingresar</button></Link>
                         </li>
                     )}
                     {location.pathname !== '/form-signup' && (
                         <li className="nav-item d-flex justify-content-end">
-                            <Link to="/form-signup" className="nav-link"><button type="button" className="btn btn-outline-light">Registrarse</button></Link>
+                            <Link to="/form-signup" className="nav-link"><button type="button" className="boton-registrarse btn btn-outline-light">Registrarse</button></Link>
                         </li>
                     )}
                     </>

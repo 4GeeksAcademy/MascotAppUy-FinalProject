@@ -93,3 +93,23 @@ span {
   color: #040926; /* Color del texto en hover */
   
 }
+
+.boton-ingresar, .boton-registrarse {
+  transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+
+.boton-ingresar:hover {
+  background-color: #E0E1DD; /* Color de fondo al hacer hover */
+  color: #000; /* Color del texto al hacer hover */
+  border: solid 1px #E0E1DD; /* Color del borde al hacer hover */
+}
+.boton-registrarse:hover {
+  background-color: #FF8A5B; /* Color de fondo al hacer hover */
+  color: #fff; /* Color del texto al hacer hover */
+  border: solid 1px #FF8A5B; /* Color del borde al hacer hover */
+}
+.button-no-border:hover {
+  background-color: #040926; 
+  color: #FF8A5B; /* Color del texto al hacer hover */
+}
