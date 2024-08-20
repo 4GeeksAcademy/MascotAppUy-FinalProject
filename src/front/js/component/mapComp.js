@@ -25,7 +25,7 @@ export const MapComp = () => {
                     .setLatLng(e.latlng)
                     .setContent("Ubicación seleccionada: " + e.latlng.toString() + " Pulsa el boton de enviar abajo para finalizar")
                     .openOn(mapRef.current);
-            // console.log("Ubicación seleccionada:", e.latlng);
+git add            // console.log("Ubicación seleccionada:", e.latlng);
         };
     }
 
