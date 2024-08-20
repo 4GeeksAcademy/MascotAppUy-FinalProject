@@ -1,0 +1,15 @@
+pipenv install && 
+rm -R -f ./migrations &&
+pipenv run init &&
+dropdb -h localhost -U gitpod example || true &&
+createdb -h localhost -U gitpod example || true &&
+psql -h localhost example -U gitpod -c 'CREATE EXTENSION unaccent;' || true &&
+pipenv run migrate &&
+pipenv run upgrade &&
+pipenv run flask seed-departments && 
+pipenv run flask seed-localities && 
+pipenv run flask seed-species-and-breeds && 
+pipenv run flask seed-users && 
+pipenv run flask hash-passwords && 
+pipenv run flask seed-mascotas && 
+pipenv run start

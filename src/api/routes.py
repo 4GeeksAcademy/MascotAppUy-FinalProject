@@ -6,11 +6,12 @@ from api.models import db, User, Mascota, Color, Especie, Departamento, Localida
 from api.utils import generate_sitemap, APIException
 from flask_cors import CORS
 from flask_jwt_extended import create_access_token, get_jwt_identity, jwt_required
-from datetime import timedelta
+from datetime import timedelta, datetime
 from werkzeug.security import generate_password_hash, check_password_hash
 import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
+
 
 api = Blueprint('api', __name__)
 
@@ -76,41 +77,54 @@ def get_all_usuarios():
 # ENDPOINT: Agregar mascotas
 @api.route('/mascotas', methods=['POST'])
 def add_mascota():
-    data = request.get_json()
-    if not data:
-        return jsonify({"error": "no data"}), 404
-    
-    new_mascota = Mascota(
-        nombre = data["nombre"], 
-        edad = data["edad"], 
-        sexo = data["sexo"], 
-        descripcion = data["descripcion"], 
-        estado = data["estado"], 
-        fecha_perdido = data["fecha_perdido"], 
-        user_id = data["user_id"], 
-        especie_id = data["especie_id"],
-        raza_id = data["raza_id"], 
-        localidad_id = data["localidad_id"],
-        departamento_id = data["departamento_id"],
-        url_image = data["url_image"],
-        # coord_x = data["coord_x"],
-        # coord_y = data["coord_y"]
-        # favorito_id = data["favorito_id"]
+    try:
+        data = request.get_json()
+        
+        if not data:
+            return jsonify({"error": "No se recibió ningún dato"}), 400
+        
+        required_fields = ["nombre", "edad", "sexo", "descripcion", "estado", "fecha_perdido", 
+                           "user_id", "especie_id", "raza_id", "localidad_id", "departamento_id"]
+        
+        for field in required_fields:
+            if field not in data or data[field] is None:
+                return jsonify({"error": f"El campo {field} es obligatorio"}), 400
+            
+        new_mascota = Mascota(
+            nombre = data.get("nombre"), 
+            edad = data.get("edad"), 
+            sexo = data.get("sexo"), 
+            descripcion = data.get("descripcion"), 
+            estado = data.get("estado"), 
+            fecha_perdido = data.get("fecha_perdido"), 
+            user_id = data.get("user_id"), 
+            especie_id = data.get("especie_id"),
+            raza_id = data.get("raza_id"), 
+            localidad_id = data.get("localidad_id"),
+            departamento_id = data.get("departamento_id"),
+            url_image = data.get("url_image"),
+            coord_x = data.get("coord_x"),  # Puede ser None
+            coord_y = data.get("coord_y")   # Puede ser None
+            # favorito_id = data["favorito_id"]
         )
+        # Agregar colores a la mascota por ser Many to Many va diferente
+        # for color_name in data["colores_mascotas"]:
+        #     color = Color.query.filter_by(name=color_name).first()
+        #     if color:
+        #         new_mascota.colores_mascotas.append(color)
+        #     else:
+        #         return jsonify({"error": f"Color '{color_name}' not found"}), 404
+        
+        db.session.add(new_mascota)
+        db.session.commit()
+        
+        return jsonify(new_mascota.serialize()), 201
+    
+    except Exception as e:
+        db.session.rollback()
+        return jsonify({"error": "Ocurrió un error al agregar la mascota", "message": str(e)}), 500
 
-    # Agregar colores a la mascota por ser Many to Many va diferente
-    # for color_name in data["colores_mascotas"]:
-    #     color = Color.query.filter_by(name=color_name).first()
-    #     if color:
-    #         new_mascota.colores_mascotas.append(color)
-    #     else:
-    #         return jsonify({"error": f"Color '{color_name}' not found"}), 404
 
-    db.session.add(new_mascota)
-    db.session.commit()
-    new_mascota_add = new_mascota.serialize()
-
-    return jsonify(new_mascota_add)
 
 # ENDPOINT: Validar token
 @api.route("/valid-token", methods=["GET"])

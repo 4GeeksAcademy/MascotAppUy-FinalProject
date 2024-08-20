@@ -4,6 +4,7 @@ import { Formik, useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
 import "../../styles/formularios.css"
 import Swal from 'sweetalert2'
+import { MapComp } from "../component/mapComp.js";
 
 
 const validate = values => {
@@ -121,11 +122,6 @@ export const AgregarMascota = () =>{
 
     }, [especieSelected, store.razas])
 
-
-    const formatDate = (dateString) => {
-        const [year, month, day] = dateString.split("-");
-        return `${day}/${month}/${year}`;
-    };
     
     const formik = useFormik({
         initialValues: {
@@ -137,7 +133,6 @@ export const AgregarMascota = () =>{
           raza_id: '',
           descripcion: '',
           fecha_perdido: '',
-          contacto: '',
           departamento_id: '',
           localidad_id: ''
         },
@@ -154,15 +149,16 @@ export const AgregarMascota = () =>{
 
             // Subir la imagen
             const urlImg = formData ? await actions.uploadImage(formData) : null;
-            // console.log(urlImg);
+            console.log(urlImg);
             
 
             const formattedValues = {
                 ...values,
-                fecha_perdido: formatDate(values.fecha_perdido),
+                // fecha_perdido: formatDate(values.fecha_perdido),
                 user_id: store.user.id,
                 url_image: urlImg
             };
+            console.log(formattedValues);
             
             const added = await actions.agregarMascota(formattedValues);
             if (added) {
@@ -359,7 +355,18 @@ export const AgregarMascota = () =>{
                                     onChange={handleChange}
                                 />
                             </div> */}
-
+                            <div className="input-group mb-3">
+                                <label className="form-label mx-2">Imagen</label>
+                                <input
+                                    type="file"
+                                    className="form-control"
+                                    id="imagen"
+                                    name="imagen"
+                                    accept="image/*"
+                                    onChange={(e) => setSelectedFile(e.target.files[0])}
+                                />
+                                
+                            </div>
                             <div className="input-group mb-3">
                                 <select 
                                     className="form-select border-0" 
@@ -409,18 +416,7 @@ export const AgregarMascota = () =>{
                                     </div>
                                 </>
                             )}
-                            <div className="input-group mb-3">
-                                <label className="form-label">Imagen</label>
-                                <input
-                                    type="file"
-                                    className="form-control"
-                                    id="imagen"
-                                    name="imagen"
-                                    accept="image/*"
-                                    onChange={(e) => setSelectedFile(e.target.files[0])}
-                                />
-                                
-                            </div>
+                            <MapComp />
                             <button type="submit" id="botonEnviar">Enviar</button>
                         </form>
                     </div>
