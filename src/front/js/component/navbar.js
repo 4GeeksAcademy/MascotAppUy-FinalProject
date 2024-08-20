@@ -9,7 +9,7 @@ export const Navbar = () => {
   const nav = useNavigate();
   const location = useLocation();
   const { store, actions } = useContext(Context);
-  const userName = store.user.nombre;
+  const userName = store.user?.nombre;
   const initial = userName ? userName.charAt(0).toUpperCase() : '';
 
   return (
@@ -17,7 +17,7 @@ export const Navbar = () => {
     <nav className="navbar navbar-expand-lg bg-body-tertiary">
         <div className="container-fluid"> 
             <div className="collapse navbar-collapse d-flex" id="navbarSupportedContent">
-                <div className="icon">
+                <div className="icon image-container">
                     <Link to="/">
                         <img src={logoClaro} alt="Static Image" className="static-image pb-0" />
                         <img src={logoClaroGif} alt="Animated Image" className="animated-image pb-0" />

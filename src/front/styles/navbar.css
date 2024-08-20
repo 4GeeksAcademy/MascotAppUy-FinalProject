@@ -34,12 +34,13 @@
 }
 
 .profile-name {
-  border-color: #EA526F; /* Color del borde */
-  color: #EA526F; /* Color del texto */
+  background-color: #EA526F; /* Color de fondo del botón */
+  color: #ffffff; /* Color del texto */
+  border: none; /* Eliminar el borde */
 }
 
 .profile-name:hover {
-  background-color: #EA526F; /* Color de fondo en hover */
-  color: #ffffff; /* Color del texto en hover */
-  border-color: #EA526F; /* Mantener el borde del mismo color */
+  background-color: #ffffff; /* Color de fondo en hover */
+  color: #040926; /* Color del texto en hover */
+  
 }
