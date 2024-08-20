@@ -4,6 +4,7 @@ import { Formik, useFormik } from 'formik';
 import { useNavigate } from "react-router-dom";
 import "../../styles/formularios.css"
 import Swal from 'sweetalert2'
+import { MapComp } from "../component/mapComp.js";
 
 
 const validate = values => {
@@ -354,7 +355,18 @@ export const AgregarMascota = () =>{
                                     onChange={handleChange}
                                 />
                             </div> */}
-
+                            <div className="input-group mb-3">
+                                <label className="form-label mx-2">Imagen</label>
+                                <input
+                                    type="file"
+                                    className="form-control"
+                                    id="imagen"
+                                    name="imagen"
+                                    accept="image/*"
+                                    onChange={(e) => setSelectedFile(e.target.files[0])}
+                                />
+                                
+                            </div>
                             <div className="input-group mb-3">
                                 <select 
                                     className="form-select border-0" 
@@ -404,18 +416,7 @@ export const AgregarMascota = () =>{
                                     </div>
                                 </>
                             )}
-                            <div className="input-group mb-3">
-                                <label className="form-label">Imagen</label>
-                                <input
-                                    type="file"
-                                    className="form-control"
-                                    id="imagen"
-                                    name="imagen"
-                                    accept="image/*"
-                                    onChange={(e) => setSelectedFile(e.target.files[0])}
-                                />
-                                
-                            </div>
+                            <MapComp />
                             <button type="submit" id="botonEnviar">Enviar</button>
                         </form>
                     </div>

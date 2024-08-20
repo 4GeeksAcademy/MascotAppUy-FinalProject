@@ -7,9 +7,8 @@ const MapView = () => {
     const { store } = useContext(Context)
 
     //filtro para mostrar únicamente mascotas con estado: Perdido o Encontrado
-    const mascotasPerdidasEncontradas = store.mascotas.filter(mascota => mascota.estado === 'PERDIDO' || mascota.estado === 'ENCONTRADO');
-    console.log(mascotasPerdidasEncontradas);
-    
+    // const mascotasPerdidasEncontradas = store.mascotas.filter(mascota => mascota.estado === 'PERDIDO' || mascota.estado === 'ENCONTRADO');
+    // console.log(mascotasPerdidasEncontradas);
     
     return (
         
