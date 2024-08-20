@@ -12,7 +12,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			especies: [],
 			localidades: [],
 			departamentos: [],
-			razas: []
+			razas: [],
+			coord_x: null,
+			coord_y: null
 			
 			
 		},
@@ -348,6 +350,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error("Error updating user:", error);
 					return false;
 				}
+			},
+			setCoords: (coord_x, coord_y) => {
+				if (coord_x === undefined || coord_y === undefined) {
+					console.log('No hay coordenadas');
+					return false; // Devuelve false si no hay coordenadas
+				}
+
+				// Actualiza el estado con ambos valores en una sola llamada
+				setStore({ coord_x, coord_y });
+				return true; // Devuelve true si se actualizaron las coordenadas
 			},
 
 		}

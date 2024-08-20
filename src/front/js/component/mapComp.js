@@ -1,4 +1,4 @@
-import React, { useEffect, useContext, useRef } from "react";
+import React, { useEffect, useContext, useRef, useState } from "react";
 import { useLocation } from 'react-router-dom';
 import { Context } from "../store/appContext";
 import L from "leaflet";
@@ -10,7 +10,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
 
 export const MapComp = () => {
-    const { store } = useContext(Context);
+    const { store, actions } = useContext(Context);
     const location = useLocation();
     const mapRef = useRef(null); // Referencia para la instancia del mapa
 
@@ -19,8 +19,13 @@ export const MapComp = () => {
     // Dependiendo de la ruta, define la función para manejar clics en el mapa
     if (location.pathname === '/agregarmascota') {
         onMapClick = (e) => {
-            console.log("Ubicación seleccionada:", e.latlng);
-            // Maneja la ubicación seleccionada por el usuario aquí
+            const { lat, lng } = e.latlng;
+            actions.setCoords(lng, lat);
+            L.popup()
+                    .setLatLng(e.latlng)
+                    .setContent("Ubicación seleccionada: " + e.latlng.toString() + " Pulsa el boton de enviar abajo para finalizar")
+                    .openOn(mapRef.current);
+            // console.log("Ubicación seleccionada:", e.latlng);
         };
     }
 
