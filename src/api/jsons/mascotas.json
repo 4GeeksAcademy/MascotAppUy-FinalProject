@@ -10,10 +10,10 @@
         "estado": "ENCONTRADO",
         "fecha_perdido": "2024-08-01",
         "localidad_name": "ESTACION CUARO",
-        "nombre": "Mimi",
+        "nombre": "Ceci",
         "raza_name": "Africano doméstico",
         "sexo": "HEMBRA",
-        "url_image": "https://static.nationalgeographicla.com/files/styles/image_3200/public/nationalgeographic_1468962.jpg?w=1600&h=900",
+        "url_image": "https://ca.slack-edge.com/T0BFXMWMV-U0422JTPDHA-d313949ac0ae-512",
         "user_name": "user2"
     },
     {
@@ -27,10 +27,10 @@
         "estado": "ENCONTRADO",
         "fecha_perdido": "2024-08-01",
         "localidad_name": "COSTA Y GUILLAMON",
-        "nombre": "Rex",
+        "nombre": "Alexis",
         "raza_name": "Perro de Montaña Appenzell",
         "sexo": "MACHO",
-        "url_image": "https://media.istockphoto.com/id/513133900/es/foto/oro-retriever-sentado-en-frente-de-un-fondo-blanco.jpg?s=612x612&w=0&k=20&c=0lRWImB8Y4p6X6YGt06c6q8I3AqBgKD-OGQxjLCI5EY=",
+        "url_image": "https://ca.slack-edge.com/T0BFXMWMV-U04202M8A75-157f0b6eb123-512",
         "user_name": "user2"
     },
     {
@@ -44,10 +44,10 @@
         "estado": "ENCONTRADO",
         "fecha_perdido": "2024-08-01",
         "localidad_name": "SANDE CHICO",
-        "nombre": "Luna",
+        "nombre": "Rosinni",
         "raza_name": "British Shorthair",
         "sexo": "HEMBRA",
-        "url_image": "https://www.fundacionaquae.org/wp-content/uploads/2018/10/proteger-a-los-animales.jpg",
+        "url_image": "https://ca.slack-edge.com/T0BFXMWMV-U01EEUACHBP-2be3c185d757-512",
         "user_name": "user2"
     },
     {
@@ -164,7 +164,7 @@
         "fecha_perdido": "2024-08-03",
         "localidad_name": "COSTA Y GUILLAMON",
         "nombre": "Charlie",
-        "raza_name": "Perro de pastor australiano",
+        "raza_name": "Perro de Pastor islandés",
         "sexo": "MACHO",
         "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTcWr6Q9wwNSpolraAlAcmBkjTDObRlr3Ncvg&s",
         "user_name": "user"
@@ -181,7 +181,7 @@
         "fecha_perdido": "2024-08-01",
         "localidad_name": "SANDE CHICO",
         "nombre": "Simba",
-        "raza_name": "Ashera",
+        "raza_name": "British Longhair",
         "sexo": "MACHO",
         "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSA8jGU9Y9jmgyltq0uZy-NMRB715yz4umiuQ&s",
         "user_name": "user3"
@@ -198,7 +198,7 @@
         "fecha_perdido": "2024-08-02",
         "localidad_name": "MINAS",
         "nombre": "Cooper",
-        "raza_name": "Perro de Montaña de los Pirineos",
+        "raza_name": "Perro de Pastor islandés",
         "sexo": "MACHO",
         "url_image": "https://www.ecoticias.com/wp-content/uploads/2023/12/Animales-hermosos-y-exoticos.jpg",
         "user_name": "user3"
@@ -215,7 +215,7 @@
         "fecha_perdido": "2024-08-09",
         "localidad_name": "COSTA Y GUILLAMON",
         "nombre": "Nala",
-        "raza_name": "Birmano",
+        "raza_name": "British Longhair",
         "sexo": "HEMBRA",
         "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSlCjCGQi-67Dr26UATuj2RbV8TYNBzh04B1Q&s",
         "user_name": "user3"
@@ -284,7 +284,7 @@
         "fecha_perdido": "2024-04-01",
         "localidad_name": "COSTA Y GUILLAMON",
         "nombre": "Felix",
-        "raza_name": "Azul Ruso",
+        "raza_name": "British Longhair",
         "sexo": "MACHO",
         "url_image": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT9OLO09bci0WgZBFO3BYq5WtpA7RdJU0wo4A&s",
         "user_name": "user4"
@@ -301,7 +301,7 @@
         "fecha_perdido": "2024-05-01",
         "localidad_name": "ESTACION CUARO",
         "nombre": "Oscar",
-        "raza_name": "Perro de pastor belga",
+        "raza_name": "Perro de Pastor islandés",
         "sexo": "MACHO",
         "url_image": "https://definicion.de/wp-content/uploads/2012/10/animal-1.jpg",
         "user_name": "user4"

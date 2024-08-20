@@ -154,9 +154,11 @@ export const AgregarMascota = () =>{
 
             const formattedValues = {
                 ...values,
-                // fecha_perdido: formatDate(values.fecha_perdido),
+                // fecha_perdido: formatDate(values.fecha_perdido), coords
                 user_id: store.user.id,
-                url_image: urlImg
+                url_image: urlImg,
+                coord_x: store.coord_x,
+                coord_y: store.coord_y
             };
             console.log(formattedValues);
             
