@@ -52,6 +52,7 @@ const MascotaCarrousel = (props) => {
                                             fecha={mascota.fecha_registro}
                                             especie={mascota.especie_name}
                                             localidad={mascota.localidad_name}
+                                            estado={mascota.estado}
                                         />
                                     </div>
                                 ))}
