@@ -1,21 +1,20 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
-import { DivIcon } from "leaflet";
 
-export const MiMascotaCard = (props)=> {
-
-    const { store } = useContext(Context)
+export const MiMascotaCard = (props) => {
+    const { store } = useContext(Context);
     const { theid } = useParams();
-    const [ mascota, setMascota ] = useState(null);
-    useEffect(()=> {
-        const findMascota = store?.mascotas.find(mascota => mascota.id == theid) 
-        
-        if(findMascota) {
-            setMascota(findMascota)
+    const [mascota, setMascota] = useState(null);
+
+    useEffect(() => {
+        const findMascota = store?.mascotas.find(mascota => mascota.id == theid);
+        if (findMascota) {
+            setMascota(findMascota);
         }
-    }, [])
-    return(
+    }, [store, theid]);
+
+    return (
         <div className="container">
             <div className="accordion accordion-flush" id="accordionFlushExample">
                 <div className="accordion-item">
@@ -31,13 +30,6 @@ export const MiMascotaCard = (props)=> {
                         >
                             <div className="d-flex w-100 justify-content-between align-items-center">
                                 <div className="fs-4">{props.nombre}</div>
-                                <button 
-                                    type="button" 
-                                    className="btn btn-outline-dark btn-sm me-3" 
-                                    onClick={props.editMascota}
-                                >
-                                    <i className="fas fa-edit"></i>
-                                </button>
                             </div>
                         </button>
                     </h2>
@@ -48,6 +40,15 @@ export const MiMascotaCard = (props)=> {
                         data-bs-parent="#accordionFlushExample"
                     >
                         <div className="accordion-body">
+                            <div className="d-flex justify-content-end align-items-center mb-3">
+                                <button 
+                                    type="button" 
+                                    className="btn btn-outline-dark btn-sm" 
+                                    onClick={props.editMascota}
+                                >
+                                    <i className="fas fa-edit"></i>
+                                </button>
+                            </div>
                             <div className="d-flex justify-content-center">
                                 <div className="card mb-3" style={{ maxWidth: "540px", minWidth: "100%" }}>
                                     <div className="row g-0">
@@ -77,4 +78,4 @@ export const MiMascotaCard = (props)=> {
             </div>
         </div>
     );
-}
+};

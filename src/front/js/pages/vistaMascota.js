@@ -8,18 +8,21 @@ import { Context } from "../store/appContext";
 
     const { store } = useContext(Context);
     const { theid } = useParams();
-    const [ mascota, setMascota ] = useState(null);
-    useEffect(()=> {
-        const findMascota = store?.mascotas.find(mascota => mascota.id == theid) 
-        
-        if(findMascota) {
-            setMascota(findMascota)
+    const [mascota, setMascota] = useState(null);
+
+    useEffect(() => {
+        const findMascota = store?.mascotas.find(mascota => mascota.id === parseInt(theid)); // Asegúrate de comparar con el tipo correcto
+
+        if (findMascota) {
+            setMascota(findMascota);
         }
-    }, [])
-    
+
+        
+    }, [store.mascotas, theid]); // Agregar store.mascotas y theid a las dependencias
+
     if (!mascota) {
         return <div>Cargando ...</div>;
-	}
+    }
 
     
     return(
