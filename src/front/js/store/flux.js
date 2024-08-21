@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
-const URL = process.env.BACKEND_URL
-// const URL = "https://ubiquitous-eureka-v95xqvxjwgw25pg-3001.app.github.dev"
+// const URL = process.env.BACKEND_URL
+const URL = "https://ominous-pancake-p46xprx5ww7cgww-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -12,7 +12,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 			especies: [],
 			localidades: [],
 			departamentos: [],
-			razas: []
+			razas: [],
+			coord_x: null,
+			coord_y: null
 			
 			
 		},
@@ -39,39 +41,43 @@ const getState = ({ getStore, getActions, setStore }) => {
 			agregarMascota: async (values) =>{
 				// const userId = getStore().user.id
 				try {
+					const formattedValues = {
+						nombre: values.nombre,
+						edad: values.edad,
+						sexo: values.sexo,
+						descripcion: values.descripcion,
+						estado: values.estado,
+						fecha_perdido: values.fecha_perdido,
+						especie_id: parseInt(values.especie_id),
+						raza_id: parseInt(values.raza_id),
+						localidad_id: parseInt(values.localidad_id),
+						departamento_id: parseInt(values.departamento_id),
+						user_id: values.user_id,
+						url_image: values.url_image || null,
+						coord_x: values.coord_x || null,
+						coord_y: values.coord_y || null,
+					};
 					const response = await fetch(URL+'/api/mascotas', {
 						method: 'POST',
 						headers: {
 							'Content-Type': 'application/json',
 						},
-						body: JSON.stringify({
-							nombre: values.nombre, 
-							edad: values.edad, 
-							sexo: values.sexo, 
-							descripcion: values.descripcion, 
-							estado: values.estado, 
-							fecha_perdido: values.fecha_perdido,  
-							especie_id: parseInt(values.especie_id),
-							raza_id: parseInt(values.raza_id), 
-							localidad_id: parseInt(values.localidad_id),
-							departamento_id: parseInt(values.departamento_id),
-							user_id: values.user_id,
-							url_image: values.url_image
-						})
+						body: JSON.stringify(formattedValues)
 					});
 	
 					if (!response.ok) {
-						throw new Error('Error al agregar la mascota');
+						const errorResponse = await response.json();
+						throw new Error(errorResponse.message || 'Error al agregar la mascota');
 					}
+			
 					const newMascota = await response.json();
 					const store = getStore();
 					setStore({ mascotas: [...store.mascotas, newMascota] });
-					// console.log(newMascota);
 					
-					return true
+					return true;
 				} catch (error) {
 					console.error(error);
-					return false
+					return false;
 				}
 			},
 
@@ -275,6 +281,9 @@ const getState = ({ getStore, getActions, setStore }) => {
 							raza_id: parseInt(values.raza_id), 
 							localidad_id: parseInt(values.localidad_id),
 							departamento_id: parseInt(values.departamento_id),
+							url_image: values.url_image,
+							coord_x: values.coord_x,
+							coord_y: values.coord_y,
 							// user_id: values.user_id,
 						})
 					});
@@ -312,7 +321,46 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error(error);
 					return null;
 				}
-			}
+			},
+			editarUsuario: async (values) =>{
+				const store = getStore();
+				try {
+					const response = await fetch(URL+`/api/usuarios/${store.user.id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							"email": values.email,
+							"password": values.newPassword,
+							"nombre": values.nombre,
+							"telefono": values.telefono,
+							"is_active": true
+						})
+					});
+	
+					if (response.ok) {
+						const data = await response.json();
+						setStore({ user: data.user }); 
+						return true;
+					} else {
+						return false;
+					}
+				} catch (error) {
+					console.error("Error updating user:", error);
+					return false;
+				}
+			},
+			setCoords: (coord_x, coord_y) => {
+				if (coord_x === undefined || coord_y === undefined) {
+					console.log('No hay coordenadas');
+					return false; // Devuelve false si no hay coordenadas
+				}
+
+				// Actualiza el estado con ambos valores en una sola llamada
+				setStore({ coord_x, coord_y });
+				return true; // Devuelve true si se actualizaron las coordenadas
+			},
 
 		}
 	}

@@ -62,7 +62,7 @@ class Sexo(Enum):
 class Mascota(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     nombre = db.Column(db.String(120), nullable=False)
-    edad = db.Column(db.String(120), nullable=False)
+    edad = db.Column(db.String(120))
     sexo = db.Column(db.Enum(Sexo), nullable=False)
     descripcion = db.Column(db.String(250), nullable=False)
     estado = db.Column(db.Enum(Estado), nullable=False)
@@ -77,6 +77,8 @@ class Mascota(db.Model):
     departamento_id = db.Column(db.Integer, db.ForeignKey('departamento.id'), nullable=False)
     favorito_id = db.Column(db.Integer, db.ForeignKey('favorito.id'))
     url_image = db.Column(db.String(250))
+    coord_x = db.Column(db.Numeric(10,6))
+    coord_y = db.Column(db.Numeric(10,6))
 
     def __repr__(self):
         return f'<Mascota {self.nombre}>'
@@ -104,7 +106,9 @@ class Mascota(db.Model):
             "raza_name": self.raza.name,
             "departamento_id": self.departamento_id,
             "departamento_name": self.departamento.name,
-            "url_image": self.url_image
+            "url_image": self.url_image,
+            "coord_x": self.coord_x,
+            "coord_y": self.coord_y,
         }
 
 class Especie(db.Model):
