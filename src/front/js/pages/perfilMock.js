@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 // import MascotaCard from "../component/mascotaCard.jsx";
 import { MiMascotaCard } from "../component/miMascotaCard";
+import DatosPerfil from "../component/datosPerfil";
 
 const PerfilMock = () => {
 
@@ -13,10 +14,6 @@ const PerfilMock = () => {
     const [edit, setEdit] = useState(false);
     const [editPassword, setEditPassword] = useState(false)
     const [editMascota, setEditMascota] = useState(null);
-
-
-
-   
 
     // ********* FORMIK PARA EDITAR DATOS GENERALES**********
     const validate = values => {
@@ -127,7 +124,7 @@ const PerfilMock = () => {
 
 // ********* FORMIK PARA EDITAR MASCOTAS**********
 
-const [departamentoSelected, setDepartamentoSelected] = useState("");
+    const [departamentoSelected, setDepartamentoSelected] = useState("");
     const [filteredLocalidades, setFilteredLocalidades] = useState([]);
 
     const [especieSelected, setEspecieSelected] = useState("");
@@ -137,8 +134,7 @@ const [departamentoSelected, setDepartamentoSelected] = useState("");
 
     const [selectedFile, setSelectedFile] = useState(null);
 
-
-const validateMascota = values => {
+    const validateMascota = values => {
     const errors = {};
     if (!values.nombre) {
         errors.nombre = 'Required';
@@ -179,7 +175,7 @@ const validateMascota = values => {
     if (!values.fecha_perdido) {
         errors.fecha_perdido = 'Requerido';
     }else {
-        // Convertir fecha_perdido a formato YYYY-MM-DD para compararla
+        
         const fechaPerdidoDateString = values.fecha_perdido;
         if (fechaPerdidoDateString > todayDateString) {
           errors.fecha_perdido = 'La fecha no puede ser en el futuro';
@@ -202,37 +198,62 @@ const validateMascota = values => {
 };
 
     const formikMascota = useFormik({
-        // initialValues: {
-        //     estado: '',
-        //     nombre: '',
-        //     edad: '',
-        //     sexo: '',
-        //     especie_id: '',
-        //     raza_id: '',
-        //     descripcion: '',
-        //     fecha_perdido: '',
-        //     departamento_id: '',
-        //     localidad_id: ''
-        // },
+        
+        initialValues: {
+            estado: '',
+            nombre: '',
+            edad: '',
+            sexo: '',
+            especie_id: '',
+            raza_id: '',
+            descripcion: '',
+            fecha_perdido: '',
+            departamento_id: '',
+            localidad_id: '',
+            url_image: '' 
+        },
         validate: validateMascota,
         onSubmit: async (values) => {
             console.log(values);
+
+            let formData = null;
+            let urlImg = values.url_image; // Inicialmente conserva la imagen existente
+    
+            if (selectedFile) {
+                formData = new FormData();
+                formData.append('file', selectedFile);
+                // Subir la nueva imagen
+                urlImg = await actions.uploadImage(formData);
+            }
+
+            const formattedValues = {
+                ...values,
+                user_id: store.user.id,
+                url_image: urlImg,
+                coord_x: store.coord_x,
+                coord_y: store.coord_y
+            };
+          
+            console.log(formattedValues);
             
-            // const success = await actions.editarMascota(editMascota, values);
-            // if (success) {
-            //     Toast.fire({
-            //         icon: 'success',
-            //         title: 'Mascota updated successfully'
-            //     });
-            //     setEditMascota(null); // Close the edit form
-            // } else {
-            //     Toast.fire({
-            //         icon: 'error',
-            //         title: 'Failed to update Mascota'
-            //     });
-            // }
-        }
-    });
+            const added = await actions.editarMascota(formattedValues, editMascota);
+            if (added) {
+                Toast.fire({
+                icon: "success",
+                title: "Edited successfully"
+                });
+                nav("/")
+            }else {
+                Toast.fire({
+                icon: "error",
+                title: "Something went wrong",
+                showConfirmButton: false,
+                });
+            }
+        
+
+        
+    }});
 
 
     // UseEffects de los filtros para actualizar mascotas
@@ -262,9 +283,6 @@ const validateMascota = values => {
     }, [especieSelected, store.razas])
     //Cierre
 
-
-
-
     // Actualiza los valores de Formik después de que el usuario haya sido editado
     useEffect(() => {
         
@@ -283,11 +301,12 @@ const validateMascota = values => {
         }
     }, [store.user]); // Ejecuta este efecto cuando store.user cambie
 
+
     useEffect(() => {
         console.log(editMascota);
         
         if (editMascota && store.user.mascotas) {
-            const mascota = store.user.mascotas.find(m => m.id === editMascota);
+            const mascota = store.mascotas.find(m => m.id === editMascota);
             if (mascota) {
                 formikMascota.setValues({
                     estado: mascota.estado || '',
@@ -299,12 +318,15 @@ const validateMascota = values => {
                     fecha_perdido: mascota.fecha_perdido || '',
                     descripcion: mascota.descripcion || '',
                     departamento_id: mascota.departamento_id || '',
-                    localidad_id: mascota.localidad_id || ''
+                    localidad_id: mascota.localidad_id || '',
+                    url_image: mascota.url_image || ''
             
                 });
             }
         }
-    }, [editMascota, store.user.mascotas]);
+        
+        
+    }, [editMascota, store.mascotas]);
 
     return (
         <div className="container mt-5">
@@ -426,16 +448,16 @@ const validateMascota = values => {
             
             ) : editMascota ? (
                 <div className="container" id="contformagregar">
-                        <form onSubmit={formik.handleSubmit}>
+                        <form onSubmit={formikMascota.handleSubmit}>
 
                             <div className="input-group mb-3">
                                 <select 
                                     className="form-select border-0" 
                                     id="estado"
                                     name="estado" 
-                                    value={formik.values.estado} 
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    value={formikMascota.values.estado} 
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
                                 >
                                 <option value="">Estado</option>    
                                 <option value="PERDIDO">PERDIDO</option>
@@ -443,8 +465,8 @@ const validateMascota = values => {
                                 <option value="PERDIDO">ADOPCIÓN</option>
                                 <option value="ENCONTRADO">REUNIDO</option>  
                                 </select>
-                                {formik.touched.estado && formik.errors.estado ? (
-                                <div className="error-msg ms-2">{formik.errors.estado}</div>
+                                {formikMascota.touched.estado && formikMascota.errors.estado ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.estado}</div>
                             ) : null}
                             </div>
                             
@@ -454,15 +476,15 @@ const validateMascota = values => {
                                     type="text" 
                                     className="form-control" 
                                     // placeholder="Nombre de tu mascota" 
-                                    placeholder={formik.values.estado === 'ENCONTRADO' ? "Título de la publicación" : "Nombre de tu mascota"}
+                                    placeholder={formikMascota.values.estado === 'ENCONTRADO' ? "Título de la publicación" : "Nombre de tu mascota"}
                                     id="nombre"
                                     name="nombre" 
-                                    value={formik.values.nombre} 
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    value={formikMascota.values.nombre} 
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
                                 />
-                                {formik.touched.nombre && formik.errors.nombre ? (
-                                <div className="error-msg ms-2">{formik.errors.nombre}</div>
+                                {formikMascota.touched.nombre && formikMascota.errors.nombre ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.nombre}</div>
                             ) : null}
                             </div>
                             <div className="input-group mb-3">
@@ -471,12 +493,12 @@ const validateMascota = values => {
                                     className="form-control" 
                                     id="fecha_perdido"  
                                     name="fecha_perdido" 
-                                    value={formik.values.fecha_perdido}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    value={formikMascota.values.fecha_perdido}
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
                                 />
-                                {formik.touched.fecha_perdido && formik.errors.fecha_perdido ? (
-                                <div className="error-msg ms-2">{formik.errors.fecha_perdido}</div>
+                                {formikMascota.touched.fecha_perdido && formikMascota.errors.fecha_perdido ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.fecha_perdido}</div>
                             ) : null}
                             </div>
                             <div className="input-group mb-3">
@@ -484,17 +506,17 @@ const validateMascota = values => {
                                     className="form-select border-0" 
                                     id="sexo"
                                     name="sexo" 
-                                    value={formik.values.sexo}
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    value={formikMascota.values.sexo}
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
                                 >
                                     <option value="">Sexo</option>
                                     <option value="HEMBRA">HEMBRA</option>
                                     <option value="MACHO">MACHO</option> 
                                     <option value="INDEFINIDO">INDEFINIDO</option>  
                                 </select>
-                                {formik.touched.sexo && formik.errors.sexo ? (
-                                <div className="error-msg ms-2">{formik.errors.sexo}</div>
+                                {formikMascota.touched.sexo && formikMascota.errors.sexo ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.sexo}</div>
                             ) : null}
                             </div>
                             <div className="input-group mb-3">
@@ -504,12 +526,12 @@ const validateMascota = values => {
                                     placeholder="Edad de tu mascota" 
                                     id="edad"
                                     name="edad" 
-                                    value={formik.values.edad} 
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    value={formikMascota.values.edad} 
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
                                 />
-                                {formik.touched.edad && formik.errors.edad ? (
-                                <div className="error-msg ms-2">{formik.errors.edad}</div>
+                                {formikMascota.touched.edad && formikMascota.errors.edad ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.edad}</div>
                             ) : null}
                             </div>
 
@@ -518,13 +540,13 @@ const validateMascota = values => {
                                     className="form-select border-0" 
                                     id="especie_id"
                                     name="especie_id" 
-                                    value={formik.values.especie_id} 
+                                    value={formikMascota.values.especie_id} 
                                     onChange={e => {
                                         const { value } = e.target;
-                                        formik.handleChange(e);
+                                        formikMascota.handleChange(e);
                                         setEspecieSelected(value);
                                     }}
-                                    onBlur={formik.handleBlur}
+                                    onBlur={formikMascota.handleBlur}
                                 >
                                     <option value="">Especies</option>
                                     {store.especies.map((especie, index) => (
@@ -533,8 +555,8 @@ const validateMascota = values => {
                                         </option>
                                     ))}
                                 </select>
-                                {formik.touched.especie_id && formik.errors.especie_id ? (
-                                        <div className="error-msg ms-2">{formik.errors.especie_id}</div>
+                                {formikMascota.touched.especie_id && formikMascota.errors.especie_id ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.especie_id}</div>
                                     ) : null}
                             </div>
 
@@ -546,9 +568,9 @@ const validateMascota = values => {
                                             className="form-select border-0"
                                             id="raza_id"
                                             name="raza_id"
-                                            value={formik.values.raza_id}
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
+                                            value={formikMascota.values.raza_id}
+                                            onChange={formikMascota.handleChange}
+                                            onBlur={formikMascota.handleBlur}
                                         >
                                             <option value="">Raza</option>
                                             {filteredRazas.map((raza, index) => (
@@ -557,8 +579,8 @@ const validateMascota = values => {
                                                 </option>
                                             ))}
                                         </select>
-                                        {formik.touched.raza_id && formik.errors.raza_id ? (
-                                        <div className="error-msg ms-2">{formik.errors.raza_id}</div>
+                                        {formikMascota.touched.raza_id && formikMascota.errors.raza_id ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.raza_id}</div>
                                     ) : null}
                                     </div>
                                 </>
@@ -570,13 +592,13 @@ const validateMascota = values => {
                                     placeholder="Agrega una descripción de tu mascota. Todos los detalles son importantes para poder identificarla" 
                                     id="descripcion"
                                     name="descripcion" 
-                                    value={formik.values.descripcion} 
-                                    onChange={formik.handleChange}
-                                    onBlur={formik.handleBlur}
+                                    value={formikMascota.values.descripcion} 
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
                                     style={{ height: '150px', resize: 'vertical' }}
                                 ></textarea>
-                                {formik.touched.descripcion && formik.errors.descripcion ? (
-                                        <div className="error-msg ms-2">{formik.errors.descripcion}</div>
+                                {formikMascota.touched.descripcion && formikMascota.errors.descripcion ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.descripcion}</div>
                                     ) : null}
                             </div>
                            
@@ -597,13 +619,13 @@ const validateMascota = values => {
                                     className="form-select border-0" 
                                     id="departamento_id"
                                     name="departamento_id" 
-                                    value={formik.values.departamento_id} 
+                                    value={formikMascota.values.departamento_id} 
                                     onChange={e => {
                                         const { value } = e.target;
-                                        formik.handleChange(e); // Actualiza el valor en Formik
+                                        formikMascota.handleChange(e); // Actualiza el valor en Formik
                                         setDepartamentoSelected(value); // Actualiza el estado del departamento
                                     }}
-                                    onBlur={formik.handleBlur}
+                                    onBlur={formikMascota.handleBlur}
                                 >
                                     <option value="">Departamento</option>
                                     {store.departamentos.map((departamento, index) => (
@@ -612,8 +634,8 @@ const validateMascota = values => {
                                         </option>
                                     ))}
                                 </select>
-                                {formik.touched.departamento_id && formik.errors.departamento_id ? (
-                                        <div className="error-msg ms-2">{formik.errors.departamento_id}</div>
+                                {formikMascota.touched.departamento_id && formikMascota.errors.departamento_id ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.departamento_id}</div>
                                     ) : null}
                             </div>
                             {departamentoSelected && (
@@ -624,9 +646,9 @@ const validateMascota = values => {
                                             className="form-select border-0"
                                             id="localidad_id"
                                             name="localidad_id"
-                                            value={formik.values.localidad_id}
-                                            onChange={formik.handleChange}
-                                            onBlur={formik.handleBlur}
+                                            value={formikMascota.values.localidad_id}
+                                            onChange={formikMascota.handleChange}
+                                            onBlur={formikMascota.handleBlur}
                                         >
                                             <option value="">Localidad</option>
                                             {filteredLocalidades.map((localidad, index) => (
@@ -635,8 +657,8 @@ const validateMascota = values => {
                                                 </option>
                                             ))}
                                         </select>
-                                        {formik.touched.localidad_id && formik.errors.localidad_id ? (
-                                        <div className="error-msg ms-2">{formik.errors.localidad_id}</div>
+                                        {formikMascota.touched.localidad_id && formikMascota.errors.localidad_id ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.localidad_id}</div>
                                     ) : null}
                                     </div>
                                 </>
@@ -647,28 +669,23 @@ const validateMascota = values => {
                     </div>
 
             ) : (
-                <div>
-                    <h1 className="text-center">Bienvenido/a {store.user.nombre}</h1>
-                    <h6 className="text-center mt-5">Email: {store.user.email}</h6>
-                    <h6 className="text-center">Nombre: {store.user.nombre}</h6>
-                    <h6 className="text-center">Telefono: {store.user.telefono}</h6>
-                    <h6 className="text-center">Contraseña: {store.user.password}</h6>
-                    <h6 className="text-center">Mis mascotas:</h6> 
-                    <div className="d-flex justify-content-center">
-                        <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => setEdit(true)}><i className="fas fa-edit"></i></button>
-                        <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => setEditPassword(true)}><i className="fas fa-edit"></i>Cambiar contraseña</button>
-                    </div>
-                    {/* <div className="mt-5">
-                        <h2>Tus Mascotas</h2>
-                        <div className="row"> */}
-                        <div className="container mt-5 text-center vh-100">
-                            <h1>Mis mascotas:</h1>
+
+                <div className="container mt-5 text-center">
+
+                    <DatosPerfil editDatos={() => setEdit(true)} editPassword={() => setEditPassword(true)}/>
+
+                    <div>
+                        <h3 className="mt-4">Mis mascotas</h3>
                             <div className="mt-5">
                                 <div className="accordion accordion-flush" id="accordionFlushExample">
 
                             {store.user.mascotas && store.user.mascotas.length > 0 ? (
                                 store.user.mascotas.map((mascota, index) => (
                                     <div key={index} className="">
+                                        {/* <button type="button" className="btn btn-outline-dark btn-sm ml-3 d-flex" onClick={() => setEditMascota(mascota.id)}>
+                                            <i className="fas fa-edit"></i>
+                                        </button> */}
+                                        
                                         <MiMascotaCard 
                                         mascota={mascota} 
                                         imgSrc={mascota.url_image}
@@ -681,17 +698,22 @@ const validateMascota = values => {
                                         descripcion={mascota.descripción}
                                         fechaReg={mascota.fecha_registro}
                                         id={mascota.id}
+                                        editMascota={() => setEditMascota(mascota.id)}
                                         />
+                                        
                                     </div>
-))
+                                    
+                                    ))
                             ) : (
                                 <p>No tienes mascotas registradas.</p>
-                            )}</div></div>
-                        </div>
+                                )}</div>
+                            </div>
                 </div>
+    </div>
+              
             )}
         </div>
     );
 };
 
-export default PerfilMock;
+export default PerfilMock;   

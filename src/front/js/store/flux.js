@@ -263,44 +263,47 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({user:null})
 			},
 
-			editarMascota: async (values) =>{
+			editarMascota: async (values, id) =>{
 				try {
-					const response = await fetch(URL+'/api/mascotas', {
+					const formattedValues = {
+						nombre: values.nombre,
+						edad: values.edad,
+						sexo: values.sexo,
+						descripcion: values.descripcion,
+						estado: values.estado,
+						fecha_perdido: values.fecha_perdido,
+						especie_id: parseInt(values.especie_id),
+						raza_id: parseInt(values.raza_id),
+						localidad_id: parseInt(values.localidad_id),
+						departamento_id: parseInt(values.departamento_id),
+						user_id: values.user_id,
+						url_image: values.url_image || null,
+						coord_x: values.coord_x || null,
+						coord_y: values.coord_y || null,
+					};
+					const response = await fetch(URL+`/api/mascotas/${id}`, {
 						method: 'PUT',
 						headers: {
 							'Content-Type': 'application/json',
 						},
-						body: JSON.stringify({
-							nombre: values.nombre, 
-							edad: values.edad, 
-							sexo: values.sexo, 
-							descripcion: values.descripcion, 
-							estado: values.estado, 
-							fecha_perdido: values.fecha_perdido,  
-							especie_id: parseInt(values.especie_id),
-							raza_id: parseInt(values.raza_id), 
-							localidad_id: parseInt(values.localidad_id),
-							departamento_id: parseInt(values.departamento_id),
-							url_image: values.url_image,
-							coord_x: values.coord_x,
-							coord_y: values.coord_y,
-							// user_id: values.user_id,
-						})
+						body: JSON.stringify(formattedValues)
 					});
 	
 					if (!response.ok) {
-						throw new Error('Error al editar los datos de la mascota');
+						const errorResponse = await response.json();
+						throw new Error(errorResponse.message || 'Error al agregar la mascota');
 					}
-					const newMascota = await response.json();
+			
+					const editMascota = await response.json();
 					const store = getStore();
-					setStore({ mascotas: [...store.mascotas, newMascota] });
-					// console.log(newMascota);
+					setStore({ mascotas: [...store.mascotas, editMascota] });
 					
-					return true
+					return true;
 				} catch (error) {
 					console.error(error);
-					return false
+					return false;
 				}
+			
 			},
 			uploadImage: async (formData) => {
 				

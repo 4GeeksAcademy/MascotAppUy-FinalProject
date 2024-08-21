@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
+import { DivIcon } from "leaflet";
 
 export const MiMascotaCard = (props)=> {
 
@@ -16,29 +17,57 @@ export const MiMascotaCard = (props)=> {
     }, [])
     return(
         <div className="container">
-            <div className="accordion accordion-flush text-center" id="accordionFlushExample">
+            <div className="accordion accordion-flush" id="accordionFlushExample">
                 <div className="accordion-item">
-                    <button className="accordion-button collapsed justify-content-center" type="button" data-bs-toggle="collapse" data-bs-target={`#flush-collapse${props.id}`} aria-expanded="false" aria-controls={`flush-collapse${props.id}`}>
-                        <span className="ms-5 fs-4">{props.nombre}</span>
-                    </button>
-                    <div id={`flush-collapse${props.id}`} className="accordion-collapse collapse" aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
+                    <h2 className="accordion-header" id={`flush-heading${props.id}`}>
+                        <button 
+                            className="accordion-button collapsed d-flex justify-content-between align-items-center" 
+                            type="button" 
+                            data-bs-toggle="collapse" 
+                            data-bs-target={`#flush-collapse${props.id}`} 
+                            aria-expanded="false" 
+                            aria-controls={`flush-collapse${props.id}`}
+                            style={{ border: 'none', backgroundColor: '#f8f9fa' }}
+                        >
+                            <div className="d-flex w-100 justify-content-between align-items-center">
+                                <div className="fs-4">{props.nombre}</div>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-outline-dark btn-sm me-3" 
+                                    onClick={props.editMascota}
+                                >
+                                    <i className="fas fa-edit"></i>
+                                </button>
+                            </div>
+                        </button>
+                    </h2>
+                    <div 
+                        id={`flush-collapse${props.id}`} 
+                        className="accordion-collapse collapse" 
+                        aria-labelledby={`flush-heading${props.id}`} 
+                        data-bs-parent="#accordionFlushExample"
+                    >
                         <div className="accordion-body">
-                            <div style={{"justifyContent": "center", "display": "flex" }}>
-                                <div className="card mb-3" style={{"maxWidth": "540px", "minWidth": "100%"}}>
+                            <div className="d-flex justify-content-center">
+                                <div className="card mb-3" style={{ maxWidth: "540px", minWidth: "100%" }}>
                                     <div className="row g-0">
                                         <div className="col-md-4">
-                                            <img src={props.imgSrc} className="imgFluid rounded" style={{"width": "100%", "height": "100%", "maxHeight": "350px"}} />
+                                            <img 
+                                                src={props.imgSrc} 
+                                                className="img-fluid rounded" 
+                                                style={{ width: "100%", height: "100%", maxHeight: "350px" }} 
+                                                alt="Mascota" 
+                                            />
                                         </div>
-                                        <div className="col-md-8" style={{"textAlign": "start", "paddingLeft": "20px"}}> 
-                                                <h5 className="cardTitle">Nombre: {props.nombre} </h5>
-                                                <p className="cardText">Estado: {props.estado}</p>
-                                                <p className="cardText">Edad: {props.edad}</p>
-                                                <p className="cardText">Descripción:{props.descripcion}</p>
-                                                <p className="cardText">Fecha de perdido: {props.fechaPer}</p>
-                                                <p className="cardText">Fecha de registro: {props.fechaReg}</p>
-                                                <p className="cardText">Ubicación:</p>
-                                           </div>
-                                        
+                                        <div className="col-md-8" style={{ textAlign: "start", paddingLeft: "20px" }}>
+                                            <h5 className="card-title">Nombre: {props.nombre}</h5>
+                                            <p className="card-text">Estado: {props.estado}</p>
+                                            <p className="card-text">Edad: {props.edad}</p>
+                                            <p className="card-text">Descripción: {props.descripcion}</p>
+                                            <p className="card-text">Fecha de perdido: {props.fechaPer}</p>
+                                            <p className="card-text">Fecha de registro: {props.fechaReg}</p>
+                                            <p className="card-text">Ubicación:</p>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
@@ -47,4 +76,5 @@ export const MiMascotaCard = (props)=> {
                 </div>
             </div>
         </div>
-    )}
+    );
+}
