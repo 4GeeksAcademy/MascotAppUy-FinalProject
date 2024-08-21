@@ -258,6 +258,84 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			},
 
+			validateTokenGoogle: async () => {
+				let token = localStorage.getItem('access_token'); // Obtener el token del localStorage
+				if (!token) {
+					setStore({ user: null });
+					return false;
+				}
+				try {
+					const res = await fetch(URL+"/api/valid-token-google", {
+						method: 'GET',
+						headers: {
+							'Authorization': `Bearer ${token}`, // Usa el token del localStorage
+							'Content-Type': 'application/json',
+						}
+					});
+			
+					const contentType = res.headers.get('Content-Type');
+			
+					if (res.ok) {
+						if (contentType && contentType.includes('application/json')) {
+							const data = await res.json();
+							console.log('Backend response:', data);
+							setStore({ user: data });
+							return true;
+						} else {
+							console.error('Response is not JSON:', await res.text());
+						}
+					} else {
+						console.error('Error validating token:', res.statusText);
+					}
+			
+					setStore({ user: null });
+					return false;
+				} catch (error) {
+					console.error('Fetch error:', error);
+					setStore({ user: null });
+					return false;
+				}
+			},
+
+			// validateToken: async () => {
+			// 	let token = localStorage.getItem('access_token'); // Obtener el token del localStorage
+			// 	if (!token) {
+			// 		setStore({ user: null });
+			// 		return false;
+			// 	}
+			// 	try {
+			// 		const res = await fetch(`${URL}/api/valid-token`, {
+			// 			method: 'GET',
+			// 			headers: {
+			// 				'Authorization': `Bearer ${token}`, // Usa el token del localStorage
+			// 				'Content-Type': 'application/json',
+			// 			}
+			// 		});
+			
+			// 		const contentType = res.headers.get('Content-Type');
+			
+			// 		if (res.ok) {
+			// 			if (contentType && contentType.includes('application/json')) {
+			// 				const data = await res.json();
+			// 				console.log('Backend response:', data);
+			// 				setStore({ user: data });
+			// 				return true;
+			// 			} else {
+			// 				console.error('Response is not JSON:', await res.text());
+			// 			}
+			// 		} else {
+			// 			console.error('Error validating token:', res.statusText);
+			// 		}
+			
+			// 		setStore({ user: null });
+			// 		return false;
+			// 	} catch (error) {
+			// 		console.error('Fetch error:', error);
+			// 		setStore({ user: null });
+			// 		return false;
+			// 	}
+			// },
+
 			logout: async () => {
 				localStorage.removeItem("access_token");
 				setStore({user:null})
@@ -361,7 +439,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ coord_x, coord_y });
 				return true; // Devuelve true si se actualizaron las coordenadas
 			},
-
 		}
 	}
 }
