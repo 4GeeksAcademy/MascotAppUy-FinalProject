@@ -11,7 +11,7 @@ from werkzeug.security import generate_password_hash, check_password_hash
 import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
-
+import requests
 
 api = Blueprint('api', __name__)
 
@@ -25,6 +25,18 @@ cloudinary.config(
     api_secret = "Oyq-jtbcAQYj_ySpyo-brsHZHCg", # Click 'View API Keys' above to copy your API secret
     secure=True
 )
+
+# Función para validar tokens de Google
+def validate_google_token(id_token):
+    response = requests.get(f'https://www.googleapis.com/oauth2/v3/tokeninfo?id_token={id_token}')
+    token_info = response.json()
+    
+    if response.status_code == 200:
+        return token_info  # Esto contiene la información del usuario
+    else:
+        raise ValueError(token_info.get('error_description', 'Invalid Google Token'))
+
+
 
 # ENDPOINT: Login
 @api.route('/login', methods=['POST'])
@@ -124,6 +136,32 @@ def add_mascota():
         db.session.rollback()
         return jsonify({"error": "Ocurrió un error al agregar la mascota", "message": str(e)}), 500
 
+@api.route("/valid-token-google", methods=["GET"])
+@jwt_required()
+def valid_token_google():
+    # Extraer el token de la cabecera
+    auth_header = request.headers.get('Authorization')
+    if auth_header and auth_header.startswith('Bearer '):
+        token = auth_header.split(' ')[1]
+        try:
+            # Verificar si es un token de Google
+            if token.startswith('ey'):  # Token JWT básico
+                # Validar Google Token
+                google_user_info = validate_google_token(token)
+                return jsonify(user=google_user_info), 200
+            else:
+                # Manejar tu token JWT normal
+                current_user = get_jwt_identity()
+                user = User.query.filter_by(email=current_user).first()
+
+                if user is None:
+                    return jsonify(user=None), 409
+
+                return jsonify(user=user.serialize()), 200
+        except Exception as e:
+            return jsonify({'message': str(e)}), 401
+    else:
+        return jsonify({'message': 'Token missing or invalid'}), 401
 
 
 # ENDPOINT: Validar token

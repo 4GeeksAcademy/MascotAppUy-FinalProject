@@ -361,11 +361,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ coord_x, coord_y });
 				return true; // Devuelve true si se actualizaron las coordenadas
 			},
-			setGoogle: () => {
-				setStore({user:true});
-				return true; // Devuelve true si se actualizaron las coordenadas
-			},
-
 
 		}
 	}
