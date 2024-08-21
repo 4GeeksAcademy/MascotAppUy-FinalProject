@@ -58,7 +58,7 @@ def get_all_mascotas():
         "msg": "Mascotas List",
         "results": results
     }
-    print(results)
+    # print(results)
     return jsonify(response_body), 200
 
 # ENDPOINT: Obtener usuarios
@@ -161,7 +161,7 @@ def signup():
         nombre=data["nombre"], 
         telefono=data["telefono"], 
     )
-    print(data)
+    # print(data)
     db.session.add(user)
     db.session.commit()
 

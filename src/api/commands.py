@@ -117,7 +117,7 @@ def setup_commands(app):
                 db.session.commit()
                 # Actualizar el diccionario de especies_db con el nuevo ID
                 especies_db[especie_nombre] = nueva_especie.id
-                print(f"Especie '{especie_nombre}' agregada a la base de datos.")
+                # print(f"Especie '{especie_nombre}' agregada a la base de datos.")
 
             # Verificar si la raza ya existe para la especie correspondiente
             especie_id = especies_db[especie_nombre]
