@@ -203,6 +203,7 @@ const Filtros = (props) => {
                         especie={mascota.especie_name}
                         localidad={mascota.localidad_name}
                         id= {mascota.id}
+                        estado={mascota.estado}
                     />
                 </div>
             ))}
