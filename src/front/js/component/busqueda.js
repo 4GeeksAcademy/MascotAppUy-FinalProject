@@ -1,9 +1,35 @@
-import React from "react";
+import React, { useContext} from "react";
+import { Context } from "../store/appContext";
 import { Link } from "react-router-dom";
 import "../../styles/busqueda.css"
 import { Link as ScrollLink } from "react-scroll";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 export const Busqueda = () => {
+    const {store} = useContext(Context);
+    const nav = useNavigate();
+    const Toast = Swal.mixin({
+        toast: true,
+        position: "top",
+        showConfirmButton: false,
+        timer: 2000,
+        timerProgressBar: false,
+        didOpen: (toast) => {
+          toast.onmouseenter = Swal.stopTimer;
+          toast.onmouseleave = Swal.resumeTimer;
+        }
+      });
+
+    const handlePublicar = ()=>{
+        store.user ? (nav("/agregarmascota")):(
+            Toast.fire({
+            icon: "error",
+            title: "Debes estar logueado para publicar.",
+            showConfirmButton: false}))
+      };
+    
+    
     return(
         <div className="busqueda-container row py-lg-5">
             <div className="col-lg-6 col-md-8 mx-auto text-center">
@@ -26,7 +52,7 @@ export const Busqueda = () => {
 
                 <div className="boton-container row mb-4 mt-5">
                     <div className="col-12 col-md-6 mb-2 mb-md-0">
-                        <Link to="/agregarmascota" className="boton-publicar btn btn-primary w-100">Publicar</Link>
+                        <button onClick={handlePublicar} className="boton-publicar btn btn-primary w-100">Publicar</button>
                     </div>
                     <div className="col-12 col-md-6">
                         <Link to="/" className="boton-adoptar btn btn-secondary w-100">Adoptar</Link>

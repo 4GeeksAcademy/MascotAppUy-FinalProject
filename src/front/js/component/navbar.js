@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import logoClaro from "../../img/logoClaro.png"
-import logoClaroGif from "../../img/logo-mascotapp_claro.gif"
+import logoClaro from "../../img/logoClaro2.png"
+import logoClaroGif from "../../img/logoClaro2.gif"
 import "../../styles/navbar.css"
 
 export const Navbar = () => {
@@ -24,7 +24,7 @@ export const Navbar = () => {
                     </Link>
                       
                 </div>
-                <span>MascotApp</span>  
+                {/* <Link to="/" className="fs-5 text-white text-decoration-none">MascotApp</Link>   */}
             <ul className="navbar-nav ms-auto">
                 <li className="nav-item d-flex justify-content-end">
                     <Link to="/mascotas-encontradas" className="nav-link"><button type="button" className="button-no-border btn btn-outline-light">Encontradas</button></Link>

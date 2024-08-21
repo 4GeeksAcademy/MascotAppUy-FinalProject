@@ -424,7 +424,7 @@ export const AgregarMascota = () =>{
                     </div>
                 </>
             ) : (
-                <div>No estas logueado</div>
+                <div className="dflex text-center text-danger">Debes estar logueado para publicar.</div>
             )}
         </>
     );
