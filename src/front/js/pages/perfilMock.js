@@ -5,6 +5,7 @@ import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
 // import MascotaCard from "../component/mascotaCard.jsx";
 import { MiMascotaCard } from "../component/miMascotaCard";
+import DatosPerfil from "../component/datosPerfil";
 
 const PerfilMock = () => {
 
@@ -12,6 +13,7 @@ const PerfilMock = () => {
     const { store, actions } = useContext(Context);
     const [edit, setEdit] = useState(false);
     const [editPassword, setEditPassword] = useState(false)
+    const [editMascota, setEditMascota] = useState(null);
 
     // ********* FORMIK PARA EDITAR DATOS GENERALES**********
     const validate = values => {
@@ -120,19 +122,211 @@ const PerfilMock = () => {
     });
 // ********* FIN FORMIK PARA EDITAR CONTRASEÑA**********
 
+// ********* FORMIK PARA EDITAR MASCOTAS**********
+
+    const [departamentoSelected, setDepartamentoSelected] = useState("");
+    const [filteredLocalidades, setFilteredLocalidades] = useState([]);
+
+    const [especieSelected, setEspecieSelected] = useState("");
+    const [filteredRazas, setFilteredRazas] = useState([]);
+
+    const nav = useNavigate();
+
+    const [selectedFile, setSelectedFile] = useState(null);
+
+    const validateMascota = values => {
+    const errors = {};
+    if (!values.nombre) {
+        errors.nombre = 'Required';
+    } else if (values.nombre.length > 50) {
+        errors.nombre = 'Must be 50 characters or less';
+    }
+    const today = new Date();
+
+    today.setHours(0, 0, 0, 0); // Establecer la hora a medianoche
+    const todayDateString = today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
+
+    if (!values.estado) {
+      errors.estado = 'Requerido';
+    }
+  
+    if (!values.nombre) {
+      errors.nombre = 'Requerido';
+    } else if (values.nombre.length > 120) {
+      errors.nombre = 'Debe ser 120 caracteres o menos';
+    }
+    if (!values.fecha_perdido) {
+        errors.fecha_perdido = 'Requerido';
+    }
+    if (!values.sexo) {
+        errors.sexo = 'Requerido';
+    }
+
+    if (!values.especie_id) {
+        errors.especie_id = 'Requerido';
+    }
+    if (!values.raza_id) {
+        errors.raza_id = 'Requerido';
+    }
+    if (!values.descripcion) {
+        errors.descripcion = 'Requerido';
+    }
+    if (!values.fecha_perdido) {
+        errors.fecha_perdido = 'Requerido';
+    }else {
+        
+        const fechaPerdidoDateString = values.fecha_perdido;
+        if (fechaPerdidoDateString > todayDateString) {
+          errors.fecha_perdido = 'La fecha no puede ser en el futuro';
+        }
+    }
+    
+    if(values.estado !== 'ENCONTRADO'){
+        if (!values.edad) {
+            errors.edad = 'Requerido';
+        } 
+    }
+    if (!values.departamento_id) {
+        errors.departamento_id = 'Requerido';
+    }
+    if (!values.localidad_id) {
+        errors.localidad_id = 'Requerido';
+    }
+
+    return errors;
+};
+
+    const formikMascota = useFormik({
+        
+        initialValues: {
+            estado: '',
+            nombre: '',
+            edad: '',
+            sexo: '',
+            especie_id: '',
+            raza_id: '',
+            descripcion: '',
+            fecha_perdido: '',
+            departamento_id: '',
+            localidad_id: '',
+            url_image: '' 
+        },
+        validate: validateMascota,
+        onSubmit: async (values) => {
+            console.log(values);
+
+            let formData = null;
+            let urlImg = values.url_image; // Inicialmente conserva la imagen existente
+    
+            if (selectedFile) {
+                formData = new FormData();
+                formData.append('file', selectedFile);
+                // Subir la nueva imagen
+                urlImg = await actions.uploadImage(formData);
+            }
+
+            const formattedValues = {
+                ...values,
+                user_id: store.user.id,
+                url_image: urlImg,
+                coord_x: store.coord_x,
+                coord_y: store.coord_y
+            };
+          
+            console.log(formattedValues);
+            
+            const added = await actions.editarMascota(formattedValues, editMascota);
+            if (added) {
+                Toast.fire({
+                icon: "success",
+                title: "Edited successfully"
+                });
+                nav("/")
+            }else {
+                Toast.fire({
+                icon: "error",
+                title: "Something went wrong",
+                showConfirmButton: false,
+                });
+            }
+        
+
+        
+    }});
+
+
+    // UseEffects de los filtros para actualizar mascotas
+    useEffect(() => {
+        if (departamentoSelected) {
+            const filterLoc = store.localidades.filter(localidad =>
+                localidad.departamento_id === parseInt(departamentoSelected)
+            );
+            setFilteredLocalidades(filterLoc);
+        } else {
+            setFilteredLocalidades([]);
+        }
+    }, [departamentoSelected, store.localidades]);
+
+    useEffect(() => {
+        if(especieSelected) {
+            const filterRaza = store.razas.filter(raza => 
+                raza.especie_id === parseInt(especieSelected)
+            );
+            setFilteredRazas(filterRaza)
+            // console.log("Raza Filtradas:"+ filterRaza);
+            
+        } else {
+            setFilteredRazas(store.razas)
+        }
+
+    }, [especieSelected, store.razas])
+    //Cierre
+
     // Actualiza los valores de Formik después de que el usuario haya sido editado
     useEffect(() => {
+        
         if (store.user) {
+            
             formik.setValues({
                 nombre: store.user.nombre || '',
                 email: store.user.email || '',
                 telefono: store.user.telefono || '',
-                mascotas: store.user.mascotas || ''
+                
+                
             });
+            console.log(store.user.mascotas);
             
             
         }
     }, [store.user]); // Ejecuta este efecto cuando store.user cambie
+
+
+    useEffect(() => {
+        console.log(editMascota);
+        
+        if (editMascota && store.user.mascotas) {
+            const mascota = store.mascotas.find(m => m.id === editMascota);
+            if (mascota) {
+                formikMascota.setValues({
+                    estado: mascota.estado || '',
+                    nombre: mascota.nombre || '',
+                    edad: mascota.edad || '',
+                    sexo: mascota.sexo || '',
+                    especie_id: mascota.especie_id || '',
+                    raza_id: mascota.raza_id || '',
+                    fecha_perdido: mascota.fecha_perdido || '',
+                    descripcion: mascota.descripcion || '',
+                    departamento_id: mascota.departamento_id || '',
+                    localidad_id: mascota.localidad_id || '',
+                    url_image: mascota.url_image || ''
+            
+                });
+            }
+        }
+        
+        
+    }, [editMascota, store.mascotas]);
 
     return (
         <div className="container mt-5">
@@ -202,6 +396,7 @@ const PerfilMock = () => {
                     </form>
                 </div>
             ) : editPassword ? (
+
                 <div className="form-container mt-5 w-50">
                     <h2>Cambiar contraseña</h2>
                     <form onSubmit={formikPassword.handleSubmit}>
@@ -250,29 +445,247 @@ const PerfilMock = () => {
                         </button>
                     </form>
                 </div>
-            ) : (
-                <div>
-                    <h1 className="text-center">Bienvenido/a {store.user.nombre}</h1>
-                    <h6 className="text-center mt-5">Email: {store.user.email}</h6>
-                    <h6 className="text-center">Nombre: {store.user.nombre}</h6>
-                    <h6 className="text-center">Telefono: {store.user.telefono}</h6>
-                    <h6 className="text-center">Contraseña: {store.user.password}</h6>
-                    <h6 className="text-center">Mis mascotas:</h6> 
-                    <div className="d-flex justify-content-center">
-                        <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => setEdit(true)}><i className="fas fa-edit"></i></button>
-                        <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => setEditPassword(true)}><i className="fas fa-edit"></i>Cambiar contraseña</button>
+            
+            ) : editMascota ? (
+                <div className="container" id="contformagregar">
+                        <form onSubmit={formikMascota.handleSubmit}>
+
+                            <div className="input-group mb-3">
+                                <select 
+                                    className="form-select border-0" 
+                                    id="estado"
+                                    name="estado" 
+                                    value={formikMascota.values.estado} 
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
+                                >
+                                <option value="">Estado</option>    
+                                <option value="PERDIDO">PERDIDO</option>
+                                <option value="ENCONTRADO">ENCONTRADO</option>
+                                <option value="PERDIDO">ADOPCIÓN</option>
+                                <option value="ENCONTRADO">REUNIDO</option>  
+                                </select>
+                                {formikMascota.touched.estado && formikMascota.errors.estado ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.estado}</div>
+                            ) : null}
+                            </div>
+                            
+
+                            <div className="input-group mb-3">
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    // placeholder="Nombre de tu mascota" 
+                                    placeholder={formikMascota.values.estado === 'ENCONTRADO' ? "Título de la publicación" : "Nombre de tu mascota"}
+                                    id="nombre"
+                                    name="nombre" 
+                                    value={formikMascota.values.nombre} 
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
+                                />
+                                {formikMascota.touched.nombre && formikMascota.errors.nombre ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.nombre}</div>
+                            ) : null}
+                            </div>
+                            <div className="input-group mb-3">
+                                <input 
+                                    type="date" 
+                                    className="form-control" 
+                                    id="fecha_perdido"  
+                                    name="fecha_perdido" 
+                                    value={formikMascota.values.fecha_perdido}
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
+                                />
+                                {formikMascota.touched.fecha_perdido && formikMascota.errors.fecha_perdido ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.fecha_perdido}</div>
+                            ) : null}
+                            </div>
+                            <div className="input-group mb-3">
+                                <select 
+                                    className="form-select border-0" 
+                                    id="sexo"
+                                    name="sexo" 
+                                    value={formikMascota.values.sexo}
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
+                                >
+                                    <option value="">Sexo</option>
+                                    <option value="HEMBRA">HEMBRA</option>
+                                    <option value="MACHO">MACHO</option> 
+                                    <option value="INDEFINIDO">INDEFINIDO</option>  
+                                </select>
+                                {formikMascota.touched.sexo && formikMascota.errors.sexo ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.sexo}</div>
+                            ) : null}
+                            </div>
+                            <div className="input-group mb-3">
+                                <input 
+                                    type="text" 
+                                    className="form-control" 
+                                    placeholder="Edad de tu mascota" 
+                                    id="edad"
+                                    name="edad" 
+                                    value={formikMascota.values.edad} 
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
+                                />
+                                {formikMascota.touched.edad && formikMascota.errors.edad ? (
+                                <div className="error-msg ms-2">{formikMascota.errors.edad}</div>
+                            ) : null}
+                            </div>
+
+                            <div className="input-group mb-3">
+                                <select 
+                                    className="form-select border-0" 
+                                    id="especie_id"
+                                    name="especie_id" 
+                                    value={formikMascota.values.especie_id} 
+                                    onChange={e => {
+                                        const { value } = e.target;
+                                        formikMascota.handleChange(e);
+                                        setEspecieSelected(value);
+                                    }}
+                                    onBlur={formikMascota.handleBlur}
+                                >
+                                    <option value="">Especies</option>
+                                    {store.especies.map((especie, index) => (
+                                        <option key={index} value={especie.id}>
+                                            {especie.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                {formikMascota.touched.especie_id && formikMascota.errors.especie_id ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.especie_id}</div>
+                                    ) : null}
+                            </div>
+
+                            {especieSelected && (
+                                <>
+                                
+                                    <div className="input-group mb-3">
+                                        <select
+                                            className="form-select border-0"
+                                            id="raza_id"
+                                            name="raza_id"
+                                            value={formikMascota.values.raza_id}
+                                            onChange={formikMascota.handleChange}
+                                            onBlur={formikMascota.handleBlur}
+                                        >
+                                            <option value="">Raza</option>
+                                            {filteredRazas.map((raza, index) => (
+                                                <option key={index} value={raza.id}>
+                                                    {raza.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        {formikMascota.touched.raza_id && formikMascota.errors.raza_id ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.raza_id}</div>
+                                    ) : null}
+                                    </div>
+                                </>
+                            )}
+
+                            <div className="input-group mb-3">
+                                <textarea 
+                                    className="form-control border-0" 
+                                    placeholder="Agrega una descripción de tu mascota. Todos los detalles son importantes para poder identificarla" 
+                                    id="descripcion"
+                                    name="descripcion" 
+                                    value={formikMascota.values.descripcion} 
+                                    onChange={formikMascota.handleChange}
+                                    onBlur={formikMascota.handleBlur}
+                                    style={{ height: '150px', resize: 'vertical' }}
+                                ></textarea>
+                                {formikMascota.touched.descripcion && formikMascota.errors.descripcion ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.descripcion}</div>
+                                    ) : null}
+                            </div>
+                           
+                            <div className="input-group mb-3">
+                                <label className="form-label mx-2">Imagen</label>
+                                <input
+                                    type="file"
+                                    className="form-control"
+                                    id="imagen"
+                                    name="imagen"
+                                    accept="image/*"
+                                    onChange={(e) => setSelectedFile(e.target.files[0])}
+                                />
+                                
+                            </div>
+                            <div className="input-group mb-3">
+                                <select 
+                                    className="form-select border-0" 
+                                    id="departamento_id"
+                                    name="departamento_id" 
+                                    value={formikMascota.values.departamento_id} 
+                                    onChange={e => {
+                                        const { value } = e.target;
+                                        formikMascota.handleChange(e); // Actualiza el valor en Formik
+                                        setDepartamentoSelected(value); // Actualiza el estado del departamento
+                                    }}
+                                    onBlur={formikMascota.handleBlur}
+                                >
+                                    <option value="">Departamento</option>
+                                    {store.departamentos.map((departamento, index) => (
+                                        <option key={index} value={departamento.id}>
+                                            {departamento.name}
+                                        </option>
+                                    ))}
+                                </select>
+                                {formikMascota.touched.departamento_id && formikMascota.errors.departamento_id ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.departamento_id}</div>
+                                    ) : null}
+                            </div>
+                            {departamentoSelected && (
+                                <>
+                                
+                                    <div className="input-group mb-3">
+                                        <select
+                                            className="form-select border-0"
+                                            id="localidad_id"
+                                            name="localidad_id"
+                                            value={formikMascota.values.localidad_id}
+                                            onChange={formikMascota.handleChange}
+                                            onBlur={formikMascota.handleBlur}
+                                        >
+                                            <option value="">Localidad</option>
+                                            {filteredLocalidades.map((localidad, index) => (
+                                                <option key={index} value={localidad.id}>
+                                                    {localidad.name}
+                                                </option>
+                                            ))}
+                                        </select>
+                                        {formikMascota.touched.localidad_id && formikMascota.errors.localidad_id ? (
+                                        <div className="error-msg ms-2">{formikMascota.errors.localidad_id}</div>
+                                    ) : null}
+                                    </div>
+                                </>
+                            )}
+                           
+                            <button type="submit" id="botonEnviar">Enviar</button>
+                        </form>
                     </div>
-                    {/* <div className="mt-5">
-                        <h2>Tus Mascotas</h2>
-                        <div className="row"> */}
-                        <div className="container mt-5 text-center vh-100">
-                            <h1>Mis mascotas:</h1>
+
+            ) : (
+
+                <div className="container mt-5 text-center">
+
+                    <DatosPerfil editDatos={() => setEdit(true)} editPassword={() => setEditPassword(true)}/>
+
+                    <div>
+                        <h3 className="mt-4">Mis mascotas</h3>
                             <div className="mt-5">
                                 <div className="accordion accordion-flush" id="accordionFlushExample">
 
                             {store.user.mascotas && store.user.mascotas.length > 0 ? (
                                 store.user.mascotas.map((mascota, index) => (
                                     <div key={index} className="">
+                                        {/* <button type="button" className="btn btn-outline-dark btn-sm ml-3 d-flex" onClick={() => setEditMascota(mascota.id)}>
+                                            <i className="fas fa-edit"></i>
+                                        </button> */}
+                                        
                                         <MiMascotaCard 
                                         mascota={mascota} 
                                         imgSrc={mascota.url_image}
@@ -285,17 +698,22 @@ const PerfilMock = () => {
                                         descripcion={mascota.descripción}
                                         fechaReg={mascota.fecha_registro}
                                         id={mascota.id}
+                                        editMascota={() => setEditMascota(mascota.id)}
                                         />
+                                        
                                     </div>
-))
+                                    
+                                    ))
                             ) : (
                                 <p>No tienes mascotas registradas.</p>
-                            )}</div></div>
-                        </div>
+                                )}</div>
+                            </div>
                 </div>
+    </div>
+              
             )}
         </div>
     );
 };
 
-export default PerfilMock;
+export default PerfilMock;   
