@@ -5,6 +5,7 @@ import { Context } from "../store/appContext";
 import "../../styles/mascotaCard.css"
 
 
+
 const MascotaCard = (props) => {
     const { store } = useContext(Context)
     const navigate = useNavigate();
@@ -16,11 +17,31 @@ const MascotaCard = (props) => {
         if(findMascota) {
             setMascota(findMascota)
         }
-    }, [])
+    }, []);
+
+    const getBadgeClass = (estado) => {
+        switch (estado) {
+            case 'PERDIDO':
+                return 'badge-PERDIDO';
+            case 'ENCONTRADO':
+                return 'badge-ENCONTRADO';
+            case 'en REUNDIO':
+                return 'badge-REUNIDO';
+            case 'ADOPCION':
+                return 'badge-ADOPCION';
+        }
+    };
  
 
     return (
+        
+        
+        
         <div className="mascotacard card mt-5" style={{ width: "16rem", cursor: "pointer" }} onClick={() => navigate(`/mascota/${props.id}`)}>
+            <div className={`badge ${getBadgeClass(props.estado)}`}>
+                    {props.estado}
+                </div>
+
             <img src={props.imgSrc} className="card-img-top" alt="random-img" />
             <div className="card-body">
                 <h5 className="card-title">{props.nombre}</h5>
@@ -37,6 +58,7 @@ const MascotaCard = (props) => {
                 
             </div>
         </div>
+        
     );
 }
 

@@ -113,3 +113,6 @@ span {
   background-color: #040926; 
   color: #FF8A5B; /* Color del texto al hacer hover */
 }
+.navbar-toggler-icon {
+  color: #fff; /* Cambia el color a blanco o a otro color visible */
+}

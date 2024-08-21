@@ -1,0 +1,20 @@
+.profile-big-name{
+    width: 100px; /* Ajusta el ancho según sea necesario */
+    height: 100px; /* Ajusta la altura según sea necesario */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 50px; /* Tamaño de fuente ajustado para la inicial */
+    border-radius: 50%; 
+  }
+  
+  .profile-big-name {
+    background-color: #EA526F; /* Color de fondo del botón */
+    color: #ffffff; /* Color del texto */
+    border: none; /* Eliminar el borde */
+  }
+  
+  .profile-big-name:hover {
+    background-color: #ffffff; /* Color de fondo en hover */
+    color: #040926; /* Color del texto en hover */
+  }

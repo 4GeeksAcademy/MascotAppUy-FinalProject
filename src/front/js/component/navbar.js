@@ -13,60 +13,81 @@ export const Navbar = () => {
   const initial = userName ? userName.charAt(0).toUpperCase() : '';
 
   return (
+    <nav className="navbar navbar-expand-md navbar-dark sticky-top">
+      <div className="container-fluid">
+        
 
-    <nav className="navbar navbar-expand-lg bg-body-tertiary">
-        <div className="container-fluid"> 
-            <div className="collapse navbar-collapse d-flex" id="navbarSupportedContent">
-                <div className="image-container d-flex align-items-center pe-0 me-0">
-                   <Link to="/">
-                        <img src={logoClaro} alt="Static Image" className="static-image pb-0" />
-                        <img src={logoClaroGif} alt="Animated Image" className="animated-image pb-0" />    
-                    </Link>
-                      
-                </div>
-                {/* <Link to="/" className="fs-5 text-white text-decoration-none">MascotApp</Link>   */}
+            <Link to="/" className="navbar-brand d-flex align-items-center">
+            <div className="image-container d-flex align-items-center pe-0 me-0">
+                <img src={logoClaro} alt="Static Image" className="static-image pb-0" />
+                <img src={logoClaroGif} alt="Animated Image" className="animated-image pb-0" />
+            </div>
+            <span className="ms-2">MascotApp</span>
+            </Link>
+            <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                  <span className="navbar-toggler-icon"></span>
+            </button>
+            
+            <div className="collapse navbar-collapse" id="navbarNav">
+            
             <ul className="navbar-nav ms-auto">
                 <li className="nav-item d-flex justify-content-end">
-                    <Link to="/mascotas-encontradas" className="nav-link"><button type="button" className="button-no-border btn btn-outline-light">Encontradas</button></Link>
+                <Link to="/mascotas-encontradas" className="nav-link">
+                    <button type="button" className="button-no-border btn btn-outline-light">Encontradas</button>
+                </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">
-                    <Link to="/mascotas-perdidas" className="nav-link"><button type="button" className="button-no-border btn btn-outline-light">Perdidas</button></Link>
+                <Link to="/mascotas-perdidas" className="nav-link">
+                    <button type="button" className="button-no-border btn btn-outline-light">Perdidas</button>
+                </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">
-                    <Link to="/mapa" className="nav-link"><button type="button" className="button-no-border btn btn-outline-light">Mapa</button></Link>
+                <Link to="/mapa" className="nav-link">
+                    <button type="button" className="button-no-border btn btn-outline-light">Mapa</button>
+                </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">
-                    <Link to="#" className="nav-link"><button type="button" className="button-no-border btn btn-outline-light">Contacto</button></Link>
+                <Link to="#" className="nav-link">
+                    <button type="button" className="button-no-border btn btn-outline-light">Contacto</button>
+                </Link>
                 </li>
                 {store.user ? (
-                    <>
+                <>
                     <li className="nav-item d-flex justify-content-end">
-                        <Link to="/" className="nav-link text-danger" onClick={actions.logout}><button type="button" className="btn btn-outline-light">Cerrar sesion</button></Link>
+                    <Link to="/" className="nav-link text-danger" onClick={actions.logout}>
+                        <button type="button" className="btn btn-outline-light">Cerrar sesión</button>
+                    </Link>
                     </li>
                     <li className="nav-item d-flex justify-content-end">
-                        <Link to="/profile" className="nav-link"><button type="button" className="profile-name btn btn-outline-light mb-1">{initial}</button></Link>
-                    </li> 
-                    </> 
+                    <Link to="/profile" className="nav-link">
+                        <button type="button" className="profile-name btn btn-outline-light mb-1">{initial}</button>
+                    </Link>
+                    </li>
+                </>
                 ) : (
-                    <>
+                <>
                     {location.pathname !== '/form-login' && (
-                        <li className="nav-item d-flex justify-content-end">
-                            <Link to="/form-login" className="nav-link"><button type="button" className="boton-ingresar btn btn-outline-light">Ingresar</button></Link>
-                        </li>
+                    <li className="nav-item d-flex justify-content-end">
+                        <Link to="/form-login" className="nav-link">
+                        <button type="button" className="boton-ingresar btn btn-outline-light">Ingresar</button>
+                        </Link>
+                    </li>
                     )}
                     {location.pathname !== '/form-signup' && (
-                        <li className="nav-item d-flex justify-content-end">
-                            <Link to="/form-signup" className="nav-link"><button type="button" className="boton-registrarse btn btn-outline-light">Registrarse</button></Link>
-                        </li>
+                    <li className="nav-item d-flex justify-content-end">
+                        <Link to="/form-signup" className="nav-link">
+                        <button type="button" className="boton-registrarse btn btn-outline-light">Registrarse</button>
+                        </Link>
+                    </li>
                     )}
-                    </>
+                </>
                 )}
-            
             </ul>
-            </div>
+           
         </div>
+      </div>
     </nav>
-  )
+  );
 };
 
 
