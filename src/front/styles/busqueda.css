@@ -1,0 +1,117 @@
+.busqueda-container {
+    min-height: 100vh;
+    background: 
+        linear-gradient(150deg, #040926 70%, #FF8A5B 180%),
+        linear-gradient(330deg, #040926 70%, #FF8A5B 180%);
+    color: #E0E1DD;
+    background-blend-mode:color-dodge;
+    align-items: center;
+}
+
+.form-control{
+    border-radius: 30px 0 0 30px;
+    border: none;
+    padding: 15px;
+    font-size: 1.1rem;
+}
+
+.buscar{
+    border-radius: 0 30px 30px 0;
+    padding: 15px 20px;
+    background-color: #EA526F;
+    border: 1px solid #EA526F;
+}
+.buscar:hover{
+    background-color: #FF8A5B;
+    border: 1px solid #FF8A5B;
+}
+
+.explorar-container {
+    margin-top: 80px;
+}
+
+.explorar-link {
+    color: #E0E1DD;
+    text-decoration: none;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.explorar-arrow {
+    color: #E0E1DD;
+    transition: transform 0.3s ease;
+    font-size: 4rem; /* Ajusta el tamaño del icono si es necesario */
+    display: inline-block;
+    margin-top: 7rem; /* Ajusta este valor para mover el icono hacia abajo */
+    transition: color 0.3s ease; 
+}
+
+.explorar-arrow:hover {
+    transform: translateY(-5px);
+}
+.explorar-link:hover .explorar-arrow {
+    color: #E0E1DD; /* Color del icono en hover */
+}
+
+.divider-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 7rem 0;
+    position: relative;
+}
+
+.divider-line {
+    border: none;
+    border-top: 1px solid #E0E1DD;
+    width: 40%;
+    /* Ajusta el ancho de las líneas según sea necesario */
+}
+
+.divider-text {
+    font-size: 18px;
+    color: #E0E1DD;
+    margin: 0 15px;
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    background-color: #040926; /* Asegura que el texto sea legible sobre el fondo */
+    padding: 0 10px; /* Espacio alrededor del texto para hacerlo más visible */
+}
+
+.boton-publicar {
+    background-color: #FF8A5B; /* Color de fondo del botón Publicar */
+    color: #fff; /* Color del texto */
+    border: none; /* Sin borde */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave para hover y click */
+}
+
+.boton-publicar:hover {
+    background-color: #EA526F; /* Color de fondo al pasar el ratón */
+    color: #fff; /* Color del texto al pasar el ratón */
+}
+
+.boton-publicar:active {
+    background-color: #FF5E40; /* Color de fondo al hacer clic */
+}
+
+.boton-adoptar {
+    background-color: #E0E1DD; /* Color de fondo del botón Adoptar */
+    color: #040926; /* Color del texto */
+    border: none; /* Sin borde */
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    padding: 12px; /* Espaciado interno */
+    border-radius: 5px; /* Bordes redondeados */
+    transition: background-color 0.3s, color 0.3s; /* Transición suave para hover y click */
+}
+
+.boton-adoptar:hover {
+    background-color: #EA526F; /* Color de fondo al pasar el ratón */
+    color: #fff; /* Color del texto al pasar el ratón */
+}
+
+.boton-adoptar:active {
+    background-color: #C0C1B0; /* Color de fondo al hacer clic */
+}
+                        

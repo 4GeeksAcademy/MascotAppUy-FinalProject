@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
-
+import "../../styles/mascotaPost.css";
 
 
 
@@ -18,7 +18,7 @@ const MascotaPost = (props) => {
     <div className="d-flex py-5" style={{justifyContent: "center"}} id="perrito">
         
         <div>
-             <img src="https://picsum.photos/id/237/536/354" className="..." alt="..."/>
+             <img src={props.imagen} className="mascota-img" alt="..."/>
         </div>
     
         <div className="card" style={{width: '400px'}}>
