@@ -3,6 +3,8 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
+// import MascotaCard from "../component/mascotaCard.jsx";
+import { MiMascotaCard } from "../component/miMascotaCard";
 
 const PerfilMock = () => {
 
@@ -124,8 +126,11 @@ const PerfilMock = () => {
             formik.setValues({
                 nombre: store.user.nombre || '',
                 email: store.user.email || '',
-                telefono: store.user.telefono || ''
+                telefono: store.user.telefono || '',
+                mascotas: store.user.mascotas || ''
             });
+            
+            
         }
     }, [store.user]); // Ejecuta este efecto cuando store.user cambie
 
@@ -252,10 +257,41 @@ const PerfilMock = () => {
                     <h6 className="text-center">Nombre: {store.user.nombre}</h6>
                     <h6 className="text-center">Telefono: {store.user.telefono}</h6>
                     <h6 className="text-center">Contraseña: {store.user.password}</h6>
+                    <h6 className="text-center">Mis mascotas:</h6> 
                     <div className="d-flex justify-content-center">
                         <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => setEdit(true)}><i className="fas fa-edit"></i></button>
                         <button type="button" className="btn btn-outline-dark btn-sm" onClick={() => setEditPassword(true)}><i className="fas fa-edit"></i>Cambiar contraseña</button>
                     </div>
+                    {/* <div className="mt-5">
+                        <h2>Tus Mascotas</h2>
+                        <div className="row"> */}
+                        <div className="container mt-5 text-center vh-100">
+                            <h1>Mis mascotas:</h1>
+                            <div className="mt-5">
+                                <div className="accordion accordion-flush" id="accordionFlushExample">
+
+                            {store.user.mascotas && store.user.mascotas.length > 0 ? (
+                                store.user.mascotas.map((mascota, index) => (
+                                    <div key={index} className="">
+                                        <MiMascotaCard 
+                                        mascota={mascota} 
+                                        imgSrc={mascota.url_image}
+                                        nombre={mascota.nombre}
+                                        fechaPer={mascota.fecha_perdido}
+                                        // especie={mascota.especie_name}
+                                        // localidad={mascota.localidad_name}
+                                        edad={mascota.edad}
+                                        estado={mascota.estado}
+                                        descripcion={mascota.descripción}
+                                        fechaReg={mascota.fecha_registro}
+                                        id={mascota.id}
+                                        />
+                                    </div>
+))
+                            ) : (
+                                <p>No tienes mascotas registradas.</p>
+                            )}</div></div>
+                        </div>
                 </div>
             )}
         </div>
