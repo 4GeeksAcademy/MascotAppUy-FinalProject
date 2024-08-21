@@ -34,14 +34,17 @@ export const Navbar = () => {
               <Link to="#" className="nav-link">Contacto</Link>
             </li>
             {store.user ? (
-              <>
-                <li className="nav-item d-flex justify-content-end">
-                  <Link to="/mi-perfil" className="nav-link">Mi Perfil</Link>
-                </li>
-                <li className="nav-item d-flex justify-content-end">
-                  <Link to="/" className="nav-link text-danger" onClick={actions.logout}>Cerrar sesión</Link>
-                </li>
-              </>
+              <li className="nav-item dropdown d-flex justify-content-end">
+                <button className="nav-link dropdown-toggle btn btn-link text-white" id="navbarDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                  Mi perfil
+                </button>
+                <ul className="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
+                  <li><Link to="/pagePerfil" className="dropdown-item">Mi perfil</Link></li>
+                  <li><Link to="/mis-mascotas" className="dropdown-item">Mis mascotas</Link></li>
+                  <li><hr className="dropdown-divider" /></li>
+                  <li><Link to="/" className="dropdown-item text-danger" onClick={actions.logout}>Cerrar sesión</Link></li>
+                </ul>
+              </li>
             ) : (
               <>
                 {location.pathname !== '/form-login' && (

@@ -74,6 +74,7 @@
 	},
 	"dependencies": {
 		"@fortawesome/fontawesome-free": "^6.6.0",
+		"cors": "^2.8.5",
 		"formik": "^2.4.6",
 		"prop-types": "^15.6.1",
 		"react": "^16.8.4",
@@ -82,7 +83,6 @@
 		"react-polyfills": "0.0.1",
 		"react-router-dom": "^6.3.0",
 		"sweetalert2": "^11.12.4",
-		"sweetalert2-react-content": "^4.0.1",
 		"yup": "^1.4.0"
 	}
 }
