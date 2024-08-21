@@ -18,7 +18,7 @@ const MascotaPost = (props) => {
     <div className="d-flex py-5" style={{justifyContent: "center"}} id="perrito">
         
         <div>
-             <img src={props.imagen} className="mascota-img" alt="..."/>
+             <img src={props.imagen} className="img-fluid rounded" style={{ width: "100%", height: "100%", maxHeight: "350px", maxWidth:"350px" }} alt="Mascota" />
         </div>
     
         <div className="card" style={{width: '400px'}}>
