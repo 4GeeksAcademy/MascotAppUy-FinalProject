@@ -18,7 +18,6 @@ import FormSignup from './pages/FormSignup.js';
 import { AgregarMascota } from './pages/agregarMascota';
 import AllMascotasEncontradas from "./pages/allMascotasEncontradas.jsx";
 import AllMascotasPerdidas from "./pages/allMascotasPerdidas.jsx";
-import MapView from "./pages/mapView.js";
 import { VistaMascota } from "./pages/vistaMascota.js";
 import  PagePerfil  from "./pages/pagePerfil.js"
 
@@ -45,8 +44,6 @@ const Layout = () => {
                         <Route element={<AllMascotasEncontradas />} path="/mascotas-encontradas" />
                         <Route element={<Single />} path="/single/:theid" />
                         <Route element={<AgregarMascota />} path="/agregarmascota" />
-                        <Route element={<MapView />} path="/mapa" />
-                        <Route element={<PerfilMock />} path="/profile" />
                         <Route path="/mascota/:theid" element={<VistaMascota />} />
                         <Route element={<PagePerfil />} path="/pagePerfil" />
                         <Route element={<h1>Not found!</h1>} />
