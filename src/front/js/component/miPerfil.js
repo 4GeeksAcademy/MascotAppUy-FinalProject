@@ -13,34 +13,34 @@ const MiPerfil = () => {
   const [isEditing, setIsEditing] = useState(false); 
   const [showPasswordFields, setShowPasswordFields] = useState(false); // Estado para mostrar/ocultar los campos de contraseña
 
-  const token = localStorage.getItem('token');
+  // const token = localStorage.getItem('token');
 
-  useEffect(() => {
-    const fetchProfile = async () => {
-      try {
-        const response = await fetch('/api/user-profile', {
-          headers: {
-            'Authorization': `Bearer ${token}`,
-          },
-        });
-        if (response.ok) {
-          const userData = await response.json();
-          setProfile({
-            nombre: userData.nombre,
-            email: userData.email,
-            telefono: userData.telefono,
-            password: '', 
-          });
-        } else {
-          console.error('Error al obtener los datos del perfil');
-        }
-      } catch (error) {
-        console.error('Error en la solicitud del perfil:', error);
-      }
-    };
+  // useEffect(() => {
+  //   const fetchProfile = async () => {
+  //     try {
+  //       const response = await fetch('/api/user-profile', {
+  //         headers: {
+  //           'Authorization': `Bearer ${token}`,
+  //         },
+  //       });
+  //       if (response.ok) {
+  //         const userData = await response.json();
+  //         setProfile({
+  //           nombre: userData.nombre,
+  //           email: userData.email,
+  //           telefono: userData.telefono,
+  //           password: '', 
+  //         });
+  //       } else {
+  //         console.error('Error al obtener los datos del perfil');
+  //       }
+  //     } catch (error) {
+  //       console.error('Error en la solicitud del perfil:', error);
+  //     }
+  //   };
 
-    fetchProfile();
-  }, [token]);
+  //   fetchProfile();
+  // }, [token]);
 
   const handleImageChange = (e) => {
     const { name, value } = e.target;
@@ -92,7 +92,7 @@ const MiPerfil = () => {
             type="file"
             accept="image/*"
             onChange={handleImageChange} // Maneja el cambio de imagen de perfil
-            disabled={!isEditing} // Deshabilita la edición si no presionar el botón para editar
+            disabled={!isEditing} // Deshabilita la edición si no presiona el botón para editar
           />
         </div>
 
