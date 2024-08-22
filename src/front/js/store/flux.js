@@ -72,7 +72,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 					const newMascota = await response.json();
 					const store = getStore();
-					setStore({ mascotas: [...store.mascotas, newMascota] });
+					setStore({
+						mascotas: [...store.mascotas, newMascota],
+						// Mantén el resto del store igual
+						user: {
+							...store.user,
+							// Actualiza también la lista de mascotas del usuario
+							mascotas: [...store.user.mascotas, newMascota]
+						}
+					});
 					
 					return true;
 				} catch (error) {
@@ -335,18 +343,21 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 					const deleteMascota = await response.json();
 					const store = getStore();
-					/// Actualizar la lista de mascotas del usuario correctamente
-					const mascotaDeleted = store.user.mascotas.map(mascota =>
-						mascota.id === id ? deleteMascota : mascota
-					);
-			
+					const actions = getActions();
+
+					// Filtrar la lista de mascotas para excluir la eliminada (desactivada)
+					const updatedMascotas = store.user.mascotas.filter(mascota => mascota.id !== id);
+
 					// Actualizar el store sin anidar innecesariamente
 					setStore({
 						user: {
 							...store.user,
-							mascotas: mascotaDeleted,
+							mascotas: updatedMascotas,
 						}
 					});
+
+					await actions.getAllMascotas();
+
 					return true;
 				} catch (error) {
 					console.error(error);

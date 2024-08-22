@@ -53,7 +53,7 @@ export const MiMascotaCard = (props) => {
                                 </button>
                                 <button 
                                     type="button" 
-                                    className="btn btn-outline-dark btn-sm" 
+                                    className="btn btn-outline-dark btn-sm ms-2" 
                                     onClick={props.deleteMascota}
                                 >
                                     <i className="fas fa-trash-alt"></i>

@@ -329,8 +329,9 @@ const PerfilMock = () => {
 
     useEffect(() => {
         if (store.user.mascotas) {
-            console.log("Mascotas actualizadas en el store:", store.user.mascotas);
-            setMisMascotas(store.user.mascotas);
+            // Filtra solo las mascotas activas
+            const mascotasActivas = store.user.mascotas.filter(mascota => mascota.is_active);
+            setMisMascotas(mascotasActivas);
         }
     }, [store.user.mascotas]);
 
