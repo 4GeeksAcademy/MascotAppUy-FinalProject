@@ -1,12 +1,14 @@
 import React, { useState, useContext } from 'react';
 import { Context } from '../store/appContext';
-import '../../styles/form-login.css'
+import '../../styles/form-login.css';
 import { useNavigate } from 'react-router-dom'; 
 import { useFormik } from 'formik';
-import Swal from 'sweetalert2'
-import "../../styles/formularios.css"
+import Swal from 'sweetalert2';
+import "../../styles/formularios.css";
+import GoogleSignIn from './googleButton';
 
-const validate = values => {
+const validate = values => { 
+
   const errors = {};
 
   if (!values.email) {
@@ -123,7 +125,7 @@ const FormLoginComp = () => {
       <hr />
 
       <div className="alternative-login" style={{ textAlign: 'center' }}>
-        <p>Si aún no tienes una cuenta:</p>
+        <p>Si aún no tienes una cuenta puedes:</p>
         <button type="button" 
         onClick={() => navigate('/form-signup')} 
         style={{
@@ -134,9 +136,13 @@ const FormLoginComp = () => {
           borderRadius: '5px',
           cursor: 'pointer'
         }}>
-          Registrarse
+          Registrarte
         </button>
-        
+        <p>O iniciar sesión con tu cuenta de Google:</p>
+        <div className='mx-auto'>
+          <GoogleSignIn/>
+        </div>
+        {/* <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
       </div>
     </div>
   );
