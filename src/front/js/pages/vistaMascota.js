@@ -42,6 +42,9 @@ import { Context } from "../store/appContext";
             edad={mascota.edad}
             sexo={mascota.sexo}
             imagen={mascota.url_image}
+            email={mascota.user_email}
+            telefono={mascota.user_telefono}
+            nombreUser={mascota.user_name}
         />
     </div>
     

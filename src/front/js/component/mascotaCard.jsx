@@ -44,6 +44,7 @@ const MascotaCard = (props) => {
 
             <img src={props.imgSrc} className="card-img-top" alt="random-img" />
             <div className="card-body">
+            <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')</style>
                 <h5 className="card-title">{props.nombre}</h5>
 
                 <div className="contenido">

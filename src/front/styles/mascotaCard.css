@@ -4,6 +4,7 @@
     overflow: hidden; /* Oculta el texto que se desborda */
     text-overflow: ellipsis; /* Muestra "..." al final del texto que se desborda */
     max-width: 100%; /* Asegura que el texto no se extienda fuera del contenedor */
+    font-family:"Montserrat", sans-serif;
 }
 .card-title {
     white-space: nowrap; /* No permite el salto de línea */

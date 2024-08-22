@@ -6,6 +6,7 @@
     color: #E0E1DD;
     background-blend-mode:color-dodge;
     align-items: center;
+    font-family: "Montserrat", sans-serif;
 }
 
 .form-control{
@@ -73,7 +74,6 @@
     color: #E0E1DD;
     margin: 0 15px;
     white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
-    background-color: #040926; /* Asegura que el texto sea legible sobre el fondo */
     padding: 0 10px; /* Espacio alrededor del texto para hacerlo más visible */
 }
 
