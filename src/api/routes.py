@@ -12,6 +12,7 @@ import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 import requests
+from sqlalchemy import or_, cast, String
 
 api = Blueprint('api', __name__)
 
@@ -376,3 +377,29 @@ def upload_file():
     except Exception as e:
         return jsonify({"error": str(e)})
 
+
+@api.route('/buscar', methods=['GET'])
+def search_mascotas():
+    query = request.args.get('q', '').strip()
+    if not query:
+        return jsonify([])
+
+    terms = query.split()
+
+    # Crear filtros para cada término de búsqueda
+    filters = [
+        or_(
+            Mascota.nombre.ilike(f'%{term}%'),
+            Mascota.descripcion.ilike(f'%{term}%'),
+            Mascota.edad.ilike(f'%{term}%'),
+            cast(Mascota.estado, String).ilike(f'%{term}%'),
+            cast(Mascota.sexo, String).ilike(f'%{term}%')
+        ) for term in terms
+    ]
+
+    # Filtrar las mascotas basándose en los términos de búsqueda
+    results = Mascota.query.filter(
+        or_(*filters)
+    ).all()
+
+    return jsonify([mascota.serialize() for mascota in results])
