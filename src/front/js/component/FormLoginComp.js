@@ -125,7 +125,7 @@ const FormLoginComp = () => {
       <hr />
 
       <div className="alternative-login" style={{ textAlign: 'center' }}>
-        <p>Si aún no tienes una cuenta:</p>
+        <p>Si aún no tienes una cuenta puedes:</p>
         <button type="button" 
         onClick={() => navigate('/form-signup')} 
         style={{
@@ -136,8 +136,9 @@ const FormLoginComp = () => {
           borderRadius: '5px',
           cursor: 'pointer'
         }}>
-          Registrarse
+          Registrarte
         </button>
+        <p>O iniciar sesión con tu cuenta de Google:</p>
         <div className='mx-auto'>
           <GoogleSignIn/>
         </div>

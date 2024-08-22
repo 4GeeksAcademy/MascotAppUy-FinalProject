@@ -11,6 +11,7 @@ const GoogleSignIn = () => {
         window.google.accounts.id.initialize({
             client_id: '146502115643-3dktgv73sc158t43pvomala9ueg6taah.apps.googleusercontent.com',
             callback: handleCredentialResponse,
+            login_uri: 'https://super-chainsaw-jjr69gx4w4gg35w65-3001.app.github.dev/api/valid-token-google'
         });
 
         /* Render the Google Sign-In button */
@@ -28,6 +29,9 @@ const GoogleSignIn = () => {
         localStorage.setItem('access_token', response.credential);
         // Envía el token al backend para validación
         actions.validateTokenGoogle();
+        nav("/")
+        return "https://super-chainsaw-jjr69gx4w4gg35w65-3000.app.github.dev/form-login"
+
     };
 
     return <div id="buttonDiv"></div>;
