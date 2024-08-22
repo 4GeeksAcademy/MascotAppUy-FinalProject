@@ -9,7 +9,7 @@ import DatosPerfil from "../component/datosPerfil";
 
 const PerfilMock = () => {
 
-    const navigate = useNavigate();
+    
     const { store, actions } = useContext(Context);
     const [edit, setEdit] = useState(false);
     const [editPassword, setEditPassword] = useState(false)
@@ -133,6 +133,11 @@ const PerfilMock = () => {
     const nav = useNavigate();
 
     const [selectedFile, setSelectedFile] = useState(null);
+    const [misMascotas, setMisMascotas] = useState(store.user.mascotas);
+
+    
+    
+    
 
     const validateMascota = values => {
     const errors = {};
@@ -196,21 +201,24 @@ const PerfilMock = () => {
 
     return errors;
 };
-
+let initialValuesMascotas = {}
+if (editMascota && misMascotas) {
+    initialValuesMascotas = misMascotas.find(m => m.id === editMascota);
+}
     const formikMascota = useFormik({
         
         initialValues: {
-            estado: '',
-            nombre: '',
-            edad: '',
-            sexo: '',
-            especie_id: '',
-            raza_id: '',
-            descripcion: '',
-            fecha_perdido: '',
-            departamento_id: '',
-            localidad_id: '',
-            url_image: '' 
+            estado: initialValuesMascotas.estado || '',
+            nombre: initialValuesMascotas.nombre || '',
+            edad: initialValuesMascotas.edad || '',
+            sexo: initialValuesMascotas.sexo || '',
+            especie_id: initialValuesMascotas.especie_id || '',
+            raza_id: initialValuesMascotas.raza_id || '',
+            descripcion: initialValuesMascotas.descripcion || '',
+            fecha_perdido: initialValuesMascotas.fecha_perdido || '',
+            departamento_id: initialValuesMascotas.departamento_id || '',
+            localidad_id: initialValuesMascotas.localidad_id || '',
+            url_image: initialValuesMascotas.url_image || '' 
         },
         validate: validateMascota,
         onSubmit: async (values) => {
@@ -242,7 +250,7 @@ const PerfilMock = () => {
                 icon: "success",
                 title: "Edited successfully"
                 });
-                nav("/")
+                nav(`/`)
             }else {
                 Toast.fire({
                 icon: "error",
@@ -305,8 +313,8 @@ const PerfilMock = () => {
     useEffect(() => {
         console.log(editMascota);
         
-        if (editMascota && store.user.mascotas) {
-            const mascota = store.mascotas.find(m => m.id === editMascota);
+        if (editMascota && misMascotas) {
+            const mascota = misMascotas.find(m => m.id === editMascota);
             if (mascota) {
                 formikMascota.setValues({
                     estado: mascota.estado || '',
@@ -326,7 +334,13 @@ const PerfilMock = () => {
         }
         
         
-    }, [editMascota, store.mascotas]);
+    }, [editMascota, misMascotas]);
+
+    useEffect(() => {
+        if (store.user.mascotas) {
+            setMisMascotas(store.user.mascotas);
+        }
+    }, [store.user.mascotas]);
 
     return (
         <div className="container mt-5">
@@ -394,6 +408,13 @@ const PerfilMock = () => {
                             Enviar
                         </button>
                     </form>
+                    <button 
+                                    type="button" 
+                                    className="btn btn-outline-dark btn-sm mt-4" 
+                                    onClick={()=> {setEdit(false)}}
+                                >
+                                    <i className="fa-solid fa-arrow-left-long"></i>
+                                </button>
                 </div>
             ) : editPassword ? (
 
@@ -444,6 +465,13 @@ const PerfilMock = () => {
                             Cambiar contraseña
                         </button>
                     </form>
+                    <button 
+                                    type="button" 
+                                    className="btn btn-outline-dark btn-sm mt-4" 
+                                    onClick={()=> {setEditPassword(false)}}
+                                >
+                                    <i className="fa-solid fa-arrow-left-long"></i>
+                                </button>
                 </div>
             
             ) : editMascota ? (
@@ -666,6 +694,13 @@ const PerfilMock = () => {
                            
                             <button type="submit" id="botonEnviar">Enviar</button>
                         </form>
+                                <button 
+                                    type="button" 
+                                    className="btn btn-outline-dark btn-sm mt-4" 
+                                    onClick={()=> {setEditMascota(null)}}
+                                >
+                                    <i className="fa-solid fa-arrow-left-long"></i>
+                                </button>
                     </div>
 
             ) : (
@@ -679,8 +714,8 @@ const PerfilMock = () => {
                             <div className="mt-5">
                                 <div className="accordion accordion-flush" id="accordionFlushExample">
 
-                            {store.user.mascotas && store.user.mascotas.length > 0 ? (
-                                store.user.mascotas.map((mascota, index) => (
+                            {misMascotas && misMascotas.length > 0 ? (
+                                misMascotas.map((mascota, index) => (
                                     <div key={index} className="">
                                         {/* <button type="button" className="btn btn-outline-dark btn-sm ml-3 d-flex" onClick={() => setEditMascota(mascota.id)}>
                                             <i className="fas fa-edit"></i>
