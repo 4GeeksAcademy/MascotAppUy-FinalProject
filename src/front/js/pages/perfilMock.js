@@ -734,6 +734,7 @@ if (editMascota && misMascotas) {
                                         fechaReg={mascota.fecha_registro}
                                         id={mascota.id}
                                         editMascota={() => setEditMascota(mascota.id)}
+                                        
                                         />
                                         
                                     </div>

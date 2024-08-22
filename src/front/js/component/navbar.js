@@ -13,8 +13,11 @@ export const Navbar = () => {
   const initial = userName ? userName.charAt(0).toUpperCase() : '';
 
   return (
+
+    
     <nav className="navbar navbar-expand-md navbar-dark sticky-top">
-      <div className="container-fluid">
+      <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')</style>
+      <div className="container-fluid" id="nav">
         
 
             <Link to="/" className="navbar-brand d-flex align-items-center">
@@ -22,6 +25,7 @@ export const Navbar = () => {
                 <img src={logoClaro} alt="Static Image" className="static-image pb-0" />
                 <img src={logoClaroGif} alt="Animated Image" className="animated-image pb-0" />
             </div>
+            <span className="ms-2" id="mascotapp">MascotApp</span>
             </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon"></span>

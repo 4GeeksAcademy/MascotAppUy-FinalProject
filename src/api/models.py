@@ -96,6 +96,8 @@ class Mascota(db.Model):
             "is_active": self.is_active,
             "user_id": self.user_id,
             "user_name": self.user.nombre,
+            "user_telefono": self.user.telefono,
+            "user_email": self.user.email,
             "especie_id": self.especie_id,
             "especie_name": self.especie.name,
             "localidad_id": self.localidad_id,
