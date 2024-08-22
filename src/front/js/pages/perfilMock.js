@@ -133,7 +133,7 @@ const PerfilMock = () => {
     const nav = useNavigate();
 
     const [selectedFile, setSelectedFile] = useState(null);
-    const [misMascotas, setMisMascotas] = useState(store.user.mascotas);
+    const [misMascotas, setMisMascotas] = useState([]);
 
     
     
@@ -201,24 +201,21 @@ const PerfilMock = () => {
 
     return errors;
 };
-let initialValuesMascotas = {}
-if (editMascota && misMascotas) {
-    initialValuesMascotas = misMascotas.find(m => m.id === editMascota);
-}
+
     const formikMascota = useFormik({
         
         initialValues: {
-            estado: initialValuesMascotas.estado || '',
-            nombre: initialValuesMascotas.nombre || '',
-            edad: initialValuesMascotas.edad || '',
-            sexo: initialValuesMascotas.sexo || '',
-            especie_id: initialValuesMascotas.especie_id || '',
-            raza_id: initialValuesMascotas.raza_id || '',
-            descripcion: initialValuesMascotas.descripcion || '',
-            fecha_perdido: initialValuesMascotas.fecha_perdido || '',
-            departamento_id: initialValuesMascotas.departamento_id || '',
-            localidad_id: initialValuesMascotas.localidad_id || '',
-            url_image: initialValuesMascotas.url_image || '' 
+            estado: '',
+            nombre: '',
+            edad: '',
+            sexo: '',
+            especie_id: '',
+            raza_id: '',
+            descripcion: '',
+            fecha_perdido: '',
+            departamento_id: '',
+            localidad_id: '',
+            url_image: ''
         },
         validate: validateMascota,
         onSubmit: async (values) => {
@@ -250,7 +247,7 @@ if (editMascota && misMascotas) {
                 icon: "success",
                 title: "Edited successfully"
                 });
-                nav(`/`)
+                nav(`/profile`)
             }else {
                 Toast.fire({
                 icon: "error",
@@ -303,7 +300,6 @@ if (editMascota && misMascotas) {
                 
                 
             });
-            console.log(store.user.mascotas);
             
             
         }
@@ -311,10 +307,8 @@ if (editMascota && misMascotas) {
 
 
     useEffect(() => {
-        console.log(editMascota);
-        
-        if (editMascota && misMascotas) {
-            const mascota = misMascotas.find(m => m.id === editMascota);
+        if (editMascota && store.user.mascotas) {
+            const mascota = store.mascotas.find(m => m.id === editMascota);
             if (mascota) {
                 formikMascota.setValues({
                     estado: mascota.estado || '',
@@ -328,16 +322,14 @@ if (editMascota && misMascotas) {
                     departamento_id: mascota.departamento_id || '',
                     localidad_id: mascota.localidad_id || '',
                     url_image: mascota.url_image || ''
-            
                 });
             }
         }
-        
-        
-    }, [editMascota, misMascotas]);
+    }, [editMascota, store.user.mascotas]);
 
     useEffect(() => {
         if (store.user.mascotas) {
+            console.log("Mascotas actualizadas en el store:", store.user.mascotas);
             setMisMascotas(store.user.mascotas);
         }
     }, [store.user.mascotas]);
@@ -734,6 +726,7 @@ if (editMascota && misMascotas) {
                                         fechaReg={mascota.fecha_registro}
                                         id={mascota.id}
                                         editMascota={() => setEditMascota(mascota.id)}
+                                        deleteMascota={() => actions.deleteMascota(mascota.id)}
                                         />
                                         
                                     </div>

@@ -328,7 +328,7 @@ def edit_mascota(mascota_id):
 
     db.session.commit()
 
-    return jsonify({"msg": "Datos de mascota actualizados exitosamente", "mascota": mascota.serialize()})
+    return jsonify(mascota.serialize())
 
 @api.route('/upload-file', methods=['POST'])
 def upload_file():

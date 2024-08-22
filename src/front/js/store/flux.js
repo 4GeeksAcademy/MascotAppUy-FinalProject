@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://cuddly-telegram-gjpg7qgv79jf9jv9-3001.app.github.dev"
+const URL = "https://musical-couscous-p46xprx5g6q2r5x9-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -296,8 +296,57 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 					const editMascota = await response.json();
 					const store = getStore();
-					setStore({ mascotas: [...store.mascotas, editMascota] });
+					/// Actualizar la lista de mascotas del usuario correctamente
+					const updatedMascotas = store.user.mascotas.map(mascota =>
+						mascota.id === id ? editMascota : mascota
+					);
+			
+					// Actualizar el store sin anidar innecesariamente
+					setStore({
+						user: {
+							...store.user,
+							mascotas: updatedMascotas,
+						}
+					});
+					return true;
+				} catch (error) {
+					console.error(error);
+					return false;
+				}
+			
+			},
+			deleteMascota: async (id) =>{
+				try {
 					
+					const response = await fetch(URL+`/api/mascotas/${id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							is_active : false
+						})
+					});
+	
+					if (!response.ok) {
+						const errorResponse = await response.json();
+						throw new Error(errorResponse.message || 'Error al agregar la mascota');
+					}
+			
+					const deleteMascota = await response.json();
+					const store = getStore();
+					/// Actualizar la lista de mascotas del usuario correctamente
+					const mascotaDeleted = store.user.mascotas.map(mascota =>
+						mascota.id === id ? deleteMascota : mascota
+					);
+			
+					// Actualizar el store sin anidar innecesariamente
+					setStore({
+						user: {
+							...store.user,
+							mascotas: mascotaDeleted,
+						}
+					});
 					return true;
 				} catch (error) {
 					console.error(error);
