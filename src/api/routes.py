@@ -166,38 +166,6 @@ def valid_token():
 
     return jsonify(user.serialize()), 200
 
-# # Endpoint para validar el token
-# @api.route("/valid-token", methods=["GET"])
-# @jwt_required()
-# def valid_token():
-#     auth_header = request.headers.get('Authorization')
-#     if auth_header and auth_header.startswith('Bearer '):
-#         token = auth_header.split(' ')[1]
-#         try:
-#             # Decodificar el token para obtener el tipo
-#             token_data = decode_token(token)
-#             token_type = token_data.get('token_type', None)
-            
-#             if token_type == 'local':
-#                 # Manejar el token local
-#                 current_user = get_jwt_identity()
-#                 user = User.query.filter_by(email=current_user).first()
-
-#                 if user is None:
-#                     return jsonify(user=None), 409
-
-#                 return jsonify(user=user.serialize()), 200
-#             elif token.startswith('ey'):
-#                 # Verificar el token de Google
-#                 google_user_info = validate_google_token(token)
-#                 return jsonify(user=google_user_info), 200
-#             else:
-#                 return jsonify({'message': 'Invalid token type'}), 401
-#         except Exception as e:
-#             return jsonify({'message': str(e)}), 401
-#     else:
-#         return jsonify({'message': 'Token missing or invalid'}), 401
-
 # ENDPOINT: Registrar usuario nuevo
 @api.route("/signup", methods=["POST"])
 def signup():

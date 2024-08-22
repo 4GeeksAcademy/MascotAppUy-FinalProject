@@ -278,8 +278,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					if (res.ok) {
 						if (contentType && contentType.includes('application/json')) {
 							const data = await res.json();
-							console.log('Backend response:', data);
-							setStore({ user: data });
+							// console.log('Backend response:', data);
+							// console.log('Backend response:', data.user);
+							// console.log('Backend response:', data.user.email);
+							const googleUser = {
+								"nombre": data.user.name,
+								"email": data.user.email,
+								"password": "Dificil@123",
+								"telefono": ""
+							}
+							getActions().signup(googleUser)
 							return true;
 						} else {
 							console.error('Response is not JSON:', await res.text());
@@ -296,45 +304,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
-
-			// validateToken: async () => {
-			// 	let token = localStorage.getItem('access_token'); // Obtener el token del localStorage
-			// 	if (!token) {
-			// 		setStore({ user: null });
-			// 		return false;
-			// 	}
-			// 	try {
-			// 		const res = await fetch(`${URL}/api/valid-token`, {
-			// 			method: 'GET',
-			// 			headers: {
-			// 				'Authorization': `Bearer ${token}`, // Usa el token del localStorage
-			// 				'Content-Type': 'application/json',
-			// 			}
-			// 		});
-			
-			// 		const contentType = res.headers.get('Content-Type');
-			
-			// 		if (res.ok) {
-			// 			if (contentType && contentType.includes('application/json')) {
-			// 				const data = await res.json();
-			// 				console.log('Backend response:', data);
-			// 				setStore({ user: data });
-			// 				return true;
-			// 			} else {
-			// 				console.error('Response is not JSON:', await res.text());
-			// 			}
-			// 		} else {
-			// 			console.error('Error validating token:', res.statusText);
-			// 		}
-			
-			// 		setStore({ user: null });
-			// 		return false;
-			// 	} catch (error) {
-			// 		console.error('Fetch error:', error);
-			// 		setStore({ user: null });
-			// 		return false;
-			// 	}
-			// },
 
 			logout: async () => {
 				localStorage.removeItem("access_token");
@@ -383,9 +352,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			
 			},
+
 			uploadImage: async (formData) => {
-				
-			
 				try {
 					const response = await fetch(URL+'/api/upload-file', {
 						method: 'POST',
@@ -403,6 +371,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
+			
 			editarUsuario: async (values) =>{
 				const store = getStore();
 				try {

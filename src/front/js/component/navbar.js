@@ -22,7 +22,6 @@ export const Navbar = () => {
                 <img src={logoClaro} alt="Static Image" className="static-image pb-0" />
                 <img src={logoClaroGif} alt="Animated Image" className="animated-image pb-0" />
             </div>
-            <span className="ms-2">MascotApp</span>
             </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon"></span>
