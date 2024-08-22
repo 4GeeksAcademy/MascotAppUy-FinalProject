@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://upgraded-winner-wrvwqjw4g49vcr65-3001.app.github.dev"
+const URL = "https://super-chainsaw-jjr69gx4w4gg35w65-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -215,6 +215,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 								"telefono": values.telefono
 							  })});
 							  let data = await response.json()
+							  if (!response.ok){
+								const errorResponse = await response.json();
+								throw new Error(errorResponse.message)
+							  }
 							  if (response.ok){
 								localStorage.setItem('access_token', data.access_token)
 								setStore({user:data.user})
@@ -222,7 +226,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							  }
 							  return false
 					} catch (error) {
-						// console.log(error);
+						console.log(error);
 						return false
 					}
 			},
@@ -254,6 +258,54 @@ const getState = ({ getStore, getActions, setStore }) => {
 				} catch (error) {
 					console.log(error);
 					setStore({user:null})
+					return false;
+				}
+			},
+
+			validateTokenGoogle: async () => {
+				let token = localStorage.getItem('access_token'); // Obtener el token del localStorage
+				if (!token) {
+					setStore({ user: null });
+					return false;
+				}
+				try {
+					const res = await fetch(URL+"/api/valid-token-google", {
+						method: 'GET',
+						headers: {
+							'Authorization': `Bearer ${token}`, // Usa el token del localStorage
+							'Content-Type': 'application/json',
+						}
+					});
+			
+					const contentType = res.headers.get('Content-Type');
+					if (res.ok) {
+						if (contentType && contentType.includes('application/json')) {
+							const data = await res.json();
+							const googleUser = {
+								"nombre": data.user.name,
+								"email": data.user.email,
+								"password": "Dificil@123",
+								"telefono": ""
+							}
+							if (data.exists){
+							getActions().login(googleUser)
+							return true
+							} else {
+							getActions().signup(googleUser)
+							return true;
+							}
+						} else {
+							console.error('Response is not JSON:', await res.text());
+						}
+					} else {
+						console.error('Error validating token:', res.statusText);
+					}
+			
+					setStore({ user: null });
+					return false;
+				} catch (error) {
+					console.error('Fetch error:', error);
+					setStore({ user: null });
 					return false;
 				}
 			},
@@ -305,9 +357,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 				}
 			
 			},
+
 			uploadImage: async (formData) => {
-				
-			
 				try {
 					const response = await fetch(URL+'/api/upload-file', {
 						method: 'POST',
@@ -325,6 +376,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return null;
 				}
 			},
+			
 			editarUsuario: async (values) =>{
 				const store = getStore();
 				try {
@@ -364,7 +416,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				setStore({ coord_x, coord_y });
 				return true; // Devuelve true si se actualizaron las coordenadas
 			},
-
 		}
 	}
 }
