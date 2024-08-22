@@ -146,7 +146,12 @@ def valid_token_google():
         try:
             # Validar el token de Google
             google_user_info = validate_google_token(token)
-            return jsonify(user=google_user_info), 200
+            # Verificar si el usuario ya existe en la base local
+            check_email = User.query.filter_by(email = google_user_info['email']).first()
+            if check_email:
+                return jsonify(user=google_user_info, exists=True), 200
+            else:
+                return jsonify(user=google_user_info, exists=False), 200
         except Exception as e:
             return jsonify({'message': str(e)}), 401
     else:

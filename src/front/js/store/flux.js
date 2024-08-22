@@ -215,6 +215,10 @@ const getState = ({ getStore, getActions, setStore }) => {
 								"telefono": values.telefono
 							  })});
 							  let data = await response.json()
+							  if (!response.ok){
+								const errorResponse = await response.json();
+								throw new Error(errorResponse.message)
+							  }
 							  if (response.ok){
 								localStorage.setItem('access_token', data.access_token)
 								setStore({user:data.user})
@@ -222,7 +226,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							  }
 							  return false
 					} catch (error) {
-						// console.log(error);
+						console.log(error);
 						return false
 					}
 			},
@@ -274,21 +278,22 @@ const getState = ({ getStore, getActions, setStore }) => {
 					});
 			
 					const contentType = res.headers.get('Content-Type');
-			
 					if (res.ok) {
 						if (contentType && contentType.includes('application/json')) {
 							const data = await res.json();
-							// console.log('Backend response:', data);
-							// console.log('Backend response:', data.user);
-							// console.log('Backend response:', data.user.email);
 							const googleUser = {
 								"nombre": data.user.name,
 								"email": data.user.email,
 								"password": "Dificil@123",
 								"telefono": ""
 							}
+							if (data.exists){
+							getActions().login(googleUser)
+							return true
+							} else {
 							getActions().signup(googleUser)
 							return true;
+							}
 						} else {
 							console.error('Response is not JSON:', await res.text());
 						}
