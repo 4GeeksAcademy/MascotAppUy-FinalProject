@@ -1,8 +1,8 @@
 import React, { useContext } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
-import logoClaro from "../../img/logoClaro.png"
-import logoClaroGif from "../../img/logo-mascotapp_claro.gif"
+import logoClaro from "../../img/logoClaro2.png"
+import logoClaroGif from "../../img/logoClaro2.gif"
 import "../../styles/navbar.css"
 
 export const Navbar = () => {
@@ -25,7 +25,6 @@ export const Navbar = () => {
                 <img src={logoClaro} alt="Static Image" className="static-image pb-0" />
                 <img src={logoClaroGif} alt="Animated Image" className="animated-image pb-0" />
             </div>
-            <span className="ms-2" id="mascotapp">MascotApp</span>
             </Link>
             <button className="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
                   <span className="navbar-toggler-icon"></span>
