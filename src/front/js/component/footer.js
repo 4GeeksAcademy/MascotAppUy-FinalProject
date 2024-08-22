@@ -11,7 +11,7 @@ export const Footer = () => (
       			<li className="nav-item"><a href="/mascotas-encontradas" className="nav-link px-2 text-muted">Encontradas</a></li>
       			<li className="nav-item"><a href="/mapa" className="nav-link px-2 text-muted">Mapa</a></li>
       			<li className="nav-item"><a href="/preguntas-frecuentes" className="nav-link px-2 text-muted">FAQ</a></li>
-				<li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Contacto</a></li>
+				<li className="nav-item"><a href="/contacto" className="nav-link px-2 text-muted">Contacto</a></li>
     		</ul>
 			<p className="text-center text-muted">Ururguay</p>
     		<p className="text-center text-muted">© 2024 MascotApp</p>
