@@ -11,6 +11,8 @@ export const MiMascotaCard = (props) => {
         const findMascota = store?.mascotas.find(mascota => mascota.id == theid);
         if (findMascota) {
             setMascota(findMascota);
+            
+            
         }
     }, [store, theid]);
 
@@ -75,7 +77,7 @@ export const MiMascotaCard = (props) => {
                                             <p className="card-text">Descripción: {props.descripcion}</p>
                                             <p className="card-text">Fecha de perdido: {props.fechaPer}</p>
                                             <p className="card-text">Fecha de registro: {props.fechaReg}</p>
-                                            <p className="card-text">Ubicación:</p>
+                                            <p className="card-text">Ubicación: </p>
                                         </div>
                                     </div>
                                 </div>
