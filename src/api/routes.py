@@ -62,7 +62,7 @@ def login():
 # ENDPOINT: Obtener mascotas
 @api.route('/mascotas', methods=['GET'])
 def get_all_mascotas():
-    results_query = Mascota.query.all()
+    results_query = Mascota.query.filter_by(is_active = True).all()
     if not results_query:
         return jsonify({"error": "Mascotas not found"}), 404
     results = list(map(lambda item: item.serialize(),results_query))
@@ -359,7 +359,7 @@ def edit_mascota(mascota_id):
 
     db.session.commit()
 
-    return jsonify({"msg": "Datos de mascota actualizados exitosamente", "mascota": mascota.serialize()})
+    return jsonify(mascota.serialize())
 
 @api.route('/upload-file', methods=['POST'])
 def upload_file():

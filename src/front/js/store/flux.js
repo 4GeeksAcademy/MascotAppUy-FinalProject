@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://super-chainsaw-jjr69gx4w4gg35w65-3001.app.github.dev"
+const URL = "https://musical-couscous-p46xprx5g6q2r5x9-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -72,7 +72,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 					const newMascota = await response.json();
 					const store = getStore();
-					setStore({ mascotas: [...store.mascotas, newMascota] });
+					setStore({
+						mascotas: [...store.mascotas, newMascota],
+						// Mantén el resto del store igual
+						user: {
+							...store.user,
+							// Actualiza también la lista de mascotas del usuario
+							mascotas: [...store.user.mascotas, newMascota]
+						}
+					});
 					
 					return true;
 				} catch (error) {
@@ -348,8 +356,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 					const editMascota = await response.json();
 					const store = getStore();
-					setStore({ mascotas: [...store.mascotas, editMascota] });
+					/// Actualizar la lista de mascotas del usuario correctamente
+					const updatedMascotas = store.user.mascotas.map(mascota =>
+						mascota.id === id ? editMascota : mascota
+					);
+			
+					// Actualizar el store sin anidar innecesariamente
+					setStore({
+						user: {
+							...store.user,
+							mascotas: updatedMascotas,
+						}
+					});
+					return true;
+				} catch (error) {
+					console.error(error);
+					return false;
+				}
+			
+			},
+			deleteMascota: async (id) =>{
+				try {
 					
+					const response = await fetch(URL+`/api/mascotas/${id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							is_active : false
+						})
+					});
+	
+					if (!response.ok) {
+						const errorResponse = await response.json();
+						throw new Error(errorResponse.message || 'Error al agregar la mascota');
+					}
+			
+					const deleteMascota = await response.json();
+					const store = getStore();
+					const actions = getActions();
+
+					// Filtrar la lista de mascotas para excluir la eliminada (desactivada)
+					const updatedMascotas = store.user.mascotas.filter(mascota => mascota.id !== id);
+
+					// Actualizar el store sin anidar innecesariamente
+					setStore({
+						user: {
+							...store.user,
+							mascotas: updatedMascotas,
+						}
+					});
+
+					await actions.getAllMascotas();
+
 					return true;
 				} catch (error) {
 					console.error(error);
