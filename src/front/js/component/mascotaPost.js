@@ -22,7 +22,7 @@ const MascotaPost = (props) => {
         </div>
     
         <div className="card" style={{width: '400px'}}>
-            <div className="card-body">
+            <div className="card-body" style={{"display": "grid"}}>
                 {props.estado == "PERDIDO" ? 
                 (<><p>Nombre: {props.nombre}</p>
                 <p>Especie: {props.especie}</p>
@@ -32,6 +32,7 @@ const MascotaPost = (props) => {
                 <p>Fecha de perdido: {props.fechaPerdido}</p>
                 <p>Descripción: {props.descripcion}</p>
                 <p>Se perdió en: {props.localidad}, {props.departamento}</p>
+                <button style={{"justifyContent": "center", border: "none", backgroundColor: "orange"}}>Contactar al dueño</button>
                 </>
                 ) : (<> <p>Título: {props.nombre}</p>
                     <p>Especie: {props.especie}</p>
@@ -39,8 +40,10 @@ const MascotaPost = (props) => {
                     <p>Fecha de registro: {props.fechaReg}</p>
                     <p>Descripción: {props.descripcion}</p>
                     <p>Fue encontrado en: {props.localidad}, {props.departamento}</p>
+                    <button style={{"justifyContent": "center", border: "none", backgroundColor: "orange"}}>Soy el dueño</button>
                     </>
                 )}
+
                 
                 
              </div>
