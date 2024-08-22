@@ -19,6 +19,7 @@ const MascotaCarrousel = (props) => {
 
     return (
         <div className="container">
+            <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')</style>
             <div id={props.carouselId} className="carousel slide mt-5">
                 <div className="carousel-title mt-3">
                     <h4>{props.titulo} - Más recientes</h4>

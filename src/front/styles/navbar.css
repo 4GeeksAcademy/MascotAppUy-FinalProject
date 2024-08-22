@@ -3,10 +3,13 @@
   height: auto; /* Mantiene la proporción */
   
 }
-span {
+#mascotapp {
   font-size: 24px; /* Ajusta el tamaño de la fuente según necesites */
   color: #E0E1DD; 
   align-items: center;
+  font-family: "Montserrat", sans-serif;
+  font-weight: 650;
+  text-shadow: 1px 1px 1px #a9bdc0;
 }
 
 .image-container {
@@ -55,6 +58,8 @@ span {
 .navbar {
   background-color: #040926;
   color: #E0E1DD;
+  font-family: "Montserrat", sans-serif;
+  
 }
 
 .button-no-border {

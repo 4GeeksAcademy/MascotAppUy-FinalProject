@@ -3,7 +3,8 @@ import { Link } from "react-router-dom";
 
 export const Footer = () => (
 	<div className="container-fluid" style={{backgroundColor: "#040926", color: "#E0E1DD"}}>
-  		<footer className="py-3 my-4">
+		<style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')</style>
+  		<footer className="py-3 my-4" style={{fontFamily: "Montserrat"}}>
     		<ul className="nav justify-content-center pb-3 mb-3">
       			<li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Inicio</a></li>
       			<li className="nav-item"><a href="#" className="nav-link px-2 text-muted">Perdidas</a></li>
