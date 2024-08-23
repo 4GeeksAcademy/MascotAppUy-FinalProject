@@ -14,7 +14,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			departamentos: [],
 			razas: [],
 			coord_x: null,
-			coord_y: null
+			coord_y: null,
+			searchResults: []
 			
 			
 		},
@@ -475,6 +476,23 @@ const getState = ({ getStore, getActions, setStore }) => {
 				// Actualiza el estado con ambos valores en una sola llamada
 				setStore({ coord_x, coord_y });
 				return true; // Devuelve true si se actualizaron las coordenadas
+			},
+
+			buscar: async (query) => {
+				try {
+					const response = await fetch(URL + `/api/buscar?q=${encodeURIComponent(query)}`);
+					console.log("Response Status:", response.status); // Agrega esto para ver el estado
+					const data = await response.json();
+					console.log("Response Data:", data); // Agrega esto para ver los datos
+					if (!response.ok) {
+						throw new Error('Error en la solicitud');
+					}
+					setStore({ searchResults: data });
+					return data;
+				} catch (error) {
+					console.error('Error en la búsqueda:', error);
+					return { error: 'Error en la búsqueda' };
+				}
 			},
 		}
 	}

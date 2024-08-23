@@ -379,36 +379,9 @@ def upload_file():
         return jsonify({"error": str(e)})
 
 
-@api.route('/buscar', methods=['GET'])
-def buscar_mascotas():
-    query = request.args.get('q', '').strip()
-    if not query:
-        return jsonify([])
-
-    terms = query.split()
-
-    # Crear filtros para cada término de búsqueda
-    filters = [
-        or_(
-            Mascota.nombre.ilike(f'%{term}%'),
-            Mascota.descripcion.ilike(f'%{term}%'),
-            Mascota.edad.ilike(f'%{term}%'),
-            cast(Mascota.estado, String).ilike(f'%{term}%'),
-            cast(Mascota.sexo, String).ilike(f'%{term}%'),
-            Especie.name.ilike(f'%{term}%')
-        ) for term in terms
-    ]
-
-    # Filtrar las mascotas basándose en los términos de búsqueda
-    results = Mascota.query.filter(
-        or_(*filters)
-    ).all()
-
-    return jsonify([mascota.serialize() for mascota in results])
-
 
 # PRUEBA JOINs
-@api.route('/search', methods=['GET'])
+@api.route('/buscar', methods=['GET'])
 def buscar():
     query = request.args.get('q', '').strip()
     if not query:
