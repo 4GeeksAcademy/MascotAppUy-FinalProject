@@ -70,14 +70,28 @@ export const MiMascotaCard = (props) => {
                                                 alt="Mascota" 
                                             />
                                         </div>
-                                        <div className="col-md-8" style={{ textAlign: "start", paddingLeft: "20px" }}>
-                                            <h5 className="card-title">Nombre: {props.nombre}</h5>
-                                            <p className="card-text">Estado: {props.estado}</p>
+                                        <div className="col-md-8" style={{ textAlign: "start", paddingLeft: "20px", alignContent: 'center'}}>
+                                            {props.estado == 'PERDIDO' ? 
+                                            (<><h5 className="card-title">Nombre: {props.nombre}</h5>
+                                            <p className="card-text">Especie: {props.especie}</p>
+                                            <p className="card-text">Raza: {props.raza}</p>
+                                            <p className="card-text">Sexo: {props.sexo}</p>
                                             <p className="card-text">Edad: {props.edad}</p>
-                                            <p className="card-text">Descripción: {props.descripcion}</p>
-                                            <p className="card-text">Fecha de perdido: {props.fechaPer}</p>
                                             <p className="card-text">Fecha de registro: {props.fechaReg}</p>
-                                            <p className="card-text">Ubicación: </p>
+                                            <p className="card-text">Fecha de perdido: {props.fechaPer}</p>
+                                            <p className="card-text">Descripción: {props.descripcion}</p>
+                                            <p className="card-text">Ubicación: {props.localidad}, {props.departamento}</p></>
+                                            ):(
+                                            <><h5 className="card-title">Título: {props.nombre}</h5>
+                                                <p className="card-text">Especie: {props.especie}</p>
+                                                <p className="card-text">Raza: {props.raza}</p>
+                                                <p className="card-text">Sexo: {props.sexo}</p>
+                                                {props.edad === "" ? (<><br></br></>):(<><p className="card-text">Edad: {props.edad}</p></>)}
+                                                <p className="card-text">Descripción: {props.descripcion}</p>
+                                                <p className="card-text">Fecha de registro: {props.fechaReg}</p>
+                                                <p className="card-text">Ubicación: {props.localidad}, {props.departamento}</p></>
+                                            )}
+                                            
                                         </div>
                                     </div>
                                 </div>
