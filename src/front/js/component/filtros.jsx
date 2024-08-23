@@ -5,47 +5,55 @@ import "../../styles/filtros.css"
 
 
 const Filtros = (props) => {
-    const { store, actions } = useContext(Context)
+    const { store } = useContext(Context)
     const [especieSelected, setEspecieSelected] = useState("");
-
     const [razaSelected, setRazaSelected] = useState("");
     const [filteredRazas, setFilteredRazas] = useState([]);
-
     const [departamentoSelected, setDepartamentoSelected] = useState("")
-
     const [localidadSelected, setLocalidadSelected] = useState("");
     const [filteredLocalidades, setFilteredLocalidades] = useState([]);
-
     const [filteredArray, setFilteredArray] = useState([]);
     
     useEffect(() => {
 
         if (departamentoSelected) {
-            const filterLoc = store.localidades.filter(localidad => 
-                localidad.departamento_id === parseInt(departamentoSelected)
-                //tuve que convertir en integer porque venía como string el departamento_id
-            );
+            const filterLoc = [
+                ...new Set(
+                    props.lista
+                        .filter(mascota => mascota.departamento_id === parseInt(departamentoSelected))
+                        .map(mascota => mascota.localidad_name)
+                )
+            ];           
+            // store.localidades.filter(localidad => 
+            //     localidad.departamento_id === parseInt(departamentoSelected)
+            //     //tuve que convertir en integer porque venía como string el departamento_id
+            // );
             setFilteredLocalidades(filterLoc);
             
         } else {
-            setFilteredLocalidades(store.localidades);
+            setFilteredLocalidades([...new Set(props.lista.map(mascota => mascota.localidad_name))]);
         }
 
-    }, [departamentoSelected, store.localidades]);
+    }, [departamentoSelected, props.lista]);
 
     useEffect(() => {
         if(especieSelected) {
-            const filterRaza = store.razas.filter(raza => 
-                raza.especie_id === parseInt(especieSelected)
-            );
+            const filterRaza = [
+                ...new Set(
+                    props.lista
+                        .filter(mascota => mascota.especie_id === parseInt(especieSelected))
+                        .map(mascota => mascota.raza_name)
+                )
+            ];
+            // store.razas.filter(raza => 
+            //     raza.especie_id === parseInt(especieSelected)
+            // );
             setFilteredRazas(filterRaza)
-            // console.log("Raza Filtradas:"+ filterRaza);
-            
         } else {
-            setFilteredRazas(store.razas)
+            setFilteredRazas([...new Set(props.lista.map(mascota => mascota.raza_name))]);
         }
 
-    }, [especieSelected, store.razas])
+    }, [especieSelected, props.lista])
 
     //si hay cambios en especieSelected, se filtra la lista de mascotas perdidas por el valor de especieSelected
     useEffect(()=> {
@@ -101,8 +109,8 @@ const Filtros = (props) => {
             <div className="accordion accordion-flush" id="accordionFlushExample">
                 <div className="accordion-item">
                     <h2 className="accordion-header">
-                    <div className="d-flex col-12 col-md-6 col-sm-12 ">
-                        <button className="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
+                    <div className="d-flex col-12 col-md-6 col-sm-12 mt-5">
+                        <button className="accordion-button collapsed w-25 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
                             Filtros
                         </button>
                     </div>
@@ -122,16 +130,13 @@ const Filtros = (props) => {
 
                                         {/*     map de las opciones extraídas en especies     */}
                                         <option value="">Especie</option>
-                                        {store.especies.map((especie, index) => (
-                                            <option key={index} value={especie.id}>
-                                                {especie.name}
+                                        {[...new Set(props.lista.map(mascota => mascota.especie_name))].map((especie, index) => (
+                                            <option key={index} value={store.especies.find(e => e.name === especie)?.id}>
+                                                {especie}
                                             </option>
                                         ))}
                                     </select>
-
-                                </div>
-                                
-
+                                </div>                         
                                 {especieSelected && (
                                     <div className="col-12 col-md-6 col-lg-3 mb-3 d-flex">
                                         <select
@@ -142,8 +147,8 @@ const Filtros = (props) => {
                                         >
                                             <option value="">Raza</option>
                                             {filteredRazas.map((raza, index) => (
-                                                <option key={index} value={raza.name}>
-                                                    {raza.name}
+                                                <option key={index} value={raza}>
+                                                    {raza}
                                                 </option>
                                             ))}
                                         </select>
@@ -158,9 +163,9 @@ const Filtros = (props) => {
                                         onChange={handleDepartamentoChange}
                                     >
                                         <option value="">Departamento</option>
-                                        {store.departamentos.map((departamento, index) => (
-                                            <option key={index} value={departamento.id}>
-                                                {departamento.name}
+                                        {[...new Set(props.lista.map(mascota => mascota.departamento_name))].map((departamento, index) => (
+                                            <option key={index} value={store.departamentos.find(d => d.name === departamento)?.id}>
+                                                {departamento}
                                             </option>
                                         ))}
                                     </select>
@@ -175,13 +180,13 @@ const Filtros = (props) => {
                                         onChange={handleLocalidadChange}
                                     >
                                         <option value="">Localidad</option>
-                                        {filteredLocalidades.map((localidad, index) => (
-                                            <option key={index} value={localidad.name}>
-                                                {localidad.name}
-                                            </option>
-                                        ))}
-                                    </select>
-                                </div>
+                                            {filteredLocalidades.map((localidad, index) => (
+                                                <option key={index} value={localidad}>
+                                                    {localidad}
+                                                </option>
+                                            ))}
+                                        </select>
+                                    </div>
                                 )}
                                 
                             </div>
