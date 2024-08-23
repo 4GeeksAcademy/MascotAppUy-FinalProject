@@ -583,7 +583,6 @@ const PerfilMock = () => {
 
                             {especieSelected && (
                                 <>
-                                
                                     <div className="input-group mb-3">
                                         <select
                                             className="form-select border-0"
@@ -735,12 +734,14 @@ const PerfilMock = () => {
                                     ))
                             ) : (
                                 <p>No tienes mascotas registradas.</p>
-                                )}</div>
+
+                                )}
+                                </div>
                             </div>
+                    </div>
                 </div>
-    </div>
               
-            )}
+                )}
         </div>
     );
 };
