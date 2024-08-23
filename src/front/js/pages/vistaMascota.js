@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useLocation, useNavigate } from "react-router-dom";
 import MascotaPost from "../component/mascotaPost";
 import { Context } from "../store/appContext";
 
@@ -9,6 +9,8 @@ import { Context } from "../store/appContext";
     const { store } = useContext(Context);
     const { theid } = useParams();
     const [mascota, setMascota] = useState(null);
+    const location = useLocation();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const findMascota = store?.mascotas.find(mascota => mascota.id === parseInt(theid)); // Asegúrate de comparar con el tipo correcto
@@ -24,10 +26,26 @@ import { Context } from "../store/appContext";
         return <div>Cargando ...</div>;
     }
 
+    const handleBack = () => {
+        // Verificar si hay estado previo almacenado en el location state
+        if (location.state?.from) {
+            navigate(location.state.from);
+        } else {
+            // Si no hay estado previo, navega a una ruta por defecto
+            navigate(-1); // Esto irá hacia atrás en el historial del navegador
+        }
+    };
+
     
     return(
         
-    <div>
+    <div className="container">
+        <div>
+        <button 
+            type="button" 
+            className="btn btn-outline-dark btn-sm mt-4" 
+            onClick={handleBack}><i className="fa-solid fa-arrow-left-long"></i></button>
+        </div>
         <MascotaPost 
             id = {mascota.id}
             nombre={mascota.nombre}
