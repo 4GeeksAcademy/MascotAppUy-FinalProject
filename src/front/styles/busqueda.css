@@ -9,6 +9,16 @@
     font-family: "Montserrat", sans-serif;
 }
 
+.busqueda-contenedor {
+    background: 
+        linear-gradient(150deg, #040926 70%, #FF8A5B 180%),
+        linear-gradient(330deg, #040926 70%, #FF8A5B 180%);
+    color: #E0E1DD;
+    background-blend-mode:color-dodge;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+}
+
 .form-control{
     border-radius: 30px 0 0 30px;
     border: none;
@@ -20,7 +30,7 @@
     border-radius: 0 30px 30px 0;
     padding: 15px 20px;
     background-color: #EA526F;
-    border: 1px solid #EA526F;
+    border: 1.5px solid #EA526F;
 }
 .buscar:hover{
     background-color: #FF8A5B;
@@ -166,6 +176,7 @@
     font-weight: bold;
 }
 
-.result-localidad {
+.result-location {
     font-style: italic;
+    font-size: small;
 }      

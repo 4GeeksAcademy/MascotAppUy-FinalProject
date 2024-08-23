@@ -4,15 +4,16 @@ import { Link, useNavigate } from "react-router-dom";
 import "../../styles/busqueda.css";
 import { Link as ScrollLink } from "react-scroll";
 import Swal from 'sweetalert2';
+import InputBuscar from "./inputBuscar";
 
 export const Busqueda = () => {
     const { store, actions } = useContext(Context);
     const nav = useNavigate();
 
     //buscador
-    const [query, setQuery] = useState('');
-    const [results, setResults] = useState([]);
-    const [isDropdownVisible, setIsDropdownVisible] = useState(false);
+    // const [query, setQuery] = useState('');
+    // const [results, setResults] = useState([]);
+    // const [isDropdownVisible, setIsDropdownVisible] = useState(false);
 
     const Toast = Swal.mixin({
         toast: true,
@@ -35,37 +36,41 @@ export const Busqueda = () => {
     };
 
     // Maneja la búsqueda en tiempo real
-    const handleChange = async (e) => {
-        const newQuery = e.target.value;
-        setQuery(newQuery);
-        if (newQuery.length > 0) {
-            const allResults = await actions.buscar(newQuery);
-            setResults(allResults.slice(0, 4)); // Limita a las primeras 4 coincidencias
-            setIsDropdownVisible(true);
-        } else {
-            setResults([]);
-            setIsDropdownVisible(false);
-        }
-    };
+    // const handleChange = async (e) => {
+    //     const newQuery = e.target.value;
+    //     setQuery(newQuery);
+    //     if (newQuery.length > 0) {
+    //         const allResults = await actions.buscar(newQuery);
+    //         setResults(allResults.slice(0, 4)); // Limita a las primeras 4 coincidencias
+    //         setIsDropdownVisible(true);
+    //     } else {
+    //         setResults([]);
+    //         setIsDropdownVisible(false);
+    //     }
+    // };
 
-    // Maneja el clic fuera del dropdown para ocultarlo
-    useEffect(() => {
-        const handleClickOutside = (e) => {
-            if (!e.target.closest('.input-group') && !e.target.closest('.dropdown-menu')) {
-                setIsDropdownVisible(false);
-            }
-        };
+    // const letras = (string) => {
+    //     return string.charAt(0).toUpperCase() + string.slice(1).toLowerCase();
+    // };
 
-        document.addEventListener('mousedown', handleClickOutside);
-        return () => document.removeEventListener('mousedown', handleClickOutside);
-    }, []);
+    // // Maneja el clic fuera del dropdown para ocultarlo
+    // useEffect(() => {
+    //     const handleClickOutside = (e) => {
+    //         if (!e.target.closest('.input-group') && !e.target.closest('.dropdown-menu')) {
+    //             setIsDropdownVisible(false);
+    //         }
+    //     };
 
-    const handleBuscar = async () => {
-        if (query.length > 0) {
-            const allResults = await actions.buscar(query);
-            nav(`/resultados?query=${encodeURIComponent(query)}`, { state: { results: allResults } });
-        }
-    };
+    //     document.addEventListener('mousedown', handleClickOutside);
+    //     return () => document.removeEventListener('mousedown', handleClickOutside);
+    // }, []);
+
+    // const handleBuscar = async () => {
+    //     if (query.length > 0) {
+    //         const allResults = await actions.buscar(query);
+    //         nav(`/resultados?query=${encodeURIComponent(query)}`, { state: { results: allResults } });
+    //     }
+    // };
 
     return (
         <div className="busqueda-container row py-lg-5">
@@ -73,8 +78,9 @@ export const Busqueda = () => {
             <div className="col-lg-6 col-md-8 mx-auto text-center">
                 <h1 className="mb-5 pb-5">Bienvenidos a MascotApp</h1>
                 <h3 className="fw-light mb-4">¿Perdiste a tu mascota?</h3>
+                <InputBuscar/>
 
-                <div className="input-group mb-3 position-relative">
+                {/* <div className="input-group mb-3 position-relative">
                     <input
                         type="text"
                         className="form-control"
@@ -90,7 +96,9 @@ export const Busqueda = () => {
                                         <Link to={`/mascota/${result.id}`} onClick={() => setQuery('')}>
                                             <div className="dropdown-item">
                                                 <span className="result-name">{result.nombre}</span>
-                                                <span className="result-localidad">{result.localidad_name}, {result.departamento_name}</span>
+                                                <span className="result-location">
+                                                    {letras(result.localidad_name)}, {letras(result.departamento_name)}
+                                                </span>
                                             </div>
                                         </Link>
                                     </li>
@@ -98,8 +106,8 @@ export const Busqueda = () => {
                             </ul>
                         </div>
                     )}
-                    <button className="buscar btn btn-primary" onClick={() => handleSearch(query)}>Buscar</button>
-                </div>
+                    <button className="buscar btn btn-primary" onClick={() => handleBuscar(query)}>Buscar</button>
+                </div> */}
 
                 <div className="divider-container mb-4 mt-5">
                     <hr className="divider-line" />
