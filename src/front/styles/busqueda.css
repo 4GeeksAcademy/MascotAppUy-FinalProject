@@ -9,6 +9,16 @@
     font-family: "Montserrat", sans-serif;
 }
 
+.busqueda-contenedor {
+    background: 
+        linear-gradient(150deg, #040926 70%, #FF8A5B 180%),
+        linear-gradient(330deg, #040926 70%, #FF8A5B 180%);
+    color: #E0E1DD;
+    background-blend-mode:color-dodge;
+    align-items: center;
+    font-family: "Montserrat", sans-serif;
+}
+
 .form-control{
     border-radius: 30px 0 0 30px;
     border: none;
@@ -20,7 +30,7 @@
     border-radius: 0 30px 30px 0;
     padding: 15px 20px;
     background-color: #EA526F;
-    border: 1px solid #EA526F;
+    border: 1.5px solid #EA526F;
 }
 .buscar:hover{
     background-color: #FF8A5B;
@@ -114,4 +124,59 @@
 .boton-adoptar:active {
     background-color: #C0C1B0; /* Color de fondo al hacer clic */
 }
-                        
+
+/* Dropdown busqueda styling*/
+.dropdown-menu {
+    display: block; /* Forzar a visible para debugging */
+    position: absolute;
+    top: 100%; /* Ajustar según sea necesario */
+    left: 0; /* Ajustar según sea necesario */
+    background-color: white;
+    border: 1px solid #ccc;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1000;
+    width: 100%;
+}
+
+.dropdown-menu ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.dropdown-menu li {
+    padding: 8px 16px;
+}
+
+.dropdown-menu li a {
+    text-decoration: none;
+    color: #333;
+    display: block;
+}
+
+.dropdown-menu li a:hover {
+    background-color: #f0f0f0;
+}
+
+.position-absolute {
+    position: absolute;
+}
+.dropdown-menu {
+    max-height: 200px;
+    overflow-y: auto;
+}
+
+.dropdown-item {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 12px;
+}
+
+.result-name {
+    font-weight: bold;
+}
+
+.result-location {
+    font-style: italic;
+    font-size: small;
+}      
