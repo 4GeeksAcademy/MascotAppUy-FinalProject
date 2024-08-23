@@ -1,6 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
+import "../../styles/mascotaUsuario.css"
 
 export const MiMascotaCard = (props) => {
     const { store, actions } = useContext(Context);
@@ -16,6 +17,18 @@ export const MiMascotaCard = (props) => {
         }
     }, [store, theid]);
 
+    const getBadgeClass = (estado) => {
+        switch (estado) {
+            case 'PERDIDO':
+                return 'badge-PERDIDO';
+            case 'ENCONTRADO':
+                return 'badge-ENCONTRADO';
+            case 'en REUNDIO':
+                return 'badge-REUNIDO';
+            case 'ADOPCION':
+                return 'badge-ADOPCION';
+        }
+    };
 
     return (
         <div className="container">
@@ -32,7 +45,7 @@ export const MiMascotaCard = (props) => {
                             style={{ border: 'none', backgroundColor: '#f8f9fa' }}
                         >
                             <div className="d-flex w-100 justify-content-between align-items-center">
-                                <div className="fs-4">{props.nombre}</div>
+                                <div className="fs-4">{props.nombre}<span  className={`badge ${getBadgeClass(props.estado)}`} style={{marginLeft: '20px'}}>{props.estado}</span></div>
                             </div>
                         </button>
                     </h2>
