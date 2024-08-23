@@ -193,7 +193,6 @@ export const AgregarMascota = () =>{
                     </h2>
                     <div className="container" id="contformagregar">
                         <form onSubmit={formik.handleSubmit}>
-
                             <div className="input-group mb-3">
                                 <select 
                                     className="form-select border-0" 
@@ -420,6 +419,7 @@ export const AgregarMascota = () =>{
                                     </div>
                                 </>
                             )}
+                            <p>En el mapa haga click en la ubicacion precisa:</p>
                             <MapComp />
                             <button type="submit" id="botonEnviar">Enviar</button>
                         </form>
