@@ -35,6 +35,7 @@ const InputBuscar = () => {
         if (query.length > 0) {
             const allResults = await actions.buscar(query);
             nav(`/resultados?query=${encodeURIComponent(query)}`, { state: { results: allResults } });
+            setIsDropdownVisible(false);
         }
     };
 
