@@ -49,7 +49,7 @@ export const Navbar = () => {
                 </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">
-                <Link to="#" className="nav-link">
+                <Link to="/contacto" className="nav-link">
                     <button type="button" className="button-no-border btn btn-outline-light">Contacto</button>
                 </Link>
                 </li>
