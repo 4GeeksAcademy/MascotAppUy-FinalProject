@@ -72,7 +72,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 					const newMascota = await response.json();
 					const store = getStore();
-					setStore({ mascotas: [...store.mascotas, newMascota] });
+					setStore({
+						mascotas: [...store.mascotas, newMascota],
+						// Mantén el resto del store igual
+						user: {
+							...store.user,
+							// Actualiza también la lista de mascotas del usuario
+							mascotas: [...store.user.mascotas, newMascota]
+						}
+					});
 					
 					return true;
 				} catch (error) {
@@ -348,8 +356,60 @@ const getState = ({ getStore, getActions, setStore }) => {
 			
 					const editMascota = await response.json();
 					const store = getStore();
-					setStore({ mascotas: [...store.mascotas, editMascota] });
+					/// Actualizar la lista de mascotas del usuario correctamente
+					const updatedMascotas = store.user.mascotas.map(mascota =>
+						mascota.id === id ? editMascota : mascota
+					);
+			
+					// Actualizar el store sin anidar innecesariamente
+					setStore({
+						user: {
+							...store.user,
+							mascotas: updatedMascotas,
+						}
+					});
+					return true;
+				} catch (error) {
+					console.error(error);
+					return false;
+				}
+			
+			},
+			deleteMascota: async (id) =>{
+				try {
 					
+					const response = await fetch(URL+`/api/mascotas/${id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							is_active : false
+						})
+					});
+	
+					if (!response.ok) {
+						const errorResponse = await response.json();
+						throw new Error(errorResponse.message || 'Error al agregar la mascota');
+					}
+			
+					const deleteMascota = await response.json();
+					const store = getStore();
+					const actions = getActions();
+
+					// Filtrar la lista de mascotas para excluir la eliminada (desactivada)
+					const updatedMascotas = store.user.mascotas.filter(mascota => mascota.id !== id);
+
+					// Actualizar el store sin anidar innecesariamente
+					setStore({
+						user: {
+							...store.user,
+							mascotas: updatedMascotas,
+						}
+					});
+
+					await actions.getAllMascotas();
+
 					return true;
 				} catch (error) {
 					console.error(error);
