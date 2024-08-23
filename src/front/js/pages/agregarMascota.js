@@ -122,7 +122,6 @@ export const AgregarMascota = () =>{
 
     }, [especieSelected, store.razas])
 
-    
     const formik = useFormik({
         initialValues: {
           estado: '',
@@ -419,10 +418,11 @@ export const AgregarMascota = () =>{
                                     </div>
                                 </>
                             )}
-                            <p>En el mapa haga click en la ubicacion precisa:</p>
-                            <MapComp />
-                            <button type="submit" id="botonEnviar">Enviar</button>
+                            <button type="submit" className="btn btn-primary">
+                            Puedes marcar la localizacion exacta en el mapa antes de ENVIAR
+                            </button>
                         </form>
+                        <MapComp />
                     </div>
                 </>
             ) : (
