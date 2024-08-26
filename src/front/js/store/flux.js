@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://redesigned-guacamole-45rxw7xpqp5cj6qg-3001.app.github.dev"
+const URL = "https://shiny-palm-tree-v6pxj7x5qwxx3pqxj-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -467,6 +467,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
+			eliminarUsuario: async (id) =>{
+				const store = getStore();
+				try {
+					const response = await fetch(URL+`/api/usuarios/${id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							"is_active": false
+						})
+					});
+	
+					if (response.ok) {
+						setStore({ user: null }); 
+						return true;
+					
+					}
+				} catch (error) {
+					console.error("Error deleting user:", error);
+					return false;
+				}
+			},
+
 			setCoords: (coord_x, coord_y) => {
 				if (coord_x === undefined || coord_y === undefined) {
 					console.log('No hay coordenadas');

@@ -55,6 +55,9 @@ def login():
     if user is None:
         return jsonify({"msg": "This email is not registered"}), 404
 
+    if user.is_active is False:
+        return jsonify({"msg": "This user is not active"}), 400
+
     if not check_password_hash(user.password, password):
         return jsonify({"msg": "Wrong password"}), 401
 
