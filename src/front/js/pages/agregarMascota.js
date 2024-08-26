@@ -50,10 +50,9 @@ const validate = values => {
         }
       }
     
-    if(values.estado !== 'ENCONTRADO'){
-        if (!values.edad) {
-            errors.edad = 'Requerido';
-        } 
+    
+    if (!values.edad) {
+        errors.edad = 'Requerido';
     }
 
     
@@ -205,8 +204,8 @@ export const AgregarMascota = () =>{
                                 <option value="">Estado</option>    
                                 <option value="PERDIDO">PERDIDO</option>
                                 <option value="ENCONTRADO">ENCONTRADO</option>
-                                <option value="PERDIDO">ADOPCIÓN</option>
-                                <option value="ENCONTRADO">REUNIDO</option>  
+                                <option value="ADOPCION">ADOPCIÓN</option>
+                                <option value="REUNIDO">REUNIDO</option>  
                                 </select>
                                 {formik.touched.estado && formik.errors.estado ? (
                                 <div className="error-msg ms-2">{formik.errors.estado}</div>

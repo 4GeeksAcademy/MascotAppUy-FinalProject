@@ -3,6 +3,8 @@ import { Context } from "../store/appContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../../styles/datosPerfil.css"
 import { MiMascotaCard } from "./miMascotaCard";
+import Swal from 'sweetalert2';
+
 
 
 const DatosPerfil = (props) => {
@@ -11,6 +13,7 @@ const DatosPerfil = (props) => {
     const userName = store.user?.nombre;
     const initial = userName ? userName.charAt(0).toUpperCase() : '';
     const nav = useNavigate();
+    const [selectedImage, setSelectedImage] = useState(null);
 
     const handleDeleteUser = (user) => {
         const modal = document.getElementById('exampleModal');
@@ -22,6 +25,56 @@ const DatosPerfil = (props) => {
         nav("/")
     }
 
+    const handleImageChange = (event) => {
+        setSelectedImage(event.target.files[0]);
+    };
+
+    const handleUploadImage = async () => {
+        if (selectedImage) {
+            const formData = new FormData();
+            formData.append("file", selectedImage);
+
+            const imageUrl = await actions.uploadImage(formData);
+            
+            if (imageUrl) {
+                const updated = await actions.editarUsuario({ 
+                    ...store.user, 
+                    url_image: imageUrl 
+                });
+
+                if (updated) {
+                    console.log("Imagen de perfil actualizada exitosamente.");
+    
+                    // Cerrar el modal después de subir la imagen
+                    const modal = document.getElementById('uploadImageModal');
+                    const modalInstance = bootstrap.Modal.getInstance(modal);
+                    modalInstance.hide(); // Cierra el modal
+                } else {
+                    console.error("Error al actualizar la imagen de perfil.");
+                }
+            }
+        }
+    };
+
+    const handleDeleteImage = async () => {
+        const updated = await actions.editarUsuario({ 
+            ...store.user, 
+            url_image: null 
+        });
+    
+        if (updated) {
+            console.log("Imagen de perfil eliminada exitosamente.");
+            setSelectedImage(null); // Limpiar la imagen seleccionada
+            const modal = document.getElementById('uploadImageModal');
+            const modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide(); // Cierra el modal
+        } else {
+            console.error("Error al eliminar la imagen de perfil.");
+        }
+    };
+
+    
+
 
     return (
         <div className="datos-perfil-container">
@@ -30,9 +83,22 @@ const DatosPerfil = (props) => {
                 <div className="col-sm-6 mb-3 mb-sm-0">
                     <div className="card">
                         <div className="row g-0">
+
                             <div className="d-flex justify-content-center">
-                                <button type="button" className="profile-big-name btn btn-outline-light mx-3 my-5">{initial}</button>
+                                <div className="profile-image-container position-relative">
+                                    <button type="button" className="profile-big-name btn btn-outline-light mx-3 my-5" data-bs-toggle="modal" data-bs-target="#uploadImageModal">
+                                        {store.user.url_image ? (
+                                            <img src={store.user.url_image} alt="Profile" className="profile-image" />
+                                        ) : (
+                                            initial
+                                        )}
+                                        <i className="fas fa-edit edit-icon"></i>
+                                    </button>
+                                </div>
                             </div>
+                            {/* <div className="d-flex justify-content-center">
+                                <button type="button" className="profile-big-name btn btn-outline-light mx-3 my-5">{initial}</button>
+                            </div> */}
 
                             <div className="col-md-3 text-start">
                             </div>
@@ -47,25 +113,53 @@ const DatosPerfil = (props) => {
                                     <hr className="my-5"/>
                                     
                                     <div className="mt-4">
-                                        <button type="button" className="btn btn-outline-dark btn-sm" onClick={props.editDatos}>
-                                            <i className="fas fa-edit"></i>Editar datos
-                                        </button>
+                                        <a href="#" className="btn p-0" role="button" data-bs-toggle="button" onClick={props.editDatos}>
+                                        <i className="fas fa-edit me-2"></i>Editar datos</a>
                                     </div>
                                     
                                    <div className="mt-4">
-                                        <button type="button" className="btn btn-outline-dark btn-sm" onClick={props.editPassword}>
-                                            <i className="fas fa-edit"></i>Cambiar contraseña
-                                        </button>
+                                        <a href="#" className="btn p-0" role="button" data-bs-toggle="button" onClick={props.editPassword}>
+                                        <i className="fas fa-edit me-2"></i>Cambiar contraseña</a>
                                    </div>
                                     
                                     {/* eliminar usuario */}
-                                    <div className="mt-4">
-                                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" className="btn btn-outline-dark btn-sm">
-                                            <i className="fa-solid fa-trash"></i> Eliminar usuario
+                                    <div className="my-4">
+                                        {/* <a href="#" className="btn p-0" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={props.editPassword}>
+                                        <i className="fa-solid fa-trash me-2"></i>Eliminar usuario</a> */}
+
+                                        <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" className="btn btn-link text-dark p-0 text-decoration-none">
+                                            <i className="fa-solid fa-trash me-2"></i>Eliminar usuario
                                         </button>
                                     </div>
-                                    
 
+
+                                    {/* Modal para subir imagen */}
+                                    <div className="modal fade" id="uploadImageModal" tabIndex="-1" aria-labelledby="uploadImageModalLabel" aria-hidden="true">
+                                        <div className="modal-dialog">
+                                            <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <h1 className="modal-title fs-5" id="uploadImageModalLabel">Sube una imagen de perfil</h1>
+                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div className="modal-body">
+                                                    <div className="input-group mb-3">
+                                                        <input type="file" className="form-control" id="inputGroupFile01" onChange={handleImageChange} />
+                                                    </div>
+                                                    {store.user.url_image && (
+                                                        <div className="mt-3">
+                                                            <button type="button" className="btn btn-danger" onClick={handleDeleteImage}>Eliminar imagen</button>
+                                                        </div>
+                                                    )}
+                                                </div>
+                                                <div className="modal-footer">
+                                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+                                                    <button type="button" className="btn btn-primary" onClick={handleUploadImage}>Subir</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    {/* modal para eliminar usuario */}
                                     <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="#exampleModalLabel" aria-hidden="true">
                                         <div className="modal-dialog">
                                             <div className="modal-content">

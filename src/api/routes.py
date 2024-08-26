@@ -302,13 +302,18 @@ def edit_user(user_id):
 
     if data.get("telefono"):
         user.telefono = data["telefono"]
+    
+    if data.get("url_image"):
+        user.url_image = data["url_image"]
 
     if "is_active" in data:
         user.is_active = data["is_active"]
+    
+    user.url_image = data.get('url_image') if 'url_image' in data else user.url_image
 
     db.session.commit()
 
-    return jsonify({"msg": "Datos de usuario actualizados exitosamente", "user": user.serialize()})
+    return jsonify({"user": user.serialize()}), 200
 
 # ENDPOINT: Editar datos de mascota existente
 @api.route("/mascotas/<int:mascota_id>", methods=["PUT"])
@@ -458,4 +463,7 @@ def buscar():
         # Capturar cualquier otro error y devolver una respuesta JSON
         print("Error general:", e)
         return jsonify({"error": "Error interno del servidor", "details": str(e)}), 500
+    
+
+
 

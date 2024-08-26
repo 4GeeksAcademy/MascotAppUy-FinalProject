@@ -46,7 +46,8 @@ class User(db.Model):
             "mascotas": [mascota.serialize() for mascota in self.mascotas],
             # "localidad_id": self.localidad_id,
             # "localidad_name": self.localidad.name,
-            "favorito_id": self.favorito_id
+            "favorito_id": self.favorito_id,
+            "url_image": self.url_image
         }
 
 class Estado(Enum):
