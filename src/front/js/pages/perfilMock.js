@@ -728,13 +728,16 @@ const PerfilMock = () => {
                                         imgSrc={mascota.url_image}
                                         nombre={mascota.nombre}
                                         fechaPer={mascota.fecha_perdido}
-                                        // especie={mascota.especie_name}
-                                        // localidad={mascota.localidad_name}
+                                        especie={mascota.especie_name}
+                                        localidad={mascota.localidad_name}
                                         edad={mascota.edad}
                                         estado={mascota.estado}
-                                        descripcion={mascota.descripción}
+                                        descripcion={mascota.descripcion}
                                         fechaReg={mascota.fecha_registro}
                                         id={mascota.id}
+                                        raza={mascota.raza_name}
+                                        sexo={mascota.sexo}
+                                        departamento={mascota.departamento_name}
                                         editMascota={() => setEditMascota(mascota.id)}
                                         deleteMascota={() => actions.deleteMascota(mascota.id)}
                                         />

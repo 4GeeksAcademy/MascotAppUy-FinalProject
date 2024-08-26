@@ -7,9 +7,17 @@ import { MiMascotaCard } from "./miMascotaCard";
 
 const DatosPerfil = (props) => {
 
-    const { store } = useContext(Context);
+    const { store, actions } = useContext(Context);
     const userName = store.user?.nombre;
     const initial = userName ? userName.charAt(0).toUpperCase() : '';
+    const nav = useNavigate();
+
+    const handleDeleteUser = (user) => {
+        actions.logout()
+        actions.eliminarUsuario(user)
+        nav("/")
+    }
+
 
     return (
         <div className="datos-perfil-container">
