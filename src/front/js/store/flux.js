@@ -467,6 +467,31 @@ const getState = ({ getStore, getActions, setStore }) => {
 					return false;
 				}
 			},
+
+			eliminarUsuario: async (id) =>{
+				const store = getStore();
+				try {
+					const response = await fetch(URL+`/api/usuarios/${id}`, {
+						method: 'PUT',
+						headers: {
+							'Content-Type': 'application/json',
+						},
+						body: JSON.stringify({
+							"is_active": false
+						})
+					});
+	
+					if (response.ok) {
+						setStore({ user: null }); 
+						return true;
+					
+					}
+				} catch (error) {
+					console.error("Error deleting user:", error);
+					return false;
+				}
+			},
+
 			setCoords: (coord_x, coord_y) => {
 				if (coord_x === undefined || coord_y === undefined) {
 					console.log('No hay coordenadas');
