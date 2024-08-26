@@ -1,8 +1,8 @@
 """empty message
 
-Revision ID: cc0e437d44c3
+Revision ID: 8f84db191bc7
 Revises: 
-Create Date: 2024-08-23 15:12:15.107510
+Create Date: 2024-08-26 18:28:13.165283
 
 """
 from alembic import op
@@ -10,7 +10,7 @@ import sqlalchemy as sa
 
 
 # revision identifiers, used by Alembic.
-revision = 'cc0e437d44c3'
+revision = '8f84db191bc7'
 down_revision = None
 branch_labels = None
 depends_on = None
@@ -26,6 +26,8 @@ def upgrade():
     op.create_table('departamento',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=25), nullable=False),
+    sa.Column('coord_x', sa.Numeric(precision=10, scale=6), nullable=True),
+    sa.Column('coord_y', sa.Numeric(precision=10, scale=6), nullable=True),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('especie',
@@ -41,6 +43,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('name', sa.String(length=100), nullable=False),
     sa.Column('departamento_id', sa.Integer(), nullable=False),
+    sa.Column('coord_x', sa.Numeric(precision=10, scale=6), nullable=True),
+    sa.Column('coord_y', sa.Numeric(precision=10, scale=6), nullable=True),
     sa.ForeignKeyConstraint(['departamento_id'], ['departamento.id'], ),
     sa.PrimaryKeyConstraint('id')
     )

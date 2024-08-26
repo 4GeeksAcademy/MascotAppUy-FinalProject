@@ -6,8 +6,9 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
+import imagenDefault from "/workspaces/MascotAppUy-FinalProject/src/front/img/logo mactopapp oscuro.png"
 
-export const MapComp = () => {
+export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords }) => {
     const { store, actions } = useContext(Context);
     const location = useLocation();
     const mapRef = useRef(null); // Referencia para la instancia del mapa
@@ -21,7 +22,7 @@ export const MapComp = () => {
             actions.setCoords(lng, lat);
             L.popup()
                     .setLatLng(e.latlng)
-                    .setContent("Ubicación seleccionada: " + e.latlng.toString() + " Pulsa el boton de enviar abajo para finalizar.")
+                    .setContent("Ubicación seleccionada. Pulsa el boton de ENVIAR arriba para publicar.")
                     .openOn(mapRef.current);
             // console.log("Ubicación seleccionada:", e.latlng);
         };
@@ -62,7 +63,7 @@ export const MapComp = () => {
         // Agregar marcadores para cada mascota
         store.mascotas.forEach(mascota => {
             if (mascota.coord_y && mascota.coord_x) {
-                const iconUrl = mascota.url_image || 'https://www.shutterstock.com/image-illustration/experience-mesmerizing-world-butterfly-animal-260nw-2355746757.jpg'; // Usa la URL de la imagen de la mascota
+                const iconUrl = mascota.url_image || imagenDefault; // Usa la URL de la imagen de la mascota
 
                 const iconClass = mascota.estado.toLowerCase(); // 'perdido' o 'encontrado'
                 
@@ -84,7 +85,17 @@ export const MapComp = () => {
         // Añadir el grupo de clúster al mapa
         mapRef.current.addLayer(markers);
 
-    }, [store.mascotas, onMapClick]); // Escuchar cambios en store.mascotas y onMapClick
+        // Manejo del zoom en base a la selección
+        if (selectedLocalityCoords) {
+            const { coord_x, coord_y } = selectedLocalityCoords;
+            mapRef.current.setView([coord_y, coord_x], 12); // Ajusta el zoom según necesites
+        } else if (selectedDepartmentCoords) {
+            const { coord_x, coord_y } = selectedDepartmentCoords;
+            mapRef.current.setView([coord_y, coord_x], 8); // Ajusta el zoom según necesites
+        }
+
+
+    }, [store.mascotas, onMapClick, selectedDepartmentCoords, selectedLocalityCoords]);
 
     return (
         <div className="" style={{ backgroundColor: "#040926", color: "#E0E1DD" }}>

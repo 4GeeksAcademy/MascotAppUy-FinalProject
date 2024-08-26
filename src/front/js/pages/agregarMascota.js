@@ -88,6 +88,8 @@ export const AgregarMascota = () =>{
     const [departamentoSelected, setDepartamentoSelected] = useState("");
     const [filteredLocalidades, setFilteredLocalidades] = useState([]);
 
+    const [localidadSelected, setLocalidadSelected] = useState("")
+
     const [especieSelected, setEspecieSelected] = useState("");
     const [filteredRazas, setFilteredRazas] = useState([]);
 
@@ -95,7 +97,8 @@ export const AgregarMascota = () =>{
 
     const [selectedFile, setSelectedFile] = useState(null);
 
-    
+    const selectedDepartmentCoords = store.departamentos.find(depto => depto.id === parseInt(departamentoSelected));
+    const selectedLocalityCoords = store.localidades.find(loc => loc.id === parseInt(localidadSelected))
 
     useEffect(() => {
         if (departamentoSelected) {
@@ -122,7 +125,9 @@ export const AgregarMascota = () =>{
 
     }, [especieSelected, store.razas])
 
-    
+    // useEffect(() => {
+    // }, [localidadSelected]);
+
     const formik = useFormik({
         initialValues: {
           estado: '',
@@ -403,7 +408,11 @@ export const AgregarMascota = () =>{
                                             id="localidad_id"
                                             name="localidad_id"
                                             value={formik.values.localidad_id}
-                                            onChange={formik.handleChange}
+                                            onChange={e => {
+                                                const { value } = e.target;
+                                                formik.handleChange(e); // Actualiza el valor en Formik
+                                                setLocalidadSelected(value); // Actualiza el estado de la localidad
+                                            }}
                                             onBlur={formik.handleBlur}
                                         >
                                             <option value="">Localidad</option>
@@ -419,10 +428,11 @@ export const AgregarMascota = () =>{
                                     </div>
                                 </>
                             )}
-                            <p>En el mapa haga click en la ubicacion precisa:</p>
-                            <MapComp />
-                            <button type="submit" id="botonEnviar">Enviar</button>
+                            <button type="submit" className="btn btn-primary">
+                            Puedes marcar la localizacion exacta en el mapa antes de ENVIAR
+                            </button>
                         </form>
+                        <MapComp selectedDepartmentCoords={selectedDepartmentCoords} selectedLocalityCoords={selectedLocalityCoords} />
                     </div>
                 </>
             ) : (

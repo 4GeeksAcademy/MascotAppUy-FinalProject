@@ -21,3 +21,8 @@
 body{
     font-family: 'Poppins', sans-serif;
 }
+
+#map {
+    height: 300px; /* Asegúrate de que el contenedor tenga un tamaño fijo */
+    width: 100%; /* Asegúrate de que el mapa ocupe el espacio disponible */
+  }
