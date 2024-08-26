@@ -95,7 +95,7 @@ export const AgregarMascota = () =>{
 
     const [selectedFile, setSelectedFile] = useState(null);
 
-    
+    const selectedDepartmentCoords = store.departamentos.find(depto => depto.id === parseInt(departamentoSelected));
 
     useEffect(() => {
         if (departamentoSelected) {
@@ -422,7 +422,7 @@ export const AgregarMascota = () =>{
                             Puedes marcar la localizacion exacta en el mapa antes de ENVIAR
                             </button>
                         </form>
-                        <MapComp />
+                        <MapComp selectedDepartmentCoords={selectedDepartmentCoords} />
                     </div>
                 </>
             ) : (

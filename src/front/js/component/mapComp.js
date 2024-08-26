@@ -7,7 +7,7 @@ import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 
-export const MapComp = () => {
+export const MapComp = ({ selectedDepartmentCoords }) => {
     const { store, actions } = useContext(Context);
     const location = useLocation();
     const mapRef = useRef(null); // Referencia para la instancia del mapa
@@ -21,7 +21,7 @@ export const MapComp = () => {
             actions.setCoords(lng, lat);
             L.popup()
                     .setLatLng(e.latlng)
-                    .setContent("Ubicación seleccionada: " + e.latlng.toString() + " Pulsa el boton de enviar abajo para finalizar.")
+                    .setContent("Ubicación seleccionada: " + e.latlng.toString() + " Pulsa el boton de ENVIAR arriba para finalizar.")
                     .openOn(mapRef.current);
             // console.log("Ubicación seleccionada:", e.latlng);
         };
@@ -83,6 +83,12 @@ export const MapComp = () => {
 
         // Añadir el grupo de clúster al mapa
         mapRef.current.addLayer(markers);
+
+        // Centrar el mapa en las coordenadas del departamento seleccionado
+        if (selectedDepartmentCoords) {
+            const { coord_x, coord_y } = selectedDepartmentCoords;
+            mapRef.current.setView([coord_y, coord_x], 8); // Ajusta el zoom según necesites
+        }
 
     }, [store.mascotas, onMapClick]); // Escuchar cambios en store.mascotas y onMapClick
 

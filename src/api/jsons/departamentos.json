@@ -1,62 +1,97 @@
 [
- {
-   "departamentos": "ARTIGAS"
- },
- {
-   "departamentos": "CANELONES"
- },
- {
-   "departamentos": "CERRO LARGO"
- },
- {
-   "departamentos": "COLONIA"
- },
- {
-   "departamentos": "DURAZNO"
- },
- {
-   "departamentos": "FLORES"
- },
- {
-   "departamentos": "FLORIDA"
- },
- {
-   "departamentos": "LAVALLEJA"
- },
- {
-   "departamentos": "LIMITE CONTESTADO"
- },
- {
-   "departamentos": "MALDONADO"
- },
- {
-   "departamentos": "MONTEVIDEO"
- },
- {
-   "departamentos": "PAYSANDU"
- },
- {
-   "departamentos": "RIO NEGRO"
- },
- {
-   "departamentos": "RIVERA"
- },
- {
-   "departamentos": "ROCHA"
- },
- {
-   "departamentos": "SALTO"
- },
- {
-   "departamentos": "SAN JOSE"
- },
- {
-   "departamentos": "SORIANO"
- },
- {
-   "departamentos": "TACUAREMBO"
- },
- {
-   "departamentos": "TREINTA Y TRES"
- }
+  {
+    "departamentos": "ARTIGAS",
+    "coord_y": -30.7000,
+    "coord_x": -56.9000
+  },
+  {
+    "departamentos": "CANELONES",
+    "coord_y": -34.5300,
+    "coord_x": -55.9500
+  },
+  {
+    "departamentos": "CERRO LARGO",
+    "coord_y": -32.3667,
+    "coord_x": -54.1833
+  },
+  {
+    "departamentos": "COLONIA",
+    "coord_y": -34.1667,
+    "coord_x": -57.8333
+  },
+  {
+    "departamentos": "DURAZNO",
+    "coord_y": -33.3833,
+    "coord_x": -56.5167
+  },
+  {
+    "departamentos": "FLORES",
+    "coord_y": -33.5333,
+    "coord_x": -56.8833
+  },
+  {
+    "departamentos": "FLORIDA",
+    "coord_y": -33.8000,
+    "coord_x": -55.9000
+  },
+  {
+    "departamentos": "LAVALLEJA",
+    "coord_y": -34.3758,
+    "coord_x": -55.2383
+  },
+  {
+    "departamentos": "MALDONADO",
+    "coord_y": -34.6667,
+    "coord_x": -54.9500
+  },
+  {
+    "departamentos": "MONTEVIDEO",
+    "coord_y": -34.8580,
+    "coord_x": -56.1711
+  },
+  {
+    "departamentos": "PAYSANDU",
+    "coord_y": -32.3214,
+    "coord_x": -58.0756
+  },
+  {
+    "departamentos": "RIO NEGRO",
+    "coord_y": -32.7000,
+    "coord_x": -57.5000
+  },
+  {
+    "departamentos": "RIVERA",
+    "coord_y": -31.4833,
+    "coord_x": -55.5500
+  },
+  {
+    "departamentos": "ROCHA",
+    "coord_y": -34.0000,
+    "coord_x": -54.3167
+  },
+  {
+    "departamentos": "SALTO",
+    "coord_y": -31.3833,
+    "coord_x": -57.9667
+  },
+  {
+    "departamentos": "SAN JOSE",
+    "coord_y": -34.3333,
+    "coord_x": -56.7167
+  },
+  {
+    "departamentos": "SORIANO",
+    "coord_y": -33.2500,
+    "coord_x": -57.5000
+  },
+  {
+    "departamentos": "TACUAREMBO",
+    "coord_y": -31.7167,
+    "coord_x": -55.9833
+  },
+  {
+    "departamentos": "TREINTA Y TRES",
+    "coord_y": -33.2333,
+    "coord_x": -54.3833
+  }
 ]
