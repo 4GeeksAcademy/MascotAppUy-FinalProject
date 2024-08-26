@@ -6,6 +6,7 @@ import { Link as ScrollLink } from "react-scroll";
 import { useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2'
 
+
 export const Busqueda = () => {
     const {store} = useContext(Context);
     const nav = useNavigate();
@@ -56,7 +57,7 @@ export const Busqueda = () => {
                         <button onClick={handlePublicar} className="boton-publicar btn btn-primary w-100">Publicar</button>
                     </div>
                     <div className="col-12 col-md-6">
-                        <Link to="/" className="boton-adoptar btn btn-secondary w-100">Adoptar</Link>
+                        <Link to="/mascotasAdopcion" className="boton-adoptar btn btn-secondary w-100">Adoptar</Link>
                     </div>
                 </div>
 

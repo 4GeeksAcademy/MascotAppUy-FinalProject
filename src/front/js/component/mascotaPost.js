@@ -3,12 +3,7 @@ import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
 import "../../styles/mascotaPost.css";
 
-
-
 const MascotaPost = (props) => {
-
-
-  
 
     return(
         <>
