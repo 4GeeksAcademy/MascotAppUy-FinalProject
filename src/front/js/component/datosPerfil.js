@@ -2,6 +2,8 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../../styles/datosPerfil.css"
+import { MiMascotaCard } from "./miMascotaCard";
+
 
 const DatosPerfil = (props) => {
 
@@ -12,16 +14,19 @@ const DatosPerfil = (props) => {
     return (
         <div className="datos-perfil-container">
             
-            <div class="row">
-                <div class="col-sm-6 mb-3 mb-sm-0">
-                    <div class="card">
-                        <div class="row g-0">
-                            <div class="col-md-4 d-flex justify-content-center">
+            <div className="row">
+                <div className="col-sm-6 mb-3 mb-sm-0">
+                    <div className="card">
+                        <div className="row g-0">
+                            <div className="d-flex justify-content-center">
                                 <button type="button" className="profile-big-name btn btn-outline-light mx-3 my-3">{initial}</button>
                             </div>
 
-                            <div class="col-md-8 text-start">
-                                <div class="card-body">
+                            <div className="col-md-2 text-start">
+                            </div>
+                            
+                            <div className="col-md-8 text-start">
+                                <div className="card-body">
                                     <h6>Email: {store.user.email}</h6>
                                     <h6>Nombre: {store.user.nombre}</h6>
                                     <div className="d-flex justify-content-between">
@@ -30,29 +35,68 @@ const DatosPerfil = (props) => {
                                             </button>
                                     </div>
                                     <div className="d-flex justify-content-between">
-                                        <h6>Contraseña: ****** </h6><button type="button" className="btn btn-outline-dark btn-sm me-5" onClick={props.editPassword}>
+                                        <h6>Contraseña: ****** </h6><button type="button" className="btn btn-outline-dark btn-sm" onClick={props.editPassword}>
                                                 <i className="fas fa-edit"></i>
                                             </button>
                                     </div>
 
                                     <div className="button-group d-flex mt-3">
-                                        
-                                        
-                                    </div>
                                 </div>
-                                
+
+                                <div className="col-md-2 text-start">
+                                </div>        
+                                        
+                                    
+                                </div>
                             </div>
+                                
+                            
                         </div>
                     </div>
                 </div>
 
 
-            <div class="col-sm-6">
-                <div class="card">
-                <div class="card-body">
-                    <h5 class="card-title">Special title treatment</h5>
-                    <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-                    <a href="#" class="btn btn-primary">Go somewhere</a>
+            <div className="col-sm-6">
+                <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">Mis mascotas</h5>
+
+                    <div className="mt-5">
+                                <div className="accordion accordion-flush" id="accordionFlushExample">
+
+                            {props.misMascotas && props.misMascotas.length > 0 ? (
+                                props.misMascotas.map((mascota, index) => (
+                                    <div key={index} className="">
+                                        {/* <button type="button" className="btn btn-outline-dark btn-sm ml-3 d-flex" onClick={() => setEditMascota(mascota.id)}>
+                                            <i className="fas fa-edit"></i>
+                                        </button> */}
+                                        
+                                        <MiMascotaCard  
+                                        mascota={mascota} 
+                                        imgSrc={mascota.url_image}
+                                        nombre={mascota.nombre}
+                                        fechaPer={mascota.fecha_perdido}
+                                        // especie={mascota.especie_name}
+                                        // localidad={mascota.localidad_name}
+                                        edad={mascota.edad}
+                                        estado={mascota.estado}
+                                        descripcion={mascota.descripción}
+                                        fechaReg={mascota.fecha_registro}
+                                        id={mascota.id}
+                                      
+                                        />
+                                        
+                                    </div>
+                                    
+                                    ))
+                            ) : (
+                                <p>No tienes mascotas registradas.</p>
+
+                                )}
+                                </div>
+                            </div>
+
+                    
                 </div>
                 </div>
             </div>

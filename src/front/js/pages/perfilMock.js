@@ -13,7 +13,7 @@ const PerfilMock = () => {
     const { store, actions } = useContext(Context);
     const [edit, setEdit] = useState(false);
     const [editPassword, setEditPassword] = useState(false)
-    const [editMascota, setEditMascota] = useState(null);
+    
 
     // ********* FORMIK PARA EDITAR DATOS GENERALES**********
     const validate = values => {
@@ -134,10 +134,19 @@ const PerfilMock = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [misMascotas, setMisMascotas] = useState([]);
+    const [editMascota, setEditMascota] = useState(null);
 
     
     
-    
+    //funciones para borrar y editar mascota que se pasan por props a datosPerfil.js
+    const editarMascota = (mascotaId) => {
+        setEditMascota(mascotaId)
+    }
+
+    const deleteMascota = (mascotaId) => {
+        actions.deleteMascota(mascotaId)
+    }
+    //************************ */
 
     const validateMascota = values => {
     const errors = {};
@@ -699,11 +708,12 @@ const PerfilMock = () => {
 
                 <div className="container mt-5 text-center">
 
-                    <DatosPerfil editDatos={() => setEdit(true)} editPassword={() => setEditPassword(true)}/>
+                    <DatosPerfil editDatos={() => setEdit(true)} editPassword={() => setEditPassword(true)} misMascotas={misMascotas} /> 
+                                        {/* es probable que mascotaid no funcione como variable */}
 
-                    <div>
-                        <h3 className="mt-4">Mis mascotas</h3>
-                            <div className="mt-5">
+                    {/* <datosPerfil  */}
+
+                        {/* <div className="mt-5">
                                 <div className="accordion accordion-flush" id="accordionFlushExample">
 
                             {misMascotas && misMascotas.length > 0 ? (
@@ -713,7 +723,7 @@ const PerfilMock = () => {
                                             <i className="fas fa-edit"></i>
                                         </button> */}
                                         
-                                        <MiMascotaCard 
+                                        {/* <MiMascotaCard 
                                         mascota={mascota} 
                                         imgSrc={mascota.url_image}
                                         nombre={mascota.nombre}
@@ -736,9 +746,9 @@ const PerfilMock = () => {
                                 <p>No tienes mascotas registradas.</p>
 
                                 )}
-                                </div>
-                            </div>
-                    </div>
+                                </div> */}
+                            {/* </div> */} 
+                  
                 </div>
               
                 )}
