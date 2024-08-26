@@ -1,4 +1,3 @@
-
 import click
 import json
 from api.models import db, User, Departamento, Localidad, Especie, Raza, Mascota
@@ -55,7 +54,10 @@ def setup_commands(app):
         
         # Agregar los departamentos faltantes
         for dept in missing_departments:
-            new_departamento = Departamento(name=dept["departamentos"])
+            new_departamento = Departamento(
+                name=dept["departamentos"],
+                coord_x=dept["coord_x"],
+                coord_y=dept["coord_y"])
             db.session.add(new_departamento)
 
         db.session.commit()
@@ -86,7 +88,12 @@ def setup_commands(app):
         # Agregar las localidades faltantes
         for loc in missing_localities:
             departamento = Departamento.query.filter_by(name=loc["departamento"]).first()
-            new_localidad = Localidad(name=loc["localidad"], departamento_id=departamento.id)
+            new_localidad = Localidad(
+                name=loc["localidad"],
+                departamento_id=departamento.id,
+                coord_x=loc["coord_x"],
+                coord_y=loc["coord_y"]
+                )
             db.session.add(new_localidad)
 
         db.session.commit()
@@ -183,10 +190,10 @@ def setup_commands(app):
             )
             
             # Añade y guarda la mascota en la base de datos
+            mascota.validate()
             db.session.add(mascota)
-        
-        db.session.commit()
-        print("Datos de mascotas insertados exitosamente.")
+            db.session.commit()
+            print("Datos de mascotas insertados exitosamente.")
 
     @app.cli.command("seed-users")
     def seed_users():

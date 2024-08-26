@@ -12,6 +12,8 @@ import cloudinary
 import cloudinary.uploader
 from cloudinary.utils import cloudinary_url
 import requests
+from sqlalchemy import or_, cast, String, and_
+from sqlalchemy.exc import SQLAlchemyError
 
 api = Blueprint('api', __name__)
 
@@ -52,6 +54,9 @@ def login():
 
     if user is None:
         return jsonify({"msg": "This email is not registered"}), 404
+
+    if user.is_active is False:
+        return jsonify({"msg": "This user is not active"}), 400
 
     if not check_password_hash(user.password, password):
         return jsonify({"msg": "Wrong password"}), 401
@@ -375,4 +380,82 @@ def upload_file():
         return jsonify({"url": result['secure_url']})
     except Exception as e:
         return jsonify({"error": str(e)})
+
+
+
+# PRUEBA JOINs
+@api.route('/buscar', methods=['GET'])
+def buscar():
+    query = request.args.get('q', '').strip()
+    if not query:
+        return jsonify([])
+
+    terms = query.split()
+
+    # Crear filtros para coincidencias exactas (coincidencia con todas las relaciones)
+    exact_filters = []
+    for term in terms:
+        term_filter = or_(
+            Mascota.nombre.ilike(f'%{term}%'),
+            Mascota.descripcion.ilike(f'%{term}%'),
+            Mascota.edad.ilike(f'%{term}%'),
+            cast(Mascota.estado, String).ilike(f'%{term}%'),
+            cast(Mascota.sexo, String).ilike(f'%{term}%'),
+            Raza.name.ilike(f'%{term}%'),
+            Especie.name.ilike(f'%{term}%'),
+            Localidad.name.ilike(f'%{term}%'),
+            Departamento.name.ilike(f'%{term}%')
+        )
+        exact_filters.append(term_filter)
+
+    # Crear filtros para coincidencias parciales (coincidencia con cualquier relación)
+    partial_filters = []
+    for term in terms:
+        partial_filter = or_(
+            Mascota.nombre.ilike(f'%{term}%'),
+            Mascota.descripcion.ilike(f'%{term}%'),
+            Mascota.edad.ilike(f'%{term}%'),
+            cast(Mascota.estado, String).ilike(f'%{term}%'),
+            cast(Mascota.sexo, String).ilike(f'%{term}%'),
+            Raza.name.ilike(f'%{term}%'),
+            Especie.name.ilike(f'%{term}%'),
+            Localidad.name.ilike(f'%{term}%'),
+            Departamento.name.ilike(f'%{term}%')
+        )
+        partial_filters.append(partial_filter)
+
+    try:
+        # Consultar las coincidencias exactas (coincidencia con todas las relaciones)
+        resultados_exactos = Mascota.query \
+            .join(Raza, Mascota.raza_id == Raza.id) \
+            .join(Especie, Mascota.especie_id == Especie.id) \
+            .join(Localidad, Mascota.localidad_id == Localidad.id) \
+            .join(Departamento, Localidad.departamento_id == Departamento.id) \
+            .filter(and_(*exact_filters)) \
+            .all()
+
+        # Consultar las coincidencias parciales (coincidencia con cualquier relación), excluyendo los resultados ya encontrados
+        resultados_parciales = Mascota.query \
+            .join(Raza, Mascota.raza_id == Raza.id) \
+            .join(Especie, Mascota.especie_id == Especie.id) \
+            .join(Localidad, Mascota.localidad_id == Localidad.id) \
+            .join(Departamento, Localidad.departamento_id == Departamento.id) \
+            .filter(or_(*partial_filters)) \
+            .filter(~Mascota.id.in_([mascota.id for mascota in resultados_exactos])) \
+            .all()
+
+        # Combinar los resultados exactos primero y luego los parciales
+        resultados = resultados_exactos + resultados_parciales
+
+        return jsonify([mascota.serialize() for mascota in resultados])
+
+    except SQLAlchemyError as e:
+        # Capturar y devolver el error de SQLAlchemy
+        print("Error de SQLAlchemy:", e)
+        return jsonify({"error": str(e)}), 500
+
+    except Exception as e:
+        # Capturar cualquier otro error y devolver una respuesta JSON
+        print("Error general:", e)
+        return jsonify({"error": "Error interno del servidor", "details": str(e)}), 500
 
