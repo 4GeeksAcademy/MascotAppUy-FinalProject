@@ -20,6 +20,7 @@ class User(db.Model):
     nombre = db.Column(db.String(50), nullable=False)
     fecha_registro = db.Column(db.Date, default=date.today())
     telefono = db.Column(db.String(25))
+    url_image = db.Column(db.String(250))
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     mascotas = db.relationship('Mascota', backref='user', lazy=True)
     # localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'))
@@ -45,7 +46,8 @@ class User(db.Model):
             "mascotas": [mascota.serialize() for mascota in self.mascotas],
             # "localidad_id": self.localidad_id,
             # "localidad_name": self.localidad.name,
-            "favorito_id": self.favorito_id
+            "favorito_id": self.favorito_id,
+            "url_image": self.url_image
         }
 
 class Estado(Enum):

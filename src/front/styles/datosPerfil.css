@@ -18,3 +18,28 @@
     background-color: #ffffff; /* Color de fondo en hover */
     color: #040926; /* Color del texto en hover */
   }
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.edit-icon {
+  position: absolute;
+  bottom: 20px; /* Ajusta la posición vertical */
+  right: 10px; /* Ajusta la posición horizontal */
+  color: white;
+  background-color: rgba(0, 0, 0, 0.5); /* Fondo semitransparente */
+  padding: 5px;
+  font-size: 20px;
+  border-radius: 50%;
+  opacity: 0; /* Oculto por defecto */
+  transition: opacity 0.3s ease; /* Transición suave para el hover */
+}
+
+/* Mostrar el icono en hover */
+.profile-image-container:hover .edit-icon {
+  opacity: 1; /* Aparece en hover */
+}

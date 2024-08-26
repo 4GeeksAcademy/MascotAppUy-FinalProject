@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://didactic-robot-v657rxxv94g2j46-3001.app.github.dev"
+const URL = "https://organic-orbit-x74jvwjgrg7c6w-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -451,6 +451,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"password": values.newPassword,
 							"nombre": values.nombre,
 							"telefono": values.telefono,
+							"url_image": values.url_image,
 							"is_active": true
 						})
 					});
@@ -518,6 +519,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error('Error en la búsqueda:', error);
 					return { error: 'Error en la búsqueda' };
 				}
+			},
+
+			updateUserImage: (url) => {
+				const store = getStore();
+				setStore({ 
+					user: {
+						...store.user,
+						url_image: url
+					}
+				});
 			},
 		}
 	}
