@@ -88,7 +88,12 @@ def setup_commands(app):
         # Agregar las localidades faltantes
         for loc in missing_localities:
             departamento = Departamento.query.filter_by(name=loc["departamento"]).first()
-            new_localidad = Localidad(name=loc["localidad"], departamento_id=departamento.id)
+            new_localidad = Localidad(
+                name=loc["localidad"],
+                departamento_id=departamento.id,
+                coord_x=loc["coord_x"],
+                coord_y=loc["coord_y"]
+                )
             db.session.add(new_localidad)
 
         db.session.commit()
