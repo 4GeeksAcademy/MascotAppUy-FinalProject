@@ -114,6 +114,25 @@ class Mascota(db.Model):
             "coord_x": self.coord_x,
             "coord_y": self.coord_y,
         }
+    
+    def validate(self):
+        localidad = Localidad.query.get(self.localidad_id)
+        departamento = Departamento.query.get(self.departamento_id)
+        
+        if localidad and departamento:
+            # Verificamos si existe al menos una localidad con el mismo nombre en el departamento correcto
+            localidad_correcta = Localidad.query.filter_by(
+                name=localidad.name, 
+                departamento_id=self.departamento_id
+            ).first()
+            
+            if not localidad_correcta:
+                raise ValueError(f"No se encontró la localidad '{localidad.name}' en el departamento '{departamento.name}' para la mascota '{self.nombre}'.")
+        
+        raza = Raza.query.get(self.raza_id)
+        especie = Especie.query.get(self.especie_id)
+        if raza and especie and raza.especie_id != self.especie_id:
+            raise ValueError(f"La raza '{raza.name}' de la mascota '{self.nombre}' no pertenece a la especie '{especie.name}'.")
 
 class Especie(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -151,7 +170,9 @@ class Departamento(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(25), nullable=False)
     localidades = db.relationship('Localidad', backref='departamento', lazy=True)
-    departamentos = db.relationship('Mascota', backref='departamento', lazy=True)
+    mascotas = db.relationship('Mascota', backref='departamento', lazy=True)
+    coord_x = db.Column(db.Numeric(10,6))
+    coord_y = db.Column(db.Numeric(10,6))
 
     def __repr__(self):
         return '<Departamento %r>' % self.name
@@ -160,6 +181,8 @@ class Departamento(db.Model):
         return {
             "id": self.id,
             "name": self.name,
+            "coord_x": self.coord_x,
+            "coord_y": self.coord_y,
         }
     
 class Localidad(db.Model):
@@ -168,6 +191,8 @@ class Localidad(db.Model):
     departamento_id = db.Column(db.Integer, db.ForeignKey('departamento.id'), nullable=False)
     # users = db.relationship('User', backref='localidad', lazy=True)
     mascotas = db.relationship('Mascota', backref='localidad', lazy=True)
+    coord_x = db.Column(db.Numeric(10,6))
+    coord_y = db.Column(db.Numeric(10,6))
 
     def __repr__(self):
         return '<Localidad %r>' % self.name
@@ -176,7 +201,9 @@ class Localidad(db.Model):
         return {
             "id": self.id,
             "name": self.name,
-            "departamento_id": self.departamento_id
+            "departamento_id": self.departamento_id,
+            "coord_x": self.coord_x,
+            "coord_y": self.coord_y,
         }
     
 class Color(db.Model):
