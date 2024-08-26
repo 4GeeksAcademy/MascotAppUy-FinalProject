@@ -23,7 +23,7 @@ export const MiMascotaCard = (props) => {
                 return 'badge-PERDIDO';
             case 'ENCONTRADO':
                 return 'badge-ENCONTRADO';
-            case 'en REUNDIO':
+            case 'REUNIDO':
                 return 'badge-REUNIDO';
             case 'ADOPCION':
                 return 'badge-ADOPCION';
@@ -44,8 +44,15 @@ export const MiMascotaCard = (props) => {
                             aria-controls={`flush-collapse${props.id}`}
                             style={{ border: 'none', backgroundColor: '#f8f9fa' }}
                         >
-                            <div className="d-flex w-100 justify-content-between align-items-center">
-                                <div className="fs-4">{props.nombre}<span  className={`badge ${getBadgeClass(props.estado)}`} style={{marginLeft: '20px'}}>{props.estado}</span></div>
+                            <div className="d-flex w-100 align-items-center">
+                                <div className="d-flex col-2">
+                                    <span className={`badge ${getBadgeClass(props.estado)} me-2`}>
+                                        {props.estado}
+                                    </span>
+                                </div>
+                                <div className="col-10 fs-4 ms-5">
+                                    {props.nombre}
+                                </div>
                             </div>
                         </button>
                     </h2>

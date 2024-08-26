@@ -20,6 +20,7 @@ class User(db.Model):
     nombre = db.Column(db.String(50), nullable=False)
     fecha_registro = db.Column(db.Date, default=date.today())
     telefono = db.Column(db.String(25))
+    url_image = db.Column(db.String(250))
     is_active = db.Column(db.Boolean(), unique=False, nullable=False)
     mascotas = db.relationship('Mascota', backref='user', lazy=True)
     # localidad_id = db.Column(db.Integer, db.ForeignKey('localidad.id'))

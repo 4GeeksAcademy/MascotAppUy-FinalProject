@@ -1,19 +1,23 @@
 .badge-PERDIDO {
     background-color: #ff6325;
     color: white;
+    font-size: x-small;
 }
 
 .badge-ENCONTRADO {
     background-color: #EA526F;
     color: white;
+    font-size: x-small;
 }
 
 .badge-ADOPCION {
     background-color: #466d9f;
     color: white;
+    font-size: x-small;
 }
 
 .badge-REUNIDO {
     background-color: rgb(61, 249, 96);
     color: white;
+    font-size: x-small;
 }
