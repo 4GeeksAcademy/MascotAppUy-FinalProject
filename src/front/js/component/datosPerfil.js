@@ -77,13 +77,11 @@ const DatosPerfil = (props) => {
 
 
     return (
-        <div className="datos-perfil-container">
-            
+        <div className="datos-perfil-container container-fluid">
             <div className="row">
-                <div className="col-sm-6 mb-3 mb-sm-0">
+                <div className="col-sm-12 col-md-6 mb-3 mb-md-0">
                     <div className="card">
                         <div className="row g-0">
-
                             <div className="d-flex justify-content-center">
                                 <div className="profile-image-container position-relative">
                                     <button type="button" className="profile-big-name btn btn-outline-light mx-3 my-5" data-bs-toggle="modal" data-bs-target="#uploadImageModal">
@@ -96,19 +94,17 @@ const DatosPerfil = (props) => {
                                     </button>
                                 </div>
                             </div>
-                            {/* <div className="d-flex justify-content-center">
-                                <button type="button" className="profile-big-name btn btn-outline-light mx-3 my-5">{initial}</button>
-                            </div> */}
 
-                            <div className="col-md-3 text-start">
-                            </div>
                             
-                            <div className="col-md-6 text-start">
+
+                            <div className="col-md-0 col-sm-0 col-lg-2 col-xl-3"></div>
+
+                            <div className="col-md-12 col-sm-12 col-lg-8 col-xl-6 text-start">
                                 <div className="card-body">
-                                    <h6 className="mt-3">Email: {store.user.email}</h6>
-                                    <h6 className="mt-4">Nombre: {store.user.nombre}</h6>
-                                    <h6 className="mt-4">Telefono: {store.user.telefono}</h6>
-                                    <h6 className="mt-4">Contraseña: ****** </h6>
+                                    <h6>Email: {store.user.email}</h6>
+                                    <h6>Nombre: {store.user.nombre}</h6>
+                                    <h6>Telefono: {store.user.telefono}</h6>
+                                    <h6>Contraseña: ****** </h6>
 
                                     <hr className="my-5"/>
                                     
@@ -124,18 +120,16 @@ const DatosPerfil = (props) => {
                                     
                                     {/* eliminar usuario */}
                                     <div className="my-4">
-                                        {/* <a href="#" className="btn p-0" role="button" data-bs-toggle="modal" data-bs-target="#exampleModal" onClick={props.editPassword}>
-                                        <i className="fa-solid fa-trash me-2"></i>Eliminar usuario</a> */}
-
                                         <button type="button" data-bs-toggle="modal" data-bs-target="#exampleModal" className="btn btn-link text-dark p-0 text-decoration-none">
                                             <i className="fa-solid fa-trash me-2"></i>Eliminar usuario
                                         </button>
                                     </div>
 
+                                    <div className="col-md-0 col-sm-0 col-lg-2 col-xl-3"></div>
 
                                     {/* Modal para subir imagen */}
                                     <div className="modal fade" id="uploadImageModal" tabIndex="-1" aria-labelledby="uploadImageModalLabel" aria-hidden="true">
-                                        <div className="modal-dialog">
+                                        <div className="modal-dialog modal-dialog-centered">
                                             <div className="modal-content">
                                                 <div className="modal-header">
                                                     <h1 className="modal-title fs-5" id="uploadImageModalLabel">Sube una imagen de perfil</h1>
@@ -160,88 +154,68 @@ const DatosPerfil = (props) => {
                                     </div>
                                     
                                     {/* modal para eliminar usuario */}
-                                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="#exampleModalLabel" aria-hidden="true">
-                                        <div className="modal-dialog">
+                                    <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div className="modal-dialog modal-dialog-centered">
                                             <div className="modal-content">
                                                 <div className="modal-header">
                                                     <h5 className="modal-title" id="exampleModalLabel">Deseas eliminar tu cuenta?</h5>
                                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div className="modal-body">
-                                                    Tené en cuenta que al eliminar tu cuenta en MascotApp, también se eliminarán todas las publicaciónes que realizaste.
+                                                    Tené en cuenta que al eliminar tu cuenta en MascotApp, también se eliminarán todas las publicaciones que realizaste.
                                                 </div>
                                                 <div className="modal-footer">
                                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    <button type="button" className="btn btn-primary" style={{backgroundColor: "#c60f0f", border: "none"}} onClick={ () => handleDeleteUser(store.user.id)}>Eliminar cuenta</button>
+                                                    <button type="button" className="btn btn-danger" onClick={() => handleDeleteUser(store.user.id)}>Eliminar cuenta</button>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-
-                                <div className="col-md-3 text-start">
-                                </div>        
-                                        
-                                    
                                 </div>
                             </div>
-                                
-                            
                         </div>
                     </div>
                 </div>
 
+                <div className="col-sm-12 col-md-6">
+                    <div className="card">
+                        <div className="card-body">
+                            <h5 className="card-title">Mis mascotas</h5>
 
-            <div className="col-sm-6">
-                <div className="card">
-                <div className="card-body">
-                    <h5 className="card-title">Mis mascotas</h5>
-
-                    <div className="mt-5">
+                            <div className="mt-5">
                                 <div className="accordion accordion-flush" id="accordionFlushExample">
-
-                            {props.misMascotas && props.misMascotas.length > 0 ? (
-                                props.misMascotas.map((mascota, index) => (
-                                    <div key={index} className="">
-                                        {/* <button type="button" className="btn btn-outline-dark btn-sm ml-3 d-flex" onClick={() => setEditMascota(mascota.id)}>
-                                            <i className="fas fa-edit"></i>
-                                        </button> */}
-                                        
-                                        <MiMascotaCard  
-                                        mascota={mascota} 
-                                        imgSrc={mascota.url_image}
-                                        nombre={mascota.nombre}
-                                        fechaPer={mascota.fecha_perdido}
-                                        especie={mascota.especie_name}
-                                        localidad={mascota.localidad_name}
-                                        departamento={mascota.departamento_name}
-                                        edad={mascota.edad}
-                                        estado={mascota.estado}
-                                        descripcion={mascota.descripción}
-                                        raza={mascota.raza_name}
-                                        sexo={mascota.sexo}
-                                        fechaReg={mascota.fecha_registro}
-                                        id={mascota.id}
-                                        editMascota={() => props.editMascota(mascota.id)} // Paso de la función onEdit
-                                        deleteMascota={() => props.deleteMascota(mascota.id)}
-                                      
-                                        />
-                                        
-                                    </div>
-                                    
-                                    ))
-                            ) : (
-                                <p>No tienes mascotas registradas.</p>
-
-                                )}
+                                    {props.misMascotas && props.misMascotas.length > 0 ? (
+                                        props.misMascotas.map((mascota, index) => (
+                                            <div key={index} className="accordion-item">
+                                                <MiMascotaCard  
+                                                    mascota={mascota} 
+                                                    imgSrc={mascota.url_image}
+                                                    nombre={mascota.nombre}
+                                                    fechaPer={mascota.fecha_perdido}
+                                                    especie={mascota.especie_name}
+                                                    localidad={mascota.localidad_name}
+                                                    departamento={mascota.departamento_name}
+                                                    edad={mascota.edad}
+                                                    estado={mascota.estado}
+                                                    descripcion={mascota.descripción}
+                                                    raza={mascota.raza_name}
+                                                    sexo={mascota.sexo}
+                                                    fechaReg={mascota.fecha_registro}
+                                                    id={mascota.id}
+                                                    editMascota={() => props.editMascota(mascota.id)} // Paso de la función onEdit
+                                                    deleteMascota={() => props.deleteMascota(mascota.id)}
+                                                />
+                                            </div>
+                                        ))
+                                    ) : (
+                                        <p className="text-center">No tienes mascotas publicadas.</p>
+                                    )}
                                 </div>
                             </div>
-
-                    
-                </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            </div>
-
         </div>
     );
 };

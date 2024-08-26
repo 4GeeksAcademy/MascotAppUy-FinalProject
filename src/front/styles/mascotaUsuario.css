@@ -21,3 +21,22 @@
     color: white;
     font-size: x-small;
 }
+
+.card-mascota img {
+    width: 100%; /* La imagen ocupará todo el ancho del contenedor */
+    height: auto; /* Mantiene la proporción original de la imagen */
+    max-height: 200px; /* Ajusta la altura máxima según tus necesidades */
+    object-fit: cover; /* Cubre el área del contenedor sin distorsionar la imagen */
+}
+
+.accordion-button {
+    font-size: 1rem; /* Ajusta el tamaño del texto del botón del acordeón */
+}
+
+.accordion-body {
+    padding: 1rem; /* Ajusta el padding del cuerpo del acordeón */
+}
+
+.card-mascota {
+    border-radius: 0.375rem; /* Ajusta el borde de la tarjeta de mascota */
+}

@@ -45,12 +45,12 @@ export const MiMascotaCard = (props) => {
                             style={{ border: 'none', backgroundColor: '#f8f9fa' }}
                         >
                             <div className="d-flex w-100 align-items-center">
-                                <div className="d-flex col-2">
+                                <div className="d-flex col-sm-6 col-md-3 col-3">
                                     <span className={`badge ${getBadgeClass(props.estado)} me-2`}>
                                         {props.estado}
                                     </span>
                                 </div>
-                                <div className="col-10 fs-4 ms-5">
+                                <div className="col-sm-6 col-md-9 col-9 fs-4 ms-5">
                                     {props.nombre}
                                 </div>
                             </div>
@@ -80,7 +80,7 @@ export const MiMascotaCard = (props) => {
                                 </button>
                             </div>
                             <div className="d-flex justify-content-center">
-                                <div className="card mb-3" style={{ maxWidth: "540px", minWidth: "100%" }}>
+                                <div className="card-mascota mb-3" style={{ maxWidth: "300px", minWidth: "100%", objectFit: "cover"}}>
                                     <div className="row g-0">
                                         <div className="col-md-4">
                                             <img 
