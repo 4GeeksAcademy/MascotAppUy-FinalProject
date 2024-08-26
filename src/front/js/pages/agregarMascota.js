@@ -47,6 +47,19 @@ const validate = values => {
     if (!values.descripcion) {
         errors.descripcion = 'Requerido';
     }
+    if (!values.fecha_perdido) {
+        errors.fecha_perdido = 'Requerido';
+    }else {
+        // Convertir fecha_perdido a formato YYYY-MM-DD para compararla
+        const fechaPerdidoDateString = values.fecha_perdido;
+        if (fechaPerdidoDateString > todayDateString) {
+          errors.fecha_perdido = 'La fecha no puede ser en el futuro';
+        }
+      }
+    
+    
+    if (!values.edad) {
+        errors.edad = 'Requerido';
 
     if (values.estado !== 'ENCONTRADO') {
         if (!values.edad) {
@@ -178,11 +191,11 @@ export const AgregarMascota = () => {
                                     onChange={formik.handleChange}
                                     onBlur={formik.handleBlur}
                                 >
-                                    <option value="">Estado</option>
-                                    <option value="PERDIDO">PERDIDO</option>
-                                    <option value="ENCONTRADO">ENCONTRADO</option>
-                                    <option value="ADOPCIÓN">ADOPCIÓN</option>
-                                    <option value="REUNIDO">REUNIDO</option>
+                                <option value="">Estado</option>    
+                                <option value="PERDIDO">PERDIDO</option>
+                                <option value="ENCONTRADO">ENCONTRADO</option>
+                                <option value="ADOPCION">ADOPCIÓN</option>
+                                <option value="REUNIDO">REUNIDO</option>  
                                 </select>
                                 {formik.touched.estado && formik.errors.estado ? (
                                     <div className="error-msg ms-2">{formik.errors.estado}</div>

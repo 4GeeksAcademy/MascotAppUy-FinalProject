@@ -451,6 +451,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							"password": values.newPassword,
 							"nombre": values.nombre,
 							"telefono": values.telefono,
+							"url_image": values.url_image,
 							"is_active": true
 						})
 					});
@@ -518,6 +519,16 @@ const getState = ({ getStore, getActions, setStore }) => {
 					console.error('Error en la búsqueda:', error);
 					return { error: 'Error en la búsqueda' };
 				}
+			},
+
+			updateUserImage: (url) => {
+				const store = getStore();
+				setStore({ 
+					user: {
+						...store.user,
+						url_image: url
+					}
+				});
 			},
 		}
 	}

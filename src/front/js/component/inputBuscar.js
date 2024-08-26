@@ -59,7 +59,7 @@ const InputBuscar = () => {
     }, []);
 
     return (
-        <div className="container-fluid">
+        
             <div className="input-group mb-3 position-relative">
                     <input
                         type="text"
@@ -89,7 +89,7 @@ const InputBuscar = () => {
                     )}
                     <button className="buscar btn btn-primary" onClick={() => handleBuscar(query)}>Buscar</button>
                 </div>
-        </div>
+       
     )
 }
 

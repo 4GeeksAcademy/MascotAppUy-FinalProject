@@ -29,7 +29,7 @@ const MascotaPost = (props) => {
                 <p><strong>Descripcion: </strong> {props.descripcion}</p>
                 <p><strong>Se perdió en: </strong> {props.localidad}, {props.departamento}</p>
                 <button data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ border: "none", backgroundColor: "#FF8A5B", padding: "5px 10px", width: "40%", margin: "0 auto", borderRadius: "20px", color: "#040926", fontWeight: "500" }}>Contactar al dueño</button>
-                <div className="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">
                         <div className="modal-header">
@@ -39,7 +39,7 @@ const MascotaPost = (props) => {
                         <div className="modal-body">
                             <p><strong>Nombre: </strong> {props.nombreUser}</p>
                             <p><strong>Email: </strong> {props.email}</p>
-                            <p>{props.telefono == "" ? (<hr></hr>) : (<p><strong>Teléfono: </strong> {props.telefono}</p>)}</p>
+                            {props.telefono && (<p><strong>Teléfono: </strong> {props.telefono}</p>)}
                         </div>
                         </div>
                     </div>
@@ -62,7 +62,7 @@ const MascotaPost = (props) => {
                         <div className="modal-body">
                             <p><strong>Nombre: </strong> {props.nombreUser}</p>
                             <p><strong>Email: </strong> {props.email}</p>
-                            <p>{props.telefono == "" ? (<hr></hr>) : (<p><strong>Teléfono: </strong> {props.telefono}</p>)}</p>
+                            {props.telefono && (<p><strong>Teléfono: </strong> {props.telefono}</p>)}
                         </div>
                         </div>
                     </div>

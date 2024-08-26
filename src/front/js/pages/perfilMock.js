@@ -13,7 +13,7 @@ const PerfilMock = () => {
     const { store, actions } = useContext(Context);
     const [edit, setEdit] = useState(false);
     const [editPassword, setEditPassword] = useState(false)
-    const [editMascota, setEditMascota] = useState(null);
+    
 
     // ********* FORMIK PARA EDITAR DATOS GENERALES**********
     const validate = values => {
@@ -134,10 +134,19 @@ const PerfilMock = () => {
 
     const [selectedFile, setSelectedFile] = useState(null);
     const [misMascotas, setMisMascotas] = useState([]);
+    const [editMascota, setEditMascota] = useState(null);
 
     
     
-    
+    //funciones para borrar y editar mascota que se pasan por props a datosPerfil.js
+    const handleEditMascota = (mascota) => {
+        setEditMascota(mascota)
+    }
+
+    const handleDeleteMascota = (mascotaId) => {
+        actions.deleteMascota(mascotaId)
+    }
+    //************************ */º
 
     const validateMascota = values => {
     const errors = {};
@@ -247,7 +256,7 @@ const PerfilMock = () => {
                 icon: "success",
                 title: "Edited successfully"
                 });
-                nav(`/profile`)
+                
             }else {
                 Toast.fire({
                 icon: "error",
@@ -255,7 +264,7 @@ const PerfilMock = () => {
                 showConfirmButton: false,
                 });
             }
-        
+            setEditMascota(null)
 
         
     }});
@@ -583,7 +592,6 @@ const PerfilMock = () => {
 
                             {especieSelected && (
                                 <>
-                                
                                     <div className="input-group mb-3">
                                         <select
                                             className="form-select border-0"
@@ -700,50 +708,16 @@ const PerfilMock = () => {
 
                 <div className="container mt-5 text-center">
 
-                    <DatosPerfil editDatos={() => setEdit(true)} editPassword={() => setEditPassword(true)}/>
+                    <DatosPerfil 
+                        editDatos={() => setEdit(true)} 
+                        editPassword={() => setEditPassword(true)} 
+                        misMascotas={misMascotas} 
+                        editMascota={handleEditMascota} 
+                        deleteMascota={handleDeleteMascota}/>
 
-                    <div>
-                        <h3 className="mt-4">Mis mascotas</h3>
-                            <div className="mt-5">
-                                <div className="accordion accordion-flush" id="accordionFlushExample">
-
-                            {misMascotas && misMascotas.length > 0 ? (
-                                misMascotas.map((mascota, index) => (
-                                    <div key={index} className="">
-                                        {/* <button type="button" className="btn btn-outline-dark btn-sm ml-3 d-flex" onClick={() => setEditMascota(mascota.id)}>
-                                            <i className="fas fa-edit"></i>
-                                        </button> */}
-                                        
-                                        <MiMascotaCard 
-                                        mascota={mascota} 
-                                        imgSrc={mascota.url_image}
-                                        nombre={mascota.nombre}
-                                        fechaPer={mascota.fecha_perdido}
-                                        especie={mascota.especie_name}
-                                        localidad={mascota.localidad_name}
-                                        edad={mascota.edad}
-                                        estado={mascota.estado}
-                                        descripcion={mascota.descripcion}
-                                        fechaReg={mascota.fecha_registro}
-                                        id={mascota.id}
-                                        raza={mascota.raza_name}
-                                        sexo={mascota.sexo}
-                                        departamento={mascota.departamento_name}
-                                        editMascota={() => setEditMascota(mascota.id)}
-                                        deleteMascota={() => actions.deleteMascota(mascota.id)}
-                                        />
-                                        
-                                    </div>
-                                    
-                                    ))
-                            ) : (
-                                <p>No tienes mascotas registradas.</p>
-                                )}</div>
-                            </div>
                 </div>
-    </div>
               
-            )}
+                )}
         </div>
     );
 };

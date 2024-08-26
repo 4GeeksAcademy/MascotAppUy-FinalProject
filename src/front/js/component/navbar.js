@@ -62,7 +62,14 @@ export const Navbar = () => {
                     </li>
                     <li className="nav-item d-flex justify-content-end">
                     <Link to="/profile" className="nav-link">
-                        <button type="button" className="profile-name btn btn-outline-light mb-1">{initial}</button>
+                        
+                        <button type="button" className="profile-name btn btn-outline-light mb-1">
+                        {store.user.url_image ? (
+                            <img src={store.user.url_image} alt="Profile" className="profile-image" />
+                            ) : (
+                            initial
+                            )}  
+                        </button>
                     </Link>
                     </li>
                 </>
