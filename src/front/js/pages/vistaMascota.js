@@ -4,6 +4,7 @@ import MascotaPost from "../component/mascotaPost";
 import { Context } from "../store/appContext";
 
 
+
  export const VistaMascota = () => {
 
     const { store } = useContext(Context);

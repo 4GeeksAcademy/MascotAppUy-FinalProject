@@ -1,16 +1,63 @@
-.card-text {
+/* .card-text {
     font-size: small;
     white-space: nowrap; /* No permite el salto de línea */
-    overflow: hidden; /* Oculta el texto que se desborda */
-    text-overflow: ellipsis; /* Muestra "..." al final del texto que se desborda */
-    max-width: 100%; /* Asegura que el texto no se extienda fuera del contenedor */
-    font-family:"Montserrat", sans-serif;
+    /* overflow: hidden; Oculta el texto que se desborda */
+    /* text-overflow: ellipsis; Muestra "..." al final del texto que se desborda */
+    /* max-width: 100%; Asegura que el texto no se extienda fuera del contenedor */
+    /* font-family:"Montserrat", sans-serif; */
+/* } */
+/* .card-title { */
+    /* white-space: nowrap; No permite el salto de línea */
+    /* overflow: hidden; Oculta el texto que se desborda */
+    /* text-overflow: ellipsis; Muestra "..." al final del texto que se desborda */
+    /* max-width: 100%; Asegura que el texto no se extienda fuera del contenedor */
+/* } */ 
+
+#card-mascota {
+    width: 350px; /* Tamaño fijo para todas las cards */
+    height: 250px; /* Altura fija para todas las cards */
+    position: relative;
+    overflow: hidden;
+    border: none; /* Sin bordes adicionales */
+    transition: transform 1s;
 }
-.card-title {
-    white-space: nowrap; /* No permite el salto de línea */
-    overflow: hidden; /* Oculta el texto que se desborda */
-    text-overflow: ellipsis; /* Muestra "..." al final del texto que se desborda */
-    max-width: 100%; /* Asegura que el texto no se extienda fuera del contenedor */
+
+.card-img-wrapper {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    position: absolute; /* Asegura que la imagen se ajuste dentro del contenedor */
+    top: 0;
+    left: 0;
+}
+
+.card-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; /* Asegura que la imagen cubra completamente el contenedor sin distorsión */
+    filter: brightness(90%); /* Aumenta el brillo de la imagen */
+    
+}
+#card-mascota:hover{
+    transform: translateZ(15px);
+}
+
+.card-img-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7), transparent); /* Sombra más oscura y pronunciada */
+    color: white;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: left;
+}
+
+.card-title, .card-text {
+    margin: 0;
 }
 
 .badge-PERDIDO {

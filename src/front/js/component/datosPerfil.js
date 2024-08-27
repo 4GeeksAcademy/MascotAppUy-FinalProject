@@ -3,7 +3,7 @@ import { Context } from "../store/appContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../../styles/datosPerfil.css"
 import { MiMascotaCard } from "./miMascotaCard.js";
-import Swal from 'sweetalert2';
+
 
 
 
