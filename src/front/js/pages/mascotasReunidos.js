@@ -3,21 +3,21 @@ import { Context } from "../store/appContext.js";
 import { Link } from "react-router-dom";
 import GridMascotas from "../component/gridMascotas.jsx";
 
-const MascotasAdopcion = () => {
+const MascotasReunidos = () => {
     const { store } = useContext(Context);
-    const [mascotasAdopcion, setMascotasAdopcion] = useState([]);
+    const [mascotasReunidos, setMascotasReunidos] = useState([]);
 
     useEffect(() => {
         console.log("store.mascotas:", store.mascotas);
-        const filterMascotas = store.mascotas.filter(mascota => mascota.estado === "ADOPCION");
-        setMascotasAdopcion(filterMascotas);
+        const filterMascotas = store.mascotas.filter(mascota => mascota.estado === "REUNIDO");
+        setMascotasReunidos(filterMascotas);
     }, [store.mascotas]);
 
     return (
         <div className="container mt-5">
-            <GridMascotas lista={mascotasAdopcion}/>
+            <GridMascotas lista={mascotasReunidos}/>
           
         </div>
     );
 }
-export default MascotasAdopcion;
+export default MascotasReunidos;

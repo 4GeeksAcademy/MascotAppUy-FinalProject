@@ -54,6 +54,7 @@ export const Busqueda = () => {
                     <div className="col-12 col-md-6">
                         <Link to="/mascotasAdopcion" className="boton-adoptar btn btn-secondary w-100">Adoptar</Link>
                     </div>
+                    
                 </div>
 
                 <div className="explorar-container text-center mt-5">

@@ -26,7 +26,7 @@ import { Frecuentes } from "./pages/frecuentes.js";
 import Contacto from "./pages/contacto.js";
 import MascotasAdopcion from "./pages/mascotasAdopcion.js";
 import ResultadosBusqueda from "./pages/resultadosBusqueda.js";
-
+import MascotasReunidos from "./pages/mascotasReunidos.js";
 
 //create your first component
 const Layout = () => {
@@ -55,6 +55,7 @@ const Layout = () => {
                         <Route path="/mascota/:theid" element={<VistaMascota />} />
 
                         <Route element={<MascotasAdopcion />} path="/mascotasAdopcion" />
+                        <Route element={<MascotasReunidos />} path="/mascotasReunidos" />
                         
                         {/* <Route element={<MiMascota/>} path="/mismascotas/:theid"/> */}
                         <Route element={<Frecuentes />} path="/preguntas-frecuentes" />
