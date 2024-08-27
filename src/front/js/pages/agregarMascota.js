@@ -47,24 +47,11 @@ const validate = values => {
     if (!values.descripcion) {
         errors.descripcion = 'Requerido';
     }
-    if (!values.fecha_perdido) {
-        errors.fecha_perdido = 'Requerido';
-    }else {
-        // Convertir fecha_perdido a formato YYYY-MM-DD para compararla
-        const fechaPerdidoDateString = values.fecha_perdido;
-        if (fechaPerdidoDateString > todayDateString) {
-          errors.fecha_perdido = 'La fecha no puede ser en el futuro';
-        }
-      }
-    
-    
+
     if (!values.edad) {
         errors.edad = 'Requerido';
-
-    if (values.estado !== 'ENCONTRADO') {
-        if (!values.edad) {
-            errors.edad = 'Requerido';
-        }
+    } else if (values.estado !== 'ENCONTRADO') {
+        errors.edad = 'Requerido';
     }
 
     if (!values.departamento_id) {
@@ -77,6 +64,7 @@ const validate = values => {
 
     return errors;
 };
+
 
 const Toast = Swal.mixin({
     toast: true,
