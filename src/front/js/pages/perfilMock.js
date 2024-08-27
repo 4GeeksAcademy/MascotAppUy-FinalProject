@@ -3,8 +3,6 @@ import { Context } from "../store/appContext";
 import { useNavigate } from "react-router-dom";
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2';
-// import MascotaCard from "../component/mascotaCard.jsx";
-import { MiMascotaCard } from "../component/miMascotaCard";
 import DatosPerfil from "../component/datosPerfil";
 
 const PerfilMock = () => {
@@ -345,7 +343,7 @@ const PerfilMock = () => {
     }, [store.user.mascotas]);
 
     return (
-        <div className="container mt-5">
+        <div className="container">
             {edit ? (
                 <div className="form-container mt-5 w-50">
                     <h2>Editar datos</h2>

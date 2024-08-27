@@ -1,4 +1,4 @@
-.carousel {
+/* .carousel {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     border-radius: 8px; 
     overflow: hidden; 
@@ -29,4 +29,49 @@
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
+} */
+
+
+.container {
+   
+    display: grid;
+    
+}
+
+.slider {
+    height: 350px; /* Ajusta la altura según sea necesario */
+    place-items: center;
+    position: relative;
+    display: flex; /* Usamos flex para un alineamiento horizontal */
+    width: 90%;
+    overflow: hidden;
+}
+
+.slider-track {
+    display: flex;
+    height: 250px;
+    width: calc(250px * 24); /* Duplicamos el número de tarjetas para un efecto continuo */
+    animation: scroll 40s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-250px * 12)); /* Mueve exactamente la longitud de 12 tarjetas */
+    }
+}
+
+.slide {
+    height: 250px; /* Asegura que cada slide tenga el tamaño adecuado */
+    width: 350px; /* Ajusta según el tamaño de la tarjeta */
+    margin-right: 10px; /* Espaciado entre las tarjetas */
+    display: flex;
+    perspective: 100px;
+}
+
+
+.slider-track:hover {
+    animation-play-state: paused;
 }

@@ -9,13 +9,13 @@ export const Home = () => {
 	const { store, actions } = useContext(Context);
 
 	//Muestra últimas 12 mascotas perdidas posteadas
-	const ultimasDiezPerdidas = store.mascotas
+	const ultimasDocePerdidas = store.mascotas
 	.filter(mascota => mascota.estado === 'PERDIDO')
 	.sort((a, b) => new Date(b.fecha_registro) - new Date(a.fecha_registro))
 	.slice(0, 12);
 
 	//Muestra últimas 12 mascotas encontradas posteadas
-	const ultimasDiezEncontradas = store.mascotas
+	const ultimasDoceEncontradas = store.mascotas
 	.filter(mascota => mascota.estado === 'ENCONTRADO')
 	.sort((a, b) => new Date(b.fecha_registro) - new Date(a.fecha_registro))
 	.slice(0, 12);
@@ -25,9 +25,9 @@ export const Home = () => {
 			<Busqueda />
 
 			<div id="explorar">
-				<MascotaCarrousel titulo="Mascotas perdidas" lista={ultimasDiezPerdidas} carouselId="carouselPerdidas"/>
+				<MascotaCarrousel titulo="Mascotas perdidas" lista={ultimasDocePerdidas} carouselId="carouselPerdidas"/>
 
-				<MascotaCarrousel titulo="Mascotas encontradas" lista={ultimasDiezEncontradas} carouselId="carouselEncontradas"/>
+				<MascotaCarrousel titulo="Mascotas encontradas" lista={ultimasDoceEncontradas} carouselId="carouselEncontradas"/>
 			</div>
 			
 
