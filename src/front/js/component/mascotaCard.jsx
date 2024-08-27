@@ -31,6 +31,7 @@ const MascotaCard = (props) => {
                 return 'badge-ADOPCION';
         }
     };
+    //
  
 
     return (

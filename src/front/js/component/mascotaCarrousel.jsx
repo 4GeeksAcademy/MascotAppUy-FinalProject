@@ -4,23 +4,57 @@ import "../../styles/mascotaCarrousel.css"
 
 
 const MascotaCarrousel = (props) => {
-    const listaPerdidas = props.lista;
+    const doceMasRecientes = props.lista;
 
     // Divide la lista en grupos de 4
-    const chunkArray = (array, chunkSize) => {
-        const result = [];
-        for (let i = 0; i < array.length; i += chunkSize) {
-            result.push(array.slice(i, i + chunkSize));
-        }
-        return result;
-    };
+    // const chunkArray = (array, chunkSize) => {
+    //     const result = [];
+    //     for (let i = 0; i < array.length; i += chunkSize) {
+    //         result.push(array.slice(i, i + chunkSize));
+    //     }
+    //     return result;
+    // };
 
-    const grupos = chunkArray(listaPerdidas, 4);
+    // const grupos = chunkArray(listaPerdidas, 4);
 
     return (
         <div className="container">
-            <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')</style>
-            <div id={props.carouselId} className="carousel slide mt-5">
+            <div className="slider">
+                <div className="slider-track">
+                    {doceMasRecientes.map((mascota, index) => (
+                        <div className="slide" key={index}>
+                            <MascotaCard
+                                imgSrc={mascota.url_image}
+                                id={mascota.id}
+                                nombre={mascota.nombre}
+                                fecha={mascota.fecha_registro}
+                                especie={mascota.especie_name}
+                                localidad={mascota.localidad_name}
+                                estado={mascota.estado}
+                            />
+                        </div>
+                    ))}
+                    {/* Repetimos el contenido para crear el efecto infinito */}
+                    {doceMasRecientes.map((mascota, index) => (
+                        <div className="slide" key={index + doceMasRecientes.length}>
+                            <MascotaCard
+                                imgSrc={mascota.url_image}
+                                id={mascota.id}
+                                nombre={mascota.nombre}
+                                fecha={mascota.fecha_registro}
+                                especie={mascota.especie_name}
+                                localidad={mascota.localidad_name}
+                                estado={mascota.estado}
+                            />
+                        </div>
+                    ))}
+                </div>
+            </div>
+        </div>
+
+
+
+            /* <div id={props.carouselId} className="carousel slide mt-5">
                 <div className="carousel-title mt-3">
                     <h4>{props.titulo} - Más recientes</h4>
                 </div>
@@ -79,8 +113,8 @@ const MascotaCarrousel = (props) => {
                     <span className="carousel-control-next-icon" aria-hidden="true"></span>
                     <span className="visually-hidden">Next</span>
                 </button>
-            </div>
-        </div>
+            </div> */
+//         </div>
     );
 };
 

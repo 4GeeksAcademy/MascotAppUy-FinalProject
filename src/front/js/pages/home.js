@@ -27,7 +27,7 @@ export const Home = () => {
 			<div id="explorar">
 				<MascotaCarrousel titulo="Mascotas perdidas" lista={ultimasDiezPerdidas} carouselId="carouselPerdidas"/>
 
-				<MascotaCarrousel titulo="Mascotas encontradas" lista={ultimasDiezEncontradas} carouselId="carouselEncontradas"/>
+				{/* <MascotaCarrousel titulo="Mascotas encontradas" lista={ultimasDiezEncontradas} carouselId="carouselEncontradas"/> */}
 			</div>
 			
 

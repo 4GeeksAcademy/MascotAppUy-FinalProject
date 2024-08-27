@@ -1,4 +1,4 @@
-.carousel {
+/* .carousel {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); 
     border-radius: 8px; 
     overflow: hidden; 
@@ -29,4 +29,54 @@
     display: flex;
     flex-wrap: nowrap;
     width: 100%;
+} */
+
+
+.container {
+    min-height: 100vh;
+    display: grid;
+    place-items: center;
 }
+
+.slider {
+    height: 35rem; /* Ajusta la altura según sea necesario */
+    margin: auto;
+    position: relative;
+    display: flex; /* Usamos flex para un alineamiento horizontal */
+    width: 90%;
+    overflow: hidden;
+}
+
+.slider-track {
+    display: flex;
+    width: calc(250px * 24); /* Duplicamos el número de tarjetas para un efecto continuo */
+    animation: scroll 40s linear infinite;
+}
+
+@keyframes scroll {
+    0% {
+        transform: translateX(0);
+    }
+    100% {
+        transform: translateX(calc(-250px * 12)); /* Mueve exactamente la longitud de 12 tarjetas */
+    }
+}
+
+.slide {
+    min-width: 250px; /* Asegura que cada tarjeta tenga el mismo ancho */
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 15px;
+}
+
+.mascotacard {
+    width: 250px; /* Ancho fijo para cada tarjeta */
+    cursor: pointer;
+}
+
+.slider-track:hover{
+    animation-play-state: paused;
+}
+
