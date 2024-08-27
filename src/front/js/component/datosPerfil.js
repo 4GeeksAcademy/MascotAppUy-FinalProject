@@ -271,6 +271,7 @@ const DatosPerfil = (props) => {
  
             </div>
             </div>
+            </div>
  
     );
 };
