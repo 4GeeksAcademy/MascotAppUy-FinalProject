@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://organic-orbit-x74jvwjgrg7c6w-3001.app.github.dev"
+const URL = "https://fluffy-goldfish-wr97vrq5jjv6fg7wg-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -114,10 +114,11 @@ const getState = ({ getStore, getActions, setStore }) => {
 			},
 
 			getDepartamentos: async () => {
+
 				try {
 					
 					const response = await fetch(URL+"/api/departamentos");
-					
+					console.log(response)
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
 					}

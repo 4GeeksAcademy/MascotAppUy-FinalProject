@@ -44,6 +44,11 @@ export const Navbar = () => {
                 </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">
+                <Link to="/mascotasReunidos" className="nav-link">
+                    <button type="button" className="button-no-border btn btn-outline-light">Reunidas</button>
+                </Link>
+                </li>
+                <li className="nav-item d-flex justify-content-end">
                 <Link to="/mapa" className="nav-link">
                     <button type="button" className="button-no-border btn btn-outline-light">Mapa</button>
                 </Link>

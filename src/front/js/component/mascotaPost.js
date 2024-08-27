@@ -4,11 +4,15 @@ import { useParams } from "react-router-dom";
 import "../../styles/mascotaPost.css";
 
 
-
 const MascotaPost = (props) => {
+    const { store } = useContext(Context);
 
-
-  
+    useEffect(() => {
+        console.log("Especies:", store.especies);
+        console.log("Localidades:", store.localidades);
+        console.log("Departamentos:", store.departamentos);
+        console.log("Razas:", store.razas);
+    }, [store]);
 
     return(
         <>
