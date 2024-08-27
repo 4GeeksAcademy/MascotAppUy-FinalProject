@@ -24,8 +24,9 @@ import { VistaMascota } from "./pages/vistaMascota.js";
 import PerfilMock from "./pages/perfilMock.js";
 import { Frecuentes } from "./pages/frecuentes.js";
 import Contacto from "./pages/contacto.js";
+import MascotasAdopcion from "./pages/mascotasAdopcion.js";
 import ResultadosBusqueda from "./pages/resultadosBusqueda.js";
-
+import MascotasReunidos from "./pages/mascotasReunidos.js";
 
 //create your first component
 const Layout = () => {
@@ -52,6 +53,10 @@ const Layout = () => {
                         <Route element={<MapView />} path="/mapa" />
                         <Route element={<PerfilMock />} path="/profile" />
                         <Route path="/mascota/:theid" element={<VistaMascota />} />
+
+                        <Route element={<MascotasAdopcion />} path="/mascotasAdopcion" />
+                        <Route element={<MascotasReunidos />} path="/mascotasReunidos" />
+                        
                         {/* <Route element={<MiMascota/>} path="/mismascotas/:theid"/> */}
                         <Route element={<Frecuentes />} path="/preguntas-frecuentes" />
                         <Route element={<Contacto/>} path="/contacto" />

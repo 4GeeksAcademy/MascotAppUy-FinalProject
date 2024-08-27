@@ -6,8 +6,8 @@ import { MapComp } from "../component/mapComp.js";
 
 
 
-
 const MascotaPost = (props) => {
+    const { store } = useContext(Context);
 
     
   
