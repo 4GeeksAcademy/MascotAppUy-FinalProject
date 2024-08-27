@@ -2,7 +2,7 @@ import React, { useState, useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../../styles/datosPerfil.css"
-import { MiMascotaCard } from "./miMascotaCard";
+import { MiMascotaCard } from "./miMascotaCard.js";
 import Swal from 'sweetalert2';
 
 
@@ -177,46 +177,56 @@ const DatosPerfil = (props) => {
                     </div>
                 </div>
 
-                <div className="col-sm-12 col-md-6">
-                    <div className="card">
-                        <div className="card-body">
-                            <h5 className="card-title">Mis mascotas</h5>
-
-                            <div className="mt-5">
+                <div className="col-md-6 col-sm-12">
+                <div className="card">
+                <div className="card-body">
+                    <h5 className="card-title">Mis mascotas</h5>
+                    <div className="mt-5">
                                 <div className="accordion accordion-flush" id="accordionFlushExample">
-                                    {props.misMascotas && props.misMascotas.length > 0 ? (
-                                        props.misMascotas.map((mascota, index) => (
-                                            <div key={index} className="accordion-item">
-                                                <MiMascotaCard  
-                                                    mascota={mascota} 
-                                                    imgSrc={mascota.url_image}
-                                                    nombre={mascota.nombre}
-                                                    fechaPer={mascota.fecha_perdido}
-                                                    especie={mascota.especie_name}
-                                                    localidad={mascota.localidad_name}
-                                                    departamento={mascota.departamento_name}
-                                                    edad={mascota.edad}
-                                                    estado={mascota.estado}
-                                                    descripcion={mascota.descripción}
-                                                    raza={mascota.raza_name}
-                                                    sexo={mascota.sexo}
-                                                    fechaReg={mascota.fecha_registro}
-                                                    id={mascota.id}
-                                                    editMascota={() => props.editMascota(mascota.id)} // Paso de la función onEdit
-                                                    deleteMascota={() => props.deleteMascota(mascota.id)}
-                                                />
-                                            </div>
-                                        ))
-                                    ) : (
-                                        <p className="text-center">No tienes mascotas publicadas.</p>
-                                    )}
+                            {props.misMascotas && props.misMascotas.length > 0 ? (
+                                props.misMascotas.map((mascota, index) => (
+                                    <div key={index} className="">
+                                        {/* <button type="button" className="btn btn-outline-dark btn-sm ml-3 d-flex" onClick={() => setEditMascota(mascota.id)}>
+                                            <i className="fas fa-edit"></i>
+                                        </button> */}
+                                        
+                                        <MiMascotaCard  
+                                        mascota={mascota} 
+                                        imgSrc={mascota.url_image}
+                                        nombre={mascota.nombre}
+                                        fechaPer={mascota.fecha_perdido}
+                                        // especie={mascota.especie_name}
+                                        // localidad={mascota.localidad_name}
+                                        especie={mascota.especie_name}
+                                        localidad={mascota.localidad_name}
+                                        departamento={mascota.departamento_name}
+                                        edad={mascota.edad}
+                                        estado={mascota.estado}
+                                        descripcion={mascota.descripción}
+                                        raza={mascota.raza_name}
+                                        sexo={mascota.sexo}
+                                        fechaReg={mascota.fecha_registro}
+                                        id={mascota.id}
+                                        editMascota={() => props.editMascota(mascota.id)} // Paso de la función onEdit
+                                        deleteMascota={() => props.deleteMascota(mascota.id)}
+
+                                        />
+
+                                    </div>
+                                    
+                                    ))
+                            ) : (
+                                <p>No tienes mascotas registradas.</p>
+                                )}
                                 </div>
                             </div>
-                        </div>
-                    </div>
+                    
+                </div>
                 </div>
             </div>
-        </div>
+            </div>
+            </div>
+ 
     );
 };
 

@@ -8,7 +8,7 @@ import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
 import imagenDefault from "/workspaces/MascotAppUy-FinalProject/src/front/img/logo mactopapp oscuro.png"
 
-export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords }) => {
+export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapHeight, mapWidth, mapZoom, mascotaCoords }) => {
     const { store, actions } = useContext(Context);
     const location = useLocation();
     const mapRef = useRef(null); // Referencia para la instancia del mapa
@@ -31,7 +31,7 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords }) =>
     useEffect(() => {
         // Inicializar el mapa solo una vez
         if (!mapRef.current) {
-            mapRef.current = L.map('map').setView([-32.5, -56], 6);
+            mapRef.current = L.map('map').setView([-32.5, -56], mapZoom);
             L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
                 maxZoom: 19,
                 attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
@@ -76,7 +76,18 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords }) =>
                         popupAnchor: [0, -40]
                     })
                 })
-                .bindPopup(`<b>${mascota.nombre}</b><br/><b>${mascota.especie_name}</b><br/>${mascota.estado}`);
+                .bindPopup(`
+                        <div style="text-align: center;">
+                            <b>${mascota.nombre}</b><br/>
+                            <img src="${mascota.url_image}" alt="${mascota.nombre}" style="width:100px;height:auto; margin: 7px;"><br/>
+                            Es un ${mascota.especie_name} ${mascota.estado}<br/>
+                            en ${mascota.localidad_name}<br/>
+                            el día ${mascota.fecha_perdido}<br/>
+                            <a href="/mascota/${mascota.id}" class="nav-link">
+                            <button type="button" style="background-color: #007bff; color: white; border: none; padding: 1px 5px; border-radius: 5px;">Más datos</button>
+                            </a>
+                        </div>
+                    `);
                 markers.addLayer(marker);
 
             }
@@ -92,14 +103,17 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords }) =>
         } else if (selectedDepartmentCoords) {
             const { coord_x, coord_y } = selectedDepartmentCoords;
             mapRef.current.setView([coord_y, coord_x], 8); // Ajusta el zoom según necesites
+        } else if (mascotaCoords) {
+            const { coord_x, coord_y } = mascotaCoords;
+            mapRef.current.setView([coord_y, coord_x], mapZoom);
         }
 
+    }, [store.mascotas, onMapClick, selectedDepartmentCoords, selectedLocalityCoords, mascotaCoords, mapZoom]);
 
-    }, [store.mascotas, onMapClick, selectedDepartmentCoords, selectedLocalityCoords]);
 
     return (
-        <div className="" style={{ backgroundColor: "#040926", color: "#E0E1DD" }}>
-            <div id="map" style={{ height: "300px" }}>
+        <div className="d-flex justify-content-center" style={{ height: '100%', width: '100%' }}>
+            <div id="map"  style={{ height: mapHeight, width: mapWidth  }}>
                 {/* El mapa se renderizará aquí */}
             </div>
         </div>

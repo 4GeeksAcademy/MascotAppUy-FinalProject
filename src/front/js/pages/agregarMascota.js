@@ -431,7 +431,7 @@ export const AgregarMascota = () =>{
                             Puedes marcar la localizacion exacta en el mapa antes de ENVIAR
                             </button>
                         </form>
-                        <MapComp selectedDepartmentCoords={selectedDepartmentCoords} selectedLocalityCoords={selectedLocalityCoords} />
+                        <MapComp selectedDepartmentCoords={selectedDepartmentCoords} selectedLocalityCoords={selectedLocalityCoords} mapHeight="300px" mapWidth="100%" mapZoom={12} />
                     </div>
                 </>
             ) : (
