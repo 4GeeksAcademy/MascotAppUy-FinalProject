@@ -6,10 +6,6 @@ import { MapComp } from "../component/mapComp.js";
 const MapView = () => {
     const { store } = useContext(Context)
 
-    //filtro para mostrar únicamente mascotas con estado: Perdido o Encontrado
-    // const mascotasPerdidasEncontradas = store.mascotas.filter(mascota => mascota.estado === 'PERDIDO' || mascota.estado === 'ENCONTRADO');
-    // console.log(mascotasPerdidasEncontradas);
-    
     return (
         
         <div className="container">
@@ -20,10 +16,7 @@ const MapView = () => {
                 <p>Hola! Aquí podrás ver un mapa con la ubicacion de las mascotas perdidas y encontradas.</p>
                 <p>Si has visto alguna de estas mascotas, por favor, no dudes en contactarnos para ayudar a reunirlas con sus familias.</p>
             </div>
-            {/* Componente MapaComp al cual le paso la lista de mascotas perdidas y encontradas ya filtradas */}
-            <MapComp
-            //  lista={mascotasPerdidasEncontradas} 
-             />
+            <MapComp mapHeight={"600px"} mapWidth={"800px"} mapZoom={7} />
 
         </div>
     );

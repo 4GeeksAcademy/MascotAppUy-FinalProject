@@ -63,6 +63,8 @@ import { Context } from "../store/appContext";
             email={mascota.user_email}
             telefono={mascota.user_telefono}
             nombreUser={mascota.user_name}
+            coord_x={mascota.coord_x}
+            coord_y={mascota.coord_y}
         />
     </div>
     

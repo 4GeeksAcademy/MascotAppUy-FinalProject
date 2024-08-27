@@ -2,31 +2,29 @@ import React, { useContext, useEffect } from "react";
 import { Context } from "../store/appContext";
 import { useParams } from "react-router-dom";
 import "../../styles/mascotaPost.css";
+import { MapComp } from "../component/mapComp.js";
+
 
 
 const MascotaPost = (props) => {
     const { store } = useContext(Context);
 
-    useEffect(() => {
-        console.log("Especies:", store.especies);
-        console.log("Localidades:", store.localidades);
-        console.log("Departamentos:", store.departamentos);
-        console.log("Razas:", store.razas);
-    }, [store]);
+    
+  
 
     return(
         <>
         <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');</style>
     {props.estado == "PERDIDO" ? (<h1 className="text-center" style={{marginTop: "40px", fontFamily: "Montserrat", textShadow: "1px 1px 1px #aaa"}}>Estoy perdido!</h1>) : 
     (<h1 className="text-center" style={{marginTop: "40px", fontFamily: "Montserrat" , textShadow: "1px 1px 1px #aaa"}}>Estoy buscando a mi familia!</h1>)}
-    <div className="d-flex" style={{justifyContent: "center", alignItems: "center", height: "75vh", fontFamily: "Montserrat"}}>
+    <div className="d-flex" style={{justifyContent: "center", alignItems: "center", height: "auto", fontFamily: "Montserrat"}}>
     <div className="card mb-3" style={{maxWidth: "75%", width:"100%"}} id="perrito">
         <div className="row g-0">
         <div className="col-md-4">
-             <img src={props.imagen} className="imgFluid rounded" style={{ width: "100%", height: "100%", objectFit: "cover", maxHeight:"400px", maxWidth:"400px" }} alt="Mascota" />
+            <img src={props.imagen} className="img-fluid rounded" style={{ width: "100%", height: "100%", objectFit: "cover" }} alt="Mascota" />
         </div>
     
-        <div className="col-md-8">
+        <div className="col-md-5">
             <div className="cardBody" style={{"display": "grid", padding: "20px"}}>
                 {props.estado == "PERDIDO" ? 
                 (<><p><strong>Nombre: </strong> {props.nombre}</p>
@@ -82,6 +80,10 @@ const MascotaPost = (props) => {
                 
               </div>  
              </div>
+             <div className="col-md-3" style={{ minHeight: "200px", display: "flex", alignItems: "center" }}>
+                <MapComp mapHeight="100%" mapWidth="100%" mapZoom={12} mascotaCoords={{ coord_x: props.coord_x, coord_y: props.coord_y }} />
+            </div>
+
         </div>
         </div>
     </div>
