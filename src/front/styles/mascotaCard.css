@@ -14,8 +14,8 @@
 /* } */ 
 
 #card-mascota {
-    width: 350px; /* Tamaño fijo para todas las cards */
-    height: 250px; /* Altura fija para todas las cards */
+    width: 300px; /* Tamaño fijo para todas las cards */
+    height: 200px; /* Altura fija para todas las cards */
     position: relative;
     overflow: hidden;
     border: none; /* Sin bordes adicionales */
