@@ -5,17 +5,13 @@ import GridMascotas from "../component/gridMascotas.jsx";
 
 const MascotasReunidos = () => {
     const { store } = useContext(Context);
-    const [mascotasReunidos, setMascotasReunidos] = useState([]);
 
-    useEffect(() => {
-        console.log("store.mascotas:", store.mascotas);
-        const filterMascotas = store.mascotas.filter(mascota => mascota.estado === "REUNIDO");
-        setMascotasReunidos(filterMascotas);
-    }, [store.mascotas]);
+    const filterMascotasReunidas = store.mascotas.filter(mascota => mascota.estado === "REUNIDO");
+
 
     return (
         <div className="container mt-5">
-            <GridMascotas lista={mascotasReunidos}/>
+            <GridMascotas lista={filterMascotasReunidas}/>
           
         </div>
     );

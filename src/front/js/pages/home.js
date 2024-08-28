@@ -25,9 +25,9 @@ export const Home = () => {
 			<Busqueda />
 
 			<div id="explorar">
-				<MascotaCarrousel titulo="Mascotas perdidas" lista={ultimasDocePerdidas} carouselId="carouselPerdidas"/>
+				<MascotaCarrousel titulo="Mascotas perdidas" lista={ultimasDocePerdidas} carouselId="carouselPerdidas" path="/mascotas-perdidas"/>
 
-				<MascotaCarrousel titulo="Mascotas encontradas" lista={ultimasDoceEncontradas} carouselId="carouselEncontradas"/>
+				<MascotaCarrousel titulo="Mascotas encontradas" lista={ultimasDoceEncontradas} carouselId="carouselEncontradas" path="/mascotas-encontradas"/>
 			</div>
 			
 

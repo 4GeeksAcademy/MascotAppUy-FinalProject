@@ -76,6 +76,47 @@
 }
 
 .badge-REUNIDO {
-    background-color: rgb(61, 249, 96);
+    background: green !important;
     color: white;
 }
+
+.badge-overlay {
+    position: absolute;
+    top: 10px; /* Ajusta para la posición vertical */
+    left: 10px; /* Ajusta para la posición horizontal */
+    right: 10px; /* Alinea los elementos a la derecha */
+    z-index: 1; /* Asegura que el badge esté por encima de la imagen */
+    display: flex; /* Flexbox para posicionar elementos horizontalmente */
+    justify-content: space-between; /* Espacio entre badge y fecha */
+    align-items: center;
+}
+
+.badge {
+    padding: 5px 10px;
+    font-size: 0.75rem;
+    border-radius: 5px;
+    color: white;
+}
+
+.fecha {
+    color: white; /* Texto blanco */
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 1); /* Sombra alrededor del texto */
+    margin-left: auto; /* Empuja la fecha al lado derecho */
+}
+
+.card-text small{
+    color: white; /* Color del texto de la fecha */
+    white-space: nowrap; /* No permite el salto de línea */
+    overflow: hidden; /*Oculta el texto que se desborda */
+    text-overflow: ellipsis; /*Muestra "..." al final del texto que se desborda*/
+    white-space: nowrap; /* No permite el salto de línea */
+    max-width: 100%; /* Asegura que el texto no se extienda fuera del contenedor */
+}
+
+.card-text-localidad {
+    font-size: 0.8rem; /* Ajusta el tamaño del texto para que sea más pequeño */
+    text-transform: capitalize; /* Transforma la primera letra de cada palabra a mayúscula */
+    margin: 0; /* Remueve márgenes adicionales */
+    color: white;  /* Asegura que el texto sea visible sobre el fondo */
+}
+
