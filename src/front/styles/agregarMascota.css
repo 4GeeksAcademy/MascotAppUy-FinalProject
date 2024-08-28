@@ -1,0 +1,16 @@
+.agregar-mascota {
+    display: block;
+  
+}
+.enviar{
+    background-color: #FF8A5B;
+    color: white;
+    border: none;
+    font-weight: 500;
+
+}
+
+.enviar:hover {
+    background-color: #EA526F;
+    color: white;
+}
