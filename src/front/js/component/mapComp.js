@@ -112,7 +112,8 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapH
 
 
     return (
-        <div className="d-flex justify-content-center" style={{ height: '100%', width: '100%' }}>
+        <div className="d-flex justify-content-center" style={{ width: '100%' }}>
+            {/* le quite el height 100% porque me daba problemas en agregarMascota  */}
             <div id="map"
               style={{ height: mapHeight, width: mapWidth  }}
               >
