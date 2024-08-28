@@ -75,7 +75,7 @@ const FormLoginComp = () => {
   });
 
   return (
-    <div className="form-container mt-5 w-50">
+    <div className="form-container">
       <h2>INGRESAR</h2>
       <form onSubmit={formik.handleSubmit}>
         
@@ -139,10 +139,9 @@ const FormLoginComp = () => {
           Registrarte
         </button>
         <p>O iniciar sesión con tu cuenta de Google:</p>
-        <div className='mx-auto'>
+        <div className='d-flex justify-content-center'>
           <GoogleSignIn/>
         </div>
-        {/* <div className="g-signin2" data-onsuccess="onSignIn"></div> */}
       </div>
     </div>
   );

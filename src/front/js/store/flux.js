@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://curly-enigma-7vx69q4wg7vcpg96-3001.app.github.dev"
+const URL = "https://cautious-goggles-97x45pp9r473p6x-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -15,7 +15,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 			razas: [],
 			coord_x: null,
 			coord_y: null,
-			searchResults: []
+			searchResults: [],
+			googleLogin: false
 			
 			
 		},
@@ -221,7 +222,8 @@ const getState = ({ getStore, getActions, setStore }) => {
 								"email": values.email,
 								"password": values.password,
 								"nombre": values.nombre,
-								"telefono": values.telefono
+								"telefono": values.telefono,
+								"url_image": values.url_image
 							  })});
 							  let data = await response.json()
 							  if (!response.ok){
@@ -294,12 +296,15 @@ const getState = ({ getStore, getActions, setStore }) => {
 								"nombre": data.user.name,
 								"email": data.user.email,
 								"password": "Dificil@123",
-								"telefono": ""
+								"telefono": "",
+								"url_image": data.user.picture
 							}
 							if (data.exists){
+							setStore({ googleLogin: true });
 							getActions().login(googleUser)
 							return true
 							} else {
+							setStore({ googleLogin: true });
 							getActions().signup(googleUser)
 							return true;
 							}
@@ -322,6 +327,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			logout: async () => {
 				localStorage.removeItem("access_token");
 				setStore({user:null})
+				setStore({ googleLogin: false });
 			},
 
 			editarMascota: async (values, id) =>{

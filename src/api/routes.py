@@ -196,6 +196,7 @@ def signup():
         password=hashed_password, 
         nombre=data["nombre"], 
         telefono=data["telefono"], 
+        url_image=data["url_image"]
     )
     # print(data)
     db.session.add(user)

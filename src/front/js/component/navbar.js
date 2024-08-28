@@ -65,7 +65,7 @@ export const Navbar = () => {
                         
                         <button type="button" className="profile-name btn btn-outline-light mb-1" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         {store.user.url_image ? (
-                            <img src={store.user.url_image} alt="Profile" className="profile-image" />
+                            <img src={store.user.url_image} alt="Profile" className="profile-image-navbar" />
                             ) : (
                             initial
                             )}  
