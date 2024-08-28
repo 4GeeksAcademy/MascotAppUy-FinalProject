@@ -30,16 +30,7 @@
     border: none;
     outline: none;
   }
-  
-  button[type="submit"] {
-    background-color: #20c997;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    margin-top: 10px;
-  }
+
   
   hr {
     margin: 20px 0;
