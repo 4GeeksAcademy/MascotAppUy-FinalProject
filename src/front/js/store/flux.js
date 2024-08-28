@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://cautious-bassoon-qjxwpqw5x9g2ppr-3001.app.github.dev"
+const URL = "https://super-space-zebra-69v6wpjr796r24rw9-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -118,7 +118,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					
 					const response = await fetch(URL+"/api/departamentos");
-					console.log(response)
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
 					}

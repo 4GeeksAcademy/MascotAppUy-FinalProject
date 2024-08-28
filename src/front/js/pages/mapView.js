@@ -16,7 +16,7 @@ const MapView = () => {
                 <p>Hola! Aquí podrás ver un mapa con la ubicacion de las mascotas perdidas y encontradas.</p>
                 <p>Si has visto alguna de estas mascotas, por favor, no dudes en contactarnos para ayudar a reunirlas con sus familias.</p>
             </div>
-            <MapComp mapHeight={"600px"} mapWidth={"800px"} mapZoom={7} />
+            <MapComp mapHeight={"600px"} mapWidth={"100%"} mapZoom={7} />
 
         </div>
     );
