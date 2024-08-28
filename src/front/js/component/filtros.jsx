@@ -79,7 +79,7 @@ const Filtros = (props) => {
                     <h2 className="accordion-header">
                         <div className="d-flex col-12 col-md-6 col-sm-12 mt-5">
                             <button className="accordion-button collapsed w-25 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                <i class="fas fa-filter"></i>Filtros
+                                <i className="fas fa-filter mx-2"></i>Filtros
                             </button>
                         </div>
                     </h2>
