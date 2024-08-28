@@ -15,7 +15,7 @@ export const Navbar = () => {
   return (
 
     
-    <nav className="navbar navbar-expand-md navbar-dark sticky-top">
+    <nav className="navbar navbar-expand-lg navbar-dark sticky-top">
       <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')</style>
       <div className="container-fluid" id="nav">
         
@@ -35,12 +35,12 @@ export const Navbar = () => {
             <ul className="navbar-nav ms-auto">
                 <li className="nav-item d-flex justify-content-end">
                 <Link to="/mascotas-encontradas" className="nav-link">
-                    <button type="button" className="button-no-border btn btn-outline-light">Encontradas</button>
+                    <button type="button" className="button-no-border btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Encontradas</button>
                 </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">
                 <Link to="/mascotas-perdidas" className="nav-link">
-                    <button type="button" className="button-no-border btn btn-outline-light">Perdidas</button>
+                    <button type="button" className="button-no-border btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Perdidas</button>
                 </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">
@@ -50,25 +50,20 @@ export const Navbar = () => {
                 </li>
                 <li className="nav-item d-flex justify-content-end">
                 <Link to="/mapa" className="nav-link">
-                    <button type="button" className="button-no-border btn btn-outline-light">Mapa</button>
-                </Link>
-                </li>
-                <li className="nav-item d-flex justify-content-end">
-                <Link to="/contacto" className="nav-link">
-                    <button type="button" className="button-no-border btn btn-outline-light">Contacto</button>
+                    <button type="button" className="button-no-border btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Mapa</button>
                 </Link>
                 </li>
                 {store.user ? (
                 <>
                     <li className="nav-item d-flex justify-content-end">
                     <Link to="/" className="nav-link text-danger" onClick={actions.logout}>
-                        <button type="button" className="btn btn-outline-light">Cerrar sesión</button>
+                        <button type="button" className="btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Cerrar sesión</button>
                     </Link>
                     </li>
                     <li className="nav-item d-flex justify-content-end">
                     <Link to="/profile" className="nav-link">
                         
-                        <button type="button" className="profile-name btn btn-outline-light mb-1">
+                        <button type="button" className="profile-name btn btn-outline-light mb-1" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                         {store.user.url_image ? (
                             <img src={store.user.url_image} alt="Profile" className="profile-image" />
                             ) : (
@@ -83,14 +78,14 @@ export const Navbar = () => {
                     {location.pathname !== '/form-login' && (
                     <li className="nav-item d-flex justify-content-end">
                         <Link to="/form-login" className="nav-link">
-                        <button type="button" className="boton-ingresar btn btn-outline-light">Ingresar</button>
+                        <button type="button" className="boton-ingresar btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Ingresar</button>
                         </Link>
                     </li>
                     )}
                     {location.pathname !== '/form-signup' && (
                     <li className="nav-item d-flex justify-content-end">
                         <Link to="/form-signup" className="nav-link">
-                        <button type="button" className="boton-registrarse btn btn-outline-light">Registrarse</button>
+                        <button type="button" className="boton-registrarse btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Registrarse</button>
                         </Link>
                     </li>
                     )}

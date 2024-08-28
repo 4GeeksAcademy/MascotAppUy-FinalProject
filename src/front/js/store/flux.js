@@ -118,7 +118,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 				try {
 					
 					const response = await fetch(URL+"/api/departamentos");
-					console.log(response)
 					if(!response.ok) {
 						throw new Error("Status: " + response.status)
 					}

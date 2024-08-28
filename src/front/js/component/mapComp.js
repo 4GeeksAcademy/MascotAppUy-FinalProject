@@ -112,8 +112,10 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapH
 
 
     return (
-        <div className="container d-flex justify-content-center" style={{ height: '100%', width: '100%' }}>
-            <div id="map" style={{ height: mapHeight, width: mapWidth  }}>
+        <div className="d-flex justify-content-center" style={{ height: '100%', width: '100%' }}>
+            <div id="map"
+              style={{ height: mapHeight, width: mapWidth  }}
+              >
                 {/* El mapa se renderizará aquí */}
             </div>
         </div>
