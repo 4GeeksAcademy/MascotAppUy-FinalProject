@@ -52,7 +52,7 @@ export const Busqueda = () => {
                         <button onClick={handlePublicar} className="boton-publicar btn btn-primary w-100">Publicar</button>
                     </div>
                     <div className="col-12 col-md-6">
-                        <Link to="/mascotasAdopcion" className="boton-adoptar btn btn-secondary w-100">Adoptar</Link>
+                        <Link to="/mascotas-adopcion" className="boton-adoptar btn btn-secondary w-100">Adoptar</Link>
                     </div>
                     
                 </div>

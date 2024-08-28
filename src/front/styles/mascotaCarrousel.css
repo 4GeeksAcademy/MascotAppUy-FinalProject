@@ -43,7 +43,7 @@
     place-items: center;
     position: relative;
     display: flex; /* Usamos flex para un alineamiento horizontal */
-    width: 90%;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -75,3 +75,14 @@
 .slider-track:hover {
     animation-play-state: paused;
 }
+
+.boton-vermas {
+    background-color: #040926;
+    color: white;
+}
+
+.boton-vermas:hover {
+    background-color: #EA526F;
+    color: white;
+}
+

@@ -54,8 +54,8 @@ const Layout = () => {
                         <Route element={<PerfilMock />} path="/profile" />
                         <Route path="/mascota/:theid" element={<VistaMascota />} />
 
-                        <Route element={<MascotasAdopcion />} path="/mascotasAdopcion" />
-                        <Route element={<MascotasReunidos />} path="/mascotasReunidos" />
+                        <Route element={<MascotasAdopcion />} path="/mascotas-adopcion" />
+                        <Route element={<MascotasReunidos />} path="/mascotas-reunidos" />
                         
                         {/* <Route element={<MiMascota/>} path="/mismascotas/:theid"/> */}
                         <Route element={<Frecuentes />} path="/preguntas-frecuentes" />
