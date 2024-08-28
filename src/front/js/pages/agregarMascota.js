@@ -192,10 +192,11 @@ export const AgregarMascota = () =>{
         <>
             {store.user ? (
                 <>
-                    <h2 className="mt-5" style={{ textAlign: "center" }}>
-                        Completá el siguiente formulario para agregar una mascota:
-                    </h2>
-                    <div className="container" id="contformagregar">
+                    
+                    <div className="container">
+                        <h2 className="mt-5" style={{ textAlign: "center" }}>
+                            Completá el siguiente formulario para agregar una mascota:
+                        </h2>
                         <form onSubmit={formik.handleSubmit}>
                             <div className="input-group mb-3">
                                 <select 

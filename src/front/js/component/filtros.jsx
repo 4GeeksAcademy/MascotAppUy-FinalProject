@@ -79,7 +79,7 @@ const Filtros = (props) => {
                     <h2 className="accordion-header">
                         <div className="d-flex col-12 col-md-6 col-sm-12 mt-5">
                             <button className="accordion-button collapsed w-25 p-1" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseOne" aria-expanded="false" aria-controls="flush-collapseOne">
-                                Filtros
+                                <i class="fas fa-filter"></i>Filtros
                             </button>
                         </div>
                     </h2>
@@ -176,6 +176,7 @@ const Filtros = (props) => {
                             fecha={mascota.fecha_perdido}
                             especie={mascota.especie_name}
                             localidad={mascota.localidad_name}
+                            departamento={mascota.departamento_name}
                             id={mascota.id}
                             estado={mascota.estado}
                         />

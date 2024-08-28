@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://cautious-bassoon-qjxwpqw5x9g2ppr-3001.app.github.dev"
+const URL = "https://shiny-orbit-jvgxq5xp4j925qx-3001.app.github.dev"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
