@@ -195,7 +195,7 @@ export const AgregarMascota = () =>{
                     <h2 className="mt-5" style={{ textAlign: "center" }}>
                         Completá el siguiente formulario para agregar una mascota:
                     </h2>
-                    <div className="container" id="contformagregar">
+                    <div className="container">
                         <form onSubmit={formik.handleSubmit}>
                             <div className="input-group mb-3">
                                 <select 
@@ -427,11 +427,11 @@ export const AgregarMascota = () =>{
                                     </div>
                                 </>
                             )}
-                            <button type="submit" className="btn btn-primary">
+                            <button type="submit" className="btn btn-primary m-auto w-100">
                             Puedes marcar la localizacion exacta en el mapa antes de ENVIAR
                             </button>
                         </form>
-                        <MapComp selectedDepartmentCoords={selectedDepartmentCoords} selectedLocalityCoords={selectedLocalityCoords} mapHeight="300px" mapWidth="100%" mapZoom={12} />
+                        <MapComp selectedDepartmentCoords={selectedDepartmentCoords} selectedLocalityCoords={selectedLocalityCoords} mapHeight={"300px"} mapWidth={"100%"} mapZoom={6} />
                     </div>
                 </>
             ) : (

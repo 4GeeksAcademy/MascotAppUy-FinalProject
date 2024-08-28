@@ -81,7 +81,7 @@ const MascotaPost = (props) => {
               </div>  
              </div>
              <div className="col-md-3" style={{ minHeight: "200px", display: "flex", alignItems: "center" }}>
-                <MapComp mapHeight="100%" mapWidth="100%" mapZoom={12} mascotaCoords={{ coord_x: props.coord_x, coord_y: props.coord_y }} />
+                <MapComp mapHeight={"100%"} mapWidth={"100%"} mapZoom={12} mascotaCoords={{ coord_x: props.coord_x, coord_y: props.coord_y }} />
             </div>
 
         </div>
