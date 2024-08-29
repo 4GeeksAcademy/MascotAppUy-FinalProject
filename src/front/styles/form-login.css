@@ -74,14 +74,14 @@
 
 }
 
-.divider-line {
+.divider-line-login {
     border: none;
     border-top: 1px solid black;
     width: 40%;
     /* Ajusta el ancho de las líneas según sea necesario */
 }
 
-.divider-text {
+.divider-text-login {
     font-size: 12px;
     color: black;
    

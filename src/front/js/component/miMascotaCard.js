@@ -84,7 +84,7 @@ export const MiMascotaCard = (props) => {
                                                     <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                                 </div>
                                                 <div className="modal-body">
-                                                    Desde el equipo de MascotAppUY te recomendamos no elimonar el post de tu mascota, sino editar el estado de esta para: adopción o reunido.
+                                                    Desde el equipo de MascotAppUY te recomendamos no eliminar el post de tu mascota, sino editar el estado de esta para: adopción o reunido.
                                                 </div>
                                                 <div className="modal-footer">
                                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
