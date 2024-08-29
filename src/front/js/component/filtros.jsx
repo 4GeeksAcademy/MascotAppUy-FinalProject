@@ -42,6 +42,7 @@ const Filtros = (props) => {
     // Actualizar opciones de filtros y aplicar filtros
     useEffect(() => {
         const mascotas = props.lista;
+    
 
         // Aplicar filtros
         let mascotasFiltradas = aplicarFiltros(mascotas);
