@@ -122,7 +122,7 @@ const FormLoginComp = () => {
             <p className='fs-8 fw-light mt-3'> <Link className="links" to="">¿Olvidaste tu contraseña?</Link></p>
           </div>
           
-          <button className="w-100 my-3" type="submit" style={{
+          <button className="w-100 my-3 btn-lg" type="submit" style={{
             backgroundColor: '#FF8A5B',
             border: 'none',
             color: '#FFFFFF',
