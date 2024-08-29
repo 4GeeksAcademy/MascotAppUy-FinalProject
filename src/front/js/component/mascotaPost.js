@@ -40,7 +40,7 @@ const MascotaPost = (props) => {
             <p><strong>Fecha de perdido: </strong> {props.fechaPerdido}</p>
             <p><strong>Descripcion: </strong> {props.descripcion}</p>
             <p><strong>Se perdió en: </strong> {props.localidad}, {props.departamento}</p>
-            <button data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ border: "none", backgroundColor: "#FF8A5B", padding: "5px 10px", width: "40%", margin: "0 auto", borderRadius: "20px", color: "#040926", fontWeight: "500" }}>Contactar al dueño</button>
+            <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ border: "none", backgroundColor: "#FF8A5B", margin: "0 auto", borderRadius: "20px", color: "#040926", fontWeight: "500" }}>Contactar al dueño</button>
             <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div className="modal-dialog">
                     <div className="modal-content">
@@ -67,7 +67,7 @@ const MascotaPost = (props) => {
                 <p><strong>Fecha de registro: </strong> {props.fechaReg}</p>
                 <p><strong>Descripción: </strong>: {props.descripcion}</p>
                 <p><strong>Fue encontrado en: </strong> {props.localidad}, {props.departamento}</p>
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ border: "none", backgroundColor: "#FF8A5B", padding: "5px 10px", width: "40%", margin: "0 auto", margin: "0 auto", borderRadius: "20px", color: "#040926", fontWeight: "500" }}>Soy el dueño</button>
+                <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ border: "none", backgroundColor: "#FF8A5B", margin: "0 auto", borderRadius: "20px", color: "#040926", fontWeight: "500" }}>Soy el dueño</button>
                 <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">                    
                     <div className="modal-dialog">
                         <div className="modal-content">
@@ -94,7 +94,7 @@ const MascotaPost = (props) => {
                 <p><strong>Edad aproximada: </strong> {props.edad}</p>
                 <p><strong>Descripcion: </strong> {props.descripcion}</p>
                 <p><strong>Se encuentra en: </strong> {props.localidad}, {props.departamento}</p>
-                <button data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ border: "none", backgroundColor: "#FF8A5B", padding: "5px 10px", width: "40%", margin: "0 auto", borderRadius: "20px", color: "#040926", fontWeight: "500" }}>Quiero adoptar!</button>
+                <button className="btn btn-primary" data-bs-toggle="modal" data-bs-target="#exampleModal" style={{ border: "none", backgroundColor: "#FF8A5B", margin: "0 auto", borderRadius: "20px", color: "#040926", fontWeight: "500" }}>Quiero adoptar!</button>
                 <div className="modal fade" id="exampleModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                     <div className="modal-dialog">
                         <div className="modal-content">

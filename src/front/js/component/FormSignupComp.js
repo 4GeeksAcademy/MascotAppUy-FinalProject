@@ -71,13 +71,13 @@ const SignUpComp = () => {
       if (signup) {
         Toast.fire({
           icon: "success",
-          title: "Signed up successfully"
+          title: "Registrado con éxito"
         });
         navigate("/")
       }else{
         Toast.fire({
           icon: "error",
-          title: "Email address already exists",
+          title: "El email ya está registrado",
           showConfirmButton: false,
         });
         resetForm();
