@@ -142,6 +142,9 @@ const PerfilMock = () => {
 
     const handleDeleteMascota = (mascotaId) => {
         actions.deleteMascota(mascotaId)
+        const modal = document.getElementById('eliminarMascotaModal');
+        const modalInstance = bootstrap.Modal.getInstance(modal);
+        modalInstance.hide(); // Cierra el modal
     }
     //************************ */º
 

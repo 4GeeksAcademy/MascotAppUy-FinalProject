@@ -77,7 +77,7 @@ const SignUpComp = () => {
       }else{
         Toast.fire({
           icon: "error",
-          title: "El email ya existe",
+          title: "El email ya está registrado",
           showConfirmButton: false,
         });
         resetForm();
