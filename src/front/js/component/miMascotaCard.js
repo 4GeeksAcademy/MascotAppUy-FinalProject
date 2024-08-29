@@ -71,13 +71,29 @@ export const MiMascotaCard = (props) => {
                                 >
                                     <i className="fas fa-edit"></i>
                                 </button>
-                                <button 
-                                    type="button" 
-                                    className="btn btn-outline-dark btn-sm ms-2" 
-                                    onClick={props.deleteMascota}
-                                >
+                                <button type="button" className="btn btn-outline-dark btn-sm ms-2" data-bs-toggle="modal" data-bs-target="#eliminarMascotaModal">
                                     <i className="fas fa-trash-alt"></i>
                                 </button>
+
+                                {/* modal eliminar mascota */}
+                                <div className="modal fade" id="eliminarMascotaModal" tabIndex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                        <div className="modal-dialog modal-dialog-centered">
+                                            <div className="modal-content">
+                                                <div className="modal-header">
+                                                    <h5 className="modal-title" id="exampleModalLabel">Deseas eliminar esta mascota?</h5>
+                                                    <button type="button" className="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                                </div>
+                                                <div className="modal-body">
+                                                    Desde el equipo de MascotAppUY te recomendamos no elimonar el post de tu mascota, sino editar el estado de esta para: adopción o reunido.
+                                                </div>
+                                                <div className="modal-footer">
+                                                    <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                                                    <button type="button" className="btn btn-danger" onClick={props.deleteMascota}>Eliminar mascota</button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
                             </div>
                             <div className="d-flex justify-content-center">
                                 <div className="card-mascota mb-3" style={{ maxWidth: "300px", minWidth: "100%", objectFit: "cover"}}>

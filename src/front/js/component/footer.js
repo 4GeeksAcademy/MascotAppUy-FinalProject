@@ -9,6 +9,7 @@ export const Footer = () => (
       			<li className="nav-item"><Link to="/" className="nav-link px-2 text-muted">Inicio</Link></li>
       			<li className="nav-item"><Link to="/mascotas-perdidas" className="nav-link px-2 text-muted">Perdidas</Link></li>
       			<li className="nav-item"><Link to="/mascotas-encontradas" className="nav-link px-2 text-muted">Encontradas</Link></li>
+				<li className="nav-item"><Link to="/mascotas-reunidos" className="nav-link px-2 text-muted">Reunidas</Link></li>
       			<li className="nav-item"><Link to="/mapa" className="nav-link px-2 text-muted">Mapa</Link></li>
       			<li className="nav-item"><Link to="/preguntas-frecuentes" className="nav-link px-2 text-muted">FAQ</Link></li>
 				<li className="nav-item"><Link to="/contacto" className="nav-link px-2 text-muted">Contacto</Link></li>

@@ -2,6 +2,7 @@ import React, { useContext, useEffect, useState } from "react";
 import { useParams, useLocation, useNavigate } from "react-router-dom";
 import MascotaPost from "../component/mascotaPost";
 import { Context } from "../store/appContext";
+import logoOscuro from "../../img/logo-mascotapp_oscuro.gif"
 
 
 
@@ -24,7 +25,7 @@ import { Context } from "../store/appContext";
     }, [store.mascotas, theid]); // Agregar store.mascotas y theid a las dependencias
 
     if (!mascota) {
-        return <div>Cargando ...</div>;
+        return <div className="container" style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}><img src={logoOscuro} style={{ maxWidth: "50px", maxHeight: "50px" }} alt="Logo"></img></div>;
     }
 
     const handleBack = () => {
