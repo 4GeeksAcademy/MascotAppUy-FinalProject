@@ -87,7 +87,7 @@ const SignUpComp = () => {
   
 
   return (
-    <div className="form-container mt-5 w-50">
+    <div className="form-container mt-5">
       <h2>REGISTRATE</h2>
       <form onSubmit={formik.handleSubmit}>
 
