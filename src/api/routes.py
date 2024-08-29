@@ -180,6 +180,7 @@ def valid_token():
 @api.route("/signup", methods=["POST"])
 def signup():
     data = request.get_json()
+    print(data)
 
     if not data.get("email") or not data.get("password"):
         return jsonify({"error": "Neither email nor password can be blank"}), 404

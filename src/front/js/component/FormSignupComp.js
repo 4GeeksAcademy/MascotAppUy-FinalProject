@@ -63,7 +63,8 @@ const SignUpComp = () => {
       email: '',
       password: '',
       confirmPassword: '',
-      telefono: ''
+      telefono: '',
+      url_image: ''
     },
     validate,
     onSubmit: async (values, { resetForm }) => {
