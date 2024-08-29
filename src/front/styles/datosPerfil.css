@@ -43,3 +43,7 @@
 .profile-image-container:hover .edit-icon {
   opacity: 1; /* Aparece en hover */
 }
+.login-form
+  {
+    min-width: 50%;
+  }

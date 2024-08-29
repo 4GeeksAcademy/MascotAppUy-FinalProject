@@ -7,7 +7,7 @@ import DatosPerfil from "../component/datosPerfil";
 
 const PerfilMock = () => {
 
-    
+    //
     const { store, actions } = useContext(Context);
     const [edit, setEdit] = useState(false);
     const [editPassword, setEditPassword] = useState(false)
@@ -477,8 +477,9 @@ const PerfilMock = () => {
                 </div>
             
             ) : editMascota ? (
-                <div className="container" id="contformagregar">
-                        <form onSubmit={formikMascota.handleSubmit}>
+                <div className="container w-50" id="contformagregar">
+                    <div className="d-flex justify-content-center my-5">
+                        <form className="form-perfil" onSubmit={formikMascota.handleSubmit}>
 
                             <div className="input-group mb-3">
                                 <select 
@@ -693,11 +694,12 @@ const PerfilMock = () => {
                                 </>
                             )}
                            
-                            <button type="submit" id="botonEnviar">Enviar</button>
+                            <button className="enviar btn w-100" type="submit" id="botonEnviar">Enviar</button>
                         </form>
+                        </div>
                                 <button 
                                     type="button" 
-                                    className="btn btn-outline-dark btn-sm mt-4" 
+                                    className="btn btn-sm mt-4" 
                                     onClick={()=> {setEditMascota(null)}}
                                 >
                                     <i className="fa-solid fa-arrow-left-long"></i>
