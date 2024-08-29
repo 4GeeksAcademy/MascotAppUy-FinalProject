@@ -6,6 +6,8 @@ import "../../styles/formularios.css"
 import Swal from 'sweetalert2'
 import { MapComp } from "../component/mapComp.js";
 import "../../styles/agregarMascota.css"
+import imagenDefault from "../../img/logo-mascotapp_oscuro.gif"
+
 
 
 const validate = values => {
@@ -153,9 +155,7 @@ export const AgregarMascota = () =>{
             }
 
             // Subir la imagen
-            const urlImg = formData ? await actions.uploadImage(formData) : null;
-            console.log(urlImg);
-            
+            const urlImg = formData ? await actions.uploadImage(formData) : imagenDefault;
 
             const formattedValues = {
                 ...values,

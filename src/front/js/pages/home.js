@@ -7,7 +7,6 @@ import MascotaCarrousel from "../component/mascotaCarrousel.jsx";
 
 export const Home = () => {
 	const { store, actions } = useContext(Context);
-	console.log(store.user);
 	
 	//Muestra últimas 12 mascotas perdidas posteadas
 	const ultimasDocePerdidas = store.mascotas
