@@ -4,11 +4,19 @@
 }
 
 .rounded-icon.perdido {
-    border: 2px solid red;
+    border: 2.5px solid red;
 }
 
 .rounded-icon.encontrado {
-    border: 2px solid green;
+    border: 2.5px solid green;
+}
+
+.rounded-icon.adopcion {
+    border: 2.5px solid rgb(238, 255, 0);
+}
+
+.rounded-icon.reunido {
+    border: 2.5px solid rgb(0, 238, 255);
 }
 
 body{
@@ -19,3 +27,34 @@ body{
     height: 300px; /* Asegúrate de que el contenedor tenga un tamaño fijo */
     width: 100%; /* Asegúrate de que el mapa ocupe el espacio disponible */
   }
+
+/* CSS Global */
+.popup-content {
+    text-align: center;
+    max-width: 80vw; /* Ajusta según sea necesario */
+    max-height: 50vh; /* Ajusta según sea necesario */
+    overflow-y: auto;
+}
+
+.popup-large-screen {
+    display: block; /* Visible por defecto */
+}
+
+.popup-small-screen {
+    display: block; /* Mostrar el botón siempre */
+}
+
+/* Media Query para pantallas pequeñas */
+@media (max-width: 600px) {
+    .popup-large-screen {
+        display: none; /* Ocultar en pantallas pequeñas */
+    }
+}
+
+.popup-content img {
+    max-width: 100%; /* Asegura que la imagen no exceda el ancho del popup */
+    max-height: 75px; /* Limita la altura máxima de la imagen */
+    width: auto; /* Ajusta el ancho automáticamente para mantener la proporción */
+    height: auto; /* Ajusta la altura automáticamente para mantener la proporción */
+    object-fit: contain; /* Ajusta la imagen sin recortarla */
+}

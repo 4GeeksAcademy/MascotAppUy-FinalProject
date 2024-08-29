@@ -1,7 +1,7 @@
 [
  {
    "Especie": "Gato",
-   "Raza": "Cruza"
+   "Raza": " Cruza/Indefinido"
  },
  {
    "Especie": "Gato",
@@ -257,7 +257,7 @@
  },
  {
    "Especie": "Perro",
-   "Raza": "Cruza"
+   "Raza": " Cruza/Indefinido"
  },
  {
    "Especie": "Perro",
