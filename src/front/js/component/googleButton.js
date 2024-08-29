@@ -1,6 +1,7 @@
 import React, { useEffect, useContext } from 'react';
 import { Context } from '../store/appContext';
 import { useNavigate } from 'react-router-dom'; 
+import "../../styles/form-login.css"
 
 const GoogleSignIn = () => {
     const { actions } = useContext(Context);
@@ -17,7 +18,12 @@ const GoogleSignIn = () => {
         /* Render the Google Sign-In button */
         window.google.accounts.id.renderButton(
             document.getElementById('buttonDiv'),
-            { theme: 'outline', size: 'large' } // customization options
+            { 
+            theme: 'outline', 
+            size: 'large',
+            text: 'continue_with', // Opciones: 'signin_with', 'signup_with', 'continue_with', 'signin'
+            shape: 'rectangular'  
+        } // customization options
         );
 
         /* Optional: Automatically prompt the user to sign in */
@@ -34,7 +40,17 @@ const GoogleSignIn = () => {
 
     };
 
-    return <div id="buttonDiv"></div>;
+    return (
+        <div className="google-btn mb-5" id="buttonDiv">
+            <button 
+                type="button" 
+                className="btn btn-custom" 
+            >
+            </button>
+        </div>
+
+        // <div className="google-btn" id="buttonDiv"><button type="button"className="btn btn-outline-secondary"></button></div>
+    );
 };
 
 export default GoogleSignIn;
