@@ -66,13 +66,13 @@ const PerfilMock = () => {
           if (newData) {
             Toast.fire({
               icon: "success",
-              title: "User data edited successfully"
+              title: "Usuario editado correctamente"
             });
             setEdit(false);
           } else {
             Toast.fire({
               icon: "error",
-              title: "Failed to update data",
+              title: "Error al editar usuario",
               showConfirmButton: false,
             });
           }
@@ -106,13 +106,13 @@ const PerfilMock = () => {
             if (success) {
                 Toast.fire({
                     icon: 'success',
-                    title: 'Password updated successfully'
+                    title: 'Contraseña cambiada'
                 });
                 setEditPassword(false);
             } else {
                 Toast.fire({
                     icon: 'error',
-                    title: 'Failed to update password'
+                    title: 'Error al cambiar contraseña'
                 });
             }
         }
@@ -251,13 +251,13 @@ const PerfilMock = () => {
             if (added) {
                 Toast.fire({
                 icon: "success",
-                title: "Edited successfully"
+                title: "Mascota editada correctamente"
                 });
                 
             }else {
                 Toast.fire({
                 icon: "error",
-                title: "Something went wrong",
+                title: "Error al editar mascota",
                 showConfirmButton: false,
                 });
             }

@@ -171,13 +171,13 @@ export const AgregarMascota = () =>{
             if (added) {
                 Toast.fire({
                 icon: "success",
-                title: "Added successfully"
+                title: "Mascota agregada correctamente"
                 });
                 nav("/")
             }else {
                 Toast.fire({
                 icon: "error",
-                title: "Something went wrong",
+                title: "Error al agregar mascota",
                 showConfirmButton: false,
                 });
             }

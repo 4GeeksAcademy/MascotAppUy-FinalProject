@@ -59,13 +59,13 @@ const FormLoginComp = () => {
       if (logged) {
         Toast.fire({
           icon: "success",
-          title: "Logged in successfully"
+          title: "Login exitoso"
         });
         navigate("/")
       }else {
         Toast.fire({
           icon: "error",
-          title: "Wrong email or password",
+          title: "Email o contraseña incorrecta",
           showConfirmButton: false,
         });
         resetForm();
