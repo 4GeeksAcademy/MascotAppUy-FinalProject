@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-import imagenDefault from "/src/front/img/logo mactopapp oscuro.png"
+import imagenDefault from "../../img/logo-mascotapp_oscuro.gif"
 
 export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapHeight, mapWidth, mapZoom, mascotaCoords }) => {
     const { store, actions } = useContext(Context);
@@ -80,7 +80,7 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapH
                     <div class="popup-content">
                         <div class="popup-large-screen">
                             <b>${mascota.nombre}</b><br/>
-                            <img src="${mascota.url_image}" alt="${mascota.nombre}" style="width: 100px; height: auto; margin: 7px;"><br/>
+                            <img src="${mascota.url_image || imagenDefault}" alt="${mascota.nombre}" style="width: 100px; height: auto; margin: 7px;"><br/>
                             <span>Es un ${mascota.especie_name} ${mascota.estado}</span><br/>
                             <span>en ${mascota.localidad_name}</span><br/>
                             <span>el día ${mascota.fecha_perdido}</span><br/>

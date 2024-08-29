@@ -140,9 +140,7 @@ const FormLoginComp = () => {
         <div className="login-form">
 
           <div className="divider-container m-0">
-            <hr className="divider-line" />
-              <span className="divider-text fs-6 fw-lighter">O también puedes</span>
-            <hr className="divider-line" />
+            <hr className="divider-line-login" /><span className="divider-text-login fs-6 fw-lighter">O también puedes</span><hr className="divider-line-login" />
           </div>
 
           <div className='my-3'>

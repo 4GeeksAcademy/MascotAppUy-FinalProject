@@ -237,6 +237,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 							  }
 							  return false
 					} catch (error) {
+						console.log(values);
 						console.log(error);
 						return false
 					}

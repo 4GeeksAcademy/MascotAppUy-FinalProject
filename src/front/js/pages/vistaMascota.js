@@ -25,7 +25,7 @@ import logoOscuro from "../../img/logo-mascotapp_oscuro.gif"
     }, [store.mascotas, theid]); // Agregar store.mascotas y theid a las dependencias
 
     if (!mascota) {
-        return <div className="container" style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}><img src={logoOscuro} style={{ maxWidth: "50px", maxHeight: "50px" }} alt="Logo"></img></div>;
+        return <div className="container" style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}><img src={logoOscuro} style={{ maxWidth: "70px", maxHeight: "70px" }} alt="Logo"></img></div>;
     }
 
     const handleBack = () => {
