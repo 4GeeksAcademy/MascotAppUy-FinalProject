@@ -4,18 +4,24 @@ input, select, textarea{
     justify-content: start;
   }
 
-.form-container {
+/* .form-container {
   max-width: 450px;
   margin: 40px auto;
-  padding: 20px;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-}
+  /* padding: 20px; */
+  /* border: 1px solid #ccc; */
+  /* border-radius: 8px; */
+/* } */
 
-form {
+/* form {
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  align-items: flex-center;
+} */
+
+.contact {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-center;
 }
 
 label{

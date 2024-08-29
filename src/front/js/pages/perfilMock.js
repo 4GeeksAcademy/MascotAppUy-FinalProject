@@ -12,7 +12,6 @@ const PerfilMock = () => {
     const [edit, setEdit] = useState(false);
     const [editPassword, setEditPassword] = useState(false)
     
-
     // ********* FORMIK PARA EDITAR DATOS GENERALES**********
     const validate = values => {
         const errors = {};
@@ -364,7 +363,7 @@ const PerfilMock = () => {
                                 <div className="error-msg ms-2">{formik.errors.nombre}</div>
                             ) : null}
                         </div>
-                        <div className="input-group d-flex mb-4">
+                        {!store.googleLogin && <div className="input-group d-flex mb-4">
                             <span className='px-2'><i className="fas fa-envelope"></i></span>
                             <input
                                 id="email"
@@ -379,7 +378,7 @@ const PerfilMock = () => {
                             {formik.touched.email && formik.errors.email ? (
                                 <div className='error-msg ms-2'>{formik.errors.email}</div>
                             ) : null}
-                        </div>
+                        </div>}
                         <div className="input-group d-flex mb-4">
                             <span className='px-2'><i className="fa-solid fa-phone"></i></span>
                             <input

@@ -10,10 +10,7 @@ const Contacto = () =>{
 
     const enviarForm = (e) => {
         e.preventDefault();
-     
-
         setNombre('');
-      
         setEmail('');
         setTelefono('');
         setMotivo('');
@@ -24,7 +21,7 @@ const Contacto = () =>{
         <div className="form-container">
         <h2>Contacto</h2>
         <form onSubmit={enviarForm}>
-          <div className="form-group">
+          <div className="contact" >
             <label htmlFor="nombre">Nombre:</label>
             <input
               type="text"
@@ -36,7 +33,7 @@ const Contacto = () =>{
           </div>
   
   
-          <div className="form-group">
+          <div className="contact">
             <label htmlFor="email">Email:</label>
             <input
               type="email"
@@ -47,7 +44,7 @@ const Contacto = () =>{
             />
           </div>
   
-          <div className="form-group">
+          <div className="contact">
             <label htmlFor="telefono">Teléfono:</label>
             <input
               type="tel"
@@ -58,7 +55,7 @@ const Contacto = () =>{
             />
           </div>
   
-          <div className="form-group">
+          <div className="contact">
             <label htmlFor="motivo">Motivo de Contacto:</label>
             <select
               id="motivo"
@@ -66,29 +63,15 @@ const Contacto = () =>{
               onChange={(e) => setMotivo(e.target.value)}
               required
             >
-              <option value="">Seleccione una opción</option>
-              <option value="consulta">Consulta</option>
-              <option value="sugerencia">Sugerencia</option>
-              <option value="reclamo">Reclamo</option>
+              <option value="" className="text-center">Seleccione una opción</option>
+              <option value="consulta" className="text-center">Consulta</option>
+              <option value="sugerencia" className="text-center">Sugerencia</option>
+              <option value="reclamo" className="text-center">Reclamo</option>
             </select>
           </div>
-  
-          {/* <div className="form-group">
-            <label htmlFor="mensaje" cl id="mensaje">Mensaje:</label>
-            <textarea
-              id="mensaje"
-              value={mensaje}
-              onChange={(e) => setMensaje(e.target.value)}
-              required
-            ></textarea>
-          {/* </div> */}
-
-          <div className="form-floating">
-            <textarea className="formControl" placeholder="Mensaje" id="mensaje" value={mensaje} onChange={(e) => setMensaje(e.target.value)} style={{width: "400px"}}></textarea>
+            <textarea className="contacto text-center" placeholder="Mensaje" id="mensaje" value={mensaje} onChange={(e) => setMensaje(e.target.value)} style={{width: "100%"}}></textarea>
             <label htmlFor="#mensaje"></label>
-          </div>
-   
-          <div className="form-group">
+          <div className="contact">
             <button type="submit">Enviar</button>
           </div>
         </form>

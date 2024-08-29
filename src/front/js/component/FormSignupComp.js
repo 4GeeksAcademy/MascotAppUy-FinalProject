@@ -171,7 +171,7 @@ const SignUpComp = () => {
          <div className='error-msg ms-2'>{formik.errors.telefono}</div>
        ) : null}
         </div>
-        
+        <div className="alternative-login" style={{ textAlign: 'center' }}>
         <button type="submit" style={{
           backgroundColor: '#FF8A5B',
           border: 'none',
@@ -182,6 +182,7 @@ const SignUpComp = () => {
         }}>
           Registrarse
         </button>
+        </div>
       </form>
       <hr />
       <div className="alternative-login" style={{ textAlign: 'center' }}>
@@ -200,22 +201,6 @@ const SignUpComp = () => {
         >
           Ingresar
         </button>
-        {/* Puedes descomentar y ajustar esto si quieres permitir el inicio de sesión con Google */}
-        {/* <button className="google-btn" style={{
-          backgroundColor: '#4285F4',
-          color: '#FFFFFF',
-          padding: '10px 20px',
-          borderRadius: '5px',
-          cursor: 'pointer',
-          border: 'none',
-          display: 'flex',
-          alignItems: 'center',
-          justifyContent: 'center',
-          margin: '0 auto',
-          marginBottom: '10px'
-        }}>
-          <i className="fab fa-google" style={{ marginRight: '10px' }}></i> Sign in with Google
-        </button> */}
       </div>
     </div>
   );

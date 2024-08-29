@@ -104,7 +104,7 @@ const DatosPerfil = (props) => {
                                     <h6>Email: {store.user.email}</h6>
                                     <h6>Nombre: {store.user.nombre}</h6>
                                     <h6>Telefono: {store.user.telefono}</h6>
-                                    <h6>Contraseña: ****** </h6>
+                                    {!store.googleLogin && <h6>Contraseña: ****** </h6>}
 
                                     <hr className="my-5"/>
                                     
@@ -113,10 +113,10 @@ const DatosPerfil = (props) => {
                                         <i className="fas fa-edit me-2"></i>Editar datos</a>
                                     </div>
                                     
-                                   <div className="mt-4">
+                                   {!store.googleLogin && <div className="mt-4">
                                         <a href="#" className="btn p-0" role="button" data-bs-toggle="button" onClick={props.editPassword}>
                                         <i className="fas fa-edit me-2"></i>Cambiar contraseña</a>
-                                   </div>
+                                   </div>}
                                     
                                     {/* eliminar usuario */}
                                     <div className="my-4">
