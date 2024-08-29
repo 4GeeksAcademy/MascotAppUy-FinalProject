@@ -45,7 +45,7 @@ export const Navbar = () => {
                 </li>
                 <li className="nav-item d-flex justify-content-end">
                 <Link to="/mascotas-reunidos" className="nav-link">
-                    <button type="button" className="button-no-border btn btn-outline-light">Reunidas</button>
+                    <button type="button" className="button-no-border btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Reunidas</button>
                 </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">

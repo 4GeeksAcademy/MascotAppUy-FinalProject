@@ -22,7 +22,7 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapH
             actions.setCoords(lng, lat);
             L.popup()
                     .setLatLng(e.latlng)
-                    .setContent("Ubicación seleccionada. Pulsa el boton de ENVIAR arriba para publicar.")
+                    .setContent("Ubicación seleccionada. Pulsa el boton ENVIAR para publicar.")
                     .openOn(mapRef.current);
             // console.log("Ubicación seleccionada:", e.latlng);
         };
@@ -77,17 +77,21 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapH
                     })
                 })
                 .bindPopup(`
-                        <div style="text-align: center;">
+                    <div class="popup-content">
+                        <div class="popup-large-screen">
                             <b>${mascota.nombre}</b><br/>
-                            <img src="${mascota.url_image}" alt="${mascota.nombre}" style="width:100px;height:auto; margin: 7px;"><br/>
-                            Es un ${mascota.especie_name} ${mascota.estado}<br/>
-                            en ${mascota.localidad_name}<br/>
-                            el día ${mascota.fecha_perdido}<br/>
+                            <img src="${mascota.url_image}" alt="${mascota.nombre}" style="width: 100px; height: auto; margin: 7px;"><br/>
+                            <span>Es un ${mascota.especie_name} ${mascota.estado}</span><br/>
+                            <span>en ${mascota.localidad_name}</span><br/>
+                            <span>el día ${mascota.fecha_perdido}</span><br/>
+                        </div>
+                        <div class="popup-small-screen">
                             <a href="/mascota/${mascota.id}" class="nav-link">
-                            <button type="button" style="background-color: #007bff; color: white; border: none; padding: 1px 5px; border-radius: 5px;">Más datos</button>
+                                <button type="button" style="background-color: #007bff; color: white; border: none; padding: 1px 5px; border-radius: 5px;">Más datos</button>
                             </a>
                         </div>
-                    `);
+                    </div>
+                `);
                 markers.addLayer(marker);
 
             }
