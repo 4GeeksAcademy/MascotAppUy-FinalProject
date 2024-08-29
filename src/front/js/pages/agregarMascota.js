@@ -195,7 +195,7 @@ export const AgregarMascota = () =>{
                 <>
                     
                     <div className="container">
-                        <h2 className="mt-5" style={{ textAlign: "center" }}>
+                        <h2 className="mt-5 text-center">
                             Completa el formulario para agregar una mascota
                         </h2>
                         
@@ -217,8 +217,7 @@ export const AgregarMascota = () =>{
                                         <option value="">Estado</option>    
                                         <option value="PERDIDO">PERDIDO</option>
                                         <option value="ENCONTRADO">ENCONTRADO</option>
-                                        <option value="ADOPCION">ADOPCIÓN</option>
-                                        <option value="REUNIDO">REUNIDO</option>  
+                                        <option value="ADOPCION">ADOPCIÓN</option> 
                                     </select>
                                     {formik.touched.estado && formik.errors.estado ? (
                                         <div className="error-msg ms-2">{formik.errors.estado}</div>

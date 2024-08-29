@@ -1,12 +1,12 @@
 import React, { useState, useContext } from "react";
 import { Context } from "../store/appContext";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2'
-import "../../styles/formularios.css"
+import "../../styles/formSignupComp.css"
 
 const SignUpComp = () => {
-
+//
   const validate = values => {
     const errors = {};
   
@@ -87,121 +87,112 @@ const SignUpComp = () => {
   
 
   return (
-    <div className="form-container mt-5 w-50">
-      <h2>REGISTRATE</h2>
-      <form onSubmit={formik.handleSubmit}>
+    <div className="container">
+      
 
-      <div className="input-group d-flex mb-4">
-          <span className='px-2'><i className="fas fa-user"></i></span>
-          <input
-            id="nombre"
-            name="nombre"
-            className="w-75 ps-2"
-            type="text"
-            placeholder="Nombre"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.nombre}
-          />
-          {formik.touched.nombre && formik.errors.nombre ? (
-         <div className="error-msg ms-2">{formik.errors.nombre}</div>
-       ) : null}
-        </div>
-      <div className="input-group d-flex mb-4">
-          <span className='px-2'><i className="fas fa-envelope"></i></span>
-          <input
-            id="email"
-            name="email"
-            className="w-75 ps-2"
-            type="email"
-            placeholder="Email"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.email}
-          />
-          {formik.touched.email && formik.errors.email ? (
-         <div className='error-msg ms-2'>{formik.errors.email}</div>
-       ) : null}
-        </div>
-        <div className="input-group d-flex mb-4">
-          <span className='px-2'><i className="fas fa-lock"></i></span>
-          <input
-            id="password"
-            name="password"
-            className="w-75 ps-2"
-            type="password"
-            placeholder="Contraseña"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.password}
-          />
-          {formik.touched.password && formik.errors.password ? (
-         <div className='error-msg ms-2'>{formik.errors.password}</div>
-       ) : null}
-        </div>
-        <div className="input-group d-flex mb-4">
-          <span className='px-2'><i className="fas fa-lock"></i></span>
-          <input
-            id="confirmPassword"
-            name="confirmPassword"
-            className="w-75 ps-2"
-            type="password"
-            placeholder="Confirmar contraseña"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.confirmPassword}
-          />
-          {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
-         <div className='error-msg ms-2'>{formik.errors.confirmPassword}</div>
-       ) : null}
-        </div>
-        <div className="input-group d-flex mb-4">
-          <span className='px-2'><i className="fa-solid fa-phone"></i></span>
-          <input
-            id="telefono"
-            name="telefono"
-            className="w-75 ps-2"
-            type="text"
-            placeholder="Teléfono/Celular (Opcional)"
-            onChange={formik.handleChange}
-            onBlur={formik.handleBlur}
-            value={formik.values.telefono}
-          />
-          {formik.touched.telefono && formik.errors.telefono ? (
-         <div className='error-msg ms-2'>{formik.errors.telefono}</div>
-       ) : null}
-        </div>
-        <div className="alternative-login" style={{ textAlign: 'center' }}>
-        <button type="submit" style={{
-          backgroundColor: '#FF8A5B',
-          border: 'none',
-          color: '#FFFFFF',
-          padding: '10px 20px',
-          borderRadius: '5px',
-          cursor: 'pointer'
-        }}>
-          Registrarse
-        </button>
-        </div>
-      </form>
-      <hr />
-      <div className="alternative-login" style={{ textAlign: 'center' }}>
-        <p>Si ya tienes una cuenta:</p>
-        <button
-          type="button"
-          onClick={() => navigate("/form-login")}
-          style={{
-            backgroundColor: '#FF8A5B',
-            border: 'none',
-            color: '#FFFFFF',
-            padding: '10px 20px',
-            borderRadius: '5px',
-            cursor: 'pointer'
-          }}
-        >
-          Ingresar
-        </button>
+      <div className="d-flex justify-content-center">
+        <form className="signup-form mt-5 mb-5" onSubmit={formik.handleSubmit}>
+          <h2 className="mt-5 text-center fw-bold">REGISTRATE</h2>
+          <div className="text-center">
+                <p className='fw-light' style={{fontSize: "15px"}}>¿Tienes una cuenta? <Link className="links" to='/form-login'>Ingresa</Link></p>
+          </div>
+
+
+          <div className="input-group input-group-sm d-flex mb-4 mt-5">
+            <span className='px-2'><i className="fas fa-user"></i></span>
+            <input
+              id="nombre"
+              name="nombre"
+              className="w-75 ps-2"
+              type="text"
+              placeholder="Nombre"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.nombre}
+            />
+            {formik.touched.nombre && formik.errors.nombre ? (
+          <div className="error-msg ms-2">{formik.errors.nombre}</div>
+          ) : null}
+          </div>
+        <div className="input-group input-group-sm d-flex mb-4">
+            <span className='px-2'><i className="fas fa-envelope"></i></span>
+            <input
+              id="email"
+              name="email"
+              className="w-75 ps-2"
+              type="email"
+              placeholder="Email"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.email}
+            />
+            {formik.touched.email && formik.errors.email ? (
+          <div className='error-msg ms-2'>{formik.errors.email}</div>
+        ) : null}
+          </div>
+          <div className="input-group input-group-sm d-flex mb-4">
+            <span className='px-2'><i className="fas fa-lock"></i></span>
+            <input
+              id="password"
+              name="password"
+              className="w-75 ps-2"
+              type="password"
+              placeholder="Contraseña"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.password}
+            />
+            {formik.touched.password && formik.errors.password ? (
+          <div className='error-msg ms-2'>{formik.errors.password}</div>
+        ) : null}
+          </div>
+          <div className="input-group input-group-sm d-flex mb-4">
+            <span className='px-2'><i className="fas fa-lock"></i></span>
+            <input
+              id="confirmPassword"
+              name="confirmPassword"
+              className="w-75 ps-2"
+              type="password"
+              placeholder="Confirmar contraseña"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.confirmPassword}
+            />
+            {formik.touched.confirmPassword && formik.errors.confirmPassword ? (
+          <div className='error-msg ms-2'>{formik.errors.confirmPassword}</div>
+        ) : null}
+          </div>
+          <div className="input-group input-group-sm d-flex mb-4">
+            <span className='px-2'><i className="fa-solid fa-phone"></i></span>
+            <input
+              id="telefono"
+              name="telefono"
+              className="w-75 ps-2"
+              type="text"
+              placeholder="Teléfono/Celular (Opcional)"
+              onChange={formik.handleChange}
+              onBlur={formik.handleBlur}
+              value={formik.values.telefono}
+            />
+            {formik.touched.telefono && formik.errors.telefono ? (
+          <div className='error-msg ms-2'>{formik.errors.telefono}</div>
+        ) : null}
+          </div>
+          <div className="alternative-login" style={{ textAlign: 'center' }}>
+            <button className="btn-lg" type="submit" style={{
+              backgroundColor: '#FF8A5B',
+              border: 'none',
+              color: '#FFFFFF',
+              padding: '10px 20px',
+              borderRadius: '5px',
+              cursor: 'pointer'
+            }}>
+              Registrarse
+            </button>
+          </div>
+        </form>
       </div>
+
     </div>
   );
 };

@@ -1,5 +1,5 @@
-.form-container {
-    max-width: 400px;
+/* .form-container {
+    max-width: 700px;
     margin: 40px auto;
     padding: 20px;
     border: 1px solid #ccc;
@@ -10,8 +10,12 @@
   
   .form-container h2 {
     margin-bottom: 20px;
+  } */
+  .login-form
+  {
+    min-width: 50%;
   }
-  
+
   .input-group {
     display: flex;
     align-items: center;
@@ -62,4 +66,37 @@
   .apple-btn {
     color: #000000;
   }
+
+.divider-container {
+
+  align-items: center;
+  justify-content: center;
+
+}
+
+.divider-line {
+    border: none;
+    border-top: 1px solid black;
+    width: 40%;
+    /* Ajusta el ancho de las líneas según sea necesario */
+}
+
+.divider-text {
+    font-size: 12px;
+    color: black;
+   
+    white-space: nowrap; /* Evita que el texto se rompa en varias líneas */
+    padding: 0 10px; /* Espacio alrededor del texto para hacerlo más visible */
+}
+
+.links{
+  color: black; 
+  font-size: 15px;
+}
+.links:hover{
+  color: #FF8A5B;
+}
+.btn-custom{
+  font-family: "Montserrat", sans-serif;
+}
   

@@ -1,0 +1,11 @@
+.signup-form {
+    min-width: 50%;
+}
+
+.links{
+    color: black; 
+    font-size: 15px;
+  }
+.links:hover{
+    color: #FF8A5B;
+}
