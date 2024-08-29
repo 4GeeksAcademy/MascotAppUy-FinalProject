@@ -6,7 +6,7 @@ import 'leaflet/dist/leaflet.css';
 import 'leaflet.markercluster';
 import 'leaflet.markercluster/dist/MarkerCluster.css';
 import 'leaflet.markercluster/dist/MarkerCluster.Default.css';
-import imagenDefault from "/workspaces/MascotAppUy-FinalProject/src/front/img/logo-mascotapp_oscuro.gif"
+import imagenDefault from "/src/front/img/logo mactopapp oscuro.png"
 
 export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapHeight, mapWidth, mapZoom, mascotaCoords }) => {
     const { store, actions } = useContext(Context);
