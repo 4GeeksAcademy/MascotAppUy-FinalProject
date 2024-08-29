@@ -14,3 +14,9 @@ flask seed-departments
 flask seed-localities
 
 flask seed-species-and-breeds
+
+flask seed-users
+
+flask hash-passwords
+
+flask seed-mascotas
