@@ -13,7 +13,7 @@ const ResultadosBusqueda = () => {
 
     return (
         <div className="container">
-            <div className="mt-5">
+            <div className="my-5 pb-5">
                 <InputBuscar/>
             </div>
             

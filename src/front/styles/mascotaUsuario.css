@@ -40,3 +40,12 @@
 .card-mascota {
     border-radius: 0.375rem; /* Ajusta el borde de la tarjeta de mascota */
 }
+
+.borrar {
+    background-color: #ff6325;
+    color: white;
+}
+
+.borar:hover {
+    background-color: #040926;
+}

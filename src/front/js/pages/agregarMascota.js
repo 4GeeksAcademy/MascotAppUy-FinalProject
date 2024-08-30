@@ -13,7 +13,7 @@ import imagenDefault from "../../img/logo-mascotapp_oscuro.gif"
 const validate = values => {
     const errors = {};
     const today = new Date();
-
+//
     today.setHours(0, 0, 0, 0); // Establecer la hora a medianoche
     const todayDateString = today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
 
