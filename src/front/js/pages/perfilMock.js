@@ -520,7 +520,8 @@ const PerfilMock = () => {
                                 <option value="">Estado</option>    
                                 <option value="PERDIDO">PERDIDO</option>
                                 <option value="ENCONTRADO">ENCONTRADO</option>
-                                <option value="ADOPCION">ADOPCIÓN</option> 
+                                <option value="ADOPCION">ADOPCIÓN</option>
+                                <option value="REUNIDO">REUNIDO</option>  
                             </select>
                             {formikMascota.touched.estado && formikMascota.errors.estado ? (
                                 <div className="error-msg ms-2">{formikMascota.errors.estado}</div>
