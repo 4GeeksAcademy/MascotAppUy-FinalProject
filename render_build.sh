@@ -9,14 +9,14 @@ pipenv install
 
 pipenv run upgrade
 
-flask seed-departments
+# flask seed-departments
 
-flask seed-localities
+# flask seed-localities
 
-flask seed-species-and-breeds
+# flask seed-species-and-breeds
 
-flask seed-users
+# flask seed-users
 
-flask hash-passwords
+# flask hash-passwords
 
 # flask seed-mascotas
