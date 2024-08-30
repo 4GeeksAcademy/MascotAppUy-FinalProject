@@ -19,4 +19,4 @@ flask seed-users
 
 flask hash-passwords
 
-flask seed-mascotas
+# flask seed-mascotas
