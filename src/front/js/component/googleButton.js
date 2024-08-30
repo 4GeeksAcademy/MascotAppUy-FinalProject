@@ -58,17 +58,8 @@ const GoogleSignIn = () => {
     };
 
     return (
-<<<<<<< HEAD
         <div className="w-100 google-btn mb-5 d-flex justify-content-center" id="buttonDiv">
             <button></button>
-=======
-        <div className="google-btn mb-5 pb-5" id="buttonDiv">
-            <button 
-                type="button" 
-                className="btn btn-custom" 
-            >
-            </button>
->>>>>>> 43529e0ee559e821597af654879ac9bda170ac34
         </div>
     );
 };
