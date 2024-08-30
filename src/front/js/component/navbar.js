@@ -57,8 +57,8 @@ export const Navbar = () => {
                 </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">
-                <Link to="/mascotas-reunidos" className="nav-link">
-                    <button type="button" className="button-no-border btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Reunidas</button>
+                <Link to="/mascotas-adopcion" className="nav-link">
+                    <button type="button" className="button-no-border btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">En adopción</button>
                 </Link>
                 </li>
                 <li className="nav-item d-flex justify-content-end">
@@ -66,6 +66,12 @@ export const Navbar = () => {
                     <button type="button" className="button-no-border btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Mapa</button>
                 </Link>
                 </li>
+                <li className="nav-item d-flex justify-content-end">
+                <Link to="/mascotas-reunidos" className="nav-link">
+                    <button type="button" className="button-no-border btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Reunidas</button>
+                </Link>
+                </li>
+                
                 {store.user ? (
                 <>
                     <li className="nav-item d-flex justify-content-end">

@@ -47,7 +47,7 @@ const MascotaPost = (props) => {
                         <div className="modal-body">
                             <p><strong>Nombre: </strong> {props.nombreUser}</p>
                             <p><strong>Email: </strong> {props.email}</p>
-                            {props.telefono && (<p><strong>Teléfono: </strong> {props.telefono}<button style={{backgroundColor: 'white', border: 'none'}}><a href={`https://wa.me/598${props.telefono}?text=Hola%20vi%20tu%20publicacion%20en%20MascotApp`} target="blank"><i class="fa-brands fa-whatsapp" style={{color: 'green'}}></i></a></button></p>)}
+                            {props.telefono && (<p><strong>Teléfono: </strong> {props.telefono}<button style={{backgroundColor: 'white', border: 'none'}}><a href={`https://wa.me/598${props.telefono}?text=Hola%20vi%20tu%20publicacion%20en%20MascotApp`} target="blank"><i className="fa-brands fa-whatsapp" style={{color: 'green'}}></i></a></button></p>)}
                         </div>
                     </div>
                 </div>
@@ -74,7 +74,7 @@ const MascotaPost = (props) => {
                             <div className="modal-body">
                                 <p><strong>Nombre: </strong> {props.nombreUser}</p>
                                 <p><strong>Email: </strong> {props.email}</p>
-                                {props.telefono && (<p><strong>Teléfono: </strong> {props.telefono}<button style={{backgroundColor: 'white', border: 'none'}}><a href={`https://wa.me/598${props.telefono}?text=Hola%20vi%20tu%20publicacion%20en%20MascotApp`} target="blank"><i class="fa-brands fa-whatsapp" style={{color: 'green'}}></i></a></button></p>)}
+                                {props.telefono && (<p><strong>Teléfono: </strong> {props.telefono}<button style={{backgroundColor: 'white', border: 'none'}}><a href={`https://wa.me/598${props.telefono}?text=Hola%20vi%20tu%20publicacion%20en%20MascotApp`} target="blank"><i className="fa-brands fa-whatsapp" style={{color: 'green'}}></i></a></button></p>)}
                             </div>
                         </div>
                     </div>
@@ -101,7 +101,7 @@ const MascotaPost = (props) => {
                             <div className="modal-body">
                                 <p><strong>Nombre: </strong> {props.nombreUser}</p>
                                 <p><strong>Email: </strong> {props.email}</p>
-                                {props.telefono && (<p><strong>Teléfono: </strong> {props.telefono}<button style={{backgroundColor: 'white', border: 'none'}}><a href={`https://wa.me/598${props.telefono}?text=Hola%20vi%20tu%20publicacion%20en%20MascotApp`} target="blank"><i class="fa-brands fa-whatsapp" style={{color: 'green'}}></i></a></button></p>)}
+                                {props.telefono && (<p><strong>Teléfono: </strong> {props.telefono}<button style={{backgroundColor: 'white', border: 'none'}}><a href={`https://wa.me/598${props.telefono}?text=Hola%20vi%20tu%20publicacion%20en%20MascotApp`} target="blank"><i className="fa-brands fa-whatsapp" style={{color: 'green'}}></i></a></button></p>)}
                             </div>
                         </div>
                     </div>

@@ -88,7 +88,7 @@ export const MiMascotaCard = (props) => {
                                                 </div>
                                                 <div className="modal-footer">
                                                     <button type="button" className="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
-                                                    <button type="button" className="btn btn-danger" onClick={props.deleteMascota}>Eliminar mascota</button>
+                                                    <button type="button" className="btn borrar" onClick={props.deleteMascota}>Eliminar mascota</button>
                                                 </div>
                                             </div>
                                         </div>

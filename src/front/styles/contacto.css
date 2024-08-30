@@ -1,33 +1,10 @@
-input, select, textarea{
-    margin-top: 10px;
-    margin-bottom: 10px;
-    justify-content: start;
-  }
 
-/* .form-container {
-  max-width: 450px;
-  margin: 40px auto;
-  /* padding: 20px; */
-  /* border: 1px solid #ccc; */
-  /* border-radius: 8px; */
-/* } */
-
-/* form {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-center;
-} */
-
-.contact {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-center;
+.contacto-form {
+  min-width: 50%;
+ 
+  
 }
 
-label{
-  margin-right: 10px;
+.contact-title{
+  display: block;
 }
-
-/* #mensaje{
-  margin-bottom: 20px;
-} */

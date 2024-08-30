@@ -16,13 +16,13 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapH
     let onMapClick = null;
 
     // Dependiendo de la ruta, define la función para manejar clics en el mapa
-    if (location.pathname === '/agregarmascota') {
+    if (location.pathname === '/agregarmascota' || location.pathname === '/profile') {
         onMapClick = (e) => {
             const { lat, lng } = e.latlng;
             actions.setCoords(lng, lat);
             L.popup()
                     .setLatLng(e.latlng)
-                    .setContent("Ubicación seleccionada. Pulsa el boton ENVIAR para publicar.")
+                    .setContent("Aquí")
                     .openOn(mapRef.current);
         };
     }

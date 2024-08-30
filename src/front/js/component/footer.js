@@ -4,7 +4,7 @@ import { Link } from "react-router-dom";
 export const Footer = () => (
 	<div className="container-fluid" style={{backgroundColor: "#040926", color: "#E0E1DD"}}>
 		<style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')</style>
-  		<footer className="py-3 my-4" style={{fontFamily: "Montserrat"}}>
+  		<footer className="py-3 my-4 sticky-bottom" style={{fontFamily: "Montserrat", backgroundColor: "#040926", color: "#E0E1DD"}}>
     		<ul className="nav justify-content-center pb-3 mb-3">
       			<li className="nav-item"><Link to="/" className="nav-link px-2 text-muted">Inicio</Link></li>
       			<li className="nav-item"><Link to="/mascotas-perdidas" className="nav-link px-2 text-muted">Perdidas</Link></li>

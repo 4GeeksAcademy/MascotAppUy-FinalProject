@@ -2,9 +2,8 @@ import React, {useState} from "react";
 import "../../styles/contacto.css"
 const Contacto = () =>{
     const [nombre, setNombre] = useState('');
-  
+  //
     const [email, setEmail] = useState('');
-    const [telefono, setTelefono] = useState('');
     const [motivo, setMotivo] = useState('');
     const [mensaje, setMensaje] = useState('');
 
@@ -12,69 +11,97 @@ const Contacto = () =>{
         e.preventDefault();
         setNombre('');
         setEmail('');
-        setTelefono('');
+      
         setMotivo('');
         setMensaje('');
     }
 
     return(
-        <div className="form-container">
-        <h2>Contacto</h2>
-        <form onSubmit={enviarForm}>
-          <div className="contact" >
-            <label htmlFor="nombre">Nombre:</label>
-            <input
-              type="text"
-              id="nombre"
-              value={nombre}
-              onChange={(e) => setNombre(e.target.value)}
-              required
-            />
+        <div className="container">
+        
+
+        <div className="my-5 py-5">
+        
+        <div className="row g-1">
+          <div className="col-md-6">
+            <h3>¿Quienes somos?</h3>
+            <p className="mt-5">Somos una plataforma dedicada a conectar mascotas perdidas y encontradas con sus hogares, 
+              así como también a encontrar hogares para mascotas en adopción.</p>
+
+            <p>Nuestra misión es facilitar la reunificación de mascotas perdidas con sus familias y ayudar a aquellas que buscan un hogar amoroso a encontrar el lugar perfecto. 
+              Creemos en la importancia de cada vida animal y en el impacto positivo que un hogar amoroso puede tener en la vida de una mascota.</p>
+
+            <p>Si deseas más información, tienes alguna pregunta, o simplemente quieres ponerte en contacto con nosotros, no dudes en hacerlo.</p>
           </div>
-  
-  
-          <div className="contact">
-            <label htmlFor="email">Email:</label>
-            <input
-              type="email"
-              id="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-            />
+
+
+          <div className="col-md-6 d-flex justify-content-center">
+            
+              <form className="contacto-form w-75" onSubmit={enviarForm}>
+              <h2 className="text-center mb-5">Contacto</h2>
+                <div className="input-group input-group-sm" >
+                  <input
+                    
+                    type="text"
+                    id="nombre"
+                    placeholder="Nombre"
+                    value={nombre}
+                    onChange={(e) => setNombre(e.target.value)}
+                    required
+                  />
+                </div>
+      
+      
+              <div className="input-group input-group-sm">
+                <input
+                  type="email"
+                  id="email"
+                  placeholder="Email"
+                  value={email}
+                  onChange={(e) => setEmail(e.target.value)}
+                  required
+                />
+              </div>
+
+              <div className="input-group input-group-sm">
+                <select 
+                  className="form-select border-0" 
+                  id="motivo"
+                  value={motivo}
+                  onChange={(e) => setMotivo(e.target.value)}
+                  required
+                  >
+                  <option value="">Seleccione una opción</option>
+                  <option value="consulta">Consulta</option>
+                  <option value="sugerencia">Sugerencia</option>
+                  <option value="reclamo">Reclamo</option>
+                </select>
+                                      
+              </div>
+      
+              <div className="input-group input-group-sm">
+                <textarea
+                  className="border-0" 
+                  placeholder="Mensaje" 
+                  id="mensaje" 
+                  value={mensaje} 
+                  onChange={(e) => setMensaje(e.target.value)} 
+                  style={{width: "100%"}}
+                ></textarea>
+              </div>
+      
+            
+                <button type="submit" className="btn enviar w-100 mt-2 mb-5">Enviar</button>
+              
+            </form>
+
           </div>
-  
-          <div className="contact">
-            <label htmlFor="telefono">Teléfono:</label>
-            <input
-              type="tel"
-              id="telefono"
-              value={telefono}
-              onChange={(e) => setTelefono(e.target.value)}
-              required
-            />
-          </div>
-  
-          <div className="contact">
-            <label htmlFor="motivo">Motivo de Contacto:</label>
-            <select
-              id="motivo"
-              value={motivo}
-              onChange={(e) => setMotivo(e.target.value)}
-              required
-            >
-              <option value="" className="text-center">Seleccione una opción</option>
-              <option value="consulta" className="text-center">Consulta</option>
-              <option value="sugerencia" className="text-center">Sugerencia</option>
-              <option value="reclamo" className="text-center">Reclamo</option>
-            </select>
-          </div>
-            <textarea className="contacto text-center" placeholder="Mensaje" id="mensaje" value={mensaje} onChange={(e) => setMensaje(e.target.value)} style={{width: "100%"}}></textarea>
-            <label htmlFor="#mensaje"></label>
-          <div className="contact">
-            <button type="submit">Enviar</button>
-          </div>
-        </form>
+
+          
+
+        </div>
+        
+        </div>
       </div>
              
     )
