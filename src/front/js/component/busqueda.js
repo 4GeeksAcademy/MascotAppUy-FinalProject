@@ -33,7 +33,7 @@ export const Busqueda = () => {
 
 
     return (
-        <div className="busqueda-container row py-5 py-md-5 py-lg-5">
+        <div className="busqueda row py-5 py-md-5 py-lg-5">
             <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')</style>
             <div className="col-lg-6 col-md-8 mx-auto text-center">
                 <h1 className="mb-5 pb-5">Bienvenidos a MascotApp</h1>
