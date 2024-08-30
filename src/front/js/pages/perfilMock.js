@@ -352,11 +352,22 @@ const PerfilMock = () => {
     }, [store.user.mascotas]);
 
     return (
-        <div className="container">
+        <div className="container mb-5">
             {edit ? (
-                <div className="form-container mt-5 w-50">
-                    <h2>Editar datos</h2>
-                    <form onSubmit={formik.handleSubmit}>
+                <>
+                <div className="back-boton">
+                <button 
+                    type="button" 
+                    className="btn btn-outline-dark btn-sm mt-4" 
+                    onClick={()=> {setEdit(false)}}
+                    >
+                        <i className="fa-solid fa-arrow-left-long"></i>
+                    </button>
+                </div>
+                <div className="d-flex justify-content-center mt-5 pb-5">
+                
+                    <form className="editar-datos mb-5 pb-5" onSubmit={formik.handleSubmit}>
+                    <h2 className="mb-5">Editar datos</h2>
                         <div className="input-group d-flex mb-4">
                             <span className='px-2'><i className="fas fa-user"></i></span>
                             <input
@@ -406,7 +417,9 @@ const PerfilMock = () => {
                             ) : null}
                         </div>
                         
-                        <button type="submit" style={{
+                        <button
+                        className="mb-5"
+                         type="submit" style={{
                             backgroundColor: '#FF8A5B',
                             border: 'none',
                             color: '#FFFFFF',
@@ -417,20 +430,24 @@ const PerfilMock = () => {
                             Enviar
                         </button>
                     </form>
-                    <button 
-                                    type="button" 
-                                    className="btn btn-outline-dark btn-sm mt-4" 
-                                    onClick={()=> {setEdit(false)}}
-                                >
-                                    <i className="fa-solid fa-arrow-left-long"></i>
-                                </button>
+                    
                 </div>
+                
+                </>
             ) : editPassword ? (
-
-                <div className="form-container mt-5 w-50">
-                    <h2>Cambiar contraseña</h2>
-                    <form onSubmit={formikPassword.handleSubmit}>
-        
+                <>
+                <div className="back-boton mb-5">
+                <button 
+                    type="button" 
+                    className="btn btn-outline-dark btn-sm mt-4" 
+                    onClick={()=> {setEditPassword(false)}}
+                >
+                    <i className="fa-solid fa-arrow-left-long"></i>
+                </button>
+                </div>
+                <div className="d-flex justify-content-center mt-5 pb-5"> 
+                    <form className="editar-datos mb-5 pb-5" onSubmit={formikPassword.handleSubmit}>
+                        <h2 className="mb-5">Cambiar contraseña</h2>
                         <div className="input-group d-flex mb-4">
                             <span className='px-2'><i className="fas fa-key"></i></span>
                             <input
@@ -463,7 +480,9 @@ const PerfilMock = () => {
                                 <div className="error-msg ms-2">{formikPassword.errors.confirmPassword}</div>
                             ) : null}
                         </div>
-                        <button type="submit" style={{
+                        <button 
+                            className="mb-5"
+                            type="submit" style={{
                             backgroundColor: '#FF8A5B',
                             border: 'none',
                             color: '#FFFFFF',
@@ -474,15 +493,9 @@ const PerfilMock = () => {
                             Cambiar contraseña
                         </button>
                     </form>
-                    <button 
-                                    type="button" 
-                                    className="btn btn-outline-dark btn-sm mt-4" 
-                                    onClick={()=> {setEditPassword(false)}}
-                                >
-                                    <i className="fa-solid fa-arrow-left-long"></i>
-                                </button>
+                    
                 </div>
-            
+                </>
             ) : editMascota ? (
             <div className="container">
                 <h2 className="mt-5 text-center">
