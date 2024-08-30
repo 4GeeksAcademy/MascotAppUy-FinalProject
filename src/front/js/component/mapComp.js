@@ -24,7 +24,6 @@ export const MapComp = ({ selectedDepartmentCoords, selectedLocalityCoords, mapH
                     .setLatLng(e.latlng)
                     .setContent("Aquí")
                     .openOn(mapRef.current);
-            // console.log("Ubicación seleccionada:", e.latlng);
         };
     }
 

@@ -5,12 +5,8 @@ import "../../styles/mascotaPost.css";
 import { MapComp } from "../component/mapComp.js";
 
 
-
 const MascotaPost = (props) => {
     const { store } = useContext(Context);
-
-    
-  
 
     return(
         <>
@@ -119,21 +115,15 @@ const MascotaPost = (props) => {
             <h5 className="text-center">Gracias al esfuerzo de todos {props.nombre}, se reencontró con su familia</h5></div>
             </div>) : ""}
 
-                
             
         {props.estado === 'PERDIDO' || props.estado === 'ENCONTRADO' || props.estado === 'ADOPCION' ? 
         (<div className="col-md-3" style={{ minHeight: "200px", display: "flex" }}>
             <MapComp mapHeight="100%" mapWidth="100%" mapZoom={12} mascotaCoords={{ coord_x: props.coord_x, coord_y: props.coord_y }} />
         </div>):("")}
-        
-
         </div>
         </div>
     </div>
-     
      </>
-
-
     )
 
 }

@@ -1,7 +1,7 @@
 //Si hiciste git pull o cambiaste de codespace, hay que cambiar el link y crear nuevas mascotas
 
 // const URL = process.env.BACKEND_URL
-const URL = "https://super-tribble-45rxw7xpv4jh57p7-3001.app.github.dev"
+const URL = "https://solid-dollop-7v7qwxgr45w7hpq46-3001.app.github.dev/"
 
 
 const getState = ({ getStore, getActions, setStore }) => {
@@ -29,8 +29,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
-					
-					// console.log(data.results)
 					setStore({ mascotas: data.results });
 					
 					return true;
@@ -100,10 +98,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
-					
-					// const nombresEspecies = data.results.map(especie => especie.name);
-					
-					// console.log(nombresEspecies)
         			setStore({ especies: data.results });
 					
 					return true;
@@ -123,12 +117,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
-					// console.log(data.results);
-					
-
-					// const nombresDepartamentos = data.results.map(departamento => departamento.name);
-					// console.log(nombresDepartamentos);
-					
         			setStore({ departamentos: data.results });
 					
 					return true;
@@ -148,11 +136,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
-					// console.log(data.results);
-					
-					// const nombresLocalidades = data.results.map(localidad => localidad.name);
-					// console.log(nombresLocalidades);
-					
         			setStore({ localidades: data.results });
 					
 					return true;
@@ -172,10 +155,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 						throw new Error("Status: " + response.status)
 					}
 					const data = await response.json();
-					
-					// const nombresRazas = data.results.map(raza => raza.name);
-					// console.log(data.results);
-					
         			setStore({ razas: data.results });
 					
 					return true;
@@ -237,7 +216,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 							  }
 							  return false
 					} catch (error) {
-						console.log(values);
 						console.log(error);
 						return false
 					}
@@ -260,8 +238,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 					let data = await response.json();
 					if (response.ok){
 						setStore({user:data})
-						// console.log(data);
-						
 						return true
 					}
 
@@ -329,6 +305,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 				localStorage.removeItem("access_token");
 				setStore({user:null})
 				setStore({ googleLogin: false });
+				return true
 			},
 
 			editarMascota: async (values, id) =>{
@@ -502,7 +479,6 @@ const getState = ({ getStore, getActions, setStore }) => {
 
 			setCoords: (coord_x, coord_y) => {
 				if (coord_x === undefined || coord_y === undefined) {
-					console.log('No hay coordenadas');
 					return false; // Devuelve false si no hay coordenadas
 				}
 
@@ -514,9 +490,7 @@ const getState = ({ getStore, getActions, setStore }) => {
 			buscar: async (query) => {
 				try {
 					const response = await fetch(URL + `/api/buscar?q=${encodeURIComponent(query)}`);
-					console.log("Response Status:", response.status); // Agrega esto para ver el estado
 					const data = await response.json();
-					console.log("Response Data:", data); // Agrega esto para ver los datos
 					if (!response.ok) {
 						throw new Error('Error en la solicitud');
 					}

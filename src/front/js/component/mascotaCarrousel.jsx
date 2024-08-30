@@ -7,8 +7,6 @@ import { Link } from "react-router-dom";
 const MascotaCarrousel = (props) => {
     const doceMasRecientes = props.lista;
     
-
-
     return (
         <div className="container">
             <div className="mt-5 d-flex justify-content-between align-items-center">

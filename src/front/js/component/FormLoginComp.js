@@ -8,7 +8,6 @@ import Swal from 'sweetalert2';
 import GoogleSignIn from './googleButton';
 
 const validate = values => { 
-  //
   const errors = {};
 
   if (!values.email) {
@@ -38,14 +37,12 @@ const Toast = Swal.mixin({
   }
 });
 
-
 //DECLARACION DEL COMPONENTE
 const FormLoginComp = () => {
   //ESTADOS DEL COMPONENTE
   const { store, actions } = useContext(Context)
 
   const navigate = useNavigate();
-
 
   const formik = useFormik({
     initialValues: {
@@ -76,8 +73,6 @@ const FormLoginComp = () => {
 
   return (
     <div className="container">
-      
-
       <div className="d-flex justify-content-center">
         <form className="login-form mt-5" onSubmit={formik.handleSubmit}>
           <h2 className="mt-5 text-center fw-bold">Ingresar</h2>
@@ -138,17 +133,12 @@ const FormLoginComp = () => {
       
       <div className="d-flex justify-content-center">
         <div className="login-form">
-
           <div className="divider-container m-0">
             <hr className="divider-line-login" /><span className="divider-text-login fs-6 fw-lighter">O también puedes</span><hr className="divider-line-login" />
           </div>
-
-          <div className='my-3'>
+          <div className='w-100 my-3'>
             <GoogleSignIn/>
           </div>
-          
-          
-          
         </div>
       </div>  
     </div>
