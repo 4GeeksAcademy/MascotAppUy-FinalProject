@@ -7,13 +7,8 @@ import GridMascotas from "../component/gridMascotas.jsx";
 const AllMascotasPerdidas = () => {
     const { store } = useContext(Context)
     
-    // console.log(store.mascotas)
-    
-    
     //filtro para mostrar únicamente mascotas con estado: Perdido
     const mascotasPerdidas = store.mascotas.filter(mascota => mascota.estado == 'PERDIDO');
-    // console.log(mascotasPerdidas);
-    
     
     return (
         

@@ -228,7 +228,6 @@ const PerfilMock = () => {
         },
         validate: validateMascota,
         onSubmit: async (values) => {
-            console.log(values);
 
             let formData = null;
             let urlImg = values.url_image; // Inicialmente conserva la imagen existente
@@ -247,8 +246,6 @@ const PerfilMock = () => {
                 coord_x: store.coord_x,
                 coord_y: store.coord_y
             };
-          
-            console.log(formattedValues);
             
             const added = await actions.editarMascota(formattedValues, editMascota);
             if (added) {
@@ -288,7 +285,6 @@ const PerfilMock = () => {
                 raza.especie_id === parseInt(especieSelected)
             );
             setFilteredRazas(filterRaza)
-            // console.log("Raza Filtradas:"+ filterRaza);
             
         } else {
             setFilteredRazas(store.razas)

@@ -4,6 +4,21 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import logoClaro from "../../img/logoClaro2.png"
 import logoClaroGif from "../../img/logoClaro2.gif"
 import "../../styles/navbar.css"
+import Swal from 'sweetalert2';
+
+const Toast = Swal.mixin({
+    toast: true,
+    position: "top",
+    showConfirmButton: false,
+    timer: 2000,
+    timerProgressBar: false,
+    didOpen: (toast) => {
+      toast.onmouseenter = Swal.stopTimer;
+      toast.onmouseleave = Swal.resumeTimer;
+    }
+  });
+
+ 
 
 export const Navbar = () => {
   const nav = useNavigate();
@@ -13,8 +28,6 @@ export const Navbar = () => {
   const initial = userName ? userName.charAt(0).toUpperCase() : '';
 
   return (
-
-    
     <nav className="navbar navbar-expand-lg navbar-dark sticky-top">
       <style>@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap')</style>
       <div className="container-fluid" id="nav">
@@ -56,7 +69,7 @@ export const Navbar = () => {
                 {store.user ? (
                 <>
                     <li className="nav-item d-flex justify-content-end">
-                    <Link to="/" className="nav-link text-danger" onClick={actions.logout}>
+                    <Link to="/" className="nav-link text-danger" onClick={() => {actions.logout();Toast.fire({icon: "success",title: "Sesión cerrada exitosamente"});nav("/");}}>
                         <button type="button" className="btn btn-outline-light" data-bs-toggle="collapse" data-bs-target="#navbarNav">Cerrar sesión</button>
                     </Link>
                     </li>

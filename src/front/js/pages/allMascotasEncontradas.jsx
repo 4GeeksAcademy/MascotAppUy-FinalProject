@@ -6,7 +6,6 @@ import GridMascotas from "../component/gridMascotas.jsx";
 const AllMascotasEncontradas = () => {
 
     const { store } = useContext(Context)
-    // console.log(store.mascotas)
     
     //filtro para mostrar únicamente mascotas con estado: Encontrado
     const mascotasEncontradas = store.mascotas.filter(mascota => mascota.estado == 'ENCONTRADO');

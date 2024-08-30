@@ -4,6 +4,8 @@ import { useNavigate, Link } from "react-router-dom";
 import { useFormik } from 'formik';
 import Swal from 'sweetalert2'
 import "../../styles/formSignupComp.css"
+import GoogleSignIn from './googleButton';
+
 
 const SignUpComp = () => {
 //
@@ -193,6 +195,17 @@ const SignUpComp = () => {
           </div>
         </form>
       </div>
+      <div className="d-flex justify-content-center">
+        <div className="login-form">
+          <div className="divider-container m-0">
+            <hr className="divider-line-login" /><span className="divider-text-login fs-6 fw-lighter">O también puedes</span><hr className="divider-line-login" />
+          </div>
+          <div className='w-100 my-3'>
+            <GoogleSignIn/>
+          </div>
+        </div>
+      </div>  
+
 
     </div>
   );
