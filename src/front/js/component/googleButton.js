@@ -41,7 +41,7 @@ const GoogleSignIn = () => {
     };
 
     return (
-        <div className="google-btn mb-5" id="buttonDiv">
+        <div className="google-btn mb-5 pb-5" id="buttonDiv">
             <button 
                 type="button" 
                 className="btn btn-custom" 

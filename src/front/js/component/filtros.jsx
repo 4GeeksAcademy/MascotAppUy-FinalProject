@@ -170,7 +170,7 @@ const Filtros = (props) => {
 
             <div className="row gx-5">
                 {filteredArray.map((mascota, index) => (
-                    <div key={index} className="col-md-6 col-sm-12 col-lg-4 col-xxl-3 mb-4 mt-4">
+                    <div key={index} className="col-md-6 col-sm-12 col-lg-4 col-xxl-3 mb-5 mt-4 pb-5">
                         <MascotaCard
                             imgSrc={mascota.url_image}
                             nombre={mascota.nombre}

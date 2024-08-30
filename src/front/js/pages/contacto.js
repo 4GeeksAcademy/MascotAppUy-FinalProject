@@ -20,21 +20,25 @@ const Contacto = () =>{
         <div className="container">
         
 
-        <div className="mt-5">
+        <div className="my-5 py-5">
         
         <div className="row g-1">
           <div className="col-md-6">
             <h3>¿Quienes somos?</h3>
-            <p>Somos un equipo dedicado a conectar a los dueños de mascotas
-              con sus mascotas perdidas o encontradas.
-              Nuestra misión es hacer que cada encuentro sea significativo y</p>
+            <p className="mt-5">Somos una plataforma dedicada a conectar mascotas perdidas y encontradas con sus hogares, 
+              así como también a encontrar hogares para mascotas en adopción.</p>
+
+            <p>Nuestra misión es facilitar la reunificación de mascotas perdidas con sus familias y ayudar a aquellas que buscan un hogar amoroso a encontrar el lugar perfecto. 
+              Creemos en la importancia de cada vida animal y en el impacto positivo que un hogar amoroso puede tener en la vida de una mascota.</p>
+
+            <p>Si deseas más información, tienes alguna pregunta, o simplemente quieres ponerte en contacto con nosotros, no dudes en hacerlo.</p>
           </div>
 
 
           <div className="col-md-6 d-flex justify-content-center">
             
               <form className="contacto-form w-75" onSubmit={enviarForm}>
-              <h2 className="text-center mb-4">Contacto</h2>
+              <h2 className="text-center mb-5">Contacto</h2>
                 <div className="input-group input-group-sm" >
                   <input
                     
@@ -87,7 +91,7 @@ const Contacto = () =>{
               </div>
       
             
-                <button type="submit" className="btn enviar w-100 mt-2">Enviar</button>
+                <button type="submit" className="btn enviar w-100 mt-2 mb-5">Enviar</button>
               
             </form>
 
