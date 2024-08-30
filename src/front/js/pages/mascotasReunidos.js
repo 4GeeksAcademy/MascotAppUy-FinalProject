@@ -11,7 +11,7 @@ const MascotasReunidos = () => {
 
 
     return (
-        <div className="container" style={{ minHeight: "100vh"}}>
+        <div className="container">
         {filterMascotasReunidas.length === 0 ? (
             <div style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
                 <img src={logoOscuro} style={{ maxWidth: "70px", maxHeight: "70px" }} alt="Logo" />
@@ -19,9 +19,12 @@ const MascotasReunidos = () => {
         ) : (
         <>
         <div className="title text-center mt-5">
-            <h1>Mascotas reunidas con sus familias</h1>
-            <p>En esta sección podrás encontrar mascotas que estaban perdidas y se reencontraron con sus familias</p>
-        </div>
+                        <h1>Mascotas reunidas</h1>
+                    </div>
+                    <div className="description text-center mt-4">
+                        <p>¡Bienvenidos a la sección más feliz de nuestra página! Aquí celebramos los reencuentros de nuestras queridas mascotas con sus familias. Cada historia es un testimonio del amor incondicional y la esperanza, recordándonos que los finales felices son posibles. Nos alegra ser parte de estos momentos tan especiales y agradecemos a todos los que colaboran para que más mascotas regresen a casa. ¡Gracias por ser parte de esta comunidad que valora a nuestros compañeros peludos!</p>
+                 
+                    </div>
 
 
        
