@@ -48,7 +48,8 @@ import logoOscuro from "../../img/logo-mascotapp_oscuro.gif"
             className="btn btn-outline-dark btn-sm mt-4" 
             onClick={handleBack}><i className="fa-solid fa-arrow-left-long"></i></button>
         </div>
-        <MascotaPost 
+        <div className="conteiner" style={{minHeight: "100vh"}}>
+            <MascotaPost 
             id = {mascota.id}
             nombre={mascota.nombre}
             fechaReg={mascota.fecha_registro}
@@ -68,6 +69,8 @@ import logoOscuro from "../../img/logo-mascotapp_oscuro.gif"
             coord_x={mascota.coord_x}
             coord_y={mascota.coord_y}
         />
+        </div>
+        
     </div>
     
 

@@ -1,7 +1,6 @@
 import React, { useContext, useState } from "react";
-
+import logoOscuro from "../../img/logo-mascotapp_oscuro.gif"
 import { Context } from "../store/appContext.js";
-
 import GridMascotas from "../component/gridMascotas.jsx";
 
 const AllMascotasPerdidas = () => {
@@ -16,8 +15,13 @@ const AllMascotasPerdidas = () => {
     
     
     return (
-        
-        <div className="container">
+        <div className="container" style={{ minHeight: "100vh"}}>
+            {mascotasPerdidas.length === 0 ? (
+                <div style={{ minHeight: "100vh", display: "flex", justifyContent: "center", alignItems: "center" }}>
+                    <img src={logoOscuro} style={{ maxWidth: "70px", maxHeight: "70px" }} alt="Logo" />
+                </div>
+            ) : (
+            <>
             <div className="title text-center mt-5">
                 <h1>Mascotas Perdidas</h1>
             </div>
@@ -28,6 +32,8 @@ const AllMascotasPerdidas = () => {
 
             {/* Componente GridMascotas al cual le paso la lista de mascotas perdidas ya filtradas */}
             <GridMascotas lista={mascotasPerdidas} />
+            </>
+            )}
 
         </div>
     );
