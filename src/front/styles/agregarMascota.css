@@ -14,3 +14,9 @@
     background-color: #EA526F;
     color: white;
 }
+/* .back-boton{
+    display: block !important;
+} */
+.editar-datos {
+    min-width: 50%;
+}

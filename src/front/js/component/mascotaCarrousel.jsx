@@ -9,7 +9,7 @@ const MascotaCarrousel = (props) => {
     
     return (
         <div className="container">
-            <div className="mt-5 d-flex justify-content-between align-items-center">
+            <div className="mt-5 d-flex flex-column flex-sm-row justify-content-between align-items-center">
                 <div className="titulo-carrusel">
                     <h4>{props.titulo} -  <span className="fw-light">Mas recientes</span></h4>
                 </div>

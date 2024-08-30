@@ -230,7 +230,7 @@ export const AgregarMascota = () =>{
                                                 type="text" 
                                                 className="form-control" 
                                                 // placeholder="Nombre de tu mascota" 
-                                                placeholder={formik.values.estado === 'ENCONTRADO' ? "Título de la publicación" : "Nombre de tu mascota"}
+                                                placeholder={formik.values.estado === 'ENCONTRADO' ? "Título de la publicación" : formik.values.estado === 'ADOPCION' ? "Nombre" : "Nombre de tu mascota"}
                                                 id="nombre"
                                                 name="nombre" 
                                                 value={formik.values.nombre} 
@@ -288,7 +288,7 @@ export const AgregarMascota = () =>{
                                             <input 
                                                 type="text" 
                                                 className="form-control" 
-                                                placeholder="Edad de tu mascota" 
+                                                placeholder={formik.values.estado === 'ENCONTRADO' ? "Edad aproximada" : "Edad"} 
                                                 id="edad"
                                                 name="edad" 
                                                 value={formik.values.edad} 
