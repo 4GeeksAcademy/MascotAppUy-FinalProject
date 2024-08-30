@@ -85,7 +85,6 @@ const validate = values => {
 
 export const AgregarMascota = () =>{
     const { store, actions } = useContext(Context);
-    //console.log(store.user);
 
     const [departamentoSelected, setDepartamentoSelected] = useState("");
     const [filteredLocalidades, setFilteredLocalidades] = useState([]);
@@ -119,7 +118,6 @@ export const AgregarMascota = () =>{
                 raza.especie_id === parseInt(especieSelected)
             );
             setFilteredRazas(filterRaza)
-            // console.log("Raza Filtradas:"+ filterRaza);
             
         } else {
             setFilteredRazas(store.razas)
@@ -150,8 +148,6 @@ export const AgregarMascota = () =>{
             if (selectedFile) {
                 formData = new FormData();
                 formData.append('file', selectedFile);
-                // console.log(formData);
-                
             }
 
             // Subir la imagen
@@ -165,7 +161,6 @@ export const AgregarMascota = () =>{
                 coord_x: store.coord_x,
                 coord_y: store.coord_y
             };
-            console.log(formattedValues);
             
             const added = await actions.agregarMascota(formattedValues);
             if (added) {

@@ -4,9 +4,6 @@ import { Link, useNavigate, useLocation } from "react-router-dom";
 import "../../styles/datosPerfil.css"
 import { MiMascotaCard } from "./miMascotaCard.js";
 
-
-
-
 const DatosPerfil = (props) => {
 
     const { store, actions } = useContext(Context);
@@ -43,15 +40,11 @@ const DatosPerfil = (props) => {
                 });
 
                 if (updated) {
-                    console.log("Imagen de perfil actualizada exitosamente.");
-    
                     // Cerrar el modal después de subir la imagen
                     const modal = document.getElementById('uploadImageModal');
                     const modalInstance = bootstrap.Modal.getInstance(modal);
                     modalInstance.hide(); // Cierra el modal
-                } else {
-                    console.error("Error al actualizar la imagen de perfil.");
-                }
+                } 
             }
         }
     };
@@ -63,18 +56,12 @@ const DatosPerfil = (props) => {
         });
     
         if (updated) {
-            console.log("Imagen de perfil eliminada exitosamente.");
             setSelectedImage(null); // Limpiar la imagen seleccionada
             const modal = document.getElementById('uploadImageModal');
             const modalInstance = bootstrap.Modal.getInstance(modal);
             modalInstance.hide(); // Cierra el modal
-        } else {
-            console.error("Error al eliminar la imagen de perfil.");
         }
     };
-
-    
-
 
     return (
         <div className="datos-perfil-container container-fluid">
@@ -94,8 +81,6 @@ const DatosPerfil = (props) => {
                                     </button>
                                 </div>
                             </div>
-
-                            
 
                             <div className="col-md-0 col-sm-0 col-lg-2 col-xl-3"></div>
 
@@ -218,12 +203,9 @@ const DatosPerfil = (props) => {
                                     ) : (
                                         <p>No tienes mascotas registradas.</p>
                                         )}
-                                    
                                 </div>
                             </div>
-                            
                         </div>
-                        
                     </div>
                 </div>
             </div>

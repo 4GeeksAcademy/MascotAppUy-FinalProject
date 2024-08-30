@@ -75,7 +75,6 @@ def get_all_mascotas():
         "msg": "Mascotas List",
         "results": results
     }
-    # print(results)
     return jsonify(response_body), 200
 
 # ENDPOINT: Obtener usuarios
@@ -180,7 +179,6 @@ def valid_token():
 @api.route("/signup", methods=["POST"])
 def signup():
     data = request.get_json()
-    print(data)
 
     if not data.get("email") or not data.get("password"):
         return jsonify({"error": "Neither email nor password can be blank"}), 404
@@ -199,7 +197,6 @@ def signup():
         telefono=data["telefono"], 
         url_image=data["url_image"]
     )
-    # print(data)
     db.session.add(user)
     db.session.commit()
 
@@ -216,7 +213,6 @@ def get_all_especies():
     
     results = [especie.serialize() for especie in results_query]
 
-    # print(results)
     response_body = {
         "msg": "Lista especies",
         "results": results
@@ -234,7 +230,6 @@ def get_all_departamentos():
     
     results = [departamento.serialize() for departamento in results_query]
 
-    # print(results)
     response_body = {
         "msg": "Lista departamentos",
         "results": results
@@ -252,7 +247,6 @@ def get_all_localidades():
     
     results = [localidad.serialize() for localidad in results_query]
 
-    # print(results)
     response_body = {
         "msg": "Lista localidades",
         "results": results
@@ -270,7 +264,6 @@ def get_all_razas():
     
     results = [raza.serialize() for raza in results_query]
 
-    # print(results)
     response_body = {
         "msg": "Lista de razas",
         "results": results
